@@ -1,6 +1,9 @@
 # Neptune-Discord-Bot
 A Discord Bot based on the character Neptune from HyperDimension Neptunia
 
+Invite Link
+https://discordapp.com/api/oauth2/authorize?client_id=545565550768816138&permissions=37087296&scope=bot
+
 Built using The Disocrd JDA wrapper
 https://github.com/DV8FromTheWorld/JDA
 
