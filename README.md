@@ -3,3 +3,10 @@ A Discord Bot based on the character Neptune from HyperDimension Neptunia
 
 Built using The Disocrd JDA wrapper
 https://github.com/DV8FromTheWorld/JDA
+
+persistent data is handled using Google FireStore noSQL on the reason that it is free for my use case.
+
+**Notable Bot Features**
+* Play quotes from the Neptunia Games in Voice Chat on a server
+* Translate the previous message into NepNep
+
