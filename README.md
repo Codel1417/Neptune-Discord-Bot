@@ -7,8 +7,7 @@ A Discord Bot based on the character Neptune from HyperDimension Neptunia
 Built using the [Discord JDA Library by DV8FromTheWorld](https://github.com/DV8FromTheWorld/JDA)
 https://github.com/DV8FromTheWorld/JDA
 
-Persistent data is handled using Google FireStore noSQL on the reason that it is free for my use case.
-
+Errors are handled silently in the background as to not spam the chat with useless errors.
 
 ## Notable Bot Features
 * Play quotes from the Neptunia Games in Voice Chat on a server
@@ -25,7 +24,8 @@ Persistent data is handled using Google FireStore noSQL on the reason that it is
 
 
 ## Storage Format
-NoSql vis Google Cloud FireStore. The Cloud SDK needs to be set up beforehand for this bot to function.
+
+NoSql via Google Cloud FireStore. The Cloud SDK needs to be set up beforehand for this bot to function.
 
 ### Guild Collection
 The data stored for each guild/server.
