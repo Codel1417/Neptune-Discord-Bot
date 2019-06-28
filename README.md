@@ -25,7 +25,7 @@ Persistent data is handled using Google FireStore noSQL on the reason that it is
 
 
 ## Storage Format
-NoSql vis Google Cloud FireStore.
+NoSql vis Google Cloud FireStore. The Cloud SDK needs to be set up beforehand for this bot to function.
 
 ### Guild Collection
 The data stored for each guild/server.
