@@ -16,6 +16,8 @@ Errors are handled silently in the background as to not spam the chat with usele
 * Optional TTS supports for some commands, Disabled by default and requires a Server Manager to enable, TTS permission required by the user aswell
 
 ## Commands
+"!Nep help" can also bring up this list of commands.
+
 * !Nep Say (Quote) | Plays one of the stored quotes, leaving quote empty returns the complete list of quotes, The list is delivered via DM. If there are multiple matches the results will be DMed to you.
 * !Nep Translate   | Translates the previous message in the current channel to NepNep. Translation is based on length of the word.
 * !Nep nep nep...  | Neptune counts the number of neps in the message and adds one more.
@@ -26,7 +28,7 @@ Errors are handled silently in the background as to not spam the chat with usele
 
 ## Storage Format
 
-NoSql via Google Cloud FireStore. The Cloud SDK needs to be set up beforehand for this bot to function.
+NoSql via Google Cloud FireStore. The Cloud SDK needs to be set up beforehand for this bot to function. May eventually create a MongoDB implimentation.
 
 ### Guild Collection
 The data stored for each guild/server.
