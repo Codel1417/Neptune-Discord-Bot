@@ -76,15 +76,23 @@ public class NepCommands {
                     storageController.incrementAnalyticForCommand("Commands", Command.toLowerCase().trim());
 
                 Log.info("    Running Command: " + Command);
-                event.getChannel().sendMessage("```" + VariableStorageRead.getCharacterName() + " Commands: \n" +
-                        VariableStorageRead.getCallBot() + " Say <Quote>  :  Have " + VariableStorageRead.getCharacterName() + " say a voiceline in Voicechat. Must be in a Voice Channel \n \n" +
-                        VariableStorageRead.getCallBot() + " Leave        :  Have " + VariableStorageRead.getCharacterName() + " leave the voice chat \n \n" +
-                        VariableStorageRead.getCallBot() + " Nep ....     :  " + VariableStorageRead.getCharacterName() + " Counts the number of Neps in the command and adds one more \n \n" +
-                        VariableStorageRead.getCallBot() + " Nepu ...     :  " + VariableStorageRead.getCharacterName() + " Counts the number of Nepus in the command and adds one more \n \n" +
-                        VariableStorageRead.getCallBot() + " Translate    :  Translate the Last non bot message into nep\n \n" +
-                        VariableStorageRead.getCallBot() + " About        :  Creator and Bot Invite Link```").queue();
-                event.getChannel().sendMessage("```Notes: \n" +
-                        "There is a " + VariableStorageRead.getMessageCooldownSeconds() + " second cooldown between commands.```").queue();
+
+                StringBuilder stringBuilder = new StringBuilder();
+
+                stringBuilder.append("```").append(VariableStorageRead.getCharacterName()).append(" Commands: \n");
+                stringBuilder.append(VariableStorageRead.getCallBot()).append(" Say <Quote>  :  Plays one of the stored quotes in Voice Chat and as a Message, ").append("leaving 'Quote' empty returns the complete list of quotes, The list is delivered via DM. ").append("If there are multiple matches the results will be DMed to you. \n \n");
+                stringBuilder.append(VariableStorageRead.getCallBot()).append(" Leave        :  Have ").append(VariableStorageRead.getCharacterName()).append(" disconnect the voice chat. This automatically happens when everyone else leaves the channel \n \n");
+                stringBuilder.append(VariableStorageRead.getCallBot()).append(" Nep ....     :  ").append(VariableStorageRead.getCharacterName()).append(" Counts the number of Neps in the command and adds one more \n \n");
+                stringBuilder.append(VariableStorageRead.getCallBot()).append(" Nepu ...     :  ").append(VariableStorageRead.getCharacterName()).append(" Counts the number of Nepus in the command and adds one more \n \n");
+                stringBuilder.append(VariableStorageRead.getCallBot()).append(" Translate    :  Translate the Last non bot message into nepnep\n \n");
+                stringBuilder.append(VariableStorageRead.getCallBot()).append(" About        :  Creator and Bot Invite Link");
+                if (event.getMember().hasPermission(Permission.MANAGE_SERVER)) {
+                    stringBuilder.append(VariableStorageRead.getCallBot()).append(" Admin        :  Shows server admin options menu");
+                }
+                stringBuilder.append("```Notes: \n" + "There is a ").append(VariableStorageRead.getMessageCooldownSeconds()).append(" second cooldown between commands.```");
+
+
+                event.getChannel().sendMessage(stringBuilder.toString()).queue();
                 return true;
             case "owo":
 

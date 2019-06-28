@@ -5,7 +5,11 @@ import net.dv8tion.jda.core.events.guild.voice.GuildVoiceUpdateEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 public class guildListener extends ListenerAdapter {
-    private VariablesStorage VariableStorageRead = new VariablesStorage();
+    private VariablesStorage VariableStorageRead;
+
+    guildListener(VariablesStorage variablesStorage) {
+        this.VariableStorageRead = variablesStorage;
+    }
 
     @Override
     public void onGuildJoin(GuildJoinEvent guildJoinEvent) {

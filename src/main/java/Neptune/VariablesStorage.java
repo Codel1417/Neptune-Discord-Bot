@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class VariablesStorage {
     //store global variables here
-    private final boolean devMode = true; //uses dev key and call command when true
+    private final boolean devMode = false; //uses dev key and call command when true
     private String CharacterName;
     private String DiscordBotToken;
     private String DiscordBotTokenDev;
