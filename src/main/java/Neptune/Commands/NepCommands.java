@@ -8,6 +8,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 import java.util.logging.Logger;
 
+//TODO: Make commands shard aware
 //handles neptune base commands
 public class NepCommands {
     private final Nep NepCountCommand;

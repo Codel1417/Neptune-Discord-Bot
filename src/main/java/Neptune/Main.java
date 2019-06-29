@@ -6,10 +6,7 @@ import com.neovisionaries.ws.client.WebSocketFactory;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
-
-import javax.net.ssl.SSLContext;
 import javax.security.auth.login.LoginException;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,11 +23,13 @@ public class Main extends ListenerAdapter {
         boolean useSharding = true;
         Log.log(Level.CONFIG,"Starting");
         if (variablesStorage.getDevMode()) Log.log(Level.WARNING,"WARNING! DEV MODE ENABLED!!!");
+
         JDABuilder builder = new JDABuilder(BOT);
         String token = variablesStorage.getDiscordBotToken();
         builder.addEventListener(new MessageListener(variablesStorage, storageControllerCached));
         builder.addEventListener(new DM_ImageDownload());
         builder.addEventListener(new guildListener(variablesStorage));
+        builder.setGame(Game.playing("!Nep Help"));
 
         if (variablesStorage.getDevMode()) {
             builder.addEventListener(new PlayerControl()); //music player from Yui bot
