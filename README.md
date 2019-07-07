@@ -22,6 +22,7 @@ Errors are handled silently in the background as to not spam the chat with usele
 * !Nep Translate   | Translates the previous message in the current channel to NepNep. Translation is based on length of the word.
 * !Nep nep nep...  | Neptune counts the number of neps in the message and adds one more.
 * !Nep nepu....    | Same as !nep nep but for nepu. Nep and Nepu cannot be mixed.
+* !Nep Screenshare | Generates a link to screenshare in the current voice channel.
 * !Nep Leave       | Have neptune disconnect from voice chat. This automatically happens when everyone else leaves the channel.
 * !Nep about       | Drops links to the Bot Invite link as well as my discord ID.
 
