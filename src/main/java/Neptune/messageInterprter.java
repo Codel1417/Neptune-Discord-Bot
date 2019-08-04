@@ -1,7 +1,7 @@
 package Neptune;
 
 import Neptune.Commands.NepCommands;
-import Neptune.Commands.RandomSoundPicker;
+import Neptune.Commands.RandomMediaPicker;
 import Neptune.Storage.*;
 import java.util.logging.Logger;
 import net.dv8tion.jda.core.entities.Message;
@@ -18,15 +18,13 @@ class messageInterprter {
     private StorageControllerCached storageController;
     private final NepCommands nepCommands;
     private volatile  HashMap<String, Long> rateLimitMap = new HashMap<>();
-    private FolderSearch folderSearch;
-    private RandomSoundPicker randomSoundPicker = new RandomSoundPicker();
-
+    private final RandomMediaPicker randomMediaPicker = new RandomMediaPicker();
 
     messageInterprter(StorageControllerCached storageController, VariablesStorage variablesStorage) {
         this.storageController = storageController;
-        nepCommands = new NepCommands(storageController, variablesStorage);
+        nepCommands = new NepCommands(variablesStorage);
         VariableStorageRead = variablesStorage;
-        folderSearch = new FolderSearch(VariableStorageRead.getCustomSoundsFolder());
+
     }
 
     private boolean isRateLimited(User user) {
@@ -34,7 +32,7 @@ class messageInterprter {
         if (VariableStorageRead.getMessageCooldownSeconds() > 0) {
             if(rateLimitMap.containsKey(user.getId())) {
                 if (System.currentTimeMillis() - rateLimitMap.get(user.getId()) < VariableStorageRead.getMessageCooldownSeconds() * 1000) {
-                    Log.info("Limit Reached!: " + user);
+                    Log.fine("Limit Reached!: " + user);
                     rateLimitMap.replace(user.getId(), System.currentTimeMillis());
                     return true;
                 } else {
@@ -83,16 +81,8 @@ class messageInterprter {
                 if (isRateLimited(event.getAuthor())) return;
 
                 //run command
-                if (!nepCommands.runCommand(getCommandName(event.getMessage().getContentRaw().trim().toLowerCase().replaceFirst(VariableStorageRead.getCallBot().toLowerCase(), "").trim()),event, storageController)) {
-                    String dir = event.getMessage().getContentRaw().replaceAll("[^a-zA-Z0-9]", "");
-
-                    if (storageController.getCustomSoundsEnabled(event.getGuild()) && folderSearch.isFolder(new File(dir))) {
-                        File folder = folderSearch.getFolder(new File(dir));
-                        Log.info("    Found Custom Sound Folder");
-                        if (event.getGuild().getAudioManager() != null || event.getMember().getVoiceState().getChannel() != null){
-                            randomSoundPicker.playRandomAudioFile(event, folder);
-                        }
-                    }
+                if (!nepCommands.run(event, storageController, VariableStorageRead)) {
+                    randomMediaPicker.sendMedia(new File(VariableStorageRead.getMediaFolder() + File.separator + "Custom" + File.separator +  event.getMessage().getContentRaw().replace("=","").replace("./","").trim()), event, true, true);
                 }
             }
             //return if bot was not called
@@ -138,17 +128,5 @@ class messageInterprter {
         stringBuilder.append("    Message Contents: ").append(event.getMessage().getContentRaw()).append("\n");
         stringBuilder.append("    message: ").append(event.getMessage()).append("\n");
         Log.info(stringBuilder.toString());
-    }
-    private String[] getCommandName(String MessageContent){
-        String[] splitStr = MessageContent.trim().split("\\s+");
-        String[] returnText = new String[2];
-        if (splitStr.length == 1) {
-            returnText[0] = splitStr[0];
-            returnText[1] = "";
-        } else {
-            returnText[0] = splitStr[0];
-            returnText[1] = MessageContent.substring(splitStr[0].length());
-        }
-        return returnText;
     }
 }

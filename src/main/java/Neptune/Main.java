@@ -1,7 +1,7 @@
 package Neptune;
 
 import Neptune.Storage.StorageControllerCached;
-import Neptune.music.PlayerControl;
+import Neptune.Storage.VariablesStorage;
 import com.neovisionaries.ws.client.WebSocketFactory;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.entities.Game;
@@ -20,7 +20,7 @@ public class Main extends ListenerAdapter {
         VariablesStorage variablesStorage = new VariablesStorage();
         variablesStorage.Init(storageControllerCached.getBotInfo());
 
-        boolean useSharding = true;
+        final boolean useSharding = false;
         Log.log(Level.CONFIG,"Starting");
         if (variablesStorage.getDevMode()) Log.log(Level.WARNING,"WARNING! DEV MODE ENABLED!!!");
 
@@ -30,10 +30,6 @@ public class Main extends ListenerAdapter {
         builder.addEventListener(new DM_ImageDownload());
         builder.addEventListener(new guildListener(variablesStorage));
         builder.setGame(Game.playing("!Nep Help"));
-
-        if (variablesStorage.getDevMode()) {
-            builder.addEventListener(new PlayerControl()); //music player from Yui bot
-        }
         builder.setToken(token);
         builder.setWebsocketFactory(new WebSocketFactory().setVerifyHostname(false));
         try {

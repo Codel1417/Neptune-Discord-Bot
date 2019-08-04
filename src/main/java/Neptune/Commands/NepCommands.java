@@ -1,215 +1,84 @@
 package Neptune.Commands;
 
+import Neptune.Commands.AdminCommands.AdminOptions;
+import Neptune.Commands.FunCommands.*;
+import Neptune.Commands.UtilityCommands.About;
+import Neptune.Commands.UtilityCommands.Leave;
+import Neptune.Commands.UtilityCommands.Screenshare;
+import Neptune.Commands.UtilityCommands.Uptime;
 import Neptune.Storage.StorageControllerCached;
-import Neptune.VariablesStorage;
+import Neptune.Storage.VariablesStorage;
 import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
+import java.io.File;
+import java.util.HashMap;
+import java.util.SortedMap;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import java.util.logging.Logger;
 
 //TODO: Make commands shard aware
 //handles neptune base commands
-public class NepCommands {
+//TODO command: Stats, Help,Say
+public class NepCommands extends CommonMethods {
     private final Nep NepCountCommand;
     private final VariablesStorage VariableStorageRead;
     private final Say NepSayCommand;
-    private final RandomImagePicker RandomImage = new RandomImagePicker();
     private final Translate translateMessage = new Translate();
-    private final RandomSoundPicker randomSoundPicker = new RandomSoundPicker();
-    private AudioController audioController;
     private final AdminOptions adminOptions = new AdminOptions();
-
     private final static Logger Log = Logger.getLogger(NepCommands.class.getName());
+    private final RandomMediaPicker randomMediaPicker = new RandomMediaPicker();
+    private final Screenshare screenshare = new Screenshare();
+    private final About about = new About();
+    private final Leave leave = new Leave();
+    private final UWU_Translater uwu_translater = new UWU_Translater();
+    private final Uptime uptime = new Uptime();
+    private final Help help = new Help();
+    private final CoinFlip coinFlip = new CoinFlip();
+    private final RollDie rollDie = new RollDie();
 
-    public NepCommands(StorageControllerCached storageController, VariablesStorage variablesStorage) {
+
+    private HashMap <String, Object> commands = new HashMap<>();
+    public NepCommands(VariablesStorage variablesStorage) {
         VariableStorageRead = variablesStorage;
-        NepCountCommand = new Nep(storageController);
-        NepSayCommand = new Say(VariableStorageRead.getSoundFolder_Say());
+        NepCountCommand = new Nep();
+        NepSayCommand = new Say(new File(VariableStorageRead.getMediaFolder() + File.separator + "say"));
+
+        //Add all commands to this hashmap;
+        commands.put(NepCountCommand.getCommand(),NepCountCommand);
+        commands.put(NepSayCommand.getCommand(), NepSayCommand);
+        commands.put(translateMessage.getCommand(),translateMessage);
+        commands.put(screenshare.getCommand(), screenshare);
+        commands.put(about.getCommand(), about);
+        commands.put(leave.getCommand(), leave);
+        commands.put(uwu_translater.getCommand(), uwu_translater);
+        commands.put(uptime.getCommand(), uptime);
+        commands.put(adminOptions.getCommand(), adminOptions);
+        commands.put(coinFlip.getCommand(), coinFlip);
+        commands.put(rollDie.getCommand(), rollDie);
     }
-    public boolean runCommand(String[] CommandArray, MessageReceivedEvent event, StorageControllerCached storageController) {
-        String Command = CommandArray[0];
-        String MessageContent = CommandArray[1];
-        switch (Command.toLowerCase().trim()) {
-            case "say":
 
-                if (!event.getAuthor().getId().matches(VariableStorageRead.getOwnerID()))
-                    storageController.incrementAnalyticForCommand("Commands", Command.toLowerCase().trim());
-
-                Log.info("    Running Command: " + Command);
-                NepSayCommand.sayQuoteFileList(MessageContent, event, storageController);
-                return true;
-            case "nepu":
-
-                if (!event.getAuthor().getId().matches(VariableStorageRead.getOwnerID()))
-                    storageController.incrementAnalyticForCommand("Commands", Command.toLowerCase().trim());
-
-                Log.info("    Running Command: " + Command);
-                NepCountCommand.nepCounter(MessageContent, "Nepu ", event);
-                return true;
-            case "nep":
-
-                if (!event.getAuthor().getId().matches(VariableStorageRead.getOwnerID()))
-                    storageController.incrementAnalyticForCommand("Commands", Command.toLowerCase().trim());
-
-                Log.info("    Running Command: " + Command);
-                NepCountCommand.nepCounter(MessageContent, "Nep ", event);
-                return true;
-            case "wan":
-
-                if (!event.getAuthor().getId().matches(VariableStorageRead.getOwnerID()))
-                    storageController.incrementAnalyticForCommand("Commands", Command.toLowerCase().trim());
-
-                Log.info("    Running Command: " + Command);
-                event.getChannel().sendMessage("Neps in your Area!!!  \n<http://wanwan-html5.moe/#Neptune> ").queue();
-                return true;
-            case "imagetest":
-
-                if (!event.getAuthor().getId().matches(VariableStorageRead.getOwnerID()))
-                    storageController.incrementAnalyticForCommand("Commands", Command.toLowerCase().trim());
-
-                Log.info("    Running Command: " + Command);
-                RandomImage.pickImage("nep_bot/Images/Testing/", event);
-                return true;
-            case "help":
-
-                if (!event.getAuthor().getId().matches(VariableStorageRead.getOwnerID()))
-                    storageController.incrementAnalyticForCommand("Commands", Command.toLowerCase().trim());
-
-                Log.info("    Running Command: " + Command);
-
-                StringBuilder stringBuilder = new StringBuilder();
-
-                stringBuilder.append("```").append(VariableStorageRead.getCharacterName()).append(" Commands: \n");
-                stringBuilder.append(VariableStorageRead.getCallBot()).append(" Say <Quote>  :  Plays one of the stored quotes in Voice Chat and as a Message, ").append("leaving 'Quote' empty returns the complete list of quotes, The list is delivered via DM. ").append("If there are multiple matches the results will be DMed to you. \n \n");
-                stringBuilder.append(VariableStorageRead.getCallBot()).append(" Leave        :  Have ").append(VariableStorageRead.getCharacterName()).append(" disconnect the voice chat. This automatically happens when everyone else leaves the channel \n \n");
-                stringBuilder.append(VariableStorageRead.getCallBot()).append(" Nep ....     :  ").append(VariableStorageRead.getCharacterName()).append(" Counts the number of Neps in the command and adds one more \n \n");
-                stringBuilder.append(VariableStorageRead.getCallBot()).append(" Nepu ...     :  ").append(VariableStorageRead.getCharacterName()).append(" Counts the number of Nepus in the command and adds one more \n \n");
-                stringBuilder.append(VariableStorageRead.getCallBot()).append(" Translate    :  Translate the Last non bot message into nepnep\n \n");
-                stringBuilder.append(VariableStorageRead.getCallBot()).append(" About        :  Creator and Bot Invite Link");
-                if (event.getMember().hasPermission(Permission.MANAGE_SERVER)) {
-                    stringBuilder.append(VariableStorageRead.getCallBot()).append(" Admin        :  Shows server admin options menu");
-                }
-                stringBuilder.append("```Notes: \n" + "There is a ").append(VariableStorageRead.getMessageCooldownSeconds()).append(" second cooldown between commands.```");
-
-
-                event.getChannel().sendMessage(stringBuilder.toString()).queue();
-                return true;
-            case "owo":
-
-                if (!event.getAuthor().getId().matches(VariableStorageRead.getOwnerID()))
-                    storageController.incrementAnalyticForCommand("Commands", Command.toLowerCase().trim());
-
-                Log.info("    Running Command: " + Command);
-                event.getChannel().sendMessage("Whats This? \n<https://youtu.be/7mBqm8uO4Cg>").queue();
-                return true;
-            case "stats":
-
-                if (!event.getAuthor().getId().matches(VariableStorageRead.getOwnerID()))
-                    storageController.incrementAnalyticForCommand("Commands", Command.toLowerCase().trim());
-
-                Log.info("    Running Command: " + Command);
-                if (event.getAuthor().getId().matches(VariableStorageRead.getOwnerID())) {
-                    StringBuilder GuildList = new StringBuilder();
-                    for (Guild guild : event.getJDA().getGuilds()) {
-                        GuildList.append(guild.getName()).append("\n");
-                    }
-                    event.getChannel().sendMessage("```Bot Owner Stats \n" +
-                            "Command Stats: \n" + storageController.printDocumentValues("Analytics", "Commands") + "\n" +
-                            "Total Servers: " + event.getJDA().getGuilds().size() + "\n" +
-                            GuildList + "```").queue();
-                }
-                return true;
-            case "leave":
-
-                if (!event.getAuthor().getId().matches(VariableStorageRead.getOwnerID()))
-                    storageController.incrementAnalyticForCommand("Commands", Command.toLowerCase().trim());
-
-                Log.info("    Running Command: " + Command);
-            {
-                if (event.getGuild() != null && event.getGuild().getAudioManager().isConnected()) {
-                    event.getGuild().getAudioManager().setSendingHandler(null);
-                    event.getGuild().getAudioManager().closeAudioConnection();
-                    event.getChannel().sendMessage("Neptune has left the Chat!").queue();
-                }
-            }
-            return true;
-            case "translate":
-
-                if (!event.getAuthor().getId().matches(VariableStorageRead.getOwnerID()))
-                    storageController.incrementAnalyticForCommand("Commands", Command.toLowerCase().trim());
-
-                Log.info("    Running Command: " + Command);
-                if (event.getGuild() != null) {
-                    translateMessage.TranslateString(event);
-                }
-                return true;
-            case "about": {
-
-                if (!event.getAuthor().getId().matches(VariableStorageRead.getOwnerID()))
-                    storageController.incrementAnalyticForCommand("Commands", Command.toLowerCase().trim());
-
-                Log.info("    Running Command: " + Command);
-                event.getChannel().sendMessage(VariableStorageRead.getCharacterName() + " Bot\n" +
-                        "Built by <@173221092729683968> \n" +
-                        "Bot Link: https://discordapp.com/api/oauth2/authorize?client_id=545565550768816138&permissions=37087296&scope=bot").queue();
-                return true;
-            }
-            case "attack": {
-
-                if (!event.getAuthor().getId().matches(VariableStorageRead.getOwnerID()))
-                    storageController.incrementAnalyticForCommand("Commands", Command.toLowerCase().trim());
-
-                Log.info("    Running Command: " + Command);
-                randomSoundPicker.playRandomAudioFile(event, VariableStorageRead.getAttackSoundsFolder());
-                return true;
-            }
-            case "uwu": {
-
-                if (!event.getAuthor().getId().matches(VariableStorageRead.getOwnerID()))
-                    storageController.incrementAnalyticForCommand("Commands", Command.toLowerCase().trim());
-
-                Log.info("    Running Command: " + Command);
-                event.getChannel().sendMessage("<https://www.youtube.com/watch?v=h6DNdop6pD8>").queue();
-                return true;
-            }
-            case "ayaya": {
-
-                if (!event.getAuthor().getId().matches(VariableStorageRead.getOwnerID()))
-                    storageController.incrementAnalyticForCommand("Commands", Command.toLowerCase().trim());
-
-                if (audioController == null) {
-                    audioController = new AudioController(event);
-                }
-                Log.info("    Running Command: " + Command);
-                audioController.playSound(event, "https://www.youtube.com/watch?v=9wnNW4HyDtg", false);
-                return true;
-            }
-            case "admin": {
-                if (!event.getAuthor().getId().matches(VariableStorageRead.getOwnerID()))
-                    storageController.incrementAnalyticForCommand("Commands", Command.toLowerCase().trim());
-                if (event.getMember().hasPermission(Permission.MANAGE_SERVER) || event.getAuthor().getId().matches(VariableStorageRead.getOwnerID()) ) {
-                    Log.info("    Running Command: " + Command);
-                    adminOptions.adminCommand(event,storageController,getCommandName(MessageContent));
-                }
-                return true;
-            }
-            default:
-                return false;
+    public boolean run(MessageReceivedEvent event, StorageControllerCached storageControllerCached,VariablesStorage variablesStorage){
+        String[] CommandArray = getCommandName(event.getMessage().getContentRaw().trim().toLowerCase().replaceFirst(VariableStorageRead.getCallBot().toLowerCase(), "").trim());
+        System.out.println(CommandArray[0]);
+        if(CommandArray[0].equalsIgnoreCase(help.getCommand())){
+            return help.run(event, storageControllerCached, variablesStorage, CommandArray[1], commands);
         }
-    }
-    private String[] getCommandName(String MessageContent){
-        String[] splitStr = MessageContent.trim().split("\\s+");
-        String[] returnText = new String[2];
-        if (splitStr.length == 1) {
-            returnText[0] = splitStr[0].trim();
-            returnText[1] = "";
-        } else {
-            returnText[0] = splitStr[0];
-            returnText[1] = MessageContent.trim().substring(splitStr[0].length()).trim();
+        if (commands.containsKey(CommandArray[0])){
+            CommandInterface command = (CommandInterface) commands.get(CommandArray[0]);
+            //TODO: add error message
+            //Permission Check
+            if (command.getRequireManageServer() && !event.getMember().hasPermission(Permission.MANAGE_SERVER)) {return true;}
+            if (command.getRequireOwner() && !event.getAuthor().getId().matches(variablesStorage.getOwnerID())) {return true;}
+            //analytics
+            if (!event.getAuthor().getId().matches(VariableStorageRead.getOwnerID()))
+                storageControllerCached.incrementAnalyticForCommand("Commands", command.getName().toLowerCase().trim());
+            Log.info("    Running Command: " + command.getName());
+            return command.run(event, storageControllerCached, variablesStorage, CommandArray[1]);
         }
-        return returnText;
-    }
+        return false;
+        }
 }
 
 
