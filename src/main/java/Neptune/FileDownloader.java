@@ -7,9 +7,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 
-class FileDownloader {
+public class FileDownloader {
 
-    void DownloadFile(String fileURL, String FilePath, String type) throws IOException {
+    public void DownloadFile(String fileURL, String FilePath, String type) throws IOException {
             System.out.println("Downloading: " + fileURL);
             if (type.equals("image")) downloadImage(fileURL, FilePath);
             else

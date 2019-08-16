@@ -3,7 +3,11 @@ package Neptune;
 import Neptune.Commands.NepCommands;
 import Neptune.Commands.RandomMediaPicker;
 import Neptune.Storage.*;
+
+import java.util.Map;
 import java.util.logging.Logger;
+
+import com.google.gson.internal.LinkedTreeMap;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -15,36 +19,15 @@ import java.util.HashMap;
 class messageInterprter {
     private final VariablesStorage VariableStorageRead;
     private final static Logger Log = Logger.getLogger(messageInterprter.class.getName());
-    private StorageControllerCached storageController;
+    private StorageController storageController;
     private final NepCommands nepCommands;
-    private volatile  HashMap<String, Long> rateLimitMap = new HashMap<>();
     private final RandomMediaPicker randomMediaPicker = new RandomMediaPicker();
 
-    messageInterprter(StorageControllerCached storageController, VariablesStorage variablesStorage) {
+    messageInterprter(StorageController storageController, VariablesStorage variablesStorage) {
         this.storageController = storageController;
         nepCommands = new NepCommands(variablesStorage);
         VariableStorageRead = variablesStorage;
 
-    }
-
-    private boolean isRateLimited(User user) {
-        //Checks if the user sent a command too quickly
-        if (VariableStorageRead.getMessageCooldownSeconds() > 0) {
-            if(rateLimitMap.containsKey(user.getId())) {
-                if (System.currentTimeMillis() - rateLimitMap.get(user.getId()) < VariableStorageRead.getMessageCooldownSeconds() * 1000) {
-                    Log.fine("Limit Reached!: " + user);
-                    rateLimitMap.replace(user.getId(), System.currentTimeMillis());
-                    return true;
-                } else {
-                    rateLimitMap.replace(user.getId(), System.currentTimeMillis());
-                    return false;
-                }
-            }
-            else {
-                rateLimitMap.put(user.getId(), System.currentTimeMillis());
-            }
-        }
-        return false;
     }
 
     private boolean isBotCalled(Message message, boolean multiplePrefix){
@@ -73,17 +56,19 @@ class messageInterprter {
 
         //check if the bot was called in chat
         try {
-            if (isBotCalled(event.getMessage(), storageController.getCustomSoundsEnabled(event.getGuild()))) {
-                Log.info("        Bot Called");
+            LinkedTreeMap<String, String> test = (LinkedTreeMap<String, String>) storageController.getGuild(event.getGuild());
+            String multiPrefix = test.getOrDefault("Custom-Sounds","false");
+            if (isBotCalled(event.getMessage(), multiPrefix.equalsIgnoreCase("true"))) {
                 //print the message log in the console if the message was a command
                 if (!VariableStorageRead.getDevMode()) printConsoleLog(false, event);
-
-                if (isRateLimited(event.getAuthor())) return;
 
                 //run command
                 if (!nepCommands.run(event, storageController, VariableStorageRead)) {
                     randomMediaPicker.sendMedia(new File(VariableStorageRead.getMediaFolder() + File.separator + "Custom" + File.separator +  event.getMessage().getContentRaw().replace("=","").replace("./","").trim()), event, true, true);
                 }
+            }
+            else {
+                nepCommands.run(event, storageController, VariableStorageRead);
             }
             //return if bot was not called
         } catch (Exception e) {
@@ -97,15 +82,7 @@ class messageInterprter {
         Checks the list to see if the current guild/server is stored, if not create a new guild entry.
          */
         if(guildObject != null) {
-            if (!storageController.isGuildStored(guildObject)) {
-                if (VariableStorageRead.getDevMode()) {
-                    Log.info("    Adding New Guild: " + guildObject.getName());
-                }
-                storageController.addGuild(guildObject);
-            }
-            else {
-                if (VariableStorageRead.getDevMode()) Log.info("    Found Guild: " + guildObject.getName());
-            }
+            storageController.addGuild(guildObject);
         }
     }
     private void printConsoleLog(Boolean debug, MessageReceivedEvent event){

@@ -1,5 +1,6 @@
-package Neptune;
+package Neptune.Commands.PassiveCommands;
 
+import Neptune.FileDownloader;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.priv.PrivateMessageReceivedEvent;

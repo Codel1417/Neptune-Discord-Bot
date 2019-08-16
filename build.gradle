@@ -27,6 +27,8 @@ dependencies {
     compile 'org.slf4j:slf4j-jdk14:1.8.0-beta4'
     compile 'com.google.cloud:google-cloud-firestore:0.81.0-beta'
     compile 'com.neovisionaries:nv-websocket-client:2.9'
+    implementation 'com.google.code.gson:gson:2.8.5' //gson JSON converter
+    compile group: 'org.xerial', name: 'sqlite-jdbc', version: '3.28.0'
 }
 
 

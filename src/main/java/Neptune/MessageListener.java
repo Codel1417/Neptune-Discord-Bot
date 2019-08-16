@@ -1,6 +1,6 @@
 package Neptune;
 
-import Neptune.Storage.StorageControllerCached;
+import Neptune.Storage.StorageController;
 import Neptune.Storage.VariablesStorage;
 import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -10,9 +10,9 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
 public class MessageListener extends ListenerAdapter {
     private VariablesStorage variableStorageRead;
     private final messageInterprter message;
-    MessageListener(VariablesStorage variableStorageRead, StorageControllerCached storageControllerCached) {
+    MessageListener(VariablesStorage variableStorageRead, StorageController storageController) {
         this.variableStorageRead = variableStorageRead;
-        message = new messageInterprter(storageControllerCached, variableStorageRead);
+        message = new messageInterprter(storageController, variableStorageRead);
     }
 
     @Override

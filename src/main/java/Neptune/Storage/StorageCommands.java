@@ -4,15 +4,9 @@ import net.dv8tion.jda.core.entities.Guild;
 
 import java.util.Map;
 
+//Data expected in JSON format
 public interface StorageCommands {
-    boolean addGuild(Guild Guild);
-    boolean isGuildStored(Guild Guild);
-    boolean setCustomSoundsEnabled(Guild Guild, boolean value);
-    boolean getCustomSoundsEnabled(Guild Guild);
-    boolean incrementAnalyticForCommand(String type, String command);
-    String printCollectionList(String Collection);
-    String printDocumentValues(String collection, String document);
-    boolean getTtsEnabled(Guild Guild);
-    boolean setTtsEnabled(Guild Guild, boolean value);
-    Map<String, Object> getBotInfo();
+    boolean addData(String Id, String Data) throws MissingDataException;
+    String getData(String Id);
+    boolean updateData(String Id, String Data) throws MissingDataException;
 }

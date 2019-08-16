@@ -1,4 +1,4 @@
-package Neptune;
+package Neptune.Commands.PassiveCommands;
 
 import Neptune.Storage.VariablesStorage;
 import net.dv8tion.jda.core.events.guild.GuildJoinEvent;
@@ -8,7 +8,7 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
 public class guildListener extends ListenerAdapter {
     private VariablesStorage VariableStorageRead;
 
-    guildListener(VariablesStorage variablesStorage) {
+    public guildListener(VariablesStorage variablesStorage) {
         this.VariableStorageRead = variablesStorage;
     }
 

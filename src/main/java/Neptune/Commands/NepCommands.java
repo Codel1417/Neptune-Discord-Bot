@@ -2,25 +2,24 @@ package Neptune.Commands;
 
 import Neptune.Commands.AdminCommands.AdminOptions;
 import Neptune.Commands.FunCommands.*;
+import Neptune.Commands.FunCommands.Imgur;
+import Neptune.Commands.FunCommands.GreatSleepKing;
+import Neptune.Commands.InProgress.VRChatAPI;
 import Neptune.Commands.UtilityCommands.About;
 import Neptune.Commands.UtilityCommands.Leave;
 import Neptune.Commands.UtilityCommands.Screenshare;
 import Neptune.Commands.UtilityCommands.Uptime;
-import Neptune.Storage.StorageControllerCached;
+import Neptune.Storage.StorageController;
 import Neptune.Storage.VariablesStorage;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 import java.io.File;
 import java.util.HashMap;
-import java.util.SortedMap;
-import java.util.SortedSet;
-import java.util.TreeSet;
 import java.util.logging.Logger;
 
 //TODO: Make commands shard aware
 //handles neptune base commands
-//TODO command: Stats, Help,Say
 public class NepCommands extends CommonMethods {
     private final Nep NepCountCommand;
     private final VariablesStorage VariableStorageRead;
@@ -37,9 +36,14 @@ public class NepCommands extends CommonMethods {
     private final Help help = new Help();
     private final CoinFlip coinFlip = new CoinFlip();
     private final RollDie rollDie = new RollDie();
-
-
+    private final Imgur imgur = new Imgur();
+    private final VRChatAPI vrChatAPI = new VRChatAPI();
+    private final GreatSleepKing greatSleepKing = new GreatSleepKing();
+    private final PayRespect payRespect = new PayRespect();
+    private final Attack attack = new Attack();
+    private final Ping ping = new Ping();
     private HashMap <String, Object> commands = new HashMap<>();
+
     public NepCommands(VariablesStorage variablesStorage) {
         VariableStorageRead = variablesStorage;
         NepCountCommand = new Nep();
@@ -57,13 +61,22 @@ public class NepCommands extends CommonMethods {
         commands.put(adminOptions.getCommand(), adminOptions);
         commands.put(coinFlip.getCommand(), coinFlip);
         commands.put(rollDie.getCommand(), rollDie);
+        commands.put(imgur.getCommand(), imgur);
+        commands.put(greatSleepKing.getCommand(),greatSleepKing);
+        commands.put(payRespect.getCommand(),payRespect);
+        commands.put(attack.getCommand(),attack);
+        commands.put(ping.getCommand(),ping);
+        //dev commands
+        if(variablesStorage.getDevMode()){
+            commands.put(vrChatAPI.getCommand(),vrChatAPI);
+        }
     }
 
-    public boolean run(MessageReceivedEvent event, StorageControllerCached storageControllerCached,VariablesStorage variablesStorage){
+    public boolean run(MessageReceivedEvent event, StorageController storageController, VariablesStorage variablesStorage){
         String[] CommandArray = getCommandName(event.getMessage().getContentRaw().trim().toLowerCase().replaceFirst(VariableStorageRead.getCallBot().toLowerCase(), "").trim());
-        System.out.println(CommandArray[0]);
+        Log.info("        Bot Called");
         if(CommandArray[0].equalsIgnoreCase(help.getCommand())){
-            return help.run(event, storageControllerCached, variablesStorage, CommandArray[1], commands);
+            return help.run(event, storageController, variablesStorage, CommandArray[1], commands);
         }
         if (commands.containsKey(CommandArray[0])){
             CommandInterface command = (CommandInterface) commands.get(CommandArray[0]);
@@ -72,10 +85,9 @@ public class NepCommands extends CommonMethods {
             if (command.getRequireManageServer() && !event.getMember().hasPermission(Permission.MANAGE_SERVER)) {return true;}
             if (command.getRequireOwner() && !event.getAuthor().getId().matches(variablesStorage.getOwnerID())) {return true;}
             //analytics
-            if (!event.getAuthor().getId().matches(VariableStorageRead.getOwnerID()))
-                storageControllerCached.incrementAnalyticForCommand("Commands", command.getName().toLowerCase().trim());
+            storageController.incrementAnalyticForCommand("Commands", command.getName().toLowerCase().trim());
             Log.info("    Running Command: " + command.getName());
-            return command.run(event, storageControllerCached, variablesStorage, CommandArray[1]);
+            return command.run(event, storageController, variablesStorage, CommandArray[1]);
         }
         return false;
         }
