@@ -1,0 +1,1025 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="DIscord_JDA_Bot:jar" />
+    </artifacts-to-build>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="db4b6966-4060-4bb3-bd8f-ce2ef72a3509" name="Default Changelist" comment="Updated help page&#10;Added Commands" />
+    <ignored path="$PROJECT_DIR$/classes/" />
+    <ignored path="$PROJECT_DIR$/.gradle/" />
+    <ignored path="$PROJECT_DIR$/build/" />
+    <ignored path="$PROJECT_DIR$/out/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="isMigrated" value="true" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation>
+            <after_compile>
+              <task name="build" />
+            </after_compile>
+          </activation>
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="DIscord_JDA_Bot" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="DIscord_JDA_Bot" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="DIscord_JDA_Bot" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Commands/NepCommands.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="25" column="36" lean-forward="true" selection-start-line="25" selection-start-column="36" selection-end-line="25" selection-end-column="36" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Enum" />
+        <option value="Kotlin File" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>getName().replace(&quot;.wav&quot;, &quot;&quot;).trim()</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="UPDATE_CHANGES_POLICY" value="SHELVE" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/Storage/StorageController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/Storage/StorageControllerCache.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/Storage/StorageCommands.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/MessageListener.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/DM_ImageDownload.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/Storage/StorageControllerFIrestore.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/Storage/StorageControllerFirestore.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/Storage/StorageControllerCached.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/guildListener.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/Commands/RandomSoundPicker.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/Main.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/FolderSearch.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/Commands/CustomMediaCommands.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/Commands/RandomImagePicker.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/Commands/CommonMethodes.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/Commands/CommonMethods.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/Commands/Command.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/Commands/MultiPageMessageController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/Commands/CommandInterface.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/Commands/Uptime.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/Commands/commandCatagories.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/Commands/commandCategories.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/Commands/Leave.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/Commands/Screenshare.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/Commands/Stats.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/Commands/AudioController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/AudioController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/Commands/About.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/Commands/AdminOptions.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/Commands/UWU_Translater.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/UWU_Translater.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/Commands/Translate.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/Translate.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/Commands/Nep.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/Commands/Say.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/music/AudioController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/VariablesStorage.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/messageInterprter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/Commands/UtilityCommands/Screenshare.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/Commands/CoinFlip.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/rollDie.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/RollDie.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/CoinFlip.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/Say.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/Commands/AdminCommands/AdminOptions.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/Storage/VariablesStorage.java" />
+        <option value="$PROJECT_DIR$/build.gradle" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/Nep.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/Commands/Help.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/Commands/NepCommands.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/Commands/RandomMediaPicker.java" />
+      </list>
+    </option>
+  </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <expand />
+      <select />
+    </treeState>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="413" />
+    <option name="y" value="-10" />
+    <option name="width" value="1400" />
+    <option name="height" value="920" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <flattenPackages ProjectPane="false" />
+      <showMembers ProjectPane="false" />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="DIscord_JDA_Bot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DIscord_JDA_Bot" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+            <path>
+              <item name="DIscord_JDA_Bot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DIscord_JDA_Bot" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="Media" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DIscord_JDA_Bot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DIscord_JDA_Bot" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DIscord_JDA_Bot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DIscord_JDA_Bot" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DIscord_JDA_Bot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DIscord_JDA_Bot" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DIscord_JDA_Bot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DIscord_JDA_Bot" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="Neptune" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DIscord_JDA_Bot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DIscord_JDA_Bot" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="Neptune" type="462c0819:PsiDirectoryNode" />
+              <item name="Commands" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15234375" />
+    <property name="project.structure.side.proportion" value="0.30069125" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Austin Richards\IdeaProjects\DIscord_JDA_Bot\nep_bot" />
+      <recent name="C:\Users\Austin Richards\IdeaProjects\DIscord_JDA_Bot\src\main\java" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="LoadDriver" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Neptune.Storage.LoadDriver" />
+      <module name="DIscord_JDA_Bot" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Neptune.Storage.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Neptune.Main" />
+      <module name="DIscord_JDA_Bot" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Neptune.music.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Neptune.Main" />
+      <module name="DIscord_JDA_Bot" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Neptune.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DIscord_JDA_Bot [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="DIscord_JDA_Bot [test]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Gradle.DIscord_JDA_Bot [build]" />
+        <item itemvalue="Application.LoadDriver" />
+        <item itemvalue="Gradle.DIscord_JDA_Bot [test]" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="db4b6966-4060-4bb3-bd8f-ce2ef72a3509" name="Default Changelist" comment="" />
+      <created>1556746762206</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1556746762206</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Massive changes to Message Interpreter">
+      <created>1560181955559</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1560181955559</updated>
+    </task>
+    <task id="LOCAL-00002" summary="More changes to reading the message&#10;added toggle for multiple prefixes in code&#10;Handle empty voice channels so the bot disconnects">
+      <created>1560630248153</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1560630248153</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Refactor Storage system, now uses google cloud Firestore&#10;prepared backend for permissions&#10;Refactored analytics">
+      <created>1561097881277</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1561097881277</updated>
+    </task>
+    <task id="LOCAL-00004" summary="TTS support added">
+      <created>1561352609942</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1561352609942</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Cache System added">
+      <created>1561422189069</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1561422189069</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Cache System added">
+      <created>1561581897783</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1561581897783</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Proper Logging&#10;Removed a ton of warnings">
+      <created>1561588748716</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1561588748716</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Proper Logging&#10;Removed a ton of warnings">
+      <created>1561598722162</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1561598722162</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Fix Sharding">
+      <created>1561689522012</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1561689522012</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Rework Say">
+      <created>1561765717424</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1561765717424</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Add screenshare link generator">
+      <created>1562362189563</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1562362189563</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Add screenshare link generator">
+      <created>1562362341493</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1562362341493</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Add screenshare link generator">
+      <created>1562362730664</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1562362730664</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Removed some unused code">
+      <created>1562375396838</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1562375396838</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Removed some unused code">
+      <created>1562375451904</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1562375451904</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Update random media selection">
+      <created>1563499080490</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1563499080490</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Update random media selection">
+      <created>1563500993540</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1563500993540</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Update files to switch devices">
+      <created>1564562874087</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1564562874087</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Rewrite a ton of classes">
+      <created>1564638214571</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1564638214571</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Updated help page&#10;Added Commands">
+      <created>1564904560020</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1564904560020</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Updated help page&#10;Added Commands">
+      <created>1564906476962</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1564906476962</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
+    <servers />
+  </component>
+  <component name="TestHistory">
+    <history-entry file="DIscord_JDA_Bot_[test] - 2019.06.11 at 11h 54m 48s.xml">
+      <configuration name="DIscord_JDA_Bot [test]" configurationId="GradleRunConfiguration" />
+    </history-entry>
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.48606467" visible="true" weight="0.23880596" />
+      <window_info id="Structure" order="1" sideWeight="0.5254605" side_tool="true" weight="0.19402985" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="Capture Tool" order="4" />
+      <window_info id="UI Designer" order="5" />
+      <window_info id="Favorites" order="6" sideWeight="0.5139353" side_tool="true" weight="0.19616205" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32936078" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49840087" weight="0.28277355" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.4989339" weight="0.2708559" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49946696" weight="0.32936078" />
+      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.4989339" visible="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49946696" weight="0.32936078" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5010661" side_tool="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Build" order="10" sideWeight="0.49946696" weight="0.32936078" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.32936078" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Google Cloud Storage" order="4" show_stripe_button="false" />
+      <window_info anchor="right" id="Maven" order="5" weight="0.32995737" />
+      <window_info anchor="right" id="Gradle" order="6" weight="0.14498934" />
+      <window_info anchor="right" id="Theme Preview" order="7" />
+      <window_info anchor="right" id="Capture Analysis" order="8" />
+      <window_info anchor="right" id="Palette&#9;" order="9" />
+    </layout>
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Massive changes to Message Interpreter" />
+    <MESSAGE value="More changes to reading the message&#10;added toggle for multiple prefixes in code&#10;Handle empty voice channels so the bot disconnects" />
+    <MESSAGE value="Refactor Storage system, now uses google cloud Firestore&#10;prepared backend for permissions&#10;Refactored analytics" />
+    <MESSAGE value="TTS support added" />
+    <MESSAGE value="Cache System added" />
+    <MESSAGE value="Proper Logging&#10;Removed a ton of warnings" />
+    <MESSAGE value="Fix Sharding" />
+    <MESSAGE value="Rework Say" />
+    <MESSAGE value="Add screenshare link generator" />
+    <MESSAGE value="Removed some unused code" />
+    <MESSAGE value="Update random media selection" />
+    <MESSAGE value="Update files to switch devices" />
+    <MESSAGE value="Rewrite a ton of classes" />
+    <MESSAGE value="Updated help page&#10;Added Commands" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated help page&#10;Added Commands" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Storage/LoadDriver.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Storage/GuildList.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Storage/MemberList.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Storage/Member.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Storage/StorageControllerFile.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Commands/Attack.java" />
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.neovisionaries/nv-websocket-client/2.2/21006ec7aba15737d03dc6b1fe31c7572f6343fa/nv-websocket-client-2.2-sources.jar!/com/neovisionaries/ws/client/ListenerManager.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/lyumaSounds.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Storage/StorageControllerCache.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/FileDownloader.java" />
+    <entry file="jrt://C:/Program Files/Java/jdk-11.0.1!/java.base/java/util/function/Consumer.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="11" column="9" selection-start-line="11" selection-start-column="9" selection-end-line="11" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/music/PlayerControl.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/music/TrackScheduler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-133">
+          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/music/GuildMusicManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Commands/RandomSoundPicker.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Commands/CustomMediaCommands.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="467">
+          <caret line="32" column="85" selection-start-line="32" selection-start-column="85" selection-end-line="32" selection-end-column="85" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/music/AudioPlayerSendHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Commands/local_UWU_test.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/guildListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="32" column="1" lean-forward="true" selection-start-line="32" selection-start-column="1" selection-end-line="32" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Commands/MultiPageMessageController.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Commands/CommonMethods.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="44" lean-forward="true" selection-start-line="6" selection-start-column="44" selection-end-line="6" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Storage/StorageCommands.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="6" column="17" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Storage/StorageControllerFirestore.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="39" column="9" selection-start-line="39" selection-start-column="9" selection-end-line="39" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Storage/StorageControllerCached.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1394">
+          <caret line="85" selection-start-line="85" selection-end-line="85" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Commands/UtilityCommands/About.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Commands/commandCategories.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="50" selection-start-line="3" selection-start-column="50" selection-end-line="3" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Commands/UtilityCommands/Leave.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/Translate.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#run#0;class#Translate#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/UWU_Translater.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/FolderSearch.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/music/AudioController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="27" column="13" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Commands/UtilityCommands/Uptime.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Commands/CommandInterface.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="33" selection-start-line="10" selection-start-column="33" selection-end-line="10" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/DM_ImageDownload.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Commands/UtilityCommands/Screenshare.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="283">
+          <caret line="24" column="21" selection-start-line="24" selection-start-column="21" selection-end-line="24" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/rollDie.kt" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/RollDie.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="421">
+          <caret line="54" column="46" selection-start-line="54" selection-start-column="46" selection-end-line="54" selection-end-column="46" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#372#373#0" expanded="true" />
+            <element signature="e#399#400#0" expanded="true" />
+            <element signature="e#447#448#0" expanded="true" />
+            <element signature="e#474#475#0" expanded="true" />
+            <element signature="e#526#527#0" expanded="true" />
+            <element signature="e#553#554#0" expanded="true" />
+            <element signature="e#613#614#0" expanded="true" />
+            <element signature="e#640#641#0" expanded="true" />
+            <element signature="e#732#733#0" expanded="true" />
+            <element signature="e#772#773#0" expanded="true" />
+            <element signature="e#773#774#0" expanded="true" />
+            <element signature="e#801#802#0" expanded="true" />
+            <element signature="e#855#856#0" expanded="true" />
+            <element signature="e#883#884#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/MessageListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/CoinFlip.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="58" column="38" selection-start-line="58" selection-start-column="38" selection-end-line="58" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#640#641#0" expanded="true" />
+            <element signature="e#677#678#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/Say.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="261">
+          <caret line="45" column="32" selection-start-line="45" selection-start-column="32" selection-end-line="45" selection-end-column="32" />
+          <folding>
+            <element signature="method#getDescription#0;class#Say#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Commands/AdminCommands/AdminOptions.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="63" column="40" lean-forward="true" selection-start-line="63" selection-start-column="40" selection-end-line="63" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Commands/AdminCommands/Stats.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="14" lean-forward="true" selection-start-line="21" selection-start-column="14" selection-end-line="21" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gradlew">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/Nep.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="56" column="27" selection-start-line="56" selection-start-column="27" selection-end-line="56" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/messageInterprter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="952">
+          <caret line="66" column="38" selection-start-line="66" selection-start-column="38" selection-end-line="66" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Commands/Help.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="51" column="5" selection-start-line="51" selection-start-column="5" selection-end-line="51" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Storage/VariablesStorage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="646">
+          <caret line="59" selection-start-line="59" selection-end-line="59" />
+          <folding>
+            <element signature="method#getDiscordBotToken#0;class#VariablesStorage#0" />
+            <element signature="method#getCallBot#0;class#VariablesStorage#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Commands/RandomMediaPicker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="12" column="59" lean-forward="true" selection-start-line="12" selection-start-column="59" selection-end-line="12" selection-end-column="59" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Commands/NepCommands.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="25" column="36" lean-forward="true" selection-start-line="25" selection-start-column="36" selection-end-line="25" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor>
+            <show-content>
+              <type id="library" />
+              <type id="artifact" />
+            </show-content>
+          </artifact-editor>
+          <last-edited>Neptune Bot.jar</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.30069125" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>No facets are configured</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.30069125" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.30069125" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>11</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.30069125" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>DIscord_JDA_Bot</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.30069125" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>Gradle: com.fasterxml.jackson.core:jackson-annotations:2.9.0</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.30069125" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ScopeChooserConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.30280527" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
