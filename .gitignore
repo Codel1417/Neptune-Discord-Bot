@@ -6,3 +6,6 @@ classes/
 out/
 src/main/resources/
 src/test/
+NepAuth.json
+NepDB.db
+Media/

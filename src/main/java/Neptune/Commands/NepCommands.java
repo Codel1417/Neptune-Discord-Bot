@@ -4,6 +4,7 @@ import Neptune.Commands.AdminCommands.AdminOptions;
 import Neptune.Commands.FunCommands.*;
 import Neptune.Commands.FunCommands.Imgur;
 import Neptune.Commands.FunCommands.GreatSleepKing;
+import Neptune.Commands.UtilityCommands.MinecraftServerStatus;
 import Neptune.Commands.InProgress.VRChatAPI;
 import Neptune.Commands.UtilityCommands.About;
 import Neptune.Commands.UtilityCommands.Leave;
@@ -42,6 +43,7 @@ public class NepCommands extends CommonMethods {
     private final PayRespect payRespect = new PayRespect();
     private final Attack attack = new Attack();
     private final Ping ping = new Ping();
+    private final MinecraftServerStatus minecraftServerStatus = new MinecraftServerStatus();
     private HashMap <String, Object> commands = new HashMap<>();
 
     public NepCommands(VariablesStorage variablesStorage) {
@@ -66,6 +68,7 @@ public class NepCommands extends CommonMethods {
         commands.put(payRespect.getCommand(),payRespect);
         commands.put(attack.getCommand(),attack);
         commands.put(ping.getCommand(),ping);
+        commands.put(minecraftServerStatus.getCommand(),minecraftServerStatus);
         //dev commands
         if(variablesStorage.getDevMode()){
             commands.put(vrChatAPI.getCommand(),vrChatAPI);
@@ -85,7 +88,7 @@ public class NepCommands extends CommonMethods {
             if (command.getRequireManageServer() && !event.getMember().hasPermission(Permission.MANAGE_SERVER)) {return true;}
             if (command.getRequireOwner() && !event.getAuthor().getId().matches(variablesStorage.getOwnerID())) {return true;}
             //analytics
-            storageController.incrementAnalyticForCommand("Commands", command.getName().toLowerCase().trim());
+            //storageController.incrementAnalyticForCommand(command.getName().toLowerCase().trim());
             Log.info("    Running Command: " + command.getName());
             return command.run(event, storageController, variablesStorage, CommandArray[1]);
         }

@@ -83,7 +83,7 @@ public class Say implements CommandInterface {
     }
 
     private void saySingleMatch(File quote, MessageReceivedEvent event, StorageController storageController) {
-        storageController.incrementAnalyticForCommand("Say", quote.getName().replace("."," ").replace(" wav",""));
+        //storageController.incrementAnalyticForCommand("Say", quote.getName().replace("."," ").replace(" wav",""));
 
         if (event.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_MANAGE)) {
             try {

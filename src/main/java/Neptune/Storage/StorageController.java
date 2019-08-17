@@ -41,14 +41,30 @@ public class StorageController extends ConvertJSON {
         }
     }
 
-    public boolean incrementAnalyticForCommand(String type, String command) {
-        LinkedTreeMap<String, Object> Analytics = fromJSON(databaseConnection.getData(type));
+    public boolean incrementAnalyticForCommand(String command) {
+        LinkedTreeMap<String, Object> Analytics;
+        boolean result;
+
+        String AnalyticsRaw = databaseConnection.getData("Analytics");
+
+        if (AnalyticsRaw == null){
+            Analytics = new LinkedTreeMap<>();
+        }
+        else {
+            Analytics = fromJSON(AnalyticsRaw);
+        }
         int value = (int) Analytics.getOrDefault(command,0);
         value++;
         Analytics.put(command,value);
         String json = toJSON(Analytics);
         try {
-            return databaseConnection.updateData(type,json);
+            if (AnalyticsRaw == null) {
+                result = databaseConnection.addData("Analytics",json);
+            }
+            else{
+                result = databaseConnection.updateData("Analytics",json);
+            }
+            return result;
         } catch (MissingDataException e) {
             e.printStackTrace();
             return false;
