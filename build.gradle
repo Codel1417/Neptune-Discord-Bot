@@ -6,7 +6,7 @@ plugins {
 group 'codel1417Bot'
 version '1.9-SNAPSHOT'
 
-sourceCompatibility = 1.9
+sourceCompatibility = 1.11
 
 
 application {

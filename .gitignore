@@ -1,1 +1,8 @@
 'nep_bot'
+.gradle/
+.idea/.name
+build/
+classes/
+out/
+src/main/resources/
+src/test/

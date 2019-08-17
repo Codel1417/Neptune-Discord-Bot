@@ -4,17 +4,14 @@ import Neptune.Commands.NepCommands;
 import Neptune.Commands.RandomMediaPicker;
 import Neptune.Storage.*;
 
-import java.util.Map;
 import java.util.logging.Logger;
 
 import com.google.gson.internal.LinkedTreeMap;
 import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 import java.io.File;
 import java.util.Arrays;
-import java.util.HashMap;
 
 class messageInterprter {
     private final VariablesStorage VariableStorageRead;
