@@ -2,7 +2,6 @@ package Neptune.Commands.UtilityCommands;
 
 import Neptune.Commands.CommandInterface;
 import Neptune.Commands.commandCategories;
-import Neptune.Storage.StorageController;
 import Neptune.Storage.VariablesStorage;
 import me.dilley.MineStat;
 import net.dv8tion.jda.core.EmbedBuilder;
@@ -23,7 +22,7 @@ public class MinecraftServerStatus implements CommandInterface {
 
     @Override
     public String getDescription() {
-        return "Gets the status of a Minecraft server";
+        return "Gets the status of a Minecraft server. Supports IP and URL's. DynamicDNS domains are unsupported";
     }
 
     @Override
@@ -47,7 +46,17 @@ public class MinecraftServerStatus implements CommandInterface {
     }
 
     @Override
-    public boolean run(MessageReceivedEvent event, StorageController storageController, VariablesStorage variablesStorage, String messageContent) {
+    public boolean getHideCommand() {
+        return false;
+    }
+
+    @Override
+    public boolean getRequireManageUsers() {
+        return false;
+    }
+
+    @Override
+    public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
         String serverDomain;
         int port = 25565;
         String[] mcServer = messageContent.split(":");

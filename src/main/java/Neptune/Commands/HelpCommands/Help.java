@@ -1,5 +1,8 @@
-package Neptune.Commands;
+package Neptune.Commands.HelpCommands;
 
+import Neptune.Commands.CommandInterface;
+import Neptune.Commands.CommonMethods;
+import Neptune.Commands.commandCategories;
 import Neptune.Storage.StorageController;
 import Neptune.Storage.VariablesStorage;
 import net.dv8tion.jda.core.EmbedBuilder;
@@ -45,14 +48,23 @@ public class Help extends CommonMethods implements CommandInterface {
     }
 
     @Override
-    public boolean run(MessageReceivedEvent event, StorageController storageController, VariablesStorage variablesStorage, String messageContent) {
+    public boolean getHideCommand() {
+        return true;
+    }
+
+    @Override
+    public boolean getRequireManageUsers() {
         return false;
     }
-    public boolean run(MessageReceivedEvent event, StorageController storageController, VariablesStorage variablesStorage, String messageContent, HashMap<String, Object> commands) {
+
+    @Override
+    public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setColor(Color.MAGENTA);
         embedBuilder.setAuthor("Help",event.getGuild().getSelfMember().getUser().getEffectiveAvatarUrl());
         embedBuilder.setDescription("Use " + variablesStorage.getCallBot() + " <Command>");
+
+        HashMap<String, Object> commands = StorageController.getInstance().getCommandList();
 
         String[] commandArray = getCommandName(messageContent);
         commandCategories category = null;
@@ -63,7 +75,7 @@ public class Help extends CommonMethods implements CommandInterface {
                     category = commandCat;
                     for (Object commandObject : commands.values()){
                         CommandInterface command = (CommandInterface) commandObject;
-                        if (command.getCategory().name().equalsIgnoreCase(category.name())){
+                        if (command.getCategory().name().equalsIgnoreCase(category.name()) && !command.getHideCommand() ){
                             embedBuilder.addField(command.getCommand(), command.getDescription(),false);
                         }
                     }
@@ -77,15 +89,17 @@ public class Help extends CommonMethods implements CommandInterface {
             for (Object commandObject : commands.values()){
                 CommandInterface command = (CommandInterface) commandObject;
                 if (command.getCommand().equalsIgnoreCase(commandArray[0]) || command.getName().equalsIgnoreCase(commandArray[0])){
-                    embedBuilder.setTitle(command.getName());
-                    embedBuilder.setDescription(command.getDescription());
-                    embedBuilder.addField("Command",command.getCommand(),true);
-                    embedBuilder.addField("Category", command.getCategory().name(),true);
-                    if (command.getHelp() != ""){
-                        embedBuilder.addField("Usage", command.getHelp(),true);
+                    if (!command.getHideCommand()) {
+                        embedBuilder.setTitle(command.getName());
+                        embedBuilder.setDescription(command.getDescription());
+                        embedBuilder.addField("Command",command.getCommand(),true);
+                        embedBuilder.addField("Category", command.getCategory().name(),true);
+                        if (command.getHelp() != ""){
+                            embedBuilder.addField("Usage", command.getHelp(),true);
+                        }
+                        perCommandHelp = true;
+                        break;
                     }
-                    perCommandHelp = true;
-                    break;
                 }
             }
         }
@@ -94,7 +108,9 @@ public class Help extends CommonMethods implements CommandInterface {
         if(!perCommandHelp && category == null){
             for (Object commandObject : commands.values()){
                 CommandInterface command = (CommandInterface) commandObject;
-                embedBuilder.addField(command.getCommand(), command.getDescription(),false);
+                if (!command.getHideCommand()){
+                    embedBuilder.addField(command.getCommand(), command.getDescription(),false);
+                }
             }
         }
 

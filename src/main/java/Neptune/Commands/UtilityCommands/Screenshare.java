@@ -2,7 +2,6 @@ package Neptune.Commands.UtilityCommands;
 
 import Neptune.Commands.CommandInterface;
 import Neptune.Commands.commandCategories;
-import Neptune.Storage.StorageController;
 import Neptune.Storage.VariablesStorage;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -46,7 +45,17 @@ public class Screenshare implements CommandInterface {
     }
 
     @Override
-    public boolean run(MessageReceivedEvent event , StorageController storageController, VariablesStorage variablesStorage, String messageContent) {
+    public boolean getHideCommand() {
+        return false;
+    }
+
+    @Override
+    public boolean getRequireManageUsers() {
+        return false;
+    }
+
+    @Override
+    public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
 
         if (event.getMember().getVoiceState().inVoiceChannel()) {
             EmbedBuilder embedBuilder = new EmbedBuilder();

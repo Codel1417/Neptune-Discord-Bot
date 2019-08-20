@@ -2,7 +2,6 @@ package Neptune.Commands.FunCommands;
 
 import Neptune.Commands.CommandInterface;
 import Neptune.Commands.commandCategories;
-import Neptune.Storage.StorageController;
 import Neptune.Storage.VariablesStorage;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
@@ -43,7 +42,17 @@ public class Ping implements CommandInterface {
     }
 
     @Override
-    public boolean run(MessageReceivedEvent event, StorageController storageController, VariablesStorage variablesStorage, String messageContent) {
+    public boolean getHideCommand() {
+        return false;
+    }
+
+    @Override
+    public boolean getRequireManageUsers() {
+        return false;
+    }
+
+    @Override
+    public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
         event.getChannel().sendMessage("pong").queue();
         return false;
     }

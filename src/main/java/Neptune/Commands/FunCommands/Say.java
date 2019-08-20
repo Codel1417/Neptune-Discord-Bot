@@ -10,7 +10,6 @@ import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.exceptions.InsufficientPermissionException;
-import org.apache.commons.logging.Log;
 
 import java.io.File;
 import java.util.*;
@@ -59,8 +58,18 @@ public class Say implements CommandInterface {
     }
 
     @Override
-    public boolean run(MessageReceivedEvent event , StorageController storageController, VariablesStorage variablesStorage, String messageContent) {
+    public boolean getHideCommand() {
+        return false;
+    }
 
+    @Override
+    public boolean getRequireManageUsers() {
+        return false;
+    }
+
+    @Override
+    public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
+        StorageController storageController = StorageController.getInstance();
         //rate limiting
         if (isRateLimited(event.getAuthor(), variablesStorage)) return false;
 

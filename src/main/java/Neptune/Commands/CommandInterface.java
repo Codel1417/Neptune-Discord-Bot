@@ -1,6 +1,5 @@
 package Neptune.Commands;
 
-import Neptune.Storage.StorageController;
 import Neptune.Storage.VariablesStorage;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
@@ -12,6 +11,8 @@ public interface CommandInterface {
     String getHelp();
     boolean getRequireManageServer();
     boolean getRequireOwner();
-    boolean run(MessageReceivedEvent event, StorageController storageController, VariablesStorage variablesStorage, String messageContent);
+    boolean getHideCommand();
+    boolean getRequireManageUsers();
+    boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent);
 
 }

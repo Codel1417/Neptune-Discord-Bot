@@ -1,18 +1,24 @@
 package Neptune.Storage;
 
 import com.google.gson.internal.LinkedTreeMap;
-import com.google.rpc.Help;
 import net.dv8tion.jda.core.entities.Guild;
 
+import java.util.HashMap;
 import java.util.Map;
 
 
 public class StorageController extends ConvertJSON {
 
-    private SQLiteConnection databaseConnection = new SQLiteConnection();
+    private static StorageController ourInstance = new StorageController();
 
-    public StorageController() {
+    public static StorageController getInstance() {
+        return ourInstance;
     }
+
+    private StorageController() {
+    }
+
+    private SQLiteConnection databaseConnection = new SQLiteConnection();
 
     public boolean addGuild(Guild Guild) {
         //Need to add something to map beforehand;
@@ -69,5 +75,15 @@ public class StorageController extends ConvertJSON {
             e.printStackTrace();
             return false;
         }
+    }
+
+    private HashMap<String, Object> commandList;
+
+    public HashMap<String, Object> getCommandList() {
+        return commandList;
+    }
+
+    public void setCommandList(HashMap<String, Object> commandList) {
+        this.commandList = commandList;
     }
 }

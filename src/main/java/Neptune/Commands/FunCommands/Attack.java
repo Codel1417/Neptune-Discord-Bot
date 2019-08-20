@@ -3,7 +3,6 @@ package Neptune.Commands.FunCommands;
 import Neptune.Commands.CommandInterface;
 import Neptune.Commands.RandomMediaPicker;
 import Neptune.Commands.commandCategories;
-import Neptune.Storage.StorageController;
 import Neptune.Storage.VariablesStorage;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Member;
@@ -51,7 +50,17 @@ public class Attack implements CommandInterface {
     }
 
     @Override
-    public boolean run(MessageReceivedEvent event, StorageController storageController, VariablesStorage variablesStorage, String messageContent) {
+    public boolean getHideCommand() {
+        return false;
+    }
+
+    @Override
+    public boolean getRequireManageUsers() {
+        return false;
+    }
+
+    @Override
+    public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
 
         EmbedBuilder embedBuilder = new EmbedBuilder();
         Random random = new Random();
@@ -68,6 +77,7 @@ public class Attack implements CommandInterface {
         embedBuilder.setDescription(stringBuilder);
         //send message + audio
         event.getChannel().sendMessage(embedBuilder.build()).queue();
+
         randomMediaPicker.sendMedia(new File(variablesStorage.getMediaFolder() + File.separator + "Attack"),event,false,true);
         return false;
     }

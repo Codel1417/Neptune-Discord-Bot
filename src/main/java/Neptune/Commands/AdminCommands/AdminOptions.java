@@ -45,8 +45,20 @@ public class AdminOptions extends CommonMethods implements CommandInterface {
     }
 
     @Override
-    public boolean run(MessageReceivedEvent event, StorageController storageController, VariablesStorage variablesStorage, String messageContent) {
+    public boolean getHideCommand() {
+        return false;
+    }
+
+    @Override
+    public boolean getRequireManageUsers() {
+        return false;
+    }
+
+    @Override
+    public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
         String[] CommandArray = getCommandName(messageContent);
+
+        StorageController storageController = StorageController.getInstance();
 
         System.out.println(CommandArray[0] + " | " + CommandArray[1]);
         if (CommandArray[0].trim().equalsIgnoreCase("custom_sounds")) {

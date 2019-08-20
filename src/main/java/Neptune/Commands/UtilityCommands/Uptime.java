@@ -2,7 +2,6 @@ package Neptune.Commands.UtilityCommands;
 
 import Neptune.Commands.CommandInterface;
 import Neptune.Commands.commandCategories;
-import Neptune.Storage.StorageController;
 import Neptune.Storage.VariablesStorage;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -46,7 +45,17 @@ public class Uptime implements CommandInterface {
         return false;
     }
 
-    public boolean run(MessageReceivedEvent event, StorageController storageController, VariablesStorage variablesStorage, String messageContent){
+    @Override
+    public boolean getHideCommand() {
+        return false;
+    }
+
+    @Override
+    public boolean getRequireManageUsers() {
+        return false;
+    }
+
+    public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent){
         //Taken from Almighty Alpaca
         //https://github.com/Java-Discord-Bot-System/Plugin-Uptime/blob/master/src/main/java/com/almightyalpaca/discord/bot/plugin/uptime/UptimePlugin.java#L28-L42
         final long duration = ManagementFactory.getRuntimeMXBean().getUptime();

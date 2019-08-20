@@ -3,17 +3,21 @@ package Neptune.Commands.InProgress;
 import Neptune.Commands.CommandInterface;
 import Neptune.Commands.commandCategories;
 import Neptune.Storage.VariablesStorage;
+import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
+import com.jagrosh.jdautilities.menu.Menu;
+import com.jagrosh.jdautilities.menu.SelectionDialog;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
-public class Stats implements CommandInterface {
+public class ButtonMenu implements CommandInterface {
+    EventWaiter eventWaiter = new EventWaiter();
     @Override
     public String getName() {
-        return "Stats";
+        return "";
     }
 
     @Override
     public String getCommand() {
-        return "stats";
+        return "button";
     }
 
     @Override
@@ -23,7 +27,7 @@ public class Stats implements CommandInterface {
 
     @Override
     public commandCategories getCategory() {
-        return commandCategories.Admin;
+        return commandCategories.Dev;
     }
 
     @Override
@@ -33,7 +37,7 @@ public class Stats implements CommandInterface {
 
     @Override
     public boolean getRequireManageServer() {
-        return true;
+        return false;
     }
 
     @Override
@@ -43,7 +47,7 @@ public class Stats implements CommandInterface {
 
     @Override
     public boolean getHideCommand() {
-        return false;
+        return true;
     }
 
     @Override
@@ -53,6 +57,12 @@ public class Stats implements CommandInterface {
 
     @Override
     public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
+        SelectionDialog.Builder builder = new SelectionDialog.Builder();
+        builder.addChoices("Choice 1");
+        builder.build();
+        builder.build().display(event.getChannel());
+
+
         return false;
     }
 }

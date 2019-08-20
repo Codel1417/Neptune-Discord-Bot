@@ -5,20 +5,20 @@ import Neptune.Commands.commandCategories;
 import Neptune.Storage.VariablesStorage;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
-public class Stats implements CommandInterface {
+public class TtsOption implements CommandInterface {
     @Override
     public String getName() {
-        return "Stats";
+        return "TTS";
     }
 
     @Override
     public String getCommand() {
-        return "stats";
+        return "Admin TTS";
     }
 
     @Override
     public String getDescription() {
-        return "";
+        return null;
     }
 
     @Override
@@ -38,12 +38,12 @@ public class Stats implements CommandInterface {
 
     @Override
     public boolean getRequireOwner() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean getHideCommand() {
-        return false;
+        return true;
     }
 
     @Override

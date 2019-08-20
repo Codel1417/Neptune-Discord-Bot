@@ -5,20 +5,20 @@ import Neptune.Commands.commandCategories;
 import Neptune.Storage.VariablesStorage;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
-public class Stats implements CommandInterface {
+public class Logging implements CommandInterface {
     @Override
     public String getName() {
-        return "Stats";
+        return "Logging Options";
     }
 
     @Override
     public String getCommand() {
-        return "stats";
+        return "log";
     }
 
     @Override
     public String getDescription() {
-        return "";
+        return "Enable logging and set channel";
     }
 
     @Override
@@ -38,7 +38,7 @@ public class Stats implements CommandInterface {
 
     @Override
     public boolean getRequireOwner() {
-        return true;
+        return false;
     }
 
     @Override

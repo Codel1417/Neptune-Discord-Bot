@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class VariablesStorage {
     //store global variables here
-    private final boolean devMode = true; //uses dev key and call command when true
+    private final boolean devMode = false; //uses dev key and call command when true
     private String DiscordBotToken;
     private String DiscordBotTokenDev;
     private String CallBot = "!Nep";  //not case sensitive
@@ -14,6 +14,7 @@ public class VariablesStorage {
     
     //files
     private final File MediaFolder = new File("Media" + File.separator);
+
     public String getDiscordBotToken() {
         if (devMode) {
             return DiscordBotTokenDev;

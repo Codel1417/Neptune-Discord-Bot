@@ -1,6 +1,6 @@
 package Neptune;
 
-import Neptune.Commands.NepCommands;
+import Neptune.Commands.CommandRunner;
 import Neptune.Commands.RandomMediaPicker;
 import Neptune.Storage.*;
 
@@ -16,13 +16,11 @@ import java.util.Arrays;
 class messageInterprter {
     private final VariablesStorage VariableStorageRead;
     private final static Logger Log = Logger.getLogger(messageInterprter.class.getName());
-    private StorageController storageController;
-    private final NepCommands nepCommands;
+    private final CommandRunner nepCommands;
     private final RandomMediaPicker randomMediaPicker = new RandomMediaPicker();
 
-    messageInterprter(StorageController storageController, VariablesStorage variablesStorage) {
-        this.storageController = storageController;
-        nepCommands = new NepCommands(variablesStorage);
+    messageInterprter(VariablesStorage variablesStorage) {
+        nepCommands = new CommandRunner(variablesStorage);
         VariableStorageRead = variablesStorage;
 
     }
@@ -53,19 +51,20 @@ class messageInterprter {
 
         //check if the bot was called in chat
         try {
-            LinkedTreeMap<String, String> test = (LinkedTreeMap<String, String>) storageController.getGuild(event.getGuild());
-            String multiPrefix = test.getOrDefault("Custom-Sounds","false");
-            if (isBotCalled(event.getMessage(), multiPrefix.equalsIgnoreCase("true"))) {
+            LinkedTreeMap<String, String> test = (LinkedTreeMap<String, String>) StorageController.getInstance().getGuild(event.getGuild());
+            boolean multiPrefix = test.getOrDefault("Custom-Sounds","false").equalsIgnoreCase("true");
+
+            if (isBotCalled(event.getMessage(), multiPrefix)) {
                 //print the message log in the console if the message was a command
                 if (!VariableStorageRead.getDevMode()) printConsoleLog(false, event);
 
                 //run command
-                if (!nepCommands.run(event, storageController, VariableStorageRead)) {
-                    randomMediaPicker.sendMedia(new File(VariableStorageRead.getMediaFolder() + File.separator + "Custom" + File.separator +  event.getMessage().getContentRaw().replace("=","").replace("./","").trim()), event, true, true);
+                if (!nepCommands.run(event, VariableStorageRead)) {
+                    if(multiPrefix){
+                        randomMediaPicker.sendMedia(new File(VariableStorageRead.getMediaFolder() + File.separator + "Custom" + File.separator +  event.getMessage().getContentRaw().replace("=","").replace("./","").trim()), event, true, true);
+
+                    }
                 }
-            }
-            else {
-                nepCommands.run(event, storageController, VariableStorageRead);
             }
             //return if bot was not called
         } catch (Exception e) {
@@ -79,7 +78,7 @@ class messageInterprter {
         Checks the list to see if the current guild/server is stored, if not create a new guild entry.
          */
         if(guildObject != null) {
-            storageController.addGuild(guildObject);
+            StorageController.getInstance().addGuild(guildObject);
         }
     }
     private void printConsoleLog(Boolean debug, MessageReceivedEvent event){

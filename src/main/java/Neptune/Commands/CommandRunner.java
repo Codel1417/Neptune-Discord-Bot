@@ -4,6 +4,9 @@ import Neptune.Commands.AdminCommands.AdminOptions;
 import Neptune.Commands.FunCommands.*;
 import Neptune.Commands.FunCommands.Imgur;
 import Neptune.Commands.FunCommands.GreatSleepKing;
+import Neptune.Commands.AdminCommands.ServerInfo;
+import Neptune.Commands.HelpCommands.Help;
+import Neptune.Commands.InProgress.ButtonMenu;
 import Neptune.Commands.UtilityCommands.MinecraftServerStatus;
 import Neptune.Commands.InProgress.VRChatAPI;
 import Neptune.Commands.UtilityCommands.About;
@@ -21,13 +24,13 @@ import java.util.logging.Logger;
 
 //TODO: Make commands shard aware
 //handles neptune base commands
-public class NepCommands extends CommonMethods {
+public class CommandRunner extends CommonMethods {
     private final Nep NepCountCommand;
     private final VariablesStorage VariableStorageRead;
     private final Say NepSayCommand;
     private final Translate translateMessage = new Translate();
     private final AdminOptions adminOptions = new AdminOptions();
-    private final static Logger Log = Logger.getLogger(NepCommands.class.getName());
+    private final static Logger Log = Logger.getLogger(CommandRunner.class.getName());
     private final RandomMediaPicker randomMediaPicker = new RandomMediaPicker();
     private final Screenshare screenshare = new Screenshare();
     private final About about = new About();
@@ -44,9 +47,12 @@ public class NepCommands extends CommonMethods {
     private final Attack attack = new Attack();
     private final Ping ping = new Ping();
     private final MinecraftServerStatus minecraftServerStatus = new MinecraftServerStatus();
+    private final ServerInfo serverInfo = new ServerInfo();
+    private final ButtonMenu buttonMenu = new ButtonMenu();
+
     private HashMap <String, Object> commands = new HashMap<>();
 
-    public NepCommands(VariablesStorage variablesStorage) {
+    public CommandRunner(VariablesStorage variablesStorage) {
         VariableStorageRead = variablesStorage;
         NepCountCommand = new Nep();
         NepSayCommand = new Say(new File(VariableStorageRead.getMediaFolder() + File.separator + "say"));
@@ -69,18 +75,19 @@ public class NepCommands extends CommonMethods {
         commands.put(attack.getCommand(),attack);
         commands.put(ping.getCommand(),ping);
         commands.put(minecraftServerStatus.getCommand(),minecraftServerStatus);
+        commands.put(serverInfo.getCommand(),serverInfo);
+        commands.put(help.getCommand(),help);
         //dev commands
         if(variablesStorage.getDevMode()){
             commands.put(vrChatAPI.getCommand(),vrChatAPI);
+            commands.put(buttonMenu.getCommand(),buttonMenu);
         }
+        StorageController.getInstance().setCommandList(commands);
     }
 
-    public boolean run(MessageReceivedEvent event, StorageController storageController, VariablesStorage variablesStorage){
+    public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage){
         String[] CommandArray = getCommandName(event.getMessage().getContentRaw().trim().toLowerCase().replaceFirst(VariableStorageRead.getCallBot().toLowerCase(), "").trim());
         Log.info("        Bot Called");
-        if(CommandArray[0].equalsIgnoreCase(help.getCommand())){
-            return help.run(event, storageController, variablesStorage, CommandArray[1], commands);
-        }
         if (commands.containsKey(CommandArray[0])){
             CommandInterface command = (CommandInterface) commands.get(CommandArray[0]);
             //TODO: add error message
@@ -90,7 +97,7 @@ public class NepCommands extends CommonMethods {
             //analytics
             //storageController.incrementAnalyticForCommand(command.getName().toLowerCase().trim());
             Log.info("    Running Command: " + command.getName());
-            return command.run(event, storageController, variablesStorage, CommandArray[1]);
+            return command.run(event, variablesStorage, CommandArray[1]);
         }
         return false;
         }
