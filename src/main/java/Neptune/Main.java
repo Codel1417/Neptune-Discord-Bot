@@ -5,8 +5,7 @@ import Neptune.Commands.PassiveCommands.guildListener;
 import Neptune.Storage.DropboxConnection;
 import Neptune.Storage.GetAuthToken;
 import Neptune.Storage.VariablesStorage;
-import com.dropbox.core.DbxRequestConfig;
-import com.dropbox.core.v2.DbxClientV2;
+
 import com.neovisionaries.ws.client.WebSocketFactory;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.entities.Game;
@@ -22,7 +21,9 @@ import static net.dv8tion.jda.core.AccountType.BOT;
 
 public class Main extends ListenerAdapter {
     private final static Logger Log = Logger.getLogger(Main.class.getName());
-    public static  Runnable dropboxConnection;
+
+    private static  Runnable dropboxConnection;
+
     public static void main(String[] args) {
         VariablesStorage variablesStorage = new VariablesStorage();
         GetAuthToken getAuthToken = new GetAuthToken();
