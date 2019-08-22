@@ -33,11 +33,10 @@ public class DropboxConnection implements Runnable {
 
 
             try (InputStream in = new FileInputStream(file)) {
+                Thread.sleep(100000);
                 FileMetadata metadata = client.files().uploadBuilder("/NepDB.db").withMode(WriteMode.OVERWRITE).uploadAndFinish(in);
                 if(metadata.getId() != null)
                 System.out.println("Backup Complete");
-
-                Thread.sleep(100000);
 
             } catch (DbxException | IOException | InterruptedException e) {
                 e.printStackTrace();

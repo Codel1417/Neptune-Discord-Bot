@@ -1,13 +1,17 @@
 package Neptune;
 
+import Neptune.ServerLogging.GuildLogging;
 import Neptune.Storage.StorageController;
 import Neptune.Storage.VariablesStorage;
+import com.google.gson.internal.LinkedTreeMap;
 import net.dv8tion.jda.core.entities.Game;
+import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.events.channel.category.GenericCategoryEvent;
 import net.dv8tion.jda.core.events.channel.text.GenericTextChannelEvent;
 import net.dv8tion.jda.core.events.channel.voice.GenericVoiceChannelEvent;
 import net.dv8tion.jda.core.events.emote.GenericEmoteEvent;
 import net.dv8tion.jda.core.events.guild.GenericGuildEvent;
+import net.dv8tion.jda.core.events.guild.voice.GenericGuildVoiceEvent;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.events.role.GenericRoleEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
@@ -16,6 +20,10 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
 public class Listener extends ListenerAdapter {
     private VariablesStorage variableStorageRead;
     private final messageInterprter message;
+    private final GuildLogging guildLogging = new GuildLogging();
+
+
+
     Listener(VariablesStorage variableStorageRead) {
         this.variableStorageRead = variableStorageRead;
         message = new messageInterprter(variableStorageRead);
@@ -33,23 +41,42 @@ public class Listener extends ListenerAdapter {
 
     //listen for everything else
     @Override
+    //user actions
     public void onGenericGuild(GenericGuildEvent event){
-        System.out.println(event.toString());
+        LinkedTreeMap<String, Object> guildSettings = (LinkedTreeMap<String, Object>) StorageController.getInstance().getGuild(event.getGuild());
+        LinkedTreeMap<String, String> LoggingInfo = (LinkedTreeMap<String, String>) guildSettings.getOrDefault("Logging", new LinkedTreeMap<String, String>());        System.out.println("onGenericGuild::"+event.toString());
+        String LoggingChannel = LoggingInfo.getOrDefault("LoggingChannel","");
+
+        if(LoggingChannel.equalsIgnoreCase("")) return;
+
+        if(event instanceof GenericGuildVoiceEvent){
+            guildLogging.GuildVoice((GenericGuildVoiceEvent) event,LoggingInfo);
+        }
+
     }
+
+    //text channel changes
+    @Override
     public void onGenericTextChannel(GenericTextChannelEvent event){
-        System.out.println(event.toString());
+        System.out.println("onGenericTextChannel:: "+event.toString());
     }
+    //voice channel changes
+    @Override
     public void onGenericVoiceChannel(GenericVoiceChannelEvent event){
-        System.out.println(event.toString());
+
+        System.out.println("onGenericVoiceChannel:: "+event.toString());
     }
+    @Override
     public void onGenericCategory(GenericCategoryEvent event){
-        System.out.println(event.toString());
+        System.out.println("onGenericCategory:: "+event.toString());
     }
+    @Override
     public void onGenericRole(GenericRoleEvent event){
-        System.out.println(event.toString());
+        System.out.println("onGenericRole:: "+event.toString());
     }
+    @Override
     public void onGenericEmote(GenericEmoteEvent event){
-        System.out.println(event.toString());
+        System.out.println("onGenericEmote:: "+event.toString());
     }
 }
 

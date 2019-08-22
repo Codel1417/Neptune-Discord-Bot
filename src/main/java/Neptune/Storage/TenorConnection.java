@@ -1,12 +1,14 @@
 package Neptune.Storage;
 
+import com.google.gson.internal.LinkedTreeMap;
+
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 
-public class TenorConnection {
+public class TenorConnection extends ConvertJSON{
 
     private String API_KEY;
     public TenorConnection(String API_KEY){
@@ -30,9 +32,12 @@ public class TenorConnection {
             connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
 
             String response = connection.getResponseMessage();
+
+            LinkedTreeMap JSON = fromJSON(response);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        returnURL = "";
         return returnURL;
     }
 }

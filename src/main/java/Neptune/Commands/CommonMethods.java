@@ -14,4 +14,22 @@ public abstract class CommonMethods {
         }
         return returnText;
     }
+    protected String getEnabledDisabledIcon(String value){
+        String enabled = "✅";
+        String disabled = "❌";
+
+        if(value.equalsIgnoreCase("enabled")){
+            return enabled;
+        }
+        else return disabled;
+    }
+    protected String getEnabledDisabledIconText(String value){
+        String enabled = "✅ Enabled";
+        String disabled = "❌ Disabled";
+
+        if(value.equalsIgnoreCase("enabled")){
+            return enabled;
+        }
+        else return disabled;
+    }
 }

@@ -7,6 +7,7 @@ import Neptune.Commands.FunCommands.GreatSleepKing;
 import Neptune.Commands.AdminCommands.ServerInfo;
 import Neptune.Commands.HelpCommands.Help;
 import Neptune.Commands.InProgress.ButtonMenu;
+import Neptune.Commands.InProgress.Logging;
 import Neptune.Commands.UtilityCommands.MinecraftServerStatus;
 import Neptune.Commands.InProgress.VRChatAPI;
 import Neptune.Commands.UtilityCommands.About;
@@ -49,7 +50,7 @@ public class CommandRunner extends CommonMethods {
     private final MinecraftServerStatus minecraftServerStatus = new MinecraftServerStatus();
     private final ServerInfo serverInfo = new ServerInfo();
     private final ButtonMenu buttonMenu = new ButtonMenu();
-
+    private final Logging logging = new Logging();
     private HashMap <String, Object> commands = new HashMap<>();
 
     public CommandRunner(VariablesStorage variablesStorage) {
@@ -81,6 +82,7 @@ public class CommandRunner extends CommonMethods {
         if(variablesStorage.getDevMode()){
             commands.put(vrChatAPI.getCommand(),vrChatAPI);
             commands.put(buttonMenu.getCommand(),buttonMenu);
+            commands.put(logging.getCommand(),logging);
         }
         StorageController.getInstance().setCommandList(commands);
     }

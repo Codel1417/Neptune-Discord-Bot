@@ -1,4 +1,4 @@
 package Neptune.ServerLogging;
 
-public class BotSettingsLogging extends LoggingServerController {
+public class BotSettingsLogging {
 }
