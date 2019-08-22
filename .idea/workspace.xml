@@ -2,20 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="db4b6966-4060-4bb3-bd8f-ce2ef72a3509" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/InProgress/ServerInfo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/CommandRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/CommandRunner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/CommonMethods.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/CommonMethods.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/InProgress/Logging.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/InProgress/Logging.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Listener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Listener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/ServerLogging/BotSettingsLogging.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/ServerLogging/BotSettingsLogging.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/ServerLogging/GuildLogging.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/ServerLogging/GuildLogging.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/ServerLogging/Logging.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/ServerLogging/Logging.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/ServerLogging/LoggingServerController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/ServerLogging/Logging.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Storage/DropboxConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Storage/DropboxConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Storage/TenorConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Storage/TenorConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Storage/VariablesStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Storage/VariablesStorage.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/classes/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -52,17 +44,6 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="Neptune" type="f1a62948:ProjectNode" />
               </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="Neptune" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="Neptune" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="build" type="c8890929:TasksNode$1" />
-              </path>
             </expand>
             <select />
           </tree_state>
@@ -76,19 +57,37 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Listener.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="646">
-              <caret line="52" column="35" selection-start-line="52" selection-start-column="35" selection-end-line="52" selection-end-column="35" />
+            <state relative-caret-position="544">
+              <caret line="50" column="13" selection-start-line="50" selection-start-column="13" selection-end-line="50" selection-end-column="13" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Commands/InProgress/Logging.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/ServerLogging/GuildLogging.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1717">
-              <caret line="130" column="60" selection-start-line="130" selection-end-line="131" />
+            <state relative-caret-position="22">
+              <caret line="101" column="67" selection-start-line="101" selection-start-column="67" selection-end-line="101" selection-end-column="67" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#863#893#1" />
+                <element signature="e#2962#2993#1" />
+                <element signature="e#4730#4761#1" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Storage/DropboxConnection.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="375">
+              <caret line="45" column="48" selection-start-line="45" selection-start-column="48" selection-end-line="45" selection-end-column="48" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -97,12 +96,27 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/ServerLogging/GuildLogging.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Commands/InProgress/Logging.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="19" column="9" lean-forward="true" selection-start-line="19" selection-start-column="9" selection-end-line="19" selection-end-column="9" />
+            <state relative-caret-position="163">
+              <caret line="146" column="13" selection-start-line="146" selection-start-column="13" selection-end-line="146" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Listener.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="49" column="46" selection-start-line="49" selection-end-line="50" />
+              <folding>
+                <element signature="e#3225#3226#0" expanded="true" />
+                <element signature="e#3296#3297#0" expanded="true" />
+                <element signature="e#3367#3368#0" expanded="true" />
+                <element signature="e#3439#3440#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -178,12 +192,12 @@
         <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/src/main/java/Neptune/Storage/VariablesStorage.java" />
         <option value="$PROJECT_DIR$/src/main/java/Neptune/Commands/CommandRunner.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Neptune/Storage/DropboxConnection.java" />
         <option value="$PROJECT_DIR$/src/main/java/Neptune/Commands/CommonMethods.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Neptune/Commands/InProgress/Logging.java" />
         <option value="$PROJECT_DIR$/src/main/java/Neptune/ServerLogging/Logging.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Neptune/Listener.java" />
         <option value="$PROJECT_DIR$/src/main/java/Neptune/ServerLogging/GuildLogging.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/Storage/DropboxConnection.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/Listener.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Neptune/Commands/InProgress/Logging.java" />
       </list>
     </option>
   </component>
@@ -194,8 +208,8 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="413" />
-    <option name="y" value="-10" />
+    <option name="x" value="882" />
+    <option name="y" value="440" />
     <option name="width" value="1400" />
     <option name="height" value="920" />
   </component>
@@ -206,33 +220,34 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="Neptune" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Neptune-Discord-Bot" type="b2602c69:ProjectViewProjectNode" />
               <item name="Neptune-Discord-Bot" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
             <path>
-              <item name="Neptune" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Neptune-Discord-Bot" type="b2602c69:ProjectViewProjectNode" />
               <item name="Neptune-Discord-Bot" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Neptune" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Neptune-Discord-Bot" type="b2602c69:ProjectViewProjectNode" />
               <item name="Neptune-Discord-Bot" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
             <path>
-              <item name="Neptune" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Neptune-Discord-Bot" type="b2602c69:ProjectViewProjectNode" />
               <item name="Neptune-Discord-Bot" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Neptune" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Neptune-Discord-Bot" type="b2602c69:ProjectViewProjectNode" />
               <item name="Neptune-Discord-Bot" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
@@ -240,7 +255,7 @@
               <item name="Neptune" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Neptune" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Neptune-Discord-Bot" type="b2602c69:ProjectViewProjectNode" />
               <item name="Neptune-Discord-Bot" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
@@ -249,7 +264,37 @@
               <item name="Commands" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Neptune" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Neptune-Discord-Bot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Neptune-Discord-Bot" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="Neptune" type="462c0819:PsiDirectoryNode" />
+              <item name="Commands" type="462c0819:PsiDirectoryNode" />
+              <item name="AdminCommands" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Neptune-Discord-Bot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Neptune-Discord-Bot" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="Neptune" type="462c0819:PsiDirectoryNode" />
+              <item name="Commands" type="462c0819:PsiDirectoryNode" />
+              <item name="FunCommands" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Neptune-Discord-Bot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Neptune-Discord-Bot" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="Neptune" type="462c0819:PsiDirectoryNode" />
+              <item name="Commands" type="462c0819:PsiDirectoryNode" />
+              <item name="HelpCommands" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Neptune-Discord-Bot" type="b2602c69:ProjectViewProjectNode" />
               <item name="Neptune-Discord-Bot" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
@@ -259,7 +304,36 @@
               <item name="InProgress" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Neptune" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Neptune-Discord-Bot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Neptune-Discord-Bot" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="Neptune" type="462c0819:PsiDirectoryNode" />
+              <item name="Commands" type="462c0819:PsiDirectoryNode" />
+              <item name="PassiveCommands" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Neptune-Discord-Bot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Neptune-Discord-Bot" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="Neptune" type="462c0819:PsiDirectoryNode" />
+              <item name="Commands" type="462c0819:PsiDirectoryNode" />
+              <item name="UtilityCommands" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Neptune-Discord-Bot" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Neptune-Discord-Bot" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="Neptune" type="462c0819:PsiDirectoryNode" />
+              <item name="music" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Neptune-Discord-Bot" type="b2602c69:ProjectViewProjectNode" />
               <item name="Neptune-Discord-Bot" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
@@ -268,7 +342,7 @@
               <item name="ServerLogging" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Neptune" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Neptune-Discord-Bot" type="b2602c69:ProjectViewProjectNode" />
               <item name="Neptune-Discord-Bot" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
@@ -281,12 +355,12 @@
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="add_unversioned_files" value="$PROJECT_DIR$/NepAuth.json" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1566499967248" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15234375" />
@@ -314,7 +388,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Main (1)">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="GetAuthToken" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Neptune.Storage.GetAuthToken" />
       <module name="Neptune.main" />
@@ -343,7 +417,7 @@
     </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Neptune.Main" />
-      <module name="Neptune" />
+      <module name="codel1417Bot.Neptune.main" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="Neptune.*" />
@@ -420,11 +494,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Main" />
         <item itemvalue="Application.Main (1)" />
         <item itemvalue="Gradle.Neptune-Discord-Bot [jar]" />
         <item itemvalue="Gradle.Neptune-Discord-Bot [build]" />
         <item itemvalue="Application.GetAuthToken" />
-        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -632,19 +706,18 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
+    <frame x="-6" y="-6" width="1381" height="885" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.47994056" visible="true" weight="0.28944564" />
-      <window_info id="Structure" order="1" sideWeight="0.5200594" side_tool="true" weight="0.28624734" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4781457" visible="true" weight="0.26681784" />
+      <window_info id="Structure" order="1" sideWeight="0.5218543" side_tool="true" weight="0.26681784" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="Capture Tool" order="4" />
       <window_info id="UI Designer" order="5" />
       <window_info id="Favorites" order="6" sideWeight="0.51895994" side_tool="true" weight="0.28624734" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32936078" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49840087" weight="0.28710726" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32847682" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49840087" visible="true" weight="0.28609273" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49840087" weight="0.2708559" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -660,7 +733,7 @@
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="right" id="Google Cloud Storage" order="4" show_stripe_button="false" />
       <window_info anchor="right" id="Maven" order="5" weight="0.32995737" />
-      <window_info anchor="right" id="Gradle" order="6" weight="0.14498934" />
+      <window_info anchor="right" id="Gradle" order="6" weight="0.143613" />
       <window_info anchor="right" id="Theme Preview" order="7" />
       <window_info anchor="right" id="Capture Analysis" order="8" />
       <window_info anchor="right" id="Palette&#9;" order="9" />
@@ -894,13 +967,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/Ping.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="46" column="8" selection-start-line="46" selection-start-column="8" selection-end-line="46" selection-end-column="21" />
+        <state relative-caret-position="510">
+          <caret line="50" column="21" lean-forward="true" selection-start-line="50" selection-start-column="21" selection-end-line="50" selection-end-column="21" />
           <folding>
-            <element signature="e#955#956#0" expanded="true" />
-            <element signature="e#983#984#0" expanded="true" />
-            <element signature="e#1043#1044#0" expanded="true" />
-            <element signature="e#1071#1072#0" expanded="true" />
+            <element signature="e#1001#1002#0" expanded="true" />
+            <element signature="e#1029#1030#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -914,19 +985,6 @@
             <element signature="e#1142#1143#0" expanded="true" />
             <element signature="e#1202#1203#0" expanded="true" />
             <element signature="e#1230#1231#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/RollDie.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="51" column="8" selection-start-line="51" selection-start-column="8" selection-end-line="51" selection-end-column="21" />
-          <folding>
-            <element signature="e#1161#1162#0" expanded="true" />
-            <element signature="e#1189#1190#0" expanded="true" />
-            <element signature="e#1249#1250#0" expanded="true" />
-            <element signature="e#1277#1278#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1120,20 +1178,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/NepAuth.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="276" selection-start-column="276" selection-end-column="276" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-127">
-          <caret line="7" column="1" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/NepAuth.json" />
     <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Storage/TenorConnection.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="561">
@@ -1226,20 +1271,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Storage/DropboxConnection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="410">
-          <caret line="39" column="16" selection-start-line="39" selection-start-column="16" selection-end-line="39" selection-end-column="16" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Commands/CommandRunner.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="227">
           <caret line="84" column="55" selection-start-line="84" selection-start-column="55" selection-end-line="84" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Commands/CommonMethods.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="27" column="37" selection-start-line="27" selection-start-column="37" selection-end-line="27" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/RollDie.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="41" column="5" selection-start-line="41" selection-start-column="5" selection-end-line="41" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="50" column="13" selection-start-line="50" selection-start-column="13" selection-end-line="50" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1253,34 +1312,46 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Commands/CommonMethods.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/ServerLogging/GuildLogging.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="27" column="37" selection-start-line="27" selection-start-column="37" selection-end-line="27" selection-end-column="37" />
+        <state relative-caret-position="22">
+          <caret line="101" column="67" selection-start-line="101" selection-start-column="67" selection-end-line="101" selection-end-column="67" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#863#893#1" />
+            <element signature="e#2962#2993#1" />
+            <element signature="e#4730#4761#1" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Listener.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Storage/DropboxConnection.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="646">
-          <caret line="52" column="35" selection-start-line="52" selection-start-column="35" selection-end-line="52" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Commands/InProgress/Logging.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1717">
-          <caret line="130" column="60" selection-start-line="130" selection-end-line="131" />
+        <state relative-caret-position="375">
+          <caret line="45" column="48" selection-start-line="45" selection-start-column="48" selection-end-line="45" selection-end-column="48" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/ServerLogging/GuildLogging.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Listener.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="19" column="9" lean-forward="true" selection-start-line="19" selection-start-column="9" selection-end-line="19" selection-end-column="9" />
+        <state relative-caret-position="180">
+          <caret line="49" column="46" selection-start-line="49" selection-end-line="50" />
+          <folding>
+            <element signature="e#3225#3226#0" expanded="true" />
+            <element signature="e#3296#3297#0" expanded="true" />
+            <element signature="e#3367#3368#0" expanded="true" />
+            <element signature="e#3439#3440#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Neptune/Commands/InProgress/Logging.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="146" column="13" selection-start-line="146" selection-start-column="13" selection-end-line="146" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

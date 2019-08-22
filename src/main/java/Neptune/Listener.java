@@ -11,8 +11,10 @@ import net.dv8tion.jda.core.events.channel.text.GenericTextChannelEvent;
 import net.dv8tion.jda.core.events.channel.voice.GenericVoiceChannelEvent;
 import net.dv8tion.jda.core.events.emote.GenericEmoteEvent;
 import net.dv8tion.jda.core.events.guild.GenericGuildEvent;
+import net.dv8tion.jda.core.events.guild.member.GenericGuildMemberEvent;
 import net.dv8tion.jda.core.events.guild.voice.GenericGuildVoiceEvent;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.core.events.message.guild.GenericGuildMessageEvent;
 import net.dv8tion.jda.core.events.role.GenericRoleEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
@@ -44,13 +46,20 @@ public class Listener extends ListenerAdapter {
     //user actions
     public void onGenericGuild(GenericGuildEvent event){
         LinkedTreeMap<String, Object> guildSettings = (LinkedTreeMap<String, Object>) StorageController.getInstance().getGuild(event.getGuild());
-        LinkedTreeMap<String, String> LoggingInfo = (LinkedTreeMap<String, String>) guildSettings.getOrDefault("Logging", new LinkedTreeMap<String, String>());        System.out.println("onGenericGuild::"+event.toString());
+        LinkedTreeMap<String, String> LoggingInfo = (LinkedTreeMap<String, String>) guildSettings.getOrDefault("Logging", new LinkedTreeMap<String, String>());
+        System.out.println("onGenericGuild::"+event.toString());
         String LoggingChannel = LoggingInfo.getOrDefault("LoggingChannel","");
 
         if(LoggingChannel.equalsIgnoreCase("")) return;
 
         if(event instanceof GenericGuildVoiceEvent){
             guildLogging.GuildVoice((GenericGuildVoiceEvent) event,LoggingInfo);
+        }
+        else if(event instanceof GenericGuildMessageEvent){
+            guildLogging.GuildText((GenericGuildMessageEvent) event,LoggingInfo);
+        }
+        else if(event instanceof GenericGuildMemberEvent){
+
         }
 
     }

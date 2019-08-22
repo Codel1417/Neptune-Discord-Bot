@@ -28,17 +28,22 @@ public class DropboxConnection implements Runnable {
     public void run() {
         while (true) {
             //upload
+            try {
+                Thread.sleep(100000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
             File file = new File("NepDB.db");
             System.out.println("Starting Backup");
 
 
             try (InputStream in = new FileInputStream(file)) {
-                Thread.sleep(100000);
                 FileMetadata metadata = client.files().uploadBuilder("/NepDB.db").withMode(WriteMode.OVERWRITE).uploadAndFinish(in);
                 if(metadata.getId() != null)
                 System.out.println("Backup Complete");
 
-            } catch (DbxException | IOException | InterruptedException e) {
+            } catch (DbxException | IOException  e) {
                 e.printStackTrace();
             }
         }
