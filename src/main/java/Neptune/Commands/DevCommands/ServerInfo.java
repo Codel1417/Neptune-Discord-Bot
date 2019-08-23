@@ -1,12 +1,11 @@
-package Neptune.Commands.AdminCommands;
+package Neptune.Commands.DevCommands;
 
 import Neptune.Commands.CommandInterface;
 import Neptune.Commands.commandCategories;
 import Neptune.Storage.VariablesStorage;
 import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Channel;
-import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import org.apache.commons.io.FileUtils;
 
 import java.awt.*;
 
@@ -23,12 +22,12 @@ public class ServerInfo implements CommandInterface {
 
     @Override
     public String getDescription() {
-        return "Displays basic server info and channels neptune can view";
+        return "Some stats from the server hosting Neptune";
     }
 
     @Override
     public commandCategories getCategory() {
-        return commandCategories.Admin;
+        return commandCategories.Utility;
     }
 
     @Override
@@ -38,17 +37,17 @@ public class ServerInfo implements CommandInterface {
 
     @Override
     public boolean getRequireManageServer() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean getRequireOwner() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean getHideCommand() {
-        return false;
+        return true;
     }
 
     @Override
@@ -59,22 +58,11 @@ public class ServerInfo implements CommandInterface {
     @Override
     public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
         EmbedBuilder embedBuilder = new EmbedBuilder();
-        StringBuilder ChannelList = new StringBuilder();
-        StringBuilder RoleList = new StringBuilder();
-        for (Channel channel : event.getGuild().getTextChannels()){
-            ChannelList.append(channel.getName()).append("\n");
-        }
-        for (Role role : event.getGuild().getRoles()){
-            RoleList.append(role.getName()).append("\n");
-        }
-
         embedBuilder.setTitle(getName());
         embedBuilder.setColor(Color.MAGENTA);
-        embedBuilder.addField("Server Owner", event.getGuild().getOwner().getAsMention(),true);
-        embedBuilder.addField("Server Region",event.getGuild().getRegion().toString(),true);
-        embedBuilder.addField("Members", String.valueOf(event.getGuild().getMembers().size()),true);
-        embedBuilder.addField("Channels", ChannelList.toString(),true);
-        embedBuilder.addField("Roles",RoleList.toString(),true);
+        embedBuilder.addField("Num of Cores", String.valueOf(Runtime.getRuntime().availableProcessors()),true);
+        String usedMem = FileUtils.byteCountToDisplaySize(Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory());
+        embedBuilder.addField("Memory used",usedMem + "/"+ FileUtils.byteCountToDisplaySize(Runtime.getRuntime().totalMemory()),true);
         event.getChannel().sendMessage(embedBuilder.build()).queue();
         return false;
     }

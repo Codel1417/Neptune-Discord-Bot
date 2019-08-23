@@ -15,8 +15,8 @@ public abstract class CommonMethods {
         return returnText;
     }
     protected String getEnabledDisabledIcon(String value){
-        String enabled = "✅";
-        String disabled = "❌";
+        String enabled = "\u2705";
+        String disabled = "\u274C";
 
         if(value.equalsIgnoreCase("enabled")){
             return enabled;
@@ -24,8 +24,8 @@ public abstract class CommonMethods {
         else return disabled;
     }
     protected String getEnabledDisabledIconText(String value){
-        String enabled = "✅ Enabled";
-        String disabled = "❌ Disabled";
+        String enabled = "\u2705 Enabled";
+        String disabled = "\u274C Disabled";
 
         if(value.equalsIgnoreCase("enabled")){
             return enabled;

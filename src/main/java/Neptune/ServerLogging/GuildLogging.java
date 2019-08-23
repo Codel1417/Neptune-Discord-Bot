@@ -3,9 +3,10 @@ package Neptune.ServerLogging;
 import com.google.gson.internal.LinkedTreeMap;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.events.guild.member.*;
+import net.dv8tion.jda.core.events.guild.update.GenericGuildUpdateEvent;
+import net.dv8tion.jda.core.events.guild.update.GuildUpdateNameEvent;
 import net.dv8tion.jda.core.events.guild.voice.GenericGuildVoiceEvent;
 import net.dv8tion.jda.core.events.guild.voice.GuildVoiceJoinEvent;
 import net.dv8tion.jda.core.events.guild.voice.GuildVoiceLeaveEvent;
@@ -101,6 +102,9 @@ public class GuildLogging {
         else if (event instanceof GuildMemberRoleAddEvent){
             GuildMember((GuildMemberRoleAddEvent) event,textChannel);
         }
+        else if(event instanceof GuildMemberRoleRemoveEvent){
+            GuildMember((GuildMemberRoleRemoveEvent) event,textChannel);
+        }
     }
     private void GuildMember(GuildMemberJoinEvent event, TextChannel textChannel){
         EmbedBuilder embedBuilder =  getEmbedBuilder(event.getMember());
@@ -114,19 +118,38 @@ public class GuildLogging {
         embedBuilder.setColor(Color.RED);
         textChannel.sendMessage(embedBuilder.build()).queue();
     }
+
     private void GuildMember(GuildMemberNickChangeEvent event, TextChannel textChannel){
         EmbedBuilder embedBuilder =  getEmbedBuilder(event.getMember());
-        embedBuilder.setDescription(event.getMember().getAsMention() + " Changed their nickname from ``" + event.getPrevNick() +"`` to ``"+ event.getNewNick() + "``");
+        String oldName = event.getPrevNick();
+        String newName = event.getNewNick();
+        if (oldName == null){
+            embedBuilder.setDescription(event.getMember().getAsMention() + " Set their nickname to ``"+ newName + "``");
+        }
+        else if (newName == null){
+            embedBuilder.setDescription(event.getMember().getAsMention() + " Disabled their nickname");
+        }
+        else embedBuilder.setDescription(event.getMember().getAsMention() + " Changed their nickname from ``" + oldName +"`` to ``"+ newName + "``");
         textChannel.sendMessage(embedBuilder.build()).queue();
     }
     private void GuildMember(GuildMemberRoleAddEvent event, TextChannel textChannel){
         EmbedBuilder embedBuilder =  getEmbedBuilder(event.getMember());
-        event.getRoles().get(0);
-        embedBuilder.setDescription("Role Added" + event.getRoles().get(0).getName());
+        embedBuilder.setDescription("Role Added ``" + event.getRoles().get(0).getName()+ "``");
         textChannel.sendMessage(embedBuilder.build()).queue();
     }
+    private void GuildMember(GuildMemberRoleRemoveEvent event, TextChannel textChannel){
+        EmbedBuilder embedBuilder =  getEmbedBuilder(event.getMember());
+        embedBuilder.setDescription("Role Removed ``" + event.getRoles().get(0).getName()+ "``");
+        textChannel.sendMessage(embedBuilder.build()).queue();
+    }
+    public void GuildSettings(GenericGuildUpdateEvent event, LinkedTreeMap<String, String> LoggingOptions){
+        TextChannel textChannel = event.getGuild().getTextChannelById(LoggingOptions.get("LoggingChannel"));
 
-
+        //check if logging is enabled
+        if (!LoggingOptions.getOrDefault("LogServerActivity","disabled").equalsIgnoreCase("enabled")){
+            return;
+        }
+    }
 
     private EmbedBuilder getEmbedBuilder(Member member){
         //default embedBuilder Setting
@@ -140,6 +163,12 @@ public class GuildLogging {
         //default embedBuilder Setting
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setFooter("Message ID: " + messageID,null);
+        embedBuilder.setColor(Color.MAGENTA);
+        return embedBuilder;
+    }
+    private EmbedBuilder getEmbedBuilder(){
+        //default embedBuilder Setting
+        EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setColor(Color.MAGENTA);
         return embedBuilder;
     }

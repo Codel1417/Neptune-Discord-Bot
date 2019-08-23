@@ -33,7 +33,7 @@ public class Stats implements CommandInterface {
 
     @Override
     public boolean getRequireManageServer() {
-        return true;
+        return false;
     }
 
     @Override

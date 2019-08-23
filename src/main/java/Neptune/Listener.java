@@ -12,6 +12,7 @@ import net.dv8tion.jda.core.events.channel.voice.GenericVoiceChannelEvent;
 import net.dv8tion.jda.core.events.emote.GenericEmoteEvent;
 import net.dv8tion.jda.core.events.guild.GenericGuildEvent;
 import net.dv8tion.jda.core.events.guild.member.GenericGuildMemberEvent;
+import net.dv8tion.jda.core.events.guild.update.GenericGuildUpdateEvent;
 import net.dv8tion.jda.core.events.guild.voice.GenericGuildVoiceEvent;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.events.message.guild.GenericGuildMessageEvent;
@@ -59,9 +60,11 @@ public class Listener extends ListenerAdapter {
             guildLogging.GuildText((GenericGuildMessageEvent) event,LoggingInfo);
         }
         else if(event instanceof GenericGuildMemberEvent){
-
+            guildLogging.GuildMember((GenericGuildMemberEvent) event,LoggingInfo);
         }
-
+        else if (event instanceof GenericGuildUpdateEvent){
+            guildLogging.GuildSettings((GenericGuildUpdateEvent) event,LoggingInfo);
+        }
     }
 
     //text channel changes

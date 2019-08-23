@@ -4,10 +4,11 @@ import Neptune.Commands.AdminCommands.AdminOptions;
 import Neptune.Commands.FunCommands.*;
 import Neptune.Commands.FunCommands.Imgur;
 import Neptune.Commands.FunCommands.GreatSleepKing;
-import Neptune.Commands.AdminCommands.ServerInfo;
+import Neptune.Commands.AdminCommands.GuildInfo;
 import Neptune.Commands.HelpCommands.Help;
 import Neptune.Commands.InProgress.ButtonMenu;
-import Neptune.Commands.InProgress.Logging;
+import Neptune.Commands.AdminCommands.Logging;
+import Neptune.Commands.DevCommands.ServerInfo;
 import Neptune.Commands.UtilityCommands.MinecraftServerStatus;
 import Neptune.Commands.InProgress.VRChatAPI;
 import Neptune.Commands.UtilityCommands.About;
@@ -48,9 +49,10 @@ public class CommandRunner extends CommonMethods {
     private final Attack attack = new Attack();
     private final Ping ping = new Ping();
     private final MinecraftServerStatus minecraftServerStatus = new MinecraftServerStatus();
-    private final ServerInfo serverInfo = new ServerInfo();
+    private final GuildInfo guildInfo = new GuildInfo();
     private final ButtonMenu buttonMenu = new ButtonMenu();
     private final Logging logging = new Logging();
+    private final ServerInfo serverInfo = new ServerInfo();
     private HashMap <String, Object> commands = new HashMap<>();
 
     public CommandRunner(VariablesStorage variablesStorage) {
@@ -76,13 +78,15 @@ public class CommandRunner extends CommonMethods {
         commands.put(attack.getCommand(),attack);
         commands.put(ping.getCommand(),ping);
         commands.put(minecraftServerStatus.getCommand(),minecraftServerStatus);
-        commands.put(serverInfo.getCommand(),serverInfo);
+        commands.put(guildInfo.getCommand(), guildInfo);
         commands.put(help.getCommand(),help);
+        commands.put(logging.getCommand(),logging);
+        commands.put(serverInfo.getCommand(),serverInfo);
+
         //dev commands
         if(variablesStorage.getDevMode()){
             commands.put(vrChatAPI.getCommand(),vrChatAPI);
             commands.put(buttonMenu.getCommand(),buttonMenu);
-            commands.put(logging.getCommand(),logging);
         }
         StorageController.getInstance().setCommandList(commands);
     }
@@ -94,8 +98,10 @@ public class CommandRunner extends CommonMethods {
             CommandInterface command = (CommandInterface) commands.get(CommandArray[0]);
             //TODO: add error message
             //Permission Check
-            if (command.getRequireManageServer() && !event.getMember().hasPermission(Permission.MANAGE_SERVER)) {return true;}
-            if (command.getRequireOwner() && !event.getAuthor().getId().matches(variablesStorage.getOwnerID())) {return true;}
+            if(!variablesStorage.getOwnerID().equalsIgnoreCase(event.getAuthor().getId())){
+                if (command.getRequireManageServer() && !event.getMember().hasPermission(Permission.MANAGE_SERVER)) {return true;}
+                if (command.getRequireOwner() && !event.getAuthor().getId().matches(variablesStorage.getOwnerID())) {return true;}
+            }
             //analytics
             //storageController.incrementAnalyticForCommand(command.getName().toLowerCase().trim());
             Log.info("    Running Command: " + command.getName());
