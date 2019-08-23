@@ -48,7 +48,6 @@ public class Listener extends ListenerAdapter {
     public void onGenericGuild(GenericGuildEvent event){
         LinkedTreeMap<String, Object> guildSettings = (LinkedTreeMap<String, Object>) StorageController.getInstance().getGuild(event.getGuild());
         LinkedTreeMap<String, String> LoggingInfo = (LinkedTreeMap<String, String>) guildSettings.getOrDefault("Logging", new LinkedTreeMap<String, String>());
-        System.out.println("onGenericGuild::"+event.toString());
         String LoggingChannel = LoggingInfo.getOrDefault("LoggingChannel","");
 
         if(LoggingChannel.equalsIgnoreCase("")) return;
@@ -64,6 +63,9 @@ public class Listener extends ListenerAdapter {
         }
         else if (event instanceof GenericGuildUpdateEvent){
             guildLogging.GuildSettings((GenericGuildUpdateEvent) event,LoggingInfo);
+        }
+        else {
+            System.out.println("onGenericGuild::"+event.toString());
         }
     }
 

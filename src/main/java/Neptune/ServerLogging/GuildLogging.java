@@ -97,6 +97,17 @@ public class GuildLogging extends ConvertJSON {
             message.put("AuthorName", ((GuildMessageReceivedEvent) event).getAuthor().getName());
             message.put("AuthorDiscriminator", ((GuildMessageReceivedEvent) event).getAuthor().getDiscriminator());
             message.put("AuthorAvatarUrl",((GuildMessageReceivedEvent) event).getAuthor().getEffectiveAvatarUrl());
+
+            //TODO: Handle single image for thumbnail
+            //TODO update message on edit, maybe previousMessage entry;
+            //get list of media
+            StringBuilder attachmentsList = new StringBuilder();
+            for (Message.Attachment attachment : ((GuildMessageReceivedEvent) event).getMessage().getAttachments()){
+                attachmentsList.append(attachment.getUrl()).append("\n");
+            }
+            if(!attachmentsList.toString().equalsIgnoreCase("")){
+                message.put("Attachments",attachmentsList.toString());
+            }
             channelLog.add(message);
 
             ChannelLogJson = toJSON(channelLog);
@@ -131,9 +142,9 @@ public class GuildLogging extends ConvertJSON {
         EmbedBuilder embedBuilder =  getEmbedBuilder(event.getMessageId());
         embedBuilder.setDescription("Message deleted in " + event.getChannel().getAsMention());
 
-        if(!previousMessage.getOrDefault("messageContent","").equalsIgnoreCase("")){
-            embedBuilder.setAuthor(previousMessage.get("AuthorName") +"#"+ previousMessage.get("AuthorDiscriminator"),null,previousMessage.getOrDefault("AuthorAvatarUrl",null));
-            embedBuilder.addField("Deleted Message",previousMessage.getOrDefault("messageContent",""),false);
+        if (previousMessage != null && !previousMessage.getOrDefault("messageContent", "").equalsIgnoreCase("")) {
+            embedBuilder.setAuthor(previousMessage.get("AuthorName") + "#" + previousMessage.get("AuthorDiscriminator"), null, previousMessage.getOrDefault("AuthorAvatarUrl", null));
+            embedBuilder.addField("Deleted Message", previousMessage.getOrDefault("messageContent", ""), false);
         }
 
         embedBuilder.setColor(Color.RED);
