@@ -57,7 +57,7 @@ public class Listener extends ListenerAdapter {
             guildLogging.GuildVoice((GenericGuildVoiceEvent) event,LoggingInfo);
         }
         else if(event instanceof GenericGuildMessageEvent){
-            guildLogging.GuildText((GenericGuildMessageEvent) event,LoggingInfo);
+            guildLogging.GuildText((GenericGuildMessageEvent) event,LoggingInfo, guildSettings);
         }
         else if(event instanceof GenericGuildMemberEvent){
             guildLogging.GuildMember((GenericGuildMemberEvent) event,LoggingInfo);
