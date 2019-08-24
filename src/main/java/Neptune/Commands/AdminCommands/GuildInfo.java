@@ -18,7 +18,7 @@ public class GuildInfo implements CommandInterface {
 
     @Override
     public String getCommand() {
-        return "Guildinfo";
+        return "guildinfo";
     }
 
     @Override

@@ -152,7 +152,7 @@ public class Logging extends CommonMethods implements CommandInterface {
         logOptionsMessage.append("Text Activity ").append(getEnabledDisabledIcon(LoggingInfo.getOrDefault("LogTextActivity","disabled"))).append("\n");
         logOptionsMessage.append("Voice Activity" ).append(getEnabledDisabledIcon(LoggingInfo.getOrDefault("LogVoiceActivity","disabled"))).append("\n");
         logOptionsMessage.append("Member Activity" ).append(getEnabledDisabledIcon(LoggingInfo.getOrDefault("LogMemberActivity","disabled"))).append("\n");
-        //logOptionsMessage.append("Server Changes ").append(getEnabledDisabledIcon(LoggingInfo.getOrDefault("LogServerActivity","disabled"))).append("\n");
+        logOptionsMessage.append("Server Changes ").append(getEnabledDisabledIcon(LoggingInfo.getOrDefault("LogServerActivity","disabled"))).append("\n");
         //logOptionsMessage.append("Neptune Changes").append(getEnabledDisabledIcon(LoggingInfo.getOrDefault("LogSelfActivity","disabled"))).append("\n");
 
         embedBuilder.addField("Logging Options",logOptionsMessage.toString(),false);
@@ -163,7 +163,7 @@ public class Logging extends CommonMethods implements CommandInterface {
         embedBuilder.addField("Text Activity Logging",prefix + " text <enabled/disabled>",true);
         embedBuilder.addField("Voice Activity Logging",prefix + " voice <enabled/disabled>",true);
         embedBuilder.addField("Member Activity Logging",prefix + " member <enabled/disabled>",true);
-        //embedBuilder.addField("Server Changes Logging",prefix + " server <enabled/disabled>",true);
+        embedBuilder.addField("Server Changes Logging",prefix + " server <enabled/disabled>",true);
         //embedBuilder.addField("Neptune Settings Logging",prefix + " neptune <enabled/disabled>",true);
 
         event.getChannel().sendMessage(embedBuilder.build()).queue();
