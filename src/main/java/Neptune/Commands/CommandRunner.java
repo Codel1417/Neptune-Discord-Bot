@@ -6,7 +6,6 @@ import Neptune.Commands.FunCommands.Imgur;
 import Neptune.Commands.FunCommands.GreatSleepKing;
 import Neptune.Commands.AdminCommands.GuildInfo;
 import Neptune.Commands.HelpCommands.Help;
-import Neptune.Commands.InProgress.ButtonMenu;
 import Neptune.Commands.AdminCommands.Logging;
 import Neptune.Commands.DevCommands.ServerInfo;
 import Neptune.Commands.UtilityCommands.MinecraftServerStatus;
@@ -50,7 +49,6 @@ public class CommandRunner extends CommonMethods {
     private final Ping ping = new Ping();
     private final MinecraftServerStatus minecraftServerStatus = new MinecraftServerStatus();
     private final GuildInfo guildInfo = new GuildInfo();
-    private final ButtonMenu buttonMenu = new ButtonMenu();
     private final Logging logging = new Logging();
     private final ServerInfo serverInfo = new ServerInfo();
     private HashMap <String, Object> commands = new HashMap<>();
@@ -86,7 +84,6 @@ public class CommandRunner extends CommonMethods {
         //dev commands
         if(variablesStorage.getDevMode()){
             commands.put(vrChatAPI.getCommand(),vrChatAPI);
-            commands.put(buttonMenu.getCommand(),buttonMenu);
         }
         StorageController.getInstance().setCommandList(commands);
     }

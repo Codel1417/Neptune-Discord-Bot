@@ -72,13 +72,20 @@ public class Listener extends ListenerAdapter {
     //text channel changes
     @Override
     public void onGenericTextChannel(GenericTextChannelEvent event){
-        System.out.println("onGenericTextChannel:: "+event.toString());
+        LinkedTreeMap<String, Object> guildSettings = (LinkedTreeMap<String, Object>) StorageController.getInstance().getGuild(event.getGuild());
+        LinkedTreeMap<String, String> LoggingInfo = (LinkedTreeMap<String, String>) guildSettings.getOrDefault("Logging", new LinkedTreeMap<String, String>());
+        String LoggingChannel = LoggingInfo.getOrDefault("LoggingChannel","");
+        if(LoggingChannel.equalsIgnoreCase("")) return;
+        guildLogging.GuildTextChannel(event,LoggingInfo);
     }
     //voice channel changes
     @Override
     public void onGenericVoiceChannel(GenericVoiceChannelEvent event){
-
-        System.out.println("onGenericVoiceChannel:: "+event.toString());
+        LinkedTreeMap<String, Object> guildSettings = (LinkedTreeMap<String, Object>) StorageController.getInstance().getGuild(event.getGuild());
+        LinkedTreeMap<String, String> LoggingInfo = (LinkedTreeMap<String, String>) guildSettings.getOrDefault("Logging", new LinkedTreeMap<String, String>());
+        String LoggingChannel = LoggingInfo.getOrDefault("LoggingChannel","");
+        if(LoggingChannel.equalsIgnoreCase("")) return;
+        guildLogging.GuildVoiceChannel(event,LoggingInfo);
     }
     @Override
     public void onGenericCategory(GenericCategoryEvent event){
