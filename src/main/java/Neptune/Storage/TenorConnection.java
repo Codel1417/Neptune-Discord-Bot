@@ -4,8 +4,7 @@ import com.google.gson.internal.LinkedTreeMap;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
+
 import java.net.URL;
 
 public class TenorConnection extends ConvertJSON{
@@ -15,7 +14,7 @@ public class TenorConnection extends ConvertJSON{
         this.API_KEY = API_KEY;
     }
 
-    public String getImage(String SearchTerm){
+    public String getingleImage(String SearchTerm){
         String returnURL;
         String resultLimit = "25";
         final String url = String.format("https://api.tenor.com/v1/search?q=%1$s&key=%2$s&limit=%3$s",

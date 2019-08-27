@@ -9,6 +9,7 @@ public class SQLiteConnection implements StorageCommands {
     private String DatabaseURL = "jdbc:sqlite:NepDB.db";
     private final String TableName = "Neptune";
     SQLiteConnection(){
+        System.out.println("Init SQLite");
         try {
             Connection connection = DriverManager.getConnection(DatabaseURL);
             connection.createStatement().execute("CREATE TABLE IF NOT EXISTS " + TableName + "(" +
@@ -26,6 +27,12 @@ public class SQLiteConnection implements StorageCommands {
     public boolean addData(String Id, String Data) throws MissingDataException {
         try {
             if (Objects.equals(Data, "")) throw new MissingDataException("No Data to add to database");
+            System.out.println(
+                    "Adding New Item to Database \n" +
+                    "   ID: " + Id +"\n" +
+                    "   Data: " + Data + "\n" +
+                    "   Table: " + TableName);
+
             Connection connection = DriverManager.getConnection(DatabaseURL);
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO "+ TableName +"(ID, Data) VALUES(?,?)");
             preparedStatement.setString(1, Id);
@@ -35,22 +42,25 @@ public class SQLiteConnection implements StorageCommands {
             return true;
         } catch (SQLException e) {
             if(e.getErrorCode() == 19){
-                System.out.println("Data Exists :)");
+                System.out.println("    Data Exists :)");
                 return true;
             }
             else{
-                System.out.println("Error Code= "+ e.getErrorCode());
+                System.out.println("    Error Code= "+ e.getErrorCode());
                 e.printStackTrace();
             }
             return false;
         }
     }
 
-
     @Override
     public String getData(String Id){
         ResultSet resultSet;
         try {
+            System.out.println(
+                    "Getting Item from Database \n" +
+                            "   ID: " + Id +"\n" +
+                            "   Table: " + TableName);
             Connection connection = DriverManager.getConnection(DatabaseURL);
             resultSet = connection.prepareStatement("SELECT ID, Data FROM "+ TableName +" Where ID = " + Id).executeQuery();
             String result = resultSet.getString("Data");
@@ -66,6 +76,12 @@ public class SQLiteConnection implements StorageCommands {
     public boolean updateData(String Id, String Data) throws MissingDataException {
         if (Data == "") throw new MissingDataException("No Data to add to database");
         try {
+            System.out.println(
+                    "Updating Item In Database \n" +
+                            "   ID: " + Id +"\n" +
+                            "   Data: " + Data + "\n" +
+                            "   Table: " + TableName);
+
             Connection connection = DriverManager.getConnection(DatabaseURL);
             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE "+TableName+" SET Data = ? WHERE id = " + Id);
             preparedStatement.setString(1,Data);

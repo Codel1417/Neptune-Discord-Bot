@@ -122,7 +122,6 @@ public class GuildLogging extends ConvertJSON {
         } else if (event instanceof GuildMessageDeleteEvent) {
             GuildText((GuildMessageDeleteEvent) event, textChannel, channelLog);
         }
-
     }
 
     private ArrayList<LinkedTreeMap<String, String>> ChannelMessageStore(Message eventMessage, ArrayList<LinkedTreeMap<String, String>> channelLog) {

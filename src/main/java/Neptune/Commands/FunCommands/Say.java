@@ -96,6 +96,7 @@ public class Say implements CommandInterface {
 
         if (event.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_MANAGE)) {
             try {
+                System.out.println("        Deleting Command Message");
                 event.getMessage().delete().queue();
             } catch (IllegalStateException | InsufficientPermissionException ignored) {
             }
