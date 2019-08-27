@@ -126,9 +126,10 @@ public class GuildLogging extends ConvertJSON {
     }
 
     private ArrayList<LinkedTreeMap<String, String>> ChannelMessageStore(Message eventMessage, ArrayList<LinkedTreeMap<String, String>> channelLog) {
-        while (channelLog.size() > 500) {
+        while (channelLog.size() > 1000) {
             channelLog.remove(0);
         }
+
         boolean update = false;
         LinkedTreeMap<String, String> message = null;
         for (LinkedTreeMap<String, String> loggedMessage : channelLog) {
@@ -145,18 +146,16 @@ public class GuildLogging extends ConvertJSON {
         }
 
         message.put("ID", eventMessage.getId());
-        message.put("messageContent", eventMessage.getContentDisplay());
         if (update) {
-            message.put("previousMessage", eventMessage.getContentDisplay());
+            message.put("previousMessage", message.getOrDefault("messageContent",""));
         }
+        message.put("messageContent", eventMessage.getContentDisplay());
         message.put("TextChannelID", eventMessage.getChannel().getId());
         message.put("AuthorID", eventMessage.getAuthor().getId());
         message.put("AuthorName", eventMessage.getAuthor().getName());
         message.put("isBot", String.valueOf(eventMessage.getAuthor().isBot()));
         message.put("AuthorDiscriminator", eventMessage.getAuthor().getDiscriminator());
         message.put("AuthorAvatarUrl", eventMessage.getAuthor().getEffectiveAvatarUrl());
-        //TODO: Handle single image for thumbnail
-        //TODO update message on edit, maybe previousMessage entry;
 
         //get list of media
         StringBuilder attachmentsList = new StringBuilder();
