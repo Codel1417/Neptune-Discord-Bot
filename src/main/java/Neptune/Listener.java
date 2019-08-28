@@ -101,10 +101,6 @@ public class Listener extends ListenerAdapter {
         System.out.println("onGenericEmote:: "+event.toString());
     }
 
-    @Override
-    public void onReady(ReadyEvent event){
-
-    }
 }
 
 

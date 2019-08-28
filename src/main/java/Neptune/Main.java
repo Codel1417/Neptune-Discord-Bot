@@ -39,6 +39,7 @@ public class Main extends ListenerAdapter {
         dropboxConnectionThread.start();
 
 
+
         final boolean useSharding = false;
         Log.log(Level.CONFIG,"Starting");
         if (variablesStorage.getDevMode()) Log.log(Level.WARNING,"WARNING! DEV MODE ENABLED!!!");
@@ -48,7 +49,8 @@ public class Main extends ListenerAdapter {
         builder.addEventListener(new Listener(variablesStorage));
         builder.addEventListener(new DM_ImageDownload());
         builder.addEventListener(new guildListener(variablesStorage));
-        builder.setGame(Game.playing("!Nep Help"));
+        builder.addEventListener((new CycleGameStatus()));
+        //builder.setGame(Game.playing("!Nep Help"));
         builder.setToken(token);
         builder.setWebsocketFactory(new WebSocketFactory().setVerifyHostname(false));
         try {
