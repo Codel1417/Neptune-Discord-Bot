@@ -6,6 +6,7 @@ import Neptune.Storage.VariablesStorage;
 import com.google.gson.internal.LinkedTreeMap;
 import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.entities.TextChannel;
+import net.dv8tion.jda.core.events.ReadyEvent;
 import net.dv8tion.jda.core.events.channel.category.GenericCategoryEvent;
 import net.dv8tion.jda.core.events.channel.text.GenericTextChannelEvent;
 import net.dv8tion.jda.core.events.channel.voice.GenericVoiceChannelEvent;
@@ -98,6 +99,11 @@ public class Listener extends ListenerAdapter {
     @Override
     public void onGenericEmote(GenericEmoteEvent event){
         System.out.println("onGenericEmote:: "+event.toString());
+    }
+
+    @Override
+    public void onReady(ReadyEvent event){
+
     }
 }
 
