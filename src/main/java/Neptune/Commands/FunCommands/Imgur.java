@@ -138,8 +138,9 @@ public class Imgur extends CommonMethods implements CommandInterface {
             EmbedBuilder embedBuilder = new EmbedBuilder();
             embedBuilder.setImage(ImageURL)
                     .setColor(Color.MAGENTA)
+                    .setTitle("Imgur")
                     .setDescription("I Found this for you")
-                    .setTitle("Imgur");
+                    .setFooter("Powered By Imgur",null);
             event.getChannel().sendMessage(embedBuilder.build()).queue();
             return true;
         } catch (Exception e){
