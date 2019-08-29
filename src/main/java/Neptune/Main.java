@@ -7,12 +7,22 @@ import Neptune.Storage.GetAuthToken;
 import Neptune.Storage.VariablesStorage;
 
 import com.neovisionaries.ws.client.WebSocketFactory;
+import net.dv8tion.jda.bot.entities.impl.JDABotImpl;
+import net.dv8tion.jda.bot.sharding.DefaultShardManagerBuilder;
+import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
+import net.dv8tion.jda.core.JDAInfo;
 import net.dv8tion.jda.core.entities.Game;
+import net.dv8tion.jda.core.entities.impl.JDAImpl;
+import net.dv8tion.jda.core.events.guild.GenericGuildEvent;
+import net.dv8tion.jda.core.hooks.InterfacedEventManager;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import net.dv8tion.jda.core.utils.SessionController;
 
 import javax.security.auth.login.LoginException;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,31 +50,25 @@ public class Main extends ListenerAdapter {
 
 
 
-        final boolean useSharding = false;
-        Log.log(Level.CONFIG,"Starting");
+        System.out.println("Starting JDA");
         if (variablesStorage.getDevMode()) Log.log(Level.WARNING,"WARNING! DEV MODE ENABLED!!!");
 
-        JDABuilder builder = new JDABuilder(BOT);
+        DefaultShardManagerBuilder builder = new DefaultShardManagerBuilder();
+        //JDABuilder builder = new JDABuilder(BOT);
         String token = variablesStorage.getDiscordBotToken();
-        builder.addEventListener(new Listener(variablesStorage));
-        builder.addEventListener(new DM_ImageDownload());
-        builder.addEventListener(new guildListener(variablesStorage));
-        builder.addEventListener((new CycleGameStatus()));
-        //builder.setGame(Game.playing("!Nep Help"));
+
+        builder.setEventManager(new InterfacedEventManager());
+
+        builder.addEventListeners(new Listener(variablesStorage));
+        builder.addEventListeners(new DM_ImageDownload());
+        builder.addEventListeners(new guildListener(variablesStorage));
+        //builder.addEventListeners(new CycleGameStatus());
+        builder.setGame(Game.playing("!Nep Help"));
         builder.setToken(token);
+
         builder.setWebsocketFactory(new WebSocketFactory().setVerifyHostname(false));
         try {
-            if (useSharding) {
-                int shardTotal = 5;
-                Log.info("Sharding Enabled");
-                for (int i = 0; i < shardTotal; i++)
-                {
-                    builder.useSharding(i, shardTotal).buildAsync();
-                }
-            }
-            else {
-                builder.buildAsync();
-            }
+            builder.build();
         } catch (LoginException e) {
             e.printStackTrace();
         }

@@ -2,6 +2,7 @@ package Neptune.Commands;
 
 import Neptune.Commands.AdminCommands.AdminOptions;
 import Neptune.Commands.FunCommands.*;
+import Neptune.Commands.FunCommands.GIF.*;
 import Neptune.Commands.FunCommands.Imgur;
 import Neptune.Commands.FunCommands.GreatSleepKing;
 import Neptune.Commands.AdminCommands.GuildInfo;
@@ -26,6 +27,7 @@ import java.util.logging.Logger;
 //TODO: Make commands shard aware
 //handles neptune base commands
 public class CommandRunner extends CommonMethods {
+
     private final Nep NepCountCommand;
     private final VariablesStorage VariableStorageRead;
     private final Say NepSayCommand;
@@ -52,6 +54,12 @@ public class CommandRunner extends CommonMethods {
     private final Logging logging = new Logging();
     private final ServerInfo serverInfo = new ServerInfo();
     private HashMap <String, Object> commands = new HashMap<>();
+    private final Pat pat = new Pat();
+    private final Hug hug = new Hug();
+    private final Poke poke = new Poke();
+    private final Cuddle cuddle = new Cuddle();
+    private final Nom nom = new Nom();
+    private final Confused confused = new Confused();
 
     public CommandRunner(VariablesStorage variablesStorage) {
         VariableStorageRead = variablesStorage;
@@ -80,6 +88,13 @@ public class CommandRunner extends CommonMethods {
         commands.put(help.getCommand(),help);
         commands.put(logging.getCommand(),logging);
         commands.put(serverInfo.getCommand(),serverInfo);
+        commands.put(pat.getCommand(), pat);
+        commands.put(hug.getCommand(),hug);
+        commands.put(poke.getCommand(),poke);
+        commands.put(cuddle.getCommand(),cuddle);
+        commands.put(nom.getCommand(),nom);
+        commands.put(confused.getCommand(),confused);
+
 
         //dev commands
         if(variablesStorage.getDevMode()){

@@ -151,10 +151,10 @@ public class GuildLogging extends ConvertJSON {
         message.put("messageContent", eventMessage.getContentDisplay());
         message.put("TextChannelID", eventMessage.getChannel().getId());
         message.put("AuthorID", eventMessage.getAuthor().getId());
-        message.put("AuthorName", eventMessage.getAuthor().getName());
-        message.put("isBot", String.valueOf(eventMessage.getAuthor().isBot()));
-        message.put("AuthorDiscriminator", eventMessage.getAuthor().getDiscriminator());
-        message.put("AuthorAvatarUrl", eventMessage.getAuthor().getEffectiveAvatarUrl());
+        //message.put("AuthorName", eventMessage.getAuthor().getName());
+        //message.put("isBot", String.valueOf(eventMessage.getAuthor().isBot()));
+        //message.put("AuthorDiscriminator", eventMessage.getAuthor().getDiscriminator());
+        //message.put("AuthorAvatarUrl", eventMessage.getAuthor().getEffectiveAvatarUrl());
 
         //get list of media
         StringBuilder attachmentsList = new StringBuilder();
@@ -187,13 +187,16 @@ public class GuildLogging extends ConvertJSON {
 
     private void GuildText(GuildMessageDeleteEvent event, TextChannel textChannel, ArrayList<LinkedTreeMap<String, String>> ChannelLog) {
         LinkedTreeMap<String, String> previousMessage = null;
+        User user = null;
         for (LinkedTreeMap<String, String> message : ChannelLog) {
             if (message.getOrDefault("ID", "").equalsIgnoreCase(event.getMessageId())) {
                 previousMessage = message;
+                user = event.getJDA().getUserById(message.getOrDefault("AuthorID",""));
             }
         }
-        if (previousMessage != null && previousMessage.getOrDefault("isBot", "false").equalsIgnoreCase("true")) {
-            if (previousMessage.getOrDefault("TextChannelID", "").equalsIgnoreCase(textChannel.getId()) && previousMessage.getOrDefault("AuthorID", "").equalsIgnoreCase(event.getJDA().getSelfUser().getId())) {
+
+        if (previousMessage != null &&  user.isBot()) {
+            if (previousMessage.getOrDefault("TextChannelID", "").equalsIgnoreCase(textChannel.getId()) && user.getId().equalsIgnoreCase(event.getJDA().getSelfUser().getId())) {
                 return;
             }
         }
@@ -201,7 +204,7 @@ public class GuildLogging extends ConvertJSON {
         embedBuilder.setDescription("Message deleted in " + event.getChannel().getAsMention());
 
         if (previousMessage != null && !previousMessage.getOrDefault("messageContent", "").equalsIgnoreCase("")) {
-            embedBuilder.setAuthor(previousMessage.get("AuthorName") + "#" + previousMessage.get("AuthorDiscriminator"), null, previousMessage.getOrDefault("AuthorAvatarUrl", null));
+            embedBuilder.setAuthor(user.getName() + "#" + user.getDiscriminator(), null, user.getAvatarUrl());
             embedBuilder.addField("Deleted Message", previousMessage.getOrDefault("messageContent", ""), false);
         }
 
