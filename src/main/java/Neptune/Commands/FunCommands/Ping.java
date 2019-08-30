@@ -54,6 +54,6 @@ public class Ping implements CommandInterface {
     @Override
     public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
         event.getChannel().sendMessage("pong").queue();
-        return false;
+        return true;
     }
 }

@@ -58,7 +58,7 @@ public class RollDie extends CommonMethods implements CommandInterface {
 
     @Override
     public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
-        int sides = Integer.parseInt(messageContent);
+        int sides = Integer.decode(messageContent);
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setTitle(getName());
         int result = random.nextInt(sides) + 1;

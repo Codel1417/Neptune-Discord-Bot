@@ -33,7 +33,8 @@ public class SQLiteConnection implements StorageCommands {
                     "   Data: " + Data + "\n" +
                     "   Table: " + TableName);
 
-            Connection connection = DriverManager.getConnection(DatabaseURL);
+            Connection connection;
+            connection = DriverManager.getConnection(DatabaseURL);
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO "+ TableName +"(ID, Data) VALUES(?,?)");
             preparedStatement.setString(1, Id);
             preparedStatement.setString(2,Data);
@@ -63,6 +64,7 @@ public class SQLiteConnection implements StorageCommands {
                             "   Table: " + TableName);
             Connection connection = DriverManager.getConnection(DatabaseURL);
             resultSet = connection.prepareStatement("SELECT ID, Data FROM "+ TableName +" Where ID = " + Id).executeQuery();
+            connection.close();
             String result = resultSet.getString("Data");
             resultSet.close();
             return result;
