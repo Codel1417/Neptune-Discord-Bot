@@ -64,9 +64,9 @@ public class SQLiteConnection implements StorageCommands {
                             "   Table: " + TableName);
             Connection connection = DriverManager.getConnection(DatabaseURL);
             resultSet = connection.prepareStatement("SELECT ID, Data FROM "+ TableName +" Where ID = " + Id).executeQuery();
-            connection.close();
             String result = resultSet.getString("Data");
             resultSet.close();
+            connection.close();
             return result;
         } catch (SQLException e) {
             e.printStackTrace();
