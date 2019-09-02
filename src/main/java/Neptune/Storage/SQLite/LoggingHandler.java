@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LoggingHandler {
-    private String DatabaseURL = "jdbc:sqlite:NepDB .db";
+    private String DatabaseURL = "jdbc:sqlite:NepDB.db";
     private final String LogTableName = "Log";
 
     public LoggingHandler(){
@@ -32,6 +32,11 @@ public class LoggingHandler {
     }
 
     public boolean newLogEntry(String GuildID,String ChannelID, String AuthorID, String MessageID, String MessageContent){
+        System.out.println("Adding new Log entry for guild " + GuildID + "\n" +
+                "Channel ID: " + ChannelID + "\n" +
+                "Author ID: " + AuthorID + "\n" +
+                "Message ID: " + MessageID + "\n" +
+                "Message Content: " + MessageContent);
         try {
             Connection connection;
             connection = DriverManager.getConnection(DatabaseURL);
@@ -41,8 +46,7 @@ public class LoggingHandler {
             preparedStatement.setString(3,AuthorID);
             preparedStatement.setString(4,MessageID);
             preparedStatement.setString(5,MessageContent);
-            preparedStatement.setNull(6,6);
-            System.out.println(preparedStatement.toString());
+            preparedStatement.setString(6,"");
             preparedStatement.execute();
             connection.close();
             return true;
@@ -71,18 +75,19 @@ public class LoggingHandler {
         try {
             Connection connection = DriverManager.getConnection(DatabaseURL);
             boolean result = connection.createStatement().execute("DELETE FROM "+ LogTableName +
-                    "WHERE MessageID = " + MessageID + ";");
+                    " WHERE MessageID = " + MessageID + ";");
+            connection.close();
             return result;
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
     }
-    public Map getLogEntry(String GuildID){
+    public Map<String, String> getLogEntry(String MessageID){
         Connection connection;
         try {
             connection = DriverManager.getConnection(DatabaseURL);
-            ResultSet resultSet = connection.prepareStatement("SELECT GuildID, ChannelID, AuthorID, MessageID, MessageContent, PreviousMessage FROM "+ LogTableName +" Where GuildID = " + GuildID).executeQuery();
+            ResultSet resultSet = connection.prepareStatement("SELECT GuildID, ChannelID, AuthorID, MessageID, MessageContent, PreviousMessage FROM "+ LogTableName +" Where MessageID = " + MessageID).executeQuery();
             Map<String, String> results = new HashMap<>();
             results.put("GuildID",resultSet.getString(1));
             results.put("ChannelID", resultSet.getString(2));
@@ -90,6 +95,8 @@ public class LoggingHandler {
             results.put("MessageID", resultSet.getString(4));
             results.put("MessageContent",resultSet.getString(5));
             results.put("PreviousMessage", resultSet.getString(6));
+            resultSet.close();
+            connection.close();
             return results;
 
         } catch (SQLException e) {

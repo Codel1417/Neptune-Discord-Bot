@@ -3,6 +3,8 @@ package Neptune.Commands.AdminCommands;
 import Neptune.Commands.CommandInterface;
 import Neptune.Commands.CommonMethods;
 import Neptune.Commands.commandCategories;
+import Neptune.Storage.SQLite.LoggingHandler;
+import Neptune.Storage.SQLite.SettingsStorage;
 import Neptune.Storage.StorageController;
 import Neptune.Storage.VariablesStorage;
 import com.google.gson.internal.LinkedTreeMap;
@@ -14,6 +16,7 @@ import java.awt.*;
 import java.util.Map;
 
 public class Logging extends CommonMethods implements CommandInterface {
+    private final SettingsStorage settingsStorage = new SettingsStorage();
     @Override
     public String getName() {
         return "Logging Options";
@@ -61,8 +64,7 @@ public class Logging extends CommonMethods implements CommandInterface {
 
     @Override
     public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
-        LinkedTreeMap<String, Object> guildSettings = (LinkedTreeMap<String, Object>) StorageController.getInstance().getGuild(event.getGuild());
-        LinkedTreeMap<String, String> LoggingInfo = (LinkedTreeMap<String, String>) guildSettings.getOrDefault("Logging", new LinkedTreeMap<String, String>());
+        Map<String, String> LoggingInfo = settingsStorage.getGuildSettings(event.getGuild().getId());
 
 
         if(messageContent.equalsIgnoreCase("")){
@@ -79,57 +81,63 @@ public class Logging extends CommonMethods implements CommandInterface {
             case "global":{
                 if(enabledOption){
                     LoggingInfo.put("LoggingChannel", event.getTextChannel().getId());
+                    LoggingInfo.put("LoggingEnabled", "enabled");
                 }
-                else LoggingInfo.put("LoggingChannel","");
-                StorageController.getInstance().updateGuildField(event.getGuild(),"Logging",LoggingInfo);
+                else{
+                    LoggingInfo.put("LoggingEnabled", "disabled");
+
+                }
+                settingsStorage.updateGuild(event.getGuild().getId(),"LoggingChannel",LoggingInfo.get("LoggingChannel"));
+                settingsStorage.updateGuild(event.getGuild().getId(),"LoggingEnabled",LoggingInfo.get("LoggingEnabled"));
                 break;
             }
             case "text":{
                 if(enabledOption){
-                    LoggingInfo.put("LogTextActivity", "enabled");
+                    LoggingInfo.put("TextChannelLogging", "enabled");
                 }
-                else LoggingInfo.put("LogTextActivity","disabled");
-                StorageController.getInstance().updateGuildField(event.getGuild(),"Logging",LoggingInfo);
+                else LoggingInfo.put("TextChannelLogging","disabled");
+                settingsStorage.updateGuild(event.getGuild().getId(),"TextChannelLogging",LoggingInfo.get("TextChannelLogging"));
                 break;
             }
             case "voice":{
                 if(enabledOption){
-                    LoggingInfo.put("LogVoiceActivity", "enabled");
+                    LoggingInfo.put("VoiceChannelLogging", "enabled");
                 }
-                else LoggingInfo.put("LogVoiceActivity","disabled");
-                StorageController.getInstance().updateGuildField(event.getGuild(),"Logging",LoggingInfo);
+                else LoggingInfo.put("VoiceChannelLogging","disabled");
+                settingsStorage.updateGuild(event.getGuild().getId(),"VoiceChannelLogging",LoggingInfo.get("VoiceChannelLogging"));
                 break;
             }
             case "member":{
                 if(enabledOption){
-                    LoggingInfo.put("LogMemberActivity", "enabled");
+                    LoggingInfo.put("MemberActivityLogging", "enabled");
                 }
-                else LoggingInfo.put("LogMemberActivity","disabled");
-                StorageController.getInstance().updateGuildField(event.getGuild(),"Logging",LoggingInfo);
+                else LoggingInfo.put("MemberActivityLogging","disabled");
+                settingsStorage.updateGuild(event.getGuild().getId(),"MemberActivityLogging",LoggingInfo.get("MemberActivityLogging"));
                 break;
             }
             case "server":{
                 if(enabledOption){
-                    LoggingInfo.put("LogServerActivity", "enabled");
+                    LoggingInfo.put("ServerModificationLogging", "enabled");
                 }
-                else LoggingInfo.put("LogServerActivity","disabled");
-                StorageController.getInstance().updateGuildField(event.getGuild(),"Logging",LoggingInfo);
+                else LoggingInfo.put("ServerModificationLogging","disabled");
+                settingsStorage.updateGuild(event.getGuild().getId(),"ServerModificationLogging",LoggingInfo.get("ServerModificationLogging"));
                 break;
             }
             case "neptune":{
+                //Does nothing
                 if(enabledOption){
                     LoggingInfo.put("LogSelfActivity", "enabled");
                 }
                 else LoggingInfo.put("LogSelfActivity","disabled");
-                StorageController.getInstance().updateGuildField(event.getGuild(),"Logging",LoggingInfo);
                 break;
             }
         }
+
         displayMenu(event,variablesStorage,LoggingInfo);
 
         return false;
     }
-    private boolean displayMenu(MessageReceivedEvent event, VariablesStorage variablesStorage, LinkedTreeMap<String,String> LoggingInfo){
+    private boolean displayMenu(MessageReceivedEvent event, VariablesStorage variablesStorage, Map<String,String> LoggingInfo){
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setColor(Color.MAGENTA);
         embedBuilder.setTitle("Logging Options");
@@ -137,6 +145,9 @@ public class Logging extends CommonMethods implements CommandInterface {
 
         //logging status
         String LoggingChannel = LoggingInfo.getOrDefault("LoggingChannel","");
+        if (LoggingChannel == null){
+            LoggingChannel = "";
+        }
         String LoggingStatus;
         if (LoggingChannel.equalsIgnoreCase("")){
             LoggingStatus = "disabled";
@@ -149,10 +160,10 @@ public class Logging extends CommonMethods implements CommandInterface {
         }
 
         StringBuilder logOptionsMessage = new StringBuilder();
-        logOptionsMessage.append("Text Activity ").append(getEnabledDisabledIcon(LoggingInfo.getOrDefault("LogTextActivity","disabled"))).append("\n");
-        logOptionsMessage.append("Voice Activity" ).append(getEnabledDisabledIcon(LoggingInfo.getOrDefault("LogVoiceActivity","disabled"))).append("\n");
-        logOptionsMessage.append("Member Activity" ).append(getEnabledDisabledIcon(LoggingInfo.getOrDefault("LogMemberActivity","disabled"))).append("\n");
-        logOptionsMessage.append("Server Changes ").append(getEnabledDisabledIcon(LoggingInfo.getOrDefault("LogServerActivity","disabled"))).append("\n");
+        logOptionsMessage.append("Text Activity ").append(getEnabledDisabledIcon(LoggingInfo.getOrDefault("TextChannelLogging","disabled"))).append("\n");
+        logOptionsMessage.append("Voice Activity" ).append(getEnabledDisabledIcon(LoggingInfo.getOrDefault("VoiceChannelLogging","disabled"))).append("\n");
+        logOptionsMessage.append("Member Activity" ).append(getEnabledDisabledIcon(LoggingInfo.getOrDefault("MemberActivityLogging","disabled"))).append("\n");
+        logOptionsMessage.append("Server Changes ").append(getEnabledDisabledIcon(LoggingInfo.getOrDefault("ServerModificationLogging","disabled"))).append("\n");
         //logOptionsMessage.append("Neptune Changes").append(getEnabledDisabledIcon(LoggingInfo.getOrDefault("LogSelfActivity","disabled"))).append("\n");
 
         embedBuilder.addField("Logging Options",logOptionsMessage.toString(),false);

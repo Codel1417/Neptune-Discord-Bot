@@ -6,6 +6,7 @@ import Neptune.Storage.*;
 
 import java.util.logging.Logger;
 
+import Neptune.Storage.SQLite.SettingsStorage;
 import com.google.gson.internal.LinkedTreeMap;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -18,6 +19,7 @@ class messageInterprter {
     private final static Logger Log = Logger.getLogger(messageInterprter.class.getName());
     private final CommandRunner nepCommands;
     private final RandomMediaPicker randomMediaPicker = new RandomMediaPicker();
+    private final SettingsStorage settingsStorage = new SettingsStorage();
 
     messageInterprter(VariablesStorage variablesStorage) {
         nepCommands = new CommandRunner(variablesStorage);
@@ -78,7 +80,7 @@ class messageInterprter {
         Checks the list to see if the current guild/server is stored, if not create a new guild entry.
          */
         if(guildObject != null) {
-            StorageController.getInstance().addGuild(guildObject);
+            settingsStorage.addGuild(guildObject.getId());
         }
     }
     private void printConsoleLog(Boolean debug, MessageReceivedEvent event){

@@ -1,6 +1,7 @@
 package Neptune;
 
 import Neptune.ServerLogging.GuildLogging;
+import Neptune.Storage.SQLite.SettingsStorage;
 import Neptune.Storage.StorageController;
 import Neptune.Storage.VariablesStorage;
 import com.google.gson.internal.LinkedTreeMap;
@@ -22,11 +23,13 @@ import net.dv8tion.jda.core.events.role.GenericRoleEvent;
 import net.dv8tion.jda.core.hooks.EventListener;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
+import java.util.Map;
+
 //intercepts discord messages
 public class Listener implements EventListener {
     private final messageInterprter message;
     private final GuildLogging guildLogging = new GuildLogging();
-
+    private final SettingsStorage settingsStorage = new SettingsStorage();
 
     Listener(VariablesStorage variableStorageRead) {
         message = new messageInterprter(variableStorageRead);
@@ -40,65 +43,36 @@ public class Listener implements EventListener {
 
     }
 
-    //listen for everything else
-    //user actions
-    private void onGenericGuild(GenericGuildEvent event){
-        LinkedTreeMap<String, Object> guildSettings = (LinkedTreeMap<String, Object>) StorageController.getInstance().getGuild(event.getGuild());
-        LinkedTreeMap<String, String> LoggingInfo = (LinkedTreeMap<String, String>) guildSettings.getOrDefault("Logging", new LinkedTreeMap<String, String>());
-        String LoggingChannel = LoggingInfo.getOrDefault("LoggingChannel","");
-
-        if(LoggingChannel.equalsIgnoreCase("")) return;
-
-        if(event instanceof GenericGuildVoiceEvent){
-            guildLogging.GuildVoice((GenericGuildVoiceEvent) event,LoggingInfo);
-        }
-        else if(event instanceof GenericGuildMessageEvent){
-            guildLogging.GuildText((GenericGuildMessageEvent) event,LoggingInfo, guildSettings);
-        }
-        else if(event instanceof GenericGuildMemberEvent){
-            guildLogging.GuildMember((GenericGuildMemberEvent) event,LoggingInfo);
-        }
-        else if (event instanceof GenericGuildUpdateEvent){
-            guildLogging.GuildSettings((GenericGuildUpdateEvent) event,LoggingInfo);
-        }
-        else {
-            System.out.println("onGenericGuild::"+event.toString());
-        }
-    }
-
-    //text channel changes
-
-    private void onGenericTextChannel(GenericTextChannelEvent event){
-        LinkedTreeMap<String, Object> guildSettings = (LinkedTreeMap<String, Object>) StorageController.getInstance().getGuild(event.getGuild());
-        LinkedTreeMap<String, String> LoggingInfo = (LinkedTreeMap<String, String>) guildSettings.getOrDefault("Logging", new LinkedTreeMap<String, String>());
-        String LoggingChannel = LoggingInfo.getOrDefault("LoggingChannel","");
-        if(LoggingChannel.equalsIgnoreCase("")) return;
-        guildLogging.GuildTextChannel(event,LoggingInfo);
-    }
-    //voice channel changes
-    private void onGenericVoiceChannel(GenericVoiceChannelEvent event){
-        LinkedTreeMap<String, Object> guildSettings = (LinkedTreeMap<String, Object>) StorageController.getInstance().getGuild(event.getGuild());
-        LinkedTreeMap<String, String> LoggingInfo = (LinkedTreeMap<String, String>) guildSettings.getOrDefault("Logging", new LinkedTreeMap<String, String>());
-        String LoggingChannel = LoggingInfo.getOrDefault("LoggingChannel","");
-        if(LoggingChannel.equalsIgnoreCase("")) return;
-        guildLogging.GuildVoiceChannel(event,LoggingInfo);
-    }
-
-
     @Override
     public void onEvent(Event event) {
         if (event instanceof MessageReceivedEvent){
             onMessageReceived((MessageReceivedEvent) event);
         }
-        else if (event instanceof GenericGuildEvent){
-            onGenericGuild((GenericGuildEvent) event);
+        if(event instanceof GenericGuildVoiceEvent){
+            String GuildID = ((GenericGuildVoiceEvent) event).getGuild().getId();
+            guildLogging.GuildVoice((GenericGuildVoiceEvent) event,settingsStorage.getGuildSettings(GuildID));
+        }
+        else if(event instanceof GenericGuildMessageEvent){
+            String GuildID = ((GenericGuildMessageEvent) event).getGuild().getId();
+            guildLogging.GuildText((GenericGuildMessageEvent) event,settingsStorage.getGuildSettings(GuildID));
+        }
+        else if(event instanceof GenericGuildMemberEvent){
+            String GuildID = ((GenericGuildMemberEvent) event).getGuild().getId();
+            guildLogging.GuildMember((GenericGuildMemberEvent) event,settingsStorage.getGuildSettings(GuildID));
+        }
+        else if (event instanceof GenericGuildUpdateEvent){
+            String GuildID = ((GenericGuildUpdateEvent) event).getGuild().getId();
+            guildLogging.GuildSettings((GenericGuildUpdateEvent) event,settingsStorage.getGuildSettings(GuildID));
         }
         else if (event instanceof GenericTextChannelEvent){
-            onGenericTextChannel((GenericTextChannelEvent) event);
+            String GuildID = ((GenericTextChannelEvent) event).getGuild().getId();
+            guildLogging.GuildTextChannel((GenericTextChannelEvent) event,settingsStorage.getGuildSettings(GuildID));
         }
         else if (event instanceof GenericVoiceChannelEvent){
-            onGenericVoiceChannel((GenericVoiceChannelEvent) event);
+            String GuildID = ((GenericVoiceChannelEvent) event).getGuild().getId();
+            guildLogging.GuildVoiceChannel((GenericVoiceChannelEvent) event,settingsStorage.getGuildSettings(GuildID));
         }
+
     }
 }
 

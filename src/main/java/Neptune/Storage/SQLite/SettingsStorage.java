@@ -59,7 +59,7 @@ public class SettingsStorage {
             }
         }
     }
-    public Map getGuildSettings(String GuildID){
+    public Map<String,String> getGuildSettings(String GuildID){
         Connection connection;
         try {
             connection = DriverManager.getConnection(DatabaseURL);
@@ -74,6 +74,8 @@ public class SettingsStorage {
             results.put("VoiceChannelLogging",resultSet.getString(7));
             results.put("MemberActivityLogging", resultSet.getString(8));
             results.put("ServerModificationLogging", resultSet.getString(9));
+            resultSet.close();
+            connection.close();
             return results;
 
         } catch (SQLException e) {
@@ -83,10 +85,28 @@ public class SettingsStorage {
         }
     }
     public boolean deleteGuild(String GuildID){
+        System.out.println("Deleting Guild " + GuildID);
         try {
             Connection connection = DriverManager.getConnection(DatabaseURL);
             boolean result = connection.createStatement().execute("DELETE FROM "+ GuildOptions +
                     "WHERE GuildID = " + GuildID + ";");
+            connection.close();
+            System.out.println("    Success");
+            return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    public boolean updateGuild(String GuildID, String Field, String Value){
+        System.out.println("Setting Field: " + Field + " to the value: "+Value+" for the Guild: " + GuildID);
+        try {
+            Connection connection = DriverManager.getConnection(DatabaseURL);
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE "+GuildOptions+" SET "+Field+" = ? WHERE GuildID = " + GuildID);
+            preparedStatement.setString(1,Value);
+            boolean result =  preparedStatement.execute();
+            connection.close();
+            System.out.println("    Success");
             return result;
         } catch (SQLException e) {
             e.printStackTrace();

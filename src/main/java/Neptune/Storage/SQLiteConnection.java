@@ -5,7 +5,7 @@ package Neptune.Storage;
 import java.sql.*;
 import java.util.Objects;
 
-public class SQLiteConnection implements StorageCommands {
+public class SQLiteConnection  {
     private String DatabaseURL = "jdbc:sqlite:NepDB.db";
     private final String TableName = "Neptune";
     SQLiteConnection(){
@@ -23,7 +23,6 @@ public class SQLiteConnection implements StorageCommands {
                 e.printStackTrace();
             }
     }
-    @Override
     public boolean addData(String Id, String Data) throws MissingDataException {
         try {
             if (Objects.equals(Data, "")) throw new MissingDataException("No Data to add to database");
@@ -54,7 +53,6 @@ public class SQLiteConnection implements StorageCommands {
         }
     }
 
-    @Override
     public String getData(String Id){
         ResultSet resultSet;
         try {
@@ -74,7 +72,6 @@ public class SQLiteConnection implements StorageCommands {
         return null;
     }
 
-    @Override
     public boolean updateData(String Id, String Data) throws MissingDataException {
         if (Data == "") throw new MissingDataException("No Data to add to database");
         try {

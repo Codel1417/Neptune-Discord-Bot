@@ -1,6 +1,7 @@
 package Neptune.ServerLogging;
 
 import Neptune.Storage.ConvertJSON;
+import Neptune.Storage.SQLite.LoggingHandler;
 import Neptune.Storage.StorageController;
 import Neptune.Storage.VariablesStorage;
 import com.google.gson.internal.LinkedTreeMap;
@@ -26,13 +27,18 @@ import net.dv8tion.jda.core.events.message.guild.GuildMessageUpdateEvent;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
-public class GuildLogging extends ConvertJSON {
-    public void GuildVoice(GenericGuildVoiceEvent event, LinkedTreeMap<String, String> LoggingOptions) {
+public class GuildLogging {
+    private final LoggingHandler loggingHandler = new LoggingHandler();
+    public void GuildVoice(GenericGuildVoiceEvent event, Map<String, String> LoggingOptions) {
         TextChannel textChannel = event.getGuild().getTextChannelById(LoggingOptions.get("LoggingChannel"));
+        if(LoggingOptions.getOrDefault("LoggingChannel","").equalsIgnoreCase("")) return;
+        if(!LoggingOptions.getOrDefault("LoggingEnabled","disabled").equalsIgnoreCase("enabled")) return;
 
         //check if logging is enabled
-        if (!LoggingOptions.getOrDefault("LogVoiceActivity", "disabled").equalsIgnoreCase("enabled")) {
+        if (!LoggingOptions.getOrDefault("VoiceChannelLogging", "disabled").equalsIgnoreCase("enabled")) {
             return;
         }
         if (event instanceof GuildVoiceJoinEvent) {
@@ -91,132 +97,84 @@ public class GuildLogging extends ConvertJSON {
         textChannel.sendMessage(embedBuilder.build()).queue();
     }
 
-    public void GuildText(GenericGuildMessageEvent event, LinkedTreeMap<String, String> LoggingOptions, LinkedTreeMap<String, Object> guildSettings) {
-
+    public void GuildText(GenericGuildMessageEvent event, Map<String, String> LoggingOptions) {
         TextChannel textChannel = event.getGuild().getTextChannelById(LoggingOptions.get("LoggingChannel"));
-        LinkedTreeMap<String, String> ChannelsLog = (LinkedTreeMap) guildSettings.getOrDefault("MessageLog", new LinkedTreeMap<>());
-        String ChannelLogJson = ChannelsLog.getOrDefault(event.getChannel().getId(), "");
-        ArrayList<LinkedTreeMap<String, String>> channelLog;
-
-        if (ChannelLogJson.equalsIgnoreCase("")) {
-            channelLog = new ArrayList<>();
-        } else {
-            channelLog = fromJSONList(ChannelLogJson);
-        }
+        if(LoggingOptions.getOrDefault("LoggingChannel","").equalsIgnoreCase("")) return;
+        if(!LoggingOptions.getOrDefault("LoggingEnabled","disabled").equalsIgnoreCase("enabled")) return;
         //check if logging is enabled
-        if (!LoggingOptions.getOrDefault("LogTextActivity", "disabled").equalsIgnoreCase("enabled")) {
+        if (!LoggingOptions.getOrDefault("TextChannelLogging", "disabled").equalsIgnoreCase("enabled")) {
             return;
         }
+
         if (event instanceof GuildMessageReceivedEvent) {
-            channelLog = ChannelMessageStore(((GuildMessageReceivedEvent) event).getMessage(), channelLog);
-            ChannelLogJson = toJSON(channelLog);
-            ChannelsLog.put(event.getChannel().getId(), ChannelLogJson);
-            StorageController.getInstance().updateGuildField(event.getGuild(), "MessageLog", ChannelsLog);
+            loggingHandler.newLogEntry(event.getGuild().getId(),event.getChannel().getId(),((GuildMessageReceivedEvent) event).getAuthor().getId(),event.getMessageId(),((GuildMessageReceivedEvent) event).getMessage().getContentDisplay());
         }
         if (event instanceof GuildMessageUpdateEvent) {
-            channelLog = ChannelMessageStore(((GuildMessageUpdateEvent) event).getMessage(), channelLog);
-            ChannelLogJson = toJSON(channelLog);
-            ChannelsLog.put(event.getChannel().getId(), ChannelLogJson);
-            StorageController.getInstance().updateGuildField(event.getGuild(), "MessageLog", ChannelsLog);
-            GuildText((GuildMessageUpdateEvent) event, textChannel, channelLog);
+            GuildText((GuildMessageUpdateEvent) event,textChannel);
+
         } else if (event instanceof GuildMessageDeleteEvent) {
-            GuildText((GuildMessageDeleteEvent) event, textChannel, channelLog);
+            GuildText((GuildMessageDeleteEvent) event,textChannel);
         }
     }
 
-    private ArrayList<LinkedTreeMap<String, String>> ChannelMessageStore(Message eventMessage, ArrayList<LinkedTreeMap<String, String>> channelLog) {
-        while (channelLog.size() > 1000) {
-            channelLog.remove(0);
+    private void GuildText(GuildMessageUpdateEvent event, TextChannel textChannel) {
+        String PreviousMessage = "";
+        Map<String, String> Message = loggingHandler.getLogEntry(event.getGuild().getId());
+        if (Message != null){
+            PreviousMessage = Message.get("MessageContent");
+            loggingHandler.updateLogEntry(event.getMessageId(), event.getMessage().getContentDisplay(),Message.get("MessageContent"));
+        }
+        else {
+            loggingHandler.newLogEntry(event.getGuild().getId(),event.getChannel().getId(), event.getAuthor().getId(),event.getMessageId(), event.getMessage().getContentDisplay());
         }
 
-        boolean update = false;
-        LinkedTreeMap<String, String> message = null;
-        for (LinkedTreeMap<String, String> loggedMessage : channelLog) {
-            if (loggedMessage.getOrDefault("ID", "").equalsIgnoreCase(eventMessage.getId())) {
-                message = loggedMessage;
-                update = true;
-                break;
-            }
-        }
 
-        if (message == null) {
-            message = new LinkedTreeMap<>();
-
-        }
-
-        message.put("ID", eventMessage.getId());
-        if (update) {
-            message.put("previousMessage", message.getOrDefault("messageContent",""));
-        }
-        message.put("messageContent", eventMessage.getContentDisplay());
-        message.put("TextChannelID", eventMessage.getChannel().getId());
-        message.put("AuthorID", eventMessage.getAuthor().getId());
-        //message.put("AuthorName", eventMessage.getAuthor().getName());
-        //message.put("isBot", String.valueOf(eventMessage.getAuthor().isBot()));
-        //message.put("AuthorDiscriminator", eventMessage.getAuthor().getDiscriminator());
-        //message.put("AuthorAvatarUrl", eventMessage.getAuthor().getEffectiveAvatarUrl());
-
-        //get list of media
-        StringBuilder attachmentsList = new StringBuilder();
-        for (Message.Attachment attachment : eventMessage.getAttachments()) {
-            attachmentsList.append(attachment.getUrl()).append("\n");
-        }
-        if (!attachmentsList.toString().equalsIgnoreCase("")) {
-            message.put("Attachments", attachmentsList.toString());
-        }
-        channelLog.add(message);
-        return channelLog;
-    }
-
-    private void GuildText(GuildMessageUpdateEvent event, TextChannel textChannel, ArrayList<LinkedTreeMap<String, String>> ChannelLog) {
-        String previousMessage = "";
-        for (LinkedTreeMap<String, String> message : ChannelLog) {
-            if (message.getOrDefault("ID", "").equalsIgnoreCase(event.getMessage().getId())) {
-                previousMessage = message.getOrDefault("previousMessage", "");
-            }
-        }
         EmbedBuilder embedBuilder = getEmbedBuilder(event.getMember());
         embedBuilder.setDescription("Message Edited by " + event.getMember().getAsMention() + " in channel " + event.getChannel().getAsMention());
 
-        if (!previousMessage.equalsIgnoreCase("")) {
-            embedBuilder.addField("Old Message", previousMessage, false);
+        if (!PreviousMessage.equalsIgnoreCase("")) {
+            embedBuilder.addField("Old Message", PreviousMessage, false);
         }
         embedBuilder.addField("New Message", event.getMessage().getContentDisplay(), false);
         textChannel.sendMessage(embedBuilder.build()).queue();
     }
 
-    private void GuildText(GuildMessageDeleteEvent event, TextChannel textChannel, ArrayList<LinkedTreeMap<String, String>> ChannelLog) {
-        LinkedTreeMap<String, String> previousMessage = null;
+    private void GuildText(GuildMessageDeleteEvent event, TextChannel textChannel) {
+        Map<String, String> Message = loggingHandler.getLogEntry(event.getMessageId());
+        String PreviousMessage = "";
         User user = null;
-        for (LinkedTreeMap<String, String> message : ChannelLog) {
-            if (message.getOrDefault("ID", "").equalsIgnoreCase(event.getMessageId())) {
-                previousMessage = message;
-                user = event.getJDA().getUserById(message.getOrDefault("AuthorID",""));
-            }
-        }
 
-        if (previousMessage != null &&  user.isBot()) {
-            if (previousMessage.getOrDefault("TextChannelID", "").equalsIgnoreCase(textChannel.getId()) && user.getId().equalsIgnoreCase(event.getJDA().getSelfUser().getId())) {
+        if (Message != null){
+            PreviousMessage = Message.get("MessageContent");
+            user = event.getJDA().getUserById(Message.getOrDefault("AuthorID",""));
+        }
+        else Message = new HashMap<>();
+
+        //stops bot messages and self messages from being logged.
+        if (!PreviousMessage.equalsIgnoreCase("") &&  user.isBot()) {
+            if (Message.getOrDefault("ChannelID", "").equalsIgnoreCase(textChannel.getId()) && user.getId().equalsIgnoreCase(event.getJDA().getSelfUser().getId())) {
                 return;
             }
         }
+
         EmbedBuilder embedBuilder = getEmbedBuilder(event.getMessageId());
         embedBuilder.setDescription("Message deleted in " + event.getChannel().getAsMention());
 
-        if (previousMessage != null && !previousMessage.getOrDefault("messageContent", "").equalsIgnoreCase("")) {
+        if (!PreviousMessage.equalsIgnoreCase("")) {
             embedBuilder.setAuthor(user.getName() + "#" + user.getDiscriminator(), null, user.getAvatarUrl());
-            embedBuilder.addField("Deleted Message", previousMessage.getOrDefault("messageContent", ""), false);
+            embedBuilder.addField("Deleted Message", PreviousMessage, false);
         }
-
         embedBuilder.setColor(Color.RED);
         textChannel.sendMessage(embedBuilder.build()).queue();
+        loggingHandler.deleteLogEntry(event.getMessageId());
     }
 
-    public void GuildMember(GenericGuildMemberEvent event, LinkedTreeMap<String, String> LoggingOptions) {
+    public void GuildMember(GenericGuildMemberEvent event, Map<String,String> LoggingOptions) {
         TextChannel textChannel = event.getGuild().getTextChannelById(LoggingOptions.get("LoggingChannel"));
-
+        if(LoggingOptions.getOrDefault("LoggingChannel","").equalsIgnoreCase("")) return;
+        if(!LoggingOptions.getOrDefault("LoggingEnabled","disabled").equalsIgnoreCase("enabled")) return;
         //check if logging is enabled
-        if (!LoggingOptions.getOrDefault("LogMemberActivity", "disabled").equalsIgnoreCase("enabled")) {
+        if (!LoggingOptions.getOrDefault("MemberActivityLogging", "disabled").equalsIgnoreCase("enabled")) {
             return;
         }
 
@@ -272,11 +230,12 @@ public class GuildLogging extends ConvertJSON {
         textChannel.sendMessage(embedBuilder.build()).queue();
     }
 
-    public void GuildSettings(GenericGuildUpdateEvent event, LinkedTreeMap<String, String> LoggingOptions) {
+    public void GuildSettings(GenericGuildUpdateEvent event, Map<String, String> LoggingOptions) {
         TextChannel textChannel = event.getGuild().getTextChannelById(LoggingOptions.get("LoggingChannel"));
-
+        if(LoggingOptions.getOrDefault("LoggingChannel","").equalsIgnoreCase("")) return;
+        if(!LoggingOptions.getOrDefault("LoggingEnabled","disabled").equalsIgnoreCase("enabled")) return;
         //check if logging is enabled
-        if (!LoggingOptions.getOrDefault("LogServerActivity", "disabled").equalsIgnoreCase("enabled")) {
+        if (!LoggingOptions.getOrDefault("ServerModificationLogging", "disabled").equalsIgnoreCase("enabled")) {
             return;
         }
         if (event instanceof GuildUpdateAfkChannelEvent) {
@@ -426,11 +385,12 @@ public class GuildLogging extends ConvertJSON {
         textChannel.sendMessage(embedBuilder.build()).queue();
     }
 
-    public void GuildTextChannel(GenericTextChannelEvent event, LinkedTreeMap<String, String> LoggingOptions) {
+    public void GuildTextChannel(GenericTextChannelEvent event, Map<String, String> LoggingOptions) {
         TextChannel textChannel = event.getGuild().getTextChannelById(LoggingOptions.get("LoggingChannel"));
-
+        if(LoggingOptions.getOrDefault("LoggingChannel","").equalsIgnoreCase("")) return;
+        if(!LoggingOptions.getOrDefault("LoggingEnabled","disabled").equalsIgnoreCase("enabled")) return;
         //check if logging is enabled
-        if (!LoggingOptions.getOrDefault("LogServerActivity", "disabled").equalsIgnoreCase("enabled")) {
+        if (!LoggingOptions.getOrDefault("MemberActivityLogging", "disabled").equalsIgnoreCase("enabled")) {
             return;
         }
         if (event instanceof TextChannelCreateEvent) {
@@ -555,11 +515,12 @@ public class GuildLogging extends ConvertJSON {
         }
         textChannel.sendMessage(embedBuilder.build()).queue();
     }
-    public void GuildVoiceChannel(GenericVoiceChannelEvent event, LinkedTreeMap<String, String> LoggingOptions){
+    public void GuildVoiceChannel(GenericVoiceChannelEvent event, Map<String, String> LoggingOptions){
         TextChannel textChannel = event.getGuild().getTextChannelById(LoggingOptions.get("LoggingChannel"));
-
+        if(LoggingOptions.getOrDefault("LoggingChannel","").equalsIgnoreCase("")) return;
+        if(!LoggingOptions.getOrDefault("LoggingEnabled","disabled").equalsIgnoreCase("enabled")) return;
         //check if logging is enabled
-        if (!LoggingOptions.getOrDefault("LogServerActivity","disabled").equalsIgnoreCase("enabled")){
+        if (!LoggingOptions.getOrDefault("MemberActivityLogging","disabled").equalsIgnoreCase("enabled")){
             return;
         }
         if (event instanceof VoiceChannelCreateEvent){
