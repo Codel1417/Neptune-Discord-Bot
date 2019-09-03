@@ -46,7 +46,6 @@ public class RandomMediaPicker {
         ImageFiles = new ArrayList<>();
         audioFiles = new ArrayList<>();
         for (File file : Folder.listFiles()) {
-            //TODO: Fix
             String substring = file.getPath().substring(file.getPath().indexOf("."));
             for (String string : audioType){
                 if(substring.contains(string)){
