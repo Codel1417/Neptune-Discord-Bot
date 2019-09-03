@@ -66,12 +66,6 @@ public class Logging extends CommonMethods implements CommandInterface {
     public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
         Map<String, String> LoggingInfo = settingsStorage.getGuildSettings(event.getGuild().getId());
 
-
-        if(messageContent.equalsIgnoreCase("")){
-            displayMenu(event,variablesStorage, LoggingInfo);
-            return true;
-        }
-
         String[] command = getCommandName(messageContent);
         boolean enabledOption = false;
         if (command[1].equalsIgnoreCase("enabled")){

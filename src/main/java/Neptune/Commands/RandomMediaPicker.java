@@ -17,8 +17,8 @@ public class RandomMediaPicker {
     private ArrayList<File> audioFiles;
 
     public void sendMedia(File Folder, MessageReceivedEvent event, boolean image, boolean audio){
-        System.out.println("Finding Random Media");
         if (Folder == null || !Folder.exists() && !Folder.isDirectory()) return; //null check
+        System.out.println("Finding Random Media from folder" + Folder.getAbsolutePath());
         searchFolder(Folder, audio, image);
         System.out.println("    Files Found");
         System.out.println("        Image Files: " + ImageFiles.size());
@@ -46,12 +46,17 @@ public class RandomMediaPicker {
         ImageFiles = new ArrayList<>();
         audioFiles = new ArrayList<>();
         for (File file : Folder.listFiles()) {
+            //TODO: Fix
             String substring = file.getPath().substring(file.getPath().indexOf("."));
-            if(Arrays.asList(audioType).contains(substring)){
-                audioFiles.add(file);
+            for (String string : audioType){
+                if(substring.contains(string)){
+                    audioFiles.add(file);
+                }
             }
-            if(Arrays.asList(imageType).contains(substring)){
-                ImageFiles.add(file);
+            for  (String string: imageType){
+                if(substring.contains(string)){
+                    ImageFiles.add(file);
+                }
             }
         }
     }

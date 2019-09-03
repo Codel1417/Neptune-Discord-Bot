@@ -42,8 +42,6 @@ public class SettingsStorage {
             preparedStatement.setString(6,"enabled");
             preparedStatement.setString(7,"enabled");
             preparedStatement.setString(8,"disabled");
-
-            System.out.println(preparedStatement.toString());
             preparedStatement.execute();
             connection.close();
             return true;

@@ -3,12 +3,18 @@ package Neptune.Commands.AdminCommands;
 import Neptune.Commands.CommandInterface;
 import Neptune.Commands.CommonMethods;
 import Neptune.Commands.commandCategories;
+import Neptune.Storage.SQLite.SettingsStorage;
 import Neptune.Storage.StorageController;
 import Neptune.Storage.VariablesStorage;
+import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
-public class AdminOptions extends CommonMethods implements CommandInterface {
+import java.awt.*;
+import java.util.Map;
 
+public class AdminOptions extends CommonMethods implements CommandInterface {
+SettingsStorage settingsStorage = new SettingsStorage();
     @Override
     public String getName() {
         return "Admin Menu";
@@ -57,37 +63,54 @@ public class AdminOptions extends CommonMethods implements CommandInterface {
     @Override
     public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
         String[] CommandArray = getCommandName(messageContent);
+        Map<String, String> options = settingsStorage.getGuildSettings(event.getGuild().getId());
+        boolean enabledOption = false;
+        if (CommandArray[1].equalsIgnoreCase("enabled")){
+            enabledOption = true;
+        }
 
-        StorageController storageController = StorageController.getInstance();
+        switch (CommandArray[0].toLowerCase()) {
+            case "tts": {
+                if (enabledOption) {
+                    options.put("TTS", "enabled");
+                } else {
+                    options.put("TTS", "disabled");
 
-        System.out.println(CommandArray[0] + " | " + CommandArray[1]);
-        if (CommandArray[0].trim().equalsIgnoreCase("custom_sounds")) {
-            if(CommandArray[1].trim().equalsIgnoreCase("enabled")){
-                storageController.updateGuildField(event.getGuild(),"Custom-Sounds","true");
-                event.getChannel().sendMessage("Enabled Custom Sounds").queue();
-            }
-            else{
-                event.getChannel().sendMessage("Disabled Custom_Sounds").queue();
-                storageController.updateGuildField(event.getGuild(),"Custom-Sounds","false");
-            }
-        }
-        else if (CommandArray[0].trim().equalsIgnoreCase("tts")) {
-                if(CommandArray[1].trim().equalsIgnoreCase("enabled")){
-                    storageController.updateGuildField(event.getGuild(),"TTS_Enabled","true");
-                    event.getChannel().sendMessage("Enabled TTS").queue();
                 }
-                else {
-                    event.getChannel().sendMessage("Disabled TTS").queue();
-                    storageController.updateGuildField(event.getGuild(),"TTS_Enabled","false");
-                }
+                settingsStorage.updateGuild(event.getGuild().getId(), "TTS", options.get("TTS"));
+                break;
+            }
+            case "customsounds": {
+                if (enabledOption) {
+                    options.put("CustomSounds", "enabled");
+                } else options.put("CustomSounds", "disabled");
+                settingsStorage.updateGuild(event.getGuild().getId(), "CustomSounds", options.get("CustomSounds"));
+                break;
+            }
         }
-        else {
-            event.getChannel().sendMessage("Admin Options \n" +
-                    "TTS : Enables/Disables tts | " + "CommandInterface: (Prefix) Admin TTS (enabled/disabled)" ).queue();
-        }
+        displayMenu(event,variablesStorage,options);
+
         return true;
     }
+    private void displayMenu(MessageReceivedEvent event, VariablesStorage variablesStorage, Map<String,String> options){
+        EmbedBuilder embedBuilder = new EmbedBuilder();
+        embedBuilder.setColor(Color.MAGENTA);
+        embedBuilder.setTitle("Bot Options");
+        embedBuilder.setDescription("Controls Neptune's additional features.");
 
+        StringBuilder logOptionsMessage = new StringBuilder();
+        logOptionsMessage.append("Use TTS ").append(getEnabledDisabledIcon(options.getOrDefault("TTS","disabled"))).append("\n");
+        logOptionsMessage.append("Custom Sounds Commands" ).append(getEnabledDisabledIcon(options.getOrDefault("CustomSounds","disabled"))).append("\n");
+        embedBuilder.addField("Logging Options",logOptionsMessage.toString(),false);
+
+        String prefix = variablesStorage.getCallBot() + " " + getCommand();
+        embedBuilder.addField("Admin Commands","",false);
+        embedBuilder.addField("Enable TTS usage",prefix + " tts <enabled/disabled>",true);
+        embedBuilder.addField("Enable Additional Sound commands",prefix + " CustomSounds <enabled/disabled>",true);
+
+        event.getChannel().sendMessage(embedBuilder.build()).queue();
+
+    }
 
 }
 

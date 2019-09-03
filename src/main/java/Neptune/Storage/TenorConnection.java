@@ -55,8 +55,7 @@ public class TenorConnection extends ConvertJSON{
             ArrayList<LinkedTreeMap> mediaList = (ArrayList<LinkedTreeMap>) imageEntry.get("media");
             LinkedTreeMap media =  mediaList.get(0);
             LinkedTreeMap gif = (LinkedTreeMap) media.get("gif");
-            String gifURL = (String) gif.get("url");
-            return gifURL;
+            return (String) gif.get("url");
         } catch (IOException e) {
             e.printStackTrace();
         }

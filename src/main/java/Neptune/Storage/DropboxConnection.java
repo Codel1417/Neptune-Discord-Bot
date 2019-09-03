@@ -47,7 +47,6 @@ public class DropboxConnection implements Runnable {
                 FileMetadata metadata = client.files().uploadBuilder("/NepDB.db").withMode(WriteMode.OVERWRITE).uploadAndFinish(in);
                 if(metadata.getId() != null)
                 System.out.println("    Backup Complete");
-
             } catch (DbxException | IOException  e) {
                 e.printStackTrace();
             }

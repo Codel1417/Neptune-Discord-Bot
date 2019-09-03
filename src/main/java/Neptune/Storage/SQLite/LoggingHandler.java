@@ -62,7 +62,6 @@ public class LoggingHandler {
             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE "+LogTableName+" SET MessageContent = ?, PreviousMessage = ? WHERE MessageID = " + MessageID);
             preparedStatement.setString(1,MessageContent);
             preparedStatement.setString(2,PreviousMessage);
-            System.out.println(preparedStatement.toString());
             boolean result =  preparedStatement.execute();
             connection.close();
             return result;
@@ -83,6 +82,19 @@ public class LoggingHandler {
         }
         return false;
     }
+    public boolean deleteChannelMessages(String ChannelID){
+        try {
+            Connection connection = DriverManager.getConnection(DatabaseURL);
+            boolean result = connection.createStatement().execute("DELETE FROM "+ LogTableName +
+                    " WHERE ChannelID = " + ChannelID + ";");
+            connection.close();
+            return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public Map<String, String> getLogEntry(String MessageID){
         Connection connection;
         try {

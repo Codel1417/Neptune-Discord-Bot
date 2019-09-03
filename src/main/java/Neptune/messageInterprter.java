@@ -4,6 +4,7 @@ import Neptune.Commands.CommandRunner;
 import Neptune.Commands.RandomMediaPicker;
 import Neptune.Storage.*;
 
+import java.util.Map;
 import java.util.logging.Logger;
 
 import Neptune.Storage.SQLite.SettingsStorage;
@@ -53,8 +54,8 @@ class messageInterprter {
 
         //check if the bot was called in chat
         try {
-            LinkedTreeMap<String, String> test = (LinkedTreeMap<String, String>) StorageController.getInstance().getGuild(event.getGuild());
-            boolean multiPrefix = test.getOrDefault("Custom-Sounds","false").equalsIgnoreCase("true");
+            Map<String,String> test = settingsStorage.getGuildSettings(event.getGuild().getId());
+            boolean multiPrefix = test.getOrDefault("CustomSounds","disabled").equalsIgnoreCase("enabled");
 
             if (isBotCalled(event.getMessage(), multiPrefix)) {
                 //print the message log in the console if the message was a command
@@ -64,7 +65,6 @@ class messageInterprter {
                 if (!nepCommands.run(event, VariableStorageRead)) {
                     if(multiPrefix){
                         randomMediaPicker.sendMedia(new File(VariableStorageRead.getMediaFolder() + File.separator + "Custom" + File.separator +  event.getMessage().getContentRaw().replace("=","").replace("./","").trim()), event, true, true);
-
                     }
                 }
             }
