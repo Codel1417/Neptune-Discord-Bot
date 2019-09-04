@@ -4,10 +4,8 @@ import Neptune.Commands.CommandInterface;
 import Neptune.Commands.CommonMethods;
 import Neptune.Commands.commandCategories;
 import Neptune.Storage.SQLite.SettingsStorage;
-import Neptune.Storage.StorageController;
 import Neptune.Storage.VariablesStorage;
 import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 import java.awt.*;

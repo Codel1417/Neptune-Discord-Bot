@@ -1,10 +1,6 @@
 package Neptune.ServerLogging;
 
-import Neptune.Storage.ConvertJSON;
 import Neptune.Storage.SQLite.LoggingHandler;
-import Neptune.Storage.StorageController;
-import Neptune.Storage.VariablesStorage;
-import com.google.gson.internal.LinkedTreeMap;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.*;
 import net.dv8tion.jda.core.events.channel.text.GenericTextChannelEvent;
@@ -26,7 +22,6 @@ import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageUpdateEvent;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -127,7 +122,9 @@ public class GuildLogging {
         else {
             loggingHandler.newLogEntry(event.getGuild().getId(),event.getChannel().getId(), event.getAuthor().getId(),event.getMessageId(), event.getMessage().getContentDisplay());
         }
-
+        if (event.getAuthor().isBot() | event.getAuthor().getId().equalsIgnoreCase(event.getJDA().getSelfUser().getId()) | textChannel.getId().equalsIgnoreCase(event.getChannel().getId())) {
+            return;
+        }
 
         EmbedBuilder embedBuilder = getEmbedBuilder(event.getMember());
         embedBuilder.setDescription("Message Edited by " + event.getMember().getAsMention() + " in channel " + event.getChannel().getAsMention());
@@ -147,14 +144,14 @@ public class GuildLogging {
         if (Message != null){
             PreviousMessage = Message.get("MessageContent");
             user = event.getJDA().getUserById(Message.getOrDefault("AuthorID",""));
+
         }
         else Message = new HashMap<>();
+        loggingHandler.deleteLogEntry(event.getMessageId());
 
         //stops bot messages and self messages from being logged.
-        if (!PreviousMessage.equalsIgnoreCase("") &&  user.isBot()) {
-            if (Message.getOrDefault("ChannelID", "").equalsIgnoreCase(textChannel.getId()) && user.getId().equalsIgnoreCase(event.getJDA().getSelfUser().getId())) {
-                return;
-            }
+        if (user.isBot() | user.getId().equalsIgnoreCase(event.getJDA().getSelfUser().getId()) | textChannel.getId().equalsIgnoreCase(event.getChannel().getId())) {
+            return;
         }
 
         EmbedBuilder embedBuilder = getEmbedBuilder(event.getMessageId());
@@ -166,7 +163,6 @@ public class GuildLogging {
         }
         embedBuilder.setColor(Color.RED);
         textChannel.sendMessage(embedBuilder.build()).queue();
-        loggingHandler.deleteLogEntry(event.getMessageId());
     }
 
     public void GuildMember(GenericGuildMemberEvent event, Map<String,String> LoggingOptions) {

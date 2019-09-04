@@ -3,13 +3,9 @@ package Neptune.Commands.AdminCommands;
 import Neptune.Commands.CommandInterface;
 import Neptune.Commands.CommonMethods;
 import Neptune.Commands.commandCategories;
-import Neptune.Storage.SQLite.LoggingHandler;
 import Neptune.Storage.SQLite.SettingsStorage;
-import Neptune.Storage.StorageController;
 import Neptune.Storage.VariablesStorage;
-import com.google.gson.internal.LinkedTreeMap;
 import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 import java.awt.*;
@@ -131,7 +127,7 @@ public class Logging extends CommonMethods implements CommandInterface {
 
         return false;
     }
-    private boolean displayMenu(MessageReceivedEvent event, VariablesStorage variablesStorage, Map<String,String> LoggingInfo){
+    private void displayMenu(MessageReceivedEvent event, VariablesStorage variablesStorage, Map<String,String> LoggingInfo){
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setColor(Color.MAGENTA);
         embedBuilder.setTitle("Logging Options");
@@ -172,6 +168,5 @@ public class Logging extends CommonMethods implements CommandInterface {
         //embedBuilder.addField("Neptune Settings Logging",prefix + " neptune <enabled/disabled>",true);
 
         event.getChannel().sendMessage(embedBuilder.build()).queue();
-        return true;
     }
 }

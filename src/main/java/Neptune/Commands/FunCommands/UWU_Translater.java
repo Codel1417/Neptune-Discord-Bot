@@ -2,7 +2,10 @@ package Neptune.Commands.FunCommands;
 
 import Neptune.Commands.CommandInterface;
 import Neptune.Commands.commandCategories;
+import Neptune.Storage.SQLite.SettingsStorage;
 import Neptune.Storage.VariablesStorage;
+import net.dv8tion.jda.core.MessageBuilder;
+import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 import java.util.HashMap;
@@ -11,7 +14,7 @@ import java.util.Map;
 public class UWU_Translater implements CommandInterface {
     private HashMap<String, String> directTranslations = new HashMap<>();
     private HashMap<String, String> indirectTranslations = new HashMap<>();
-
+    private SettingsStorage settingsStorage = new SettingsStorage();
     public UWU_Translater(){
         //init maps
         indirectTranslations.put("R","W");
@@ -97,7 +100,16 @@ public class UWU_Translater implements CommandInterface {
                     result.append(word).append(" ");
                 }
             }
-            event.getChannel().sendMessage(result.toString()).queue();
+            boolean tts = settingsStorage.getGuildSettings(event.getGuild().getId()).getOrDefault("TTS","disabled").equalsIgnoreCase("enabled");
+
+            MessageBuilder builder = new MessageBuilder();
+            if (event.getMember().hasPermission(Permission.MESSAGE_TTS) && event.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_TTS)) {
+                builder.setTTS(tts);
+            }
+            else builder.setTTS(false);
+            builder.append(result.toString());
+            builder.sendTo(event.getChannel()).queue();
+            //event.getChannel().sendMessage(result.toString()).queue();
         }
         return false;
     }

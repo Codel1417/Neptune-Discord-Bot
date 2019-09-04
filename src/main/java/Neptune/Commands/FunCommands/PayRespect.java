@@ -58,6 +58,7 @@ public class PayRespect implements CommandInterface {
     public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setColor(Color.MAGENTA).setDescription(event.getMember().getAsMention() + " has paid respect");
+
         event.getChannel().sendMessage(embedBuilder.build()).queue();
         return false;
     }

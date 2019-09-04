@@ -2,28 +2,16 @@ package Neptune;
 
 import Neptune.ServerLogging.GuildLogging;
 import Neptune.Storage.SQLite.SettingsStorage;
-import Neptune.Storage.StorageController;
 import Neptune.Storage.VariablesStorage;
-import com.google.gson.internal.LinkedTreeMap;
-import net.dv8tion.jda.core.entities.Game;
-import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.events.Event;
-import net.dv8tion.jda.core.events.ReadyEvent;
-import net.dv8tion.jda.core.events.channel.category.GenericCategoryEvent;
 import net.dv8tion.jda.core.events.channel.text.GenericTextChannelEvent;
 import net.dv8tion.jda.core.events.channel.voice.GenericVoiceChannelEvent;
-import net.dv8tion.jda.core.events.emote.GenericEmoteEvent;
-import net.dv8tion.jda.core.events.guild.GenericGuildEvent;
 import net.dv8tion.jda.core.events.guild.member.GenericGuildMemberEvent;
 import net.dv8tion.jda.core.events.guild.update.GenericGuildUpdateEvent;
 import net.dv8tion.jda.core.events.guild.voice.GenericGuildVoiceEvent;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.events.message.guild.GenericGuildMessageEvent;
-import net.dv8tion.jda.core.events.role.GenericRoleEvent;
 import net.dv8tion.jda.core.hooks.EventListener;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
-
-import java.util.Map;
 
 //intercepts discord messages
 public class Listener implements EventListener {

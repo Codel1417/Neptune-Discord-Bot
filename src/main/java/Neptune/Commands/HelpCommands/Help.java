@@ -1,9 +1,9 @@
 package Neptune.Commands.HelpCommands;
 
 import Neptune.Commands.CommandInterface;
+import Neptune.Commands.CommandRunner;
 import Neptune.Commands.CommonMethods;
 import Neptune.Commands.commandCategories;
-import Neptune.Storage.StorageController;
 import Neptune.Storage.VariablesStorage;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -64,7 +64,7 @@ public class Help extends CommonMethods implements CommandInterface {
         embedBuilder.setAuthor("Help",event.getGuild().getSelfMember().getUser().getEffectiveAvatarUrl());
         embedBuilder.setDescription("Use " + variablesStorage.getCallBot() + " <Command>");
 
-        HashMap<String, Object> commands = StorageController.getInstance().getCommandList();
+        HashMap<String, Object> commands = (HashMap<String, Object>) new CommandRunner(variablesStorage).getCommandList();
 
         String[] commandArray = getCommandName(messageContent);
         commandCategories category = null;

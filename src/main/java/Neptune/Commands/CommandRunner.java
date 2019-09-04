@@ -15,13 +15,13 @@ import Neptune.Commands.UtilityCommands.About;
 import Neptune.Commands.UtilityCommands.Leave;
 import Neptune.Commands.UtilityCommands.Screenshare;
 import Neptune.Commands.UtilityCommands.Uptime;
-import Neptune.Storage.StorageController;
 import Neptune.Storage.VariablesStorage;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 //TODO: Make commands shard aware
@@ -100,9 +100,10 @@ public class CommandRunner extends CommonMethods {
         if(variablesStorage.getDevMode()){
             commands.put(vrChatAPI.getCommand(),vrChatAPI);
         }
-        StorageController.getInstance().setCommandList(commands);
     }
-
+    public Map<String, Object> getCommandList(){
+        return commands;
+    }
     public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage){
         String[] CommandArray = getCommandName(event.getMessage().getContentRaw().trim().toLowerCase().replaceFirst(VariableStorageRead.getCallBot().toLowerCase(), "").trim());
         Log.info("        Bot Called");

@@ -2,7 +2,10 @@ package Neptune.Commands.FunCommands;
 
 import Neptune.Commands.CommandInterface;
 import Neptune.Commands.commandCategories;
+import Neptune.Storage.SQLite.SettingsStorage;
 import Neptune.Storage.VariablesStorage;
+import net.dv8tion.jda.core.MessageBuilder;
+import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 
 
@@ -10,7 +13,7 @@ public class Translate implements CommandInterface {
     private final int TranslateChangeSize = 6;
     private final String SmallWord = "Nep";
     private final String LargeWord = "Nepu";
-
+    private SettingsStorage settingsStorage = new SettingsStorage();
     @Override
     public String getName() {
         return "Translate";
@@ -68,7 +71,16 @@ public class Translate implements CommandInterface {
             }
             else translatedMessage.append(LargeWord).append(" ");
         }
-        event.getChannel().sendMessage(translatedMessage.toString()).queue();
+        boolean tts = settingsStorage.getGuildSettings(event.getGuild().getId()).getOrDefault("TTS","disabled").equalsIgnoreCase("enabled");
+
+        MessageBuilder builder = new MessageBuilder();
+        if (event.getMember().hasPermission(Permission.MESSAGE_TTS) && event.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_TTS)) {
+            builder.setTTS(tts);
+        }
+        else builder.setTTS(false);
+        builder.append(translatedMessage.toString());
+        builder.sendTo(event.getChannel()).queue();
+        //event.getChannel().sendMessage(translatedMessage.toString()).queue();
         return true;
     }
 }

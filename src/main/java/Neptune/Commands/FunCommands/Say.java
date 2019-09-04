@@ -1,6 +1,6 @@
 package Neptune.Commands.FunCommands;
 
-import Neptune.Storage.StorageController;
+import Neptune.Storage.SQLite.SettingsStorage;
 import Neptune.music.AudioController;
 import Neptune.Commands.CommandInterface;
 import Neptune.Commands.commandCategories;
@@ -22,6 +22,7 @@ public class Say implements CommandInterface {
         listOfFiles = folder.listFiles();
         System.out.println("Say Files: " + listOfFiles.length);
     }
+    private SettingsStorage settingsStorage = new SettingsStorage();
     @Override
     public String getName() {
         return "Say";
@@ -69,7 +70,6 @@ public class Say implements CommandInterface {
 
     @Override
     public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
-        StorageController storageController = StorageController.getInstance();
         //rate limiting
         if (isRateLimited(event.getAuthor(), variablesStorage)) return false;
 
@@ -79,7 +79,7 @@ public class Say implements CommandInterface {
         }
         Queue<File> results = searchQuotes(messageContent);
         if (results.size() == 1) {
-            saySingleMatch(results.iterator().next(), event, storageController);
+            saySingleMatch(results.iterator().next(), event);
         }
         else if (results.size() > 1 ) {
             List<StringBuilder> preparedMessages = prepareLargeMessage(results);
@@ -91,7 +91,7 @@ public class Say implements CommandInterface {
         return false;
     }
 
-    private void saySingleMatch(File quote, MessageReceivedEvent event, StorageController storageController) {
+    private void saySingleMatch(File quote, MessageReceivedEvent event) {
         //storageController.incrementAnalyticForCommand("Say", quote.getName().replace("."," ").replace(" wav",""));
 
         if (event.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_MANAGE)) {
@@ -108,11 +108,13 @@ public class Say implements CommandInterface {
                 AudioOut.playSound(event, quote.getAbsolutePath());
             }
         }
+        boolean tts = settingsStorage.getGuildSettings(event.getGuild().getId()).getOrDefault("TTS","disabled").equalsIgnoreCase("enabled");
+
         if (event.getMember().hasPermission(Permission.MESSAGE_WRITE)) {
             MessageBuilder builder = new MessageBuilder();
             if (event.getGuild().getAudioManager() == null || event.getMember().getVoiceState().getChannel() == null) {
                 if (event.getMember().hasPermission(Permission.MESSAGE_TTS) && event.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_TTS)) {
-                    //builder.setTTS(storageController.getTtsEnabled(event.getGuild()));
+                    builder.setTTS(tts);
                 }
             }
             else builder.setTTS(false);

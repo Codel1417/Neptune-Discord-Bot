@@ -5,13 +5,20 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/AdminCommands/AdminOptions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/AdminCommands/AdminOptions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/AdminCommands/Logging.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/AdminCommands/Logging.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/PassiveCommands/guildListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/PassiveCommands/guildListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/RandomMediaPicker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/RandomMediaPicker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Storage/DropboxConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Storage/DropboxConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Storage/SQLite/LoggingHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Storage/SQLite/LoggingHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/CommandRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/CommandRunner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/Nep.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/Nep.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/PayRespect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/PayRespect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/Say.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/Say.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/Translate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/Translate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/UWU_Translater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/UWU_Translater.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/HelpCommands/Help.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/HelpCommands/Help.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Listener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Listener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/ServerLogging/GuildLogging.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/ServerLogging/GuildLogging.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Storage/MissingDataException.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Storage/SQLite/SettingsStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Storage/SQLite/SettingsStorage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Storage/TenorConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Storage/TenorConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/messageInterprter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/messageInterprter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Storage/SQLiteConnection.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Storage/StorageController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Storage/VariablesStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Storage/VariablesStorage.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -519,7 +526,21 @@
       <option name="project" value="LOCAL" />
       <updated>1567407416732</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="Fix Admin Menu&#10;Fix RandomMediaPicker">
+      <created>1567537805246</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1567537805246</updated>
+    </task>
+    <task id="LOCAL-00039" summary="Fix Admin Menu&#10;Fix RandomMediaPicker">
+      <created>1567537829687</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1567537829687</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TodoView">
@@ -569,7 +590,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Cache System added" />
     <MESSAGE value="Proper Logging&#10;Removed a ton of warnings" />
     <MESSAGE value="Fix Sharding" />
     <MESSAGE value="Rework Say" />
@@ -594,7 +614,8 @@
     <MESSAGE value="Fix bug in sql" />
     <MESSAGE value="Set up new Database controller" />
     <MESSAGE value="Move logging to new database setup" />
-    <option name="LAST_COMMIT_MESSAGE" value="Move logging to new database setup" />
+    <MESSAGE value="Fix Admin Menu&#10;Fix RandomMediaPicker" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix Admin Menu&#10;Fix RandomMediaPicker" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
