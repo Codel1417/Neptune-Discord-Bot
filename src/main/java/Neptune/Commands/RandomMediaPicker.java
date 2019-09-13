@@ -1,12 +1,10 @@
 package Neptune.Commands;
 
 import Neptune.music.AudioController;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Objects;
 import java.util.Random;
 
 public class RandomMediaPicker {
@@ -20,7 +18,6 @@ public class RandomMediaPicker {
         if (Folder == null || !Folder.exists() && !Folder.isDirectory()) return; //null check
         System.out.println("Finding Random Media from folder" + Folder.getAbsolutePath());
         searchFolder(Folder, audio, image);
-        System.out.println("    Files Found");
         System.out.println("        Image Files: " + ImageFiles.size());
         System.out.println("        Audio Files: " + audioFiles.size());
 
@@ -31,12 +28,10 @@ public class RandomMediaPicker {
         Random rand = new Random();
         if (ImageFiles.size() != 0 && image) {
             File imageFile = ImageFiles.get(rand.nextInt(ImageFiles.size()));
-            System.out.println("    Image File: " + imageFile.getPath());
             event.getChannel().sendMessage("\n").addFile(ImageFiles.get(rand.nextInt(ImageFiles.size()))).queue();
         }
         if (audioFiles.size() != 0 && audio) {
             File audioFile = audioFiles.get(rand.nextInt(audioFiles.size()));
-            System.out.println("    Audio File " + audioFile.getPath());
             if (event.getGuild().getAudioManager() != null || event.getMember().getVoiceState().getChannel() != null && event.getGuild() != null ) {
                 AudioOut.playSound(event, audioFile.getAbsolutePath());
             }

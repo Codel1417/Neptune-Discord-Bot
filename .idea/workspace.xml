@@ -2,29 +2,137 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="db4b6966-4060-4bb3-bd8f-ce2ef72a3509" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/Neptune-Discord-Bot.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/InProgress/VRC.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/VRChatRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Neptune/MessagePages.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Neptune/Storage/VRCApiConnection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/AdminCommands/AdminOptions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/AdminCommands/AdminOptions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/AdminCommands/GuildInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/AdminCommands/GuildInfo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/AdminCommands/Logging.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/AdminCommands/Logging.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/CommandInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/CommandInterface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/CommandRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/CommandRunner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/DevCommands/ServerInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/DevCommands/ServerInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/Attack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/Attack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/CoinFlip.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/CoinFlip.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/GIF/Confused.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/GIF/Confused.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/GIF/Cuddle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/GIF/Cuddle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/GIF/Hug.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/GIF/Hug.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/GIF/Nom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/GIF/Nom.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/GIF/Pat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/GIF/Pat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/GIF/Poke.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/GIF/Poke.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/GreatSleepKing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/GreatSleepKing.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/Imgur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/Imgur.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/Nep.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/Nep.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/PayRespect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/PayRespect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/Ping.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/Ping.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/RollDie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/RollDie.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/Say.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/Say.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/Translate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/Translate.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/UWU_Translater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/UWU_Translater.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/HelpCommands/Help.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/HelpCommands/Help.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/InProgress/Stats.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/InProgress/Stats.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/InProgress/TtsOption.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/InProgress/TtsOption.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/InProgress/VRChatAPI.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/PassiveCommands/DM_ImageDownload.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/PassiveCommands/DM_ImageDownload.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/PassiveCommands/guildListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/PassiveCommands/guildListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/RandomMediaPicker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/RandomMediaPicker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/TenorGif.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/TenorGif.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/UtilityCommands/About.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/UtilityCommands/About.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/UtilityCommands/Leave.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/UtilityCommands/Leave.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/UtilityCommands/MinecraftServerStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/UtilityCommands/MinecraftServerStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/UtilityCommands/Screenshare.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/UtilityCommands/Screenshare.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/UtilityCommands/Uptime.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/UtilityCommands/Uptime.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/CycleGameStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/CycleGameStatus.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Listener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Listener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/ServerLogging/GuildLogging.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/ServerLogging/GuildLogging.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Storage/MissingDataException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Storage/DropboxConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Storage/DropboxConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Storage/SQLite/DatabaseCleanup.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Storage/SQLite/LoggingHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Storage/SQLite/LoggingHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Storage/SQLite/SettingsStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Storage/SQLite/SettingsStorage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Storage/SQLiteConnection.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Storage/StorageController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Storage/TenorConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Storage/TenorConnection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Storage/VariablesStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Storage/VariablesStorage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/messageInterprter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/messageInterprter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/music/AudioController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/music/AudioController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/music/AudioPlayerSendHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/music/AudioPlayerSendHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vrchatapi/ApiModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vrchatapi/DeveloperType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vrchatapi/FriendStatus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vrchatapi/HttpUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vrchatapi/NotificationType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vrchatapi/Owner.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vrchatapi/ReleaseStatus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vrchatapi/SearchType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vrchatapi/SortOrder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vrchatapi/VRCAvatar.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vrchatapi/VRCCredentials.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vrchatapi/VRCException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vrchatapi/VRCFriends.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vrchatapi/VRCNotification.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vrchatapi/VRCRemoteConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vrchatapi/VRCUser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vrchatapi/VRCWorld.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vrchatapi/VRCWorldInstance.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vrchatapi/logging/Log.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/github/vrchatapi/logging/LogLevel.java" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="NepDB.db" type="feb32156:DbDataSourceImpl" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="NepDB.db" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="NepDB.db" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="main: schema" type="981a47c2:SqliteImplModel$Schema" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="NepDB.db" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="main: schema" type="981a47c2:SqliteImplModel$Schema" />
+        <item name="Log: table" type="3d80ac25:SqliteImplModel$Table" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="NepDB.db" type="feb32156:DbDataSourceImpl" />
+        <item name="collations" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+    </expand>
+    <select />
   </component>
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
@@ -48,6 +156,28 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="Neptune" type="f1a62948:ProjectNode" />
               </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Neptune" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Neptune" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Neptune" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="other" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Neptune" type="f1a62948:ProjectNode" />
+                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
+              </path>
             </expand>
             <select />
           </tree_state>
@@ -69,11 +199,6 @@
       </list>
     </option>
   </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>getName().replace(&quot;.wav&quot;, &quot;&quot;).trim()</find>
-    </findStrings>
-  </component>
   <component name="Git.Settings">
     <option name="UPDATE_CHANGES_POLICY" value="SHELVE" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -85,12 +210,23 @@
       </set>
     </option>
   </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="1" />
+  </component>
   <component name="ProjectId" id="1QG3yDt75e9AGIz1k1K7GfldXFz" />
+  <component name="ProjectViewState">
+    <option name="autoscrollToSource" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="sqlite" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="add_unversioned_files" value="$PROJECT_DIR$/NepAuth.json" />
+    <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1567021179112" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15234375" />
     <property name="project.structure.side.proportion" value="0.30069125" />
@@ -119,34 +255,6 @@
     </option>
   </component>
   <component name="RunManager" selected="Application.Main">
-    <configuration name="GetAuthToken" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Neptune.Storage.GetAuthToken" />
-      <module name="Neptune.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="Neptune.Storage.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <extension name="recording" autostart="false" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Neptune.Main" />
-      <module name="Neptune.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="Neptune.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <extension name="recording" autostart="false" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Neptune.Main" />
       <module name="Neptune.main" />
@@ -206,6 +314,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="VRC" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Neptune.Commands.InProgress.VRC" />
+      <module name="Neptune.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Neptune.Commands.InProgress.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <extension name="recording" autostart="false" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Neptune-Discord-Bot [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -222,7 +344,25 @@
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <extension name="recording" autostart="false" />
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="Neptune-Discord-Bot [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="clean" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
       <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
@@ -242,19 +382,28 @@
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <extension name="recording" autostart="false" />
       <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
-        <item itemvalue="Application.Main (1)" />
         <item itemvalue="Gradle.Neptune-Discord-Bot [jar]" />
         <item itemvalue="Gradle.Neptune-Discord-Bot [build]" />
-        <item itemvalue="Application.GetAuthToken" />
+        <item itemvalue="Gradle.Neptune-Discord-Bot [clean]" />
+        <item itemvalue="Application.VRC" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="allServicesViewState">
+      <serviceView>
+        <treeState>
+          <expand />
+          <select />
+        </treeState>
+      </serviceView>
+    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -266,6 +415,10 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1556746762206</updated>
+      <workItem from="1568316417798" duration="248000" />
+      <workItem from="1568322557935" duration="1197000" />
+      <workItem from="1568340202423" duration="968000" />
+      <workItem from="1568348496751" duration="3051000" />
     </task>
     <task id="LOCAL-00001" summary="Massive changes to Message Interpreter">
       <created>1560181955559</created>
@@ -540,7 +693,14 @@
       <option name="project" value="LOCAL" />
       <updated>1567537829687</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="Fix Admin Menu&#10;Fix RandomMediaPicker">
+      <created>1567573904782</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1567573904782</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TodoView">
@@ -551,6 +711,9 @@
       <are-packages-shown value="true" />
       <is-autoscroll-to-source value="true" />
     </todo-panel>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
   </component>
   <component name="Vcs.Log.History.Properties">
     <option name="COLUMN_ORDER">

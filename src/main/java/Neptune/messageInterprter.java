@@ -2,22 +2,18 @@ package Neptune;
 
 import Neptune.Commands.CommandRunner;
 import Neptune.Commands.RandomMediaPicker;
-import Neptune.Storage.*;
-
-import java.util.Map;
-import java.util.logging.Logger;
-
 import Neptune.Storage.SQLite.SettingsStorage;
-import com.google.gson.internal.LinkedTreeMap;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import Neptune.Storage.VariablesStorage;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Map;
 
 class messageInterprter {
     private final VariablesStorage VariableStorageRead;
-    private final static Logger Log = Logger.getLogger(messageInterprter.class.getName());
     private final CommandRunner nepCommands;
     private final RandomMediaPicker randomMediaPicker = new RandomMediaPicker();
     private final SettingsStorage settingsStorage = new SettingsStorage();
@@ -46,8 +42,6 @@ class messageInterprter {
     }
 
     void runEvent(MessageReceivedEvent event) {
-        //log everything to console when debugging
-        if (VariableStorageRead.getDevMode()) printConsoleLog(true, event);
 
         //Checks if the guild is currently stored, if not creates an entry
         checkStoredGuild(event.getGuild());
@@ -59,7 +53,7 @@ class messageInterprter {
 
             if (isBotCalled(event.getMessage(), multiPrefix)) {
                 //print the message log in the console if the message was a command
-                if (!VariableStorageRead.getDevMode()) printConsoleLog(false, event);
+                printConsoleLog(event);
 
                 //run command
                 if (!nepCommands.run(event, VariableStorageRead)) {
@@ -75,7 +69,7 @@ class messageInterprter {
     }
 
 
-    private void checkStoredGuild(net.dv8tion.jda.core.entities.Guild guildObject) {
+    private void checkStoredGuild(Guild guildObject) {
         /*
         Checks the list to see if the current guild/server is stored, if not create a new guild entry.
          */
@@ -83,25 +77,16 @@ class messageInterprter {
             settingsStorage.addGuild(guildObject.getId());
         }
     }
-    private void printConsoleLog(Boolean debug, MessageReceivedEvent event){
+    private void printConsoleLog(MessageReceivedEvent event){
         StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append("New Message \n");
+            stringBuilder.append("NEPTUNE: New Message:");
             if (event.getGuild() != null) {
-                stringBuilder.append("    Guild Name: ").append(event.getGuild().getName()).append("\n");
-                if (debug){
-                    stringBuilder.append("    Guild ID: ").append(event.getGuild().getId()).append("\n");
-                }
+                    stringBuilder.append("    Guild ID: ").append(event.getGuild().getId());
             }
-        stringBuilder.append("    Channel Name: ").append(event.getChannel().getName()).append("\n");
-            if (debug){
-                stringBuilder.append("    Channel ID ").append(event.getChannel().getId()).append("\n");
-            }
-        stringBuilder.append("    Author Name: ").append(event.getAuthor().getName()).append("\n");
-            if (debug) {
-                stringBuilder.append("    Author ID: ").append(event.getAuthor().getId()).append("\n");
-            }
-        stringBuilder.append("    Message Contents: ").append(event.getMessage().getContentRaw()).append("\n");
-        stringBuilder.append("    message: ").append(event.getMessage()).append("\n");
-        Log.info(stringBuilder.toString());
+            stringBuilder.append("    Channel ID ").append(event.getChannel().getId());
+            stringBuilder.append("    Author ID: ").append(event.getAuthor().getId());
+        stringBuilder.append("    Message Contents: ").append(event.getMessage().getContentRaw());
+        stringBuilder.append("    message: ").append(event.getMessage());
+        System.out.println(stringBuilder.toString());
     }
 }

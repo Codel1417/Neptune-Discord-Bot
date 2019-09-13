@@ -18,9 +18,9 @@ public class TenorConnection extends ConvertJSON{
         this.API_KEY = API_KEY;
     }
 
-    public String getingleImage(String SearchTerm){
+    public String getSingleImage(String SearchTerm){
         String returnURL;
-        String resultLimit = "25";
+        String resultLimit = "10";
         SearchTerm = SearchTerm.replaceAll(" ","-");
         final String url = String.format("https://api.tenor.com/v1/search?q=%1$s&key=%2$s&limit=%3$s",
                 SearchTerm, API_KEY, resultLimit);
@@ -29,12 +29,8 @@ public class TenorConnection extends ConvertJSON{
         try {
             // Get request
             connection = (HttpURLConnection) new URL(url).openConnection();
-            //connection.setDoInput(true);
-            //connection.setDoOutput(true);
             connection.setRequestMethod("GET");
             connection.setRequestProperty("Content-Type", "application/json");
-            //connection.setRequestProperty("Accept", "application/json");
-            //connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
             System.out.println("Response Code = " + connection.getResponseCode());
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(connection.getInputStream()));

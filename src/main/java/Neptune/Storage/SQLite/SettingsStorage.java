@@ -27,6 +27,7 @@ public class SettingsStorage {
         }
     }
     public boolean addGuild(String GuildID){
+        System.out.println("SQL: Adding Guild " + GuildID);
         try {
             Connection connection;
             connection = DriverManager.getConnection(DatabaseURL);
@@ -44,7 +45,7 @@ public class SettingsStorage {
             return true;
         } catch (SQLException e) {
             if(e.getErrorCode() == 19){
-                System.out.println("    Data Exists :)");
+                //System.out.println("    Data Exists :)");
                 return true;
             }
             else{
@@ -55,6 +56,7 @@ public class SettingsStorage {
         }
     }
     public Map<String,String> getGuildSettings(String GuildID){
+        System.out.println("SQL: Retrieving Guild " + GuildID);
         Connection connection;
         try {
             connection = DriverManager.getConnection(DatabaseURL);
@@ -80,7 +82,7 @@ public class SettingsStorage {
         }
     }
     public boolean deleteGuild(String GuildID){
-        System.out.println("Deleting Guild " + GuildID);
+        System.out.println("SQL: Deleting Guild " + GuildID);
         try {
             Connection connection = DriverManager.getConnection(DatabaseURL);
             boolean result = connection.createStatement().execute("DELETE FROM "+ GuildOptions +
@@ -94,14 +96,13 @@ public class SettingsStorage {
         return false;
     }
     public boolean updateGuild(String GuildID, String Field, String Value){
-        System.out.println("Setting Field: " + Field + " to the value: "+Value+" for the Guild: " + GuildID);
+        System.out.println("SQL: Setting Field: " + Field + " to the value: "+Value+" for the Guild: " + GuildID);
         try {
             Connection connection = DriverManager.getConnection(DatabaseURL);
             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE "+GuildOptions+" SET "+Field+" = ? WHERE GuildID = " + GuildID);
             preparedStatement.setString(1,Value);
             boolean result =  preparedStatement.execute();
             connection.close();
-            System.out.println("    Success");
             return result;
         } catch (SQLException e) {
             e.printStackTrace();

@@ -3,13 +3,14 @@ package Neptune.Commands.PassiveCommands;
 import Neptune.Storage.SQLite.LoggingHandler;
 import Neptune.Storage.SQLite.SettingsStorage;
 import Neptune.Storage.VariablesStorage;
-import net.dv8tion.jda.core.events.Event;
-import net.dv8tion.jda.core.events.channel.text.TextChannelDeleteEvent;
-import net.dv8tion.jda.core.events.guild.GuildJoinEvent;
-import net.dv8tion.jda.core.events.guild.GuildLeaveEvent;
-import net.dv8tion.jda.core.events.guild.voice.GuildVoiceUpdateEvent;
-import net.dv8tion.jda.core.hooks.EventListener;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.events.GenericEvent;
+import net.dv8tion.jda.api.events.channel.text.TextChannelDeleteEvent;
+import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
+import net.dv8tion.jda.api.events.guild.GuildLeaveEvent;
+import net.dv8tion.jda.api.events.guild.voice.GuildVoiceUpdateEvent;
+import net.dv8tion.jda.api.hooks.EventListener;
+
+import javax.annotation.Nonnull;
 
 public class guildListener implements EventListener {
     private VariablesStorage VariableStorageRead;
@@ -29,9 +30,9 @@ public class guildListener implements EventListener {
     private void onGuildVoiceUpdate(GuildVoiceUpdateEvent guildVoiceUpdateEvent) {
         //This disconnects the bot from vc when the last person leaves the voice chat.
         try {
-            if (guildVoiceUpdateEvent.getGuild().getVoiceChannelById(guildVoiceUpdateEvent.getChannelLeft().getId()).getMembers().size() == 1 && guildVoiceUpdateEvent.getGuild().getAudioManager().isConnected()) {
-                guildVoiceUpdateEvent.getGuild().getAudioManager().setSendingHandler(null);
-                guildVoiceUpdateEvent.getGuild().getAudioManager().closeAudioConnection();
+            if (guildVoiceUpdateEvent.getChannelLeft().getMembers().size() == 1 && guildVoiceUpdateEvent.getChannelLeft().getGuild().getAudioManager().isConnected()) {
+                guildVoiceUpdateEvent.getChannelLeft().getGuild().getAudioManager().setSendingHandler(null);
+                guildVoiceUpdateEvent.getChannelLeft().getGuild().getAudioManager().closeAudioConnection();
                 System.out.println("Channel Empty, Disconnecting from VC");
             }
         } catch (Exception ignored) {
@@ -39,7 +40,7 @@ public class guildListener implements EventListener {
     }
 
     @Override
-    public void onEvent(Event event) {
+    public void onEvent(@Nonnull GenericEvent event) {
        if (event instanceof GuildJoinEvent){
            onGuildJoin((GuildJoinEvent) event);
        }
@@ -53,4 +54,5 @@ public class guildListener implements EventListener {
            loggingHandler.deleteChannelMessages(((TextChannelDeleteEvent) event).getChannel().getId());
        }
     }
+
 }

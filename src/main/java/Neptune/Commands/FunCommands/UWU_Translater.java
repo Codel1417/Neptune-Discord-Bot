@@ -4,9 +4,9 @@ import Neptune.Commands.CommandInterface;
 import Neptune.Commands.commandCategories;
 import Neptune.Storage.SQLite.SettingsStorage;
 import Neptune.Storage.VariablesStorage;
-import net.dv8tion.jda.core.MessageBuilder;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.MessageBuilder;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,6 +21,8 @@ public class UWU_Translater implements CommandInterface {
         indirectTranslations.put("r","w");
         indirectTranslations.put("L","W");
         indirectTranslations.put("l","w");
+        indirectTranslations.put("V","B");
+        indirectTranslations.put("v","B");
         indirectTranslations.put("ove","uv");
         indirectTranslations.put("what","whawt");
         indirectTranslations.put("you","uwu");
@@ -31,6 +33,8 @@ public class UWU_Translater implements CommandInterface {
         indirectTranslations.put("Both", "Bod");
         indirectTranslations.put("the", "de");
         indirectTranslations.put("The", "De");
+        indirectTranslations.put("One","Wan");
+        indirectTranslations.put("one","wan");
 
 
     }

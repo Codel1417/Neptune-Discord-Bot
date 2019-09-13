@@ -1,29 +1,30 @@
 package Neptune;
 
-import net.dv8tion.jda.core.entities.Game;
-import net.dv8tion.jda.core.events.Event;
-import net.dv8tion.jda.core.events.ReadyEvent;
-import net.dv8tion.jda.core.hooks.EventListener;
+import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.events.GenericEvent;
+import net.dv8tion.jda.api.events.ReadyEvent;
+import net.dv8tion.jda.api.hooks.EventListener;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 
 public class CycleGameStatus implements EventListener {
-    ArrayList<Game> MessageLoop;
+    ArrayList<Activity> MessageLoop;
     public CycleGameStatus(){
         MessageLoop = new ArrayList<>();
-        MessageLoop.add(Game.playing("!Nep Help"));
-        MessageLoop.add(Game.listening("Nep Nep Nep Nep Nep"));
-        MessageLoop.add(Game.playing("!Nep UwU"));
-        MessageLoop.add(Game.listening("Nepu Nep Nep"));
+        MessageLoop.add(Activity.playing("!Nep Help"));
+        MessageLoop.add(Activity.listening("Nep Nep Nep Nep Nep"));
+        MessageLoop.add(Activity.playing("!Nep UwU"));
+        MessageLoop.add(Activity.listening("Nepu Nep Nep"));
 
     }
 
     private void onReady(ReadyEvent event){
         while (true) {
             try {
-                for (Game game : MessageLoop){
+                for (Activity activity : MessageLoop){
                     Thread.sleep(1000*15); //wait 15 seconds to avoid ratelimit
-                    event.getJDA().asBot().getShardManager().setGame(game);
+                    event.getJDA().getShardManager().setActivity(activity);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -31,7 +32,7 @@ public class CycleGameStatus implements EventListener {
         }
     }
     @Override
-    public void onEvent(Event event){
+    public void onEvent(@Nonnull GenericEvent event) {
         if (event instanceof  ReadyEvent){
             onReady((ReadyEvent) event);
         }

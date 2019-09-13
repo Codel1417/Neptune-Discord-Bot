@@ -3,18 +3,9 @@ package Neptune.Commands.FunCommands.GIF;
 import Neptune.Commands.CommandInterface;
 import Neptune.Commands.TenorGif;
 import Neptune.Commands.commandCategories;
-import Neptune.Storage.GetAuthToken;
-import Neptune.Storage.TenorConnection;
 import Neptune.Storage.VariablesStorage;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.IMentionable;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-
-import java.awt.*;
-import java.io.File;
-import java.util.List;
-import java.util.Map;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class Pat extends TenorGif implements CommandInterface {
 

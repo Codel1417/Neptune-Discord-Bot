@@ -4,9 +4,9 @@ import Neptune.Commands.CommandInterface;
 import Neptune.Commands.commandCategories;
 import Neptune.Storage.SQLite.SettingsStorage;
 import Neptune.Storage.VariablesStorage;
-import net.dv8tion.jda.core.MessageBuilder;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.MessageBuilder;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class Nep implements CommandInterface {
     SettingsStorage settingsStorage = new SettingsStorage();

@@ -1,23 +1,17 @@
 package Neptune.Commands;
 
 import Neptune.Commands.AdminCommands.AdminOptions;
-import Neptune.Commands.FunCommands.*;
-import Neptune.Commands.FunCommands.GIF.*;
-import Neptune.Commands.FunCommands.Imgur;
-import Neptune.Commands.FunCommands.GreatSleepKing;
 import Neptune.Commands.AdminCommands.GuildInfo;
-import Neptune.Commands.HelpCommands.Help;
 import Neptune.Commands.AdminCommands.Logging;
 import Neptune.Commands.DevCommands.ServerInfo;
-import Neptune.Commands.UtilityCommands.MinecraftServerStatus;
-import Neptune.Commands.InProgress.VRChatAPI;
-import Neptune.Commands.UtilityCommands.About;
-import Neptune.Commands.UtilityCommands.Leave;
-import Neptune.Commands.UtilityCommands.Screenshare;
-import Neptune.Commands.UtilityCommands.Uptime;
+import Neptune.Commands.FunCommands.*;
+import Neptune.Commands.FunCommands.GIF.*;
+import Neptune.Commands.HelpCommands.Help;
+import Neptune.Commands.InProgress.VRC;
+import Neptune.Commands.UtilityCommands.*;
 import Neptune.Storage.VariablesStorage;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.io.File;
 import java.util.HashMap;
@@ -44,7 +38,7 @@ public class CommandRunner extends CommonMethods {
     private final CoinFlip coinFlip = new CoinFlip();
     private final RollDie rollDie = new RollDie();
     private final Imgur imgur = new Imgur();
-    private final VRChatAPI vrChatAPI = new VRChatAPI();
+    private final VRC vrChatAPI = new VRC();
     private final GreatSleepKing greatSleepKing = new GreatSleepKing();
     private final PayRespect payRespect = new PayRespect();
     private final Attack attack = new Attack();
@@ -106,7 +100,6 @@ public class CommandRunner extends CommonMethods {
     }
     public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage){
         String[] CommandArray = getCommandName(event.getMessage().getContentRaw().trim().toLowerCase().replaceFirst(VariableStorageRead.getCallBot().toLowerCase(), "").trim());
-        Log.info("        Bot Called");
         if (commands.containsKey(CommandArray[0])){
             CommandInterface command = (CommandInterface) commands.get(CommandArray[0]);
             //TODO: add error message
@@ -117,7 +110,7 @@ public class CommandRunner extends CommonMethods {
             }
             //analytics
             //storageController.incrementAnalyticForCommand(command.getName().toLowerCase().trim());
-            Log.info("    Running Command: " + command.getName());
+            System.out.println("NEPTUNE: Running Command: " + command.getName());
             return command.run(event, variablesStorage, CommandArray[1]);
         }
         return false;

@@ -32,11 +32,7 @@ public class LoggingHandler {
     }
 
     public boolean newLogEntry(String GuildID,String ChannelID, String AuthorID, String MessageID, String MessageContent){
-        System.out.println("Adding new Log entry for guild " + GuildID + "\n" +
-                "Channel ID: " + ChannelID + "\n" +
-                "Author ID: " + AuthorID + "\n" +
-                "Message ID: " + MessageID + "\n" +
-                "Message Content: " + MessageContent);
+        System.out.println("SQL: Adding new Log entry for guild: " + GuildID +  " Channel ID: " + ChannelID + " Author ID: " + AuthorID + " Message ID: " + MessageID + " Message Content: " + MessageContent);
         try {
             Connection connection;
             connection = DriverManager.getConnection(DatabaseURL);
@@ -51,12 +47,13 @@ public class LoggingHandler {
             connection.close();
             return true;
         } catch (SQLException e) {
-                System.out.println("    Error Code= "+ e.getErrorCode());
+                System.out.println("SQL: Error Code= "+ e.getErrorCode());
                 e.printStackTrace();
             }
         return false;
     }
     public boolean updateLogEntry(String MessageID, String MessageContent, String PreviousMessage){
+        System.out.println("SQL: Updating Log entry ; " + MessageID);
         try {
             Connection connection = DriverManager.getConnection(DatabaseURL);
             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE "+LogTableName+" SET MessageContent = ?, PreviousMessage = ? WHERE MessageID = " + MessageID);
@@ -71,6 +68,7 @@ public class LoggingHandler {
         return false;
     }
     public boolean deleteLogEntry(String MessageID){
+        System.out.println("SQL: Deleting log entry; " + MessageID);
         try {
             Connection connection = DriverManager.getConnection(DatabaseURL);
             boolean result = connection.createStatement().execute("DELETE FROM "+ LogTableName +
@@ -83,6 +81,8 @@ public class LoggingHandler {
         return false;
     }
     public boolean deleteChannelMessages(String ChannelID){
+        System.out.println("SQL: Deleting log entries for channel ID; " + ChannelID);
+
         try {
             Connection connection = DriverManager.getConnection(DatabaseURL);
             boolean result = connection.createStatement().execute("DELETE FROM "+ LogTableName +
@@ -96,6 +96,7 @@ public class LoggingHandler {
     }
 
     public Map<String, String> getLogEntry(String MessageID){
+        System.out.println("SQL: Retrieving Log Entry for message ID: " + MessageID);
         Connection connection;
         try {
             connection = DriverManager.getConnection(DatabaseURL);
@@ -112,8 +113,9 @@ public class LoggingHandler {
             return results;
 
         } catch (SQLException e) {
-            System.out.println("    Error Code= "+ e.getErrorCode());
-            e.printStackTrace();
+            System.out.println("SQL: Error Code= "+ e.getErrorCode());
+            System.out.println("SQL: Log entry not found");
+            //e.printStackTrace();
             return null;
         }
     }

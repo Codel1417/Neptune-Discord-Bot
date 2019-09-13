@@ -1,15 +1,15 @@
 package Neptune.Commands.FunCommands;
 
-import Neptune.Storage.SQLite.SettingsStorage;
-import Neptune.music.AudioController;
 import Neptune.Commands.CommandInterface;
 import Neptune.Commands.commandCategories;
+import Neptune.Storage.SQLite.SettingsStorage;
 import Neptune.Storage.VariablesStorage;
-import net.dv8tion.jda.core.MessageBuilder;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.User;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.core.exceptions.InsufficientPermissionException;
+import Neptune.music.AudioController;
+import net.dv8tion.jda.api.MessageBuilder;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 
 import java.io.File;
 import java.util.*;
@@ -71,7 +71,7 @@ public class Say implements CommandInterface {
     @Override
     public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
         //rate limiting
-        if (isRateLimited(event.getAuthor(), variablesStorage)) return false;
+        if (isRateLimited(event.getMember().getUser(), variablesStorage)) return false;
 
         //open audio channel
         if (event.getGuild() != null && AudioOut == null) {

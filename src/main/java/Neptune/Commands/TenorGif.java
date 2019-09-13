@@ -2,9 +2,9 @@ package Neptune.Commands;
 
 import Neptune.Storage.GetAuthToken;
 import Neptune.Storage.TenorConnection;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.IMentionable;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.IMentionable;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.awt.*;
 import java.io.File;
@@ -29,8 +29,8 @@ public abstract class TenorGif {
             embedBuilder.setDescription("Neptune " + Search + "s " + mentionList);
         }
         embedBuilder.setColor(Color.MAGENTA);
-        embedBuilder.setFooter("Powered by Tenor.com", null);
-        embedBuilder.setImage(tenorConnection.getingleImage("Anime Girl " +  Search));
+        embedBuilder.setFooter("Powered by Tenor.com", "https://tenor.com/assets/img/tenor-logo.svg");
+        embedBuilder.setImage(tenorConnection.getSingleImage("Anime Girl " +  Search));
 
         return embedBuilder;
     }

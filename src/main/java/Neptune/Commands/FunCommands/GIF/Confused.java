@@ -4,8 +4,8 @@ import Neptune.Commands.CommandInterface;
 import Neptune.Commands.TenorGif;
 import Neptune.Commands.commandCategories;
 import Neptune.Storage.VariablesStorage;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class Confused extends TenorGif implements CommandInterface {
     @Override

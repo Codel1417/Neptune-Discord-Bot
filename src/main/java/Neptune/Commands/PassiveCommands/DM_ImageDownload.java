@@ -1,10 +1,10 @@
 package Neptune.Commands.PassiveCommands;
 
 import Neptune.FileDownloader;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageEmbed;
-import net.dv8tion.jda.core.events.message.priv.PrivateMessageReceivedEvent;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,7 +18,7 @@ public class DM_ImageDownload extends ListenerAdapter {
             for (Message.Attachment attachment : event.getMessage().getAttachments()){
                 File attach = new File("DM_Files" + File.separator + attachment.getFileName());
                 if(!attach.exists()){
-                    attachment.download(new File("DM_Files" + File.separator + attachment.getFileName()));
+                    attachment.downloadToFile(new File("DM_Files" + File.separator + attachment.getFileName()));
                 }
             }
         }

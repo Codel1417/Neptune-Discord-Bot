@@ -3,10 +3,11 @@ package Neptune.Commands.AdminCommands;
 import Neptune.Commands.CommandInterface;
 import Neptune.Commands.commandCategories;
 import Neptune.Storage.VariablesStorage;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Channel;
-import net.dv8tion.jda.core.entities.Role;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.VoiceChannel;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.awt.*;
 
@@ -62,10 +63,10 @@ public class GuildInfo implements CommandInterface {
         StringBuilder TextChannelList = new StringBuilder();
         StringBuilder VoiceChannelList = new StringBuilder();
         StringBuilder RoleList = new StringBuilder();
-        for (Channel channel : event.getGuild().getTextChannels()){
+        for (TextChannel channel : event.getGuild().getTextChannels()){
             TextChannelList.append(channel.getName()).append("\n");
         }
-        for (Channel channel : event.getGuild().getVoiceChannels()){
+        for (VoiceChannel channel : event.getGuild().getVoiceChannels()){
             VoiceChannelList.append(channel.getName()).append("\n");
         }
         for (Role role : event.getGuild().getRoles()){

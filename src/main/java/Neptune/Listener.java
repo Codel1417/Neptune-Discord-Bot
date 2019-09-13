@@ -3,15 +3,18 @@ package Neptune;
 import Neptune.ServerLogging.GuildLogging;
 import Neptune.Storage.SQLite.SettingsStorage;
 import Neptune.Storage.VariablesStorage;
-import net.dv8tion.jda.core.events.Event;
-import net.dv8tion.jda.core.events.channel.text.GenericTextChannelEvent;
-import net.dv8tion.jda.core.events.channel.voice.GenericVoiceChannelEvent;
-import net.dv8tion.jda.core.events.guild.member.GenericGuildMemberEvent;
-import net.dv8tion.jda.core.events.guild.update.GenericGuildUpdateEvent;
-import net.dv8tion.jda.core.events.guild.voice.GenericGuildVoiceEvent;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.core.events.message.guild.GenericGuildMessageEvent;
-import net.dv8tion.jda.core.hooks.EventListener;
+import net.dv8tion.jda.api.events.Event;
+import net.dv8tion.jda.api.events.GenericEvent;
+import net.dv8tion.jda.api.events.channel.text.GenericTextChannelEvent;
+import net.dv8tion.jda.api.events.channel.voice.GenericVoiceChannelEvent;
+import net.dv8tion.jda.api.events.guild.member.GenericGuildMemberEvent;
+import net.dv8tion.jda.api.events.guild.update.GenericGuildUpdateEvent;
+import net.dv8tion.jda.api.events.guild.voice.GenericGuildVoiceEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.guild.GenericGuildMessageEvent;
+import net.dv8tion.jda.api.hooks.EventListener;
+
+import javax.annotation.Nonnull;
 
 //intercepts discord messages
 public class Listener implements EventListener {
@@ -32,7 +35,7 @@ public class Listener implements EventListener {
     }
 
     @Override
-    public void onEvent(Event event) {
+    public void onEvent(@Nonnull GenericEvent event) {
         if (event instanceof MessageReceivedEvent){
             onMessageReceived((MessageReceivedEvent) event);
         }
