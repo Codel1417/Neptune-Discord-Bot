@@ -28,9 +28,7 @@ import java.util.Map;
 public class GuildLogging {
     private final LoggingHandler loggingHandler = new LoggingHandler();
     public void GuildVoice(GenericGuildVoiceEvent event, Map<String, String> LoggingOptions) {
-        if(LoggingOptions.getOrDefault("LoggingChannel","").equalsIgnoreCase("") && LoggingOptions.get("LoggingChannel") == null) return;
         TextChannel textChannel = event.getGuild().getTextChannelById(LoggingOptions.get("LoggingChannel"));
-        if(!LoggingOptions.getOrDefault("LoggingEnabled","disabled").equalsIgnoreCase("enabled")) return;
 
         //check if logging is enabled
         if (!LoggingOptions.getOrDefault("VoiceChannelLogging", "disabled").equalsIgnoreCase("enabled")) {
@@ -93,9 +91,8 @@ public class GuildLogging {
     }
 
     public void GuildText(GenericGuildMessageEvent event, Map<String, String> LoggingOptions) {
-        if(LoggingOptions.getOrDefault("LoggingChannel","").equalsIgnoreCase("") && LoggingOptions.get("LoggingChannel") == null) return;
         TextChannel textChannel = event.getGuild().getTextChannelById(LoggingOptions.get("LoggingChannel"));
-        if(!LoggingOptions.getOrDefault("LoggingEnabled","disabled").equalsIgnoreCase("enabled")) return;
+
         //check if logging is enabled
         if (!LoggingOptions.getOrDefault("TextChannelLogging", "disabled").equalsIgnoreCase("enabled")) {
             return;
@@ -156,7 +153,7 @@ public class GuildLogging {
         loggingHandler.deleteLogEntry(event.getMessageId());
 
         //stops bot messages and self messages from being logged.
-        if (user.isBot() | user.getId().equalsIgnoreCase(event.getJDA().getSelfUser().getId()) | textChannel.getId().equalsIgnoreCase(event.getChannel().getId())) {
+        if (user != null && user.isBot() | user.getId().equalsIgnoreCase(event.getJDA().getSelfUser().getId()) | textChannel.getId().equalsIgnoreCase(event.getChannel().getId())) {
             return;
         }
 
@@ -176,9 +173,8 @@ public class GuildLogging {
     }
 
     public void GuildMember(GenericGuildMemberEvent event, Map<String,String> LoggingOptions) {
-        if(LoggingOptions.getOrDefault("LoggingChannel","").equalsIgnoreCase("") && LoggingOptions.get("LoggingChannel") == null) return;
         TextChannel textChannel = event.getGuild().getTextChannelById(LoggingOptions.get("LoggingChannel"));
-        if(!LoggingOptions.getOrDefault("LoggingEnabled","disabled").equalsIgnoreCase("enabled")) return;
+
         //check if logging is enabled
         if (!LoggingOptions.getOrDefault("MemberActivityLogging", "disabled").equalsIgnoreCase("enabled")) {
             return;
@@ -239,9 +235,8 @@ public class GuildLogging {
     }
 
     public void GuildSettings(GenericGuildUpdateEvent event, Map<String, String> LoggingOptions) {
-        if(LoggingOptions.getOrDefault("LoggingChannel","").equalsIgnoreCase("") && LoggingOptions.get("LoggingChannel") == null) return;
         TextChannel textChannel = event.getGuild().getTextChannelById(LoggingOptions.get("LoggingChannel"));
-        if(!LoggingOptions.getOrDefault("LoggingEnabled","disabled").equalsIgnoreCase("enabled")) return;
+
         //check if logging is enabled
         if (!LoggingOptions.getOrDefault("ServerModificationLogging", "disabled").equalsIgnoreCase("enabled")) {
             return;
@@ -308,7 +303,6 @@ public class GuildLogging {
     }
 
     private void GuildSettings(GuildUpdateFeaturesEvent event, TextChannel textChannel) {
-        //TODO: Figure out what im logging here
         EmbedBuilder embedBuilder = getEmbedBuilder(event.getGuild());
         StringBuilder oldFeatures = new StringBuilder();
         StringBuilder newFeatures = new StringBuilder();
@@ -394,9 +388,7 @@ public class GuildLogging {
     }
 
     public void GuildTextChannel(GenericTextChannelEvent event, Map<String, String> LoggingOptions) {
-        if(LoggingOptions.getOrDefault("LoggingChannel","").equalsIgnoreCase("") && LoggingOptions.get("LoggingChannel") == null) return;
         TextChannel textChannel = event.getGuild().getTextChannelById(LoggingOptions.get("LoggingChannel"));
-        if(!LoggingOptions.getOrDefault("LoggingEnabled","disabled").equalsIgnoreCase("enabled")) return;
         //check if logging is enabled
         if (!LoggingOptions.getOrDefault("MemberActivityLogging", "disabled").equalsIgnoreCase("enabled")) {
             return;
@@ -524,9 +516,7 @@ public class GuildLogging {
         textChannel.sendMessage(embedBuilder.build()).queue();
     }
     public void GuildVoiceChannel(GenericVoiceChannelEvent event, Map<String, String> LoggingOptions){
-        if(LoggingOptions.getOrDefault("LoggingChannel","").equalsIgnoreCase("") && LoggingOptions.get("LoggingChannel") == null) return;
         TextChannel textChannel = event.getGuild().getTextChannelById(LoggingOptions.get("LoggingChannel"));
-        if(!LoggingOptions.getOrDefault("LoggingEnabled","disabled").equalsIgnoreCase("enabled")) return;
         //check if logging is enabled
         if (!LoggingOptions.getOrDefault("MemberActivityLogging","disabled").equalsIgnoreCase("enabled")){
             return;

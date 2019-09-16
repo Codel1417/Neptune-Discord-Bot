@@ -62,6 +62,12 @@ public class SettingsStorage {
             connection = DriverManager.getConnection(DatabaseURL);
             ResultSet resultSet = connection.prepareStatement("SELECT GuildID, TTS, CustomSounds, LoggingChannel, LoggingEnabled, TextChannelLogging, VoiceChannelLogging, MemberActivityLogging, ServerModificationLogging FROM "+ GuildOptions +" Where GuildID = " + GuildID).executeQuery();
             Map<String, String> results = new HashMap<>();
+
+            if (resultSet.isClosed()){
+                System.out.println("SQL: Guild does not Exist in database!");
+                return null;
+            }
+
             results.put("GuildID",resultSet.getString(1));
             results.put("TTS", resultSet.getString(2));
             results.put("CustomSounds", resultSet.getString(3));

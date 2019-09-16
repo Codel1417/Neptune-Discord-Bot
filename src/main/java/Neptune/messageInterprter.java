@@ -42,14 +42,17 @@ class messageInterprter {
     }
 
     void runEvent(MessageReceivedEvent event) {
-
-        //Checks if the guild is currently stored, if not creates an entry
-        checkStoredGuild(event.getGuild());
+        boolean multiPrefix;
 
         //check if the bot was called in chat
         try {
-            Map<String,String> test = settingsStorage.getGuildSettings(event.getGuild().getId());
-            boolean multiPrefix = test.getOrDefault("CustomSounds","disabled").equalsIgnoreCase("enabled");
+            Map<String,String> test = checkStoredGuild(event.getGuild());
+            if (test == null){
+                multiPrefix = false;
+            }
+            else{
+                multiPrefix = test.getOrDefault("CustomSounds","disabled").equalsIgnoreCase("enabled");
+            }
 
             if (isBotCalled(event.getMessage(), multiPrefix)) {
                 //print the message log in the console if the message was a command
@@ -69,13 +72,19 @@ class messageInterprter {
     }
 
 
-    private void checkStoredGuild(Guild guildObject) {
+    private Map<String, String> checkStoredGuild(Guild guildObject) {
         /*
         Checks the list to see if the current guild/server is stored, if not create a new guild entry.
          */
         if(guildObject != null) {
-            settingsStorage.addGuild(guildObject.getId());
+            Map<String, String> storedGuild =  settingsStorage.getGuildSettings(guildObject.getId());
+            if (storedGuild == null){
+                settingsStorage.addGuild(guildObject.getId());
+                return settingsStorage.getGuildSettings(guildObject.getId());
+            }
+            return storedGuild;
         }
+        return null;
     }
     private void printConsoleLog(MessageReceivedEvent event){
         StringBuilder stringBuilder = new StringBuilder();

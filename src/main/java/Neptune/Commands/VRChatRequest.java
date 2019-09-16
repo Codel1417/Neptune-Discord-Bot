@@ -1,7 +1,6 @@
 package Neptune.Commands;
 
 import Neptune.Storage.VRCApiConnection;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -24,7 +23,6 @@ public class VRChatRequest {
         result.put("authorName",jsonObject.get("authorName").getAsString());
 
         //populate map with values i care about;
-
         return result;
     }
     public Map<String, String> worldSearch(String search){

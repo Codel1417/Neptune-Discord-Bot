@@ -22,7 +22,8 @@ public class GetAuthToken {
             scanner.close();
             return new GsonBuilder().create().fromJson(json, typeOfHashMap);
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("AUTH: Error: Unable to find Auth file: " + file.getAbsolutePath());
+            System.exit(1);
         }
         return null;
     }
