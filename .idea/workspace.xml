@@ -6,8 +6,9 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="db4b6966-4060-4bb3-bd8f-ce2ef72a3509" name="Default Changelist" comment="Update Help Command">
+    <list default="true" id="db4b6966-4060-4bb3-bd8f-ce2ef72a3509" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/ServerLogging/GuildLogging.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/ServerLogging/GuildLogging.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Storage/VariablesStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Storage/VariablesStorage.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -370,6 +371,8 @@
       <workItem from="1568600835663" duration="6760000" />
       <workItem from="1568675583994" duration="9483000" />
       <workItem from="1568688723829" duration="1493000" />
+      <workItem from="1568691231892" duration="763000" />
+      <workItem from="1568740581866" duration="2808000" />
     </task>
     <task id="LOCAL-00001" summary="Massive changes to Message Interpreter">
       <created>1560181955559</created>
@@ -686,7 +689,14 @@
       <option name="project" value="LOCAL" />
       <updated>1568690398385</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="Fix D10k Result Number Message">
+      <created>1568691268707</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1568691268707</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="TodoView">
@@ -739,8 +749,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Removed some unused code" />
-    <MESSAGE value="Update random media selection" />
     <MESSAGE value="Update files to switch devices" />
     <MESSAGE value="Rewrite a ton of classes" />
     <MESSAGE value="Updated help page&#10;Added Commands" />
@@ -764,7 +772,9 @@
     <MESSAGE value="Update LavaPlayer&#10;Add Activity Cycle for Status&#10;Clean up errors&#10;Begin D10K Command&#10;Fix Jar Build" />
     <MESSAGE value="Complete D10K Command" />
     <MESSAGE value="Update Help Command" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update Help Command" />
+    <MESSAGE value="Fix D10k Result Number Message" />
+    <MESSAGE value="Fix Logging Previous Message" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix Logging Previous Message" />
   </component>
   <component name="WindowStateProjectService">
     <state x="414" y="173" key="#com.intellij.execution.impl.EditConfigurationsDialog" />

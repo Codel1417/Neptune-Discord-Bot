@@ -120,10 +120,10 @@ public class GuildLogging {
             return;
         }
 
-        Map<String, String> Message = loggingHandler.getLogEntry(event.getGuild().getId());
+        Map<String, String> Message = loggingHandler.getLogEntry(event.getMessageId());
         if (Message != null){
             PreviousMessage = Message.get("MessageContent");
-            loggingHandler.updateLogEntry(event.getMessageId(), event.getMessage().getContentDisplay(),Message.get("MessageContent"));
+            loggingHandler.updateLogEntry(event.getMessageId(), event.getMessage().getContentDisplay(),PreviousMessage);
         }
         else {
             loggingHandler.newLogEntry(event.getGuild().getId(),event.getChannel().getId(), event.getAuthor().getId(),event.getMessageId(), event.getMessage().getContentDisplay());
