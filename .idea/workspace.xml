@@ -7,16 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="db4b6966-4060-4bb3-bd8f-ce2ef72a3509" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/DevCommands/GuildList.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/AdminCommands/AdminOptions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/AdminCommands/AdminOptions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/CommandRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/CommandRunner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/DevCommands/ServerInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/DevCommands/ServerInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/D10K.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/D10K.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/HelpCommands/Help.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/HelpCommands/Help.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/InProgress/Stats.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/InProgress/Stats.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Listener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Listener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Storage/SQLite/D10000Access.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Storage/SQLite/D10000Access.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -377,7 +369,7 @@
       <workItem from="1568595670177" duration="4291000" />
       <workItem from="1568600835663" duration="6760000" />
       <workItem from="1568675583994" duration="9483000" />
-      <workItem from="1568688723829" duration="871000" />
+      <workItem from="1568688723829" duration="959000" />
     </task>
     <task id="LOCAL-00001" summary="Massive changes to Message Interpreter">
       <created>1560181955559</created>
@@ -680,7 +672,14 @@
       <option name="project" value="LOCAL" />
       <updated>1568679948205</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="Update Help Command">
+      <created>1568690322494</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1568690322495</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TodoView">
@@ -733,7 +732,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add screenshare link generator" />
     <MESSAGE value="Removed some unused code" />
     <MESSAGE value="Update random media selection" />
     <MESSAGE value="Update files to switch devices" />
@@ -758,7 +756,8 @@
     <MESSAGE value="Update JDA to 4.0.1&#10;Clean up console&#10;begin VRC API" />
     <MESSAGE value="Update LavaPlayer&#10;Add Activity Cycle for Status&#10;Clean up errors&#10;Begin D10K Command&#10;Fix Jar Build" />
     <MESSAGE value="Complete D10K Command" />
-    <option name="LAST_COMMIT_MESSAGE" value="Complete D10K Command" />
+    <MESSAGE value="Update Help Command" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update Help Command" />
   </component>
   <component name="WindowStateProjectService">
     <state x="414" y="173" key="#com.intellij.execution.impl.EditConfigurationsDialog" />
