@@ -8,6 +8,7 @@ import Neptune.Commands.FunCommands.*;
 import Neptune.Commands.FunCommands.GIF.*;
 import Neptune.Commands.HelpCommands.Help;
 import Neptune.Commands.FunCommands.D10K;
+import Neptune.Commands.DevCommands.GuildList;
 import Neptune.Commands.InProgress.VRC;
 import Neptune.Commands.UtilityCommands.*;
 import Neptune.Storage.VariablesStorage;
@@ -56,7 +57,7 @@ public class CommandRunner extends CommonMethods {
     private final Nom nom = new Nom();
     private final Confused confused = new Confused();
     private final D10K d10K = new D10K();
-
+    private final GuildList guildList = new GuildList();
     public CommandRunner(VariablesStorage variablesStorage) {
         VariableStorageRead = variablesStorage;
         NepCountCommand = new Nep();
@@ -91,6 +92,9 @@ public class CommandRunner extends CommonMethods {
         commands.put(nom.getCommand(),nom);
         commands.put(confused.getCommand(),confused);
         commands.put(d10K.getCommand(),d10K);
+        commands.put(guildList.getCommand(),guildList);
+
+
 
         //dev commands
         if(variablesStorage.getDevMode()){

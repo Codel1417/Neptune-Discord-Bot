@@ -7,10 +7,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="db4b6966-4060-4bb3-bd8f-ce2ef72a3509" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/DevCommands/GuildList.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/AdminCommands/AdminOptions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/AdminCommands/AdminOptions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/CommandRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/CommandRunner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/InProgress/D10K.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/D10K.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/DevCommands/ServerInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/DevCommands/ServerInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/D10K.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/D10K.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/HelpCommands/Help.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/HelpCommands/Help.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/InProgress/Stats.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/InProgress/Stats.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Listener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Listener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Storage/SQLite/D10000Access.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Storage/SQLite/D10000Access.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -174,7 +180,7 @@
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15234375" />
     <property name="project.structure.side.proportion" value="0.30069125" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -370,7 +376,8 @@
       <workItem from="1568428946654" duration="787000" />
       <workItem from="1568595670177" duration="4291000" />
       <workItem from="1568600835663" duration="6760000" />
-      <workItem from="1568675583994" duration="2926000" />
+      <workItem from="1568675583994" duration="9483000" />
+      <workItem from="1568688723829" duration="871000" />
     </task>
     <task id="LOCAL-00001" summary="Massive changes to Message Interpreter">
       <created>1560181955559</created>
@@ -666,7 +673,14 @@
       <option name="project" value="LOCAL" />
       <updated>1568611677544</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="Complete D10K Command">
+      <created>1568679948205</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1568679948205</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TodoView">
@@ -719,7 +733,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Rework Say" />
     <MESSAGE value="Add screenshare link generator" />
     <MESSAGE value="Removed some unused code" />
     <MESSAGE value="Update random media selection" />
@@ -744,7 +757,8 @@
     <MESSAGE value="Fix Admin Menu&#10;Fix RandomMediaPicker" />
     <MESSAGE value="Update JDA to 4.0.1&#10;Clean up console&#10;begin VRC API" />
     <MESSAGE value="Update LavaPlayer&#10;Add Activity Cycle for Status&#10;Clean up errors&#10;Begin D10K Command&#10;Fix Jar Build" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update LavaPlayer&#10;Add Activity Cycle for Status&#10;Clean up errors&#10;Begin D10K Command&#10;Fix Jar Build" />
+    <MESSAGE value="Complete D10K Command" />
+    <option name="LAST_COMMIT_MESSAGE" value="Complete D10K Command" />
   </component>
   <component name="WindowStateProjectService">
     <state x="414" y="173" key="#com.intellij.execution.impl.EditConfigurationsDialog" />

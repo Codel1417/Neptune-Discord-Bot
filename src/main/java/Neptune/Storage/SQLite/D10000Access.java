@@ -9,7 +9,7 @@ public class D10000Access {
     String DatabaseURL = "jdbc:sqlite:NepDB.db";
     String TableName = "D10000";
     public String getResult(int Result){
-        System.out.println("SQL: Retrieving Result #: " + Result);
+        System.out.println("SQL: Retrieving D10K Result #: " + Result);
         Connection connection;
         try {
             connection = DriverManager.getConnection(DatabaseURL);
@@ -19,7 +19,6 @@ public class D10000Access {
                 System.out.println("SQL: Result does not Exist in database!");
                 return null;
             }
-
             resultSet.close();
             connection.close();
             return results;

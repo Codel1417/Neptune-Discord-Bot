@@ -20,27 +20,18 @@ import java.util.Map;
 
 //intercepts discord messages
 public class Listener implements EventListener {
-    private final messageInterprter message;
+    private final messageInterprter messageInterprter;
     private final GuildLogging guildLogging = new GuildLogging();
     private final SettingsStorage settingsStorage = new SettingsStorage();
     private Runnable CycleActivity;
     private boolean ActivityThread;
 
     Listener(VariablesStorage variableStorageRead) {
-        message = new messageInterprter(variableStorageRead);
-    }
-    //only for messages
-    private void onMessageReceived(MessageReceivedEvent event) {
-        System.out.println(event.getMessage());
-        //checks if the message was sent from a bot
-        if (event.getAuthor().isBot()) return;
-        message.runEvent(event);
-
+        messageInterprter = new messageInterprter(variableStorageRead);
     }
 
     @Override
     public void onEvent(@Nonnull GenericEvent event) {
-
         //Cycle Activity Status Thread
         if (event instanceof ReadyEvent && !ActivityThread){
             CycleActivity = new CycleGameStatus((ReadyEvent) event);
@@ -50,10 +41,13 @@ public class Listener implements EventListener {
             ActivityThread = true;
         }
 
+        //Commands
         if (event instanceof MessageReceivedEvent){
-            onMessageReceived((MessageReceivedEvent) event);
+            if (((MessageReceivedEvent) event).getAuthor().isBot()) return;
+            messageInterprter.runEvent((MessageReceivedEvent) event);
         }
 
+        //logging
         if (event instanceof GenericGuildEvent){
 
             //TODO Add missing guilds
@@ -88,7 +82,6 @@ public class Listener implements EventListener {
                 guildLogging.GuildVoiceChannel((GenericVoiceChannelEvent) event,LoggingOptions);
             }
         }
-        else return;
     }
 }
 

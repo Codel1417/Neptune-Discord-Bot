@@ -10,8 +10,10 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.awt.*;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Help extends CommonMethods implements CommandInterface {
+
     @Override
     public String getName() {
         return "Help";
@@ -104,18 +106,43 @@ public class Help extends CommonMethods implements CommandInterface {
             }
         }
 
+
         //display all commands
         if(!perCommandHelp && category == null){
-            for (Object commandObject : commands.values()){
+/*            for (Object commandObject : commands.values()){
                 CommandInterface command = (CommandInterface) commandObject;
                 if (!command.getHideCommand()){
                     embedBuilder.addField(command.getCommand(), command.getDescription(),false);
                 }
-            }
+            }*/
+        embedBuilder = CreateSortedCommandList(commands,embedBuilder);
         }
 
         //send message
         event.getChannel().sendMessage(embedBuilder.build()).queue();
         return true;
+    }
+
+    private EmbedBuilder CreateSortedCommandList(Map<String, Object> Commands, EmbedBuilder embedBuilder){
+        HashMap<String, StringBuilder> CommandsSortedCategory = new HashMap<>();
+        for (Object commandObject : Commands.values()) {
+            CommandInterface command = (CommandInterface) commandObject;
+
+            if (!command.getHideCommand()) { //exclude hidden commands
+                //Create array if it doesnt exist. COuld probably make this a String early
+                if (!CommandsSortedCategory.containsKey(command.getCategory().name())) {
+                    CommandsSortedCategory.put(command.getCategory().name(), new StringBuilder());
+                }
+                StringBuilder stringBuilder = CommandsSortedCategory.get(command.getCategory().name());
+                stringBuilder.append("`").append(command.getCommand()).append("` ");
+                CommandsSortedCategory.put(command.getCategory().name(), stringBuilder);
+            }
+        }
+        for(Map.Entry<String, StringBuilder> entry : CommandsSortedCategory.entrySet()){
+            String Category = entry.getKey();
+            StringBuilder stringBuilder = entry.getValue();
+            embedBuilder.addField(Category, stringBuilder.toString(),false);
+        }
+        return embedBuilder;
     }
 }

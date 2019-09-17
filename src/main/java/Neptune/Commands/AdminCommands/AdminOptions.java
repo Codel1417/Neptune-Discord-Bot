@@ -20,7 +20,7 @@ SettingsStorage settingsStorage = new SettingsStorage();
 
     @Override
     public String getCommand() {
-        return "admin";
+        return "options";
     }
 
     @Override
@@ -30,7 +30,7 @@ SettingsStorage settingsStorage = new SettingsStorage();
 
     @Override
     public commandCategories getCategory() {
-        return commandCategories.Help;
+        return commandCategories.Admin;
     }
 
     @Override

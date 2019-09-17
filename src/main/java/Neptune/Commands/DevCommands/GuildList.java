@@ -4,25 +4,27 @@ import Neptune.Commands.CommandInterface;
 import Neptune.Commands.commandCategories;
 import Neptune.Storage.VariablesStorage;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import org.apache.commons.io.FileUtils;
 
 import java.awt.*;
+import java.util.List;
 
-public class ServerInfo implements CommandInterface {
+public class GuildList implements CommandInterface {
+
     @Override
     public String getName() {
-        return "Server Info";
+        return "Guild List";
     }
 
     @Override
     public String getCommand() {
-        return "serverinfo";
+        return "guildlist";
     }
 
     @Override
     public String getDescription() {
-        return "Some stats from the server hosting Neptune";
+        return "";
     }
 
     @Override
@@ -57,13 +59,18 @@ public class ServerInfo implements CommandInterface {
 
     @Override
     public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
+        List<Guild> GuildList = event.getJDA().getShardManager().getGuilds();
+        StringBuilder guilds = new StringBuilder();
+        if(GuildList != null){
+            for (Guild guild : GuildList){
+                guilds.append(guild.getId()).append(": ").append(guild.getName()).append("\n");
+            }
+        }
         EmbedBuilder embedBuilder = new EmbedBuilder();
-        embedBuilder.setTitle(getName());
+        embedBuilder.setTitle("Currently In Guilds");
+        embedBuilder.setDescription(guilds.toString());
         embedBuilder.setColor(Color.MAGENTA);
-        embedBuilder.addField("Num of Cores", String.valueOf(Runtime.getRuntime().availableProcessors()),true);
-        String usedMem = FileUtils.byteCountToDisplaySize(Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory());
-        embedBuilder.addField("Memory used",usedMem + "/"+ FileUtils.byteCountToDisplaySize(Runtime.getRuntime().totalMemory()),true);
         event.getChannel().sendMessage(embedBuilder.build()).queue();
-        return false;
+        return true;
     }
 }

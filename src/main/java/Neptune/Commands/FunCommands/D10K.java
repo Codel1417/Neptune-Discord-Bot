@@ -73,15 +73,18 @@ D10000Access d10000Access = new D10000Access();
             }
         }
         catch (Exception e){
+            //
         }
 
         if(number == 0){
             number = random.nextInt(10000) + 1;
         }
+
         result = d10000Access.getResult(number);
         embedBuilder.setColor(Color.MAGENTA);
         embedBuilder.setTitle("D10,000 Random Result");
         embedBuilder.setDescription(result);
+        embedBuilder.setFooter("Effect #: " + result,null);
         event.getChannel().sendMessage(embedBuilder.build()).queue();
         return true;
     }
