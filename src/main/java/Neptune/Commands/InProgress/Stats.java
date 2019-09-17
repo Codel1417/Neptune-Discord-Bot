@@ -3,7 +3,10 @@ package Neptune.Commands.InProgress;
 import Neptune.Commands.CommandInterface;
 import Neptune.Commands.commandCategories;
 import Neptune.Storage.VariablesStorage;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+
+import java.util.List;
 
 public class Stats implements CommandInterface {
     @Override
@@ -53,6 +56,12 @@ public class Stats implements CommandInterface {
 
     @Override
     public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
+        List<Guild> guilds = event.getJDA().getShardManager().getGuilds();
+
+        if(guilds != null){
+
+        }
+
         return false;
     }
 }

@@ -1,7 +1,8 @@
-package Neptune.Commands.InProgress;
+package Neptune.Commands.FunCommands;
 
 import Neptune.Commands.CommandInterface;
 import Neptune.Commands.commandCategories;
+import Neptune.Storage.SQLite.D10000Access;
 import Neptune.Storage.VariablesStorage;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -10,7 +11,7 @@ import java.awt.*;
 import java.util.Random;
 
 public class D10K implements CommandInterface {
-
+D10000Access d10000Access = new D10000Access();
     @Override
     public String getName() {
         return "D10,000 Random Result";
@@ -18,12 +19,12 @@ public class D10K implements CommandInterface {
 
     @Override
     public String getCommand() {
-        return "D10K";
+        return "d10k";
     }
 
     @Override
     public String getDescription() {
-        return "";
+        return "D10K Random result from __The Net_Libram_of Random Magical Effects 2.0__";
     }
 
     @Override
@@ -33,7 +34,7 @@ public class D10K implements CommandInterface {
 
     @Override
     public String getHelp() {
-        return "";
+        return getCommand() + " <Number>  to get a specific result";
     }
 
     @Override
@@ -58,11 +59,30 @@ public class D10K implements CommandInterface {
 
     @Override
     public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
+        int number = 0;
         EmbedBuilder embedBuilder = new EmbedBuilder();
         Random random = new Random();
-        int randomInt = random.nextInt(9999) + 1;
+        String result = null;
+
+        try{
+            number = Integer.parseInt(messageContent);
+
+            //prevent numbers above 10,000
+            if (number > 10000){
+                number = 0;
+            }
+        }
+        catch (Exception e){
+        }
+
+        if(number == 0){
+            number = random.nextInt(10000) + 1;
+        }
+        result = d10000Access.getResult(number);
         embedBuilder.setColor(Color.MAGENTA);
         embedBuilder.setTitle("D10,000 Random Result");
-        return false;
+        embedBuilder.setDescription(result);
+        event.getChannel().sendMessage(embedBuilder.build()).queue();
+        return true;
     }
 }

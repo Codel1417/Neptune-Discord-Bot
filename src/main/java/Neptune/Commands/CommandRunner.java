@@ -7,6 +7,7 @@ import Neptune.Commands.DevCommands.ServerInfo;
 import Neptune.Commands.FunCommands.*;
 import Neptune.Commands.FunCommands.GIF.*;
 import Neptune.Commands.HelpCommands.Help;
+import Neptune.Commands.FunCommands.D10K;
 import Neptune.Commands.InProgress.VRC;
 import Neptune.Commands.UtilityCommands.*;
 import Neptune.Storage.VariablesStorage;
@@ -54,6 +55,7 @@ public class CommandRunner extends CommonMethods {
     private final Cuddle cuddle = new Cuddle();
     private final Nom nom = new Nom();
     private final Confused confused = new Confused();
+    private final D10K d10K = new D10K();
 
     public CommandRunner(VariablesStorage variablesStorage) {
         VariableStorageRead = variablesStorage;
@@ -88,7 +90,7 @@ public class CommandRunner extends CommonMethods {
         commands.put(cuddle.getCommand(),cuddle);
         commands.put(nom.getCommand(),nom);
         commands.put(confused.getCommand(),confused);
-
+        commands.put(d10K.getCommand(),d10K);
 
         //dev commands
         if(variablesStorage.getDevMode()){
