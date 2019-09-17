@@ -84,7 +84,7 @@ D10000Access d10000Access = new D10000Access();
         embedBuilder.setColor(Color.MAGENTA);
         embedBuilder.setTitle("D10,000 Random Result");
         embedBuilder.setDescription(result);
-        embedBuilder.setFooter("Effect #: " + result,null);
+        embedBuilder.setFooter("Effect #: " + number,null);
         event.getChannel().sendMessage(embedBuilder.build()).queue();
         return true;
     }
