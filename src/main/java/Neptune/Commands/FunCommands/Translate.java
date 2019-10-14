@@ -61,8 +61,17 @@ public class Translate implements CommandInterface {
 
     @Override
     public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
+
+        String message;
+        if(messageContent.equalsIgnoreCase("")){
+            message = event.getChannel().getHistory().retrievePast(2).complete().get(1).getContentDisplay().replaceAll("\n"," \n ");
+        }
+        else{
+            message = messageContent;
+        }
+
         StringBuilder translatedMessage = new StringBuilder();
-        for (String string: event.getChannel().getHistory().retrievePast(2).complete().get(1).getContentDisplay().replaceAll("\n"," \n ").split(" ")) {
+        for (String string: message.replaceAll("\n"," \n ").split(" ")) {
             if (string.contains("\n")) {
                 translatedMessage.append("\n");
             }

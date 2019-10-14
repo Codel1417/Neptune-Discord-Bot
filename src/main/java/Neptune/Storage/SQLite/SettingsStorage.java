@@ -92,7 +92,7 @@ public class SettingsStorage {
         try {
             Connection connection = DriverManager.getConnection(DatabaseURL);
             boolean result = connection.createStatement().execute("DELETE FROM "+ GuildOptions +
-                    "WHERE GuildID = " + GuildID + ";");
+                    " WHERE GuildID = " + GuildID + ";");
             connection.close();
             System.out.println("    Success");
             return result;

@@ -2,7 +2,7 @@ package Neptune;
 
 import Neptune.Commands.PassiveCommands.DM_ImageDownload;
 import Neptune.Commands.PassiveCommands.guildListener;
-import Neptune.Storage.DropboxConnection;
+import Neptune.Storage.DropboxBackupConnection;
 import Neptune.Storage.GetAuthToken;
 import Neptune.Storage.VariablesStorage;
 import com.neovisionaries.ws.client.WebSocketFactory;
@@ -30,7 +30,7 @@ public class Main extends ListenerAdapter {
         variablesStorage.Init(authKeys);
 
         //dropbox backup init
-        dropboxConnection = new DropboxConnection((String) authKeys.get("dropbox"));
+        dropboxConnection = new DropboxBackupConnection((String) authKeys.get("dropbox"));
         Thread dropboxConnectionThread = new Thread(dropboxConnection);
         dropboxConnectionThread.setName("DropboxBackupThread");
         dropboxConnectionThread.start();

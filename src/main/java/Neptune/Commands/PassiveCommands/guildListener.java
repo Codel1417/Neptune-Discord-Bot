@@ -24,7 +24,7 @@ public class guildListener implements EventListener {
 
         //notifies the owner of the bot when someone adds the bot to their server.
         guildJoinEvent.getJDA().getUserById(VariableStorageRead.getOwnerID()).openPrivateChannel().queue((channel) ->
-                channel.sendMessage("New Server Added: " + guildJoinEvent.getGuild().getName()).queue());
+                channel.sendMessage("GUILD: New Server Added: " + guildJoinEvent.getGuild().getName()).queue());
     }
 
     private void onGuildVoiceUpdate(GuildVoiceUpdateEvent guildVoiceUpdateEvent) {
@@ -33,7 +33,7 @@ public class guildListener implements EventListener {
             if (guildVoiceUpdateEvent.getChannelLeft().getMembers().size() == 1 && guildVoiceUpdateEvent.getChannelLeft().getGuild().getAudioManager().isConnected()) {
                 guildVoiceUpdateEvent.getChannelLeft().getGuild().getAudioManager().setSendingHandler(null);
                 guildVoiceUpdateEvent.getChannelLeft().getGuild().getAudioManager().closeAudioConnection();
-                System.out.println("Channel Empty, Disconnecting from VC");
+                System.out.println("VOICE: Channel Empty, Disconnecting from VC");
             }
         } catch (Exception ignored) {
         }

@@ -1,9 +1,9 @@
 package Neptune.Commands.InProgress;
 
 import Neptune.Commands.CommandInterface;
+import Neptune.Commands.CommonMethods;
 import Neptune.Commands.VRChatRequest;
 import Neptune.Commands.commandCategories;
-import Neptune.Storage.ConvertJSON;
 import Neptune.Storage.VariablesStorage;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -11,7 +11,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import java.awt.*;
 import java.util.Map;
 
-public class VRC extends ConvertJSON implements CommandInterface {
+public class VRC extends CommonMethods implements CommandInterface {
     VRChatRequest vrChatRequest = new VRChatRequest();
     @Override
     public String getName() {
@@ -45,12 +45,12 @@ public class VRC extends ConvertJSON implements CommandInterface {
 
     @Override
     public boolean getRequireOwner() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean getHideCommand() {
-        return false;
+        return true;
     }
 
     @Override
@@ -60,9 +60,19 @@ public class VRC extends ConvertJSON implements CommandInterface {
 
     @Override
     public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
-        getWorldByID("wrld_bfe5453f-7dd5-4c53-a614-9c4a7db87670",event);
-        //getOnline(event);
-        return false;
+        String[] command = getCommandName(messageContent);
+        switch(command[0]){
+            case "world":{
+                getWorldByID(command[1],event,variablesStorage);
+                break;
+            }
+            case "online":{
+                getOnline(event);
+                break;
+            }
+            default: displayMenu(event, variablesStorage);
+        }
+        return true;
     }
 
     private void getOnline(MessageReceivedEvent event){
@@ -73,7 +83,7 @@ public class VRC extends ConvertJSON implements CommandInterface {
         embedBuilder.addField("VRChat Users Currently Online", result + " users online", true);
         event.getChannel().sendMessage(embedBuilder.build()).queue();
     }
-    private void getWorldByID(String search, MessageReceivedEvent event){
+    private void getWorldByID(String search, MessageReceivedEvent event, VariablesStorage variablesStorage){
         EmbedBuilder embedBuilder = getEmbedBuilder();
 
         //API
@@ -86,8 +96,8 @@ public class VRC extends ConvertJSON implements CommandInterface {
             if (!result.getOrDefault("description","").equalsIgnoreCase("")){
                 embedBuilder.addField("Description",result.get("description"),true);
             }
-            if (!result.getOrDefault("author","").equalsIgnoreCase("")){
-                embedBuilder.addField("Author",result.get("author"),true);
+            if (!result.getOrDefault("authorName","").equalsIgnoreCase("")){
+                embedBuilder.addField("Author",result.get("authorName"),true);
             }
             if (!result.getOrDefault("image","").equalsIgnoreCase("")){
                 embedBuilder.setImage(result.get("image"));
@@ -100,6 +110,9 @@ public class VRC extends ConvertJSON implements CommandInterface {
             }
             if (!result.getOrDefault("occupants","").equalsIgnoreCase("")){
                 embedBuilder.addField("Occupants",result.get("occupants") + " users",true);
+            }
+            if (!result.getOrDefault("assetUrl","").equalsIgnoreCase("")  && variablesStorage.getOwnerID().equalsIgnoreCase(event.getAuthor().getId())){
+                embedBuilder.addField("assetUrl",result.get("assetUrl"),true);
             }
         }
         catch (NullPointerException e){

@@ -98,13 +98,13 @@ SettingsStorage settingsStorage = new SettingsStorage();
 
         StringBuilder logOptionsMessage = new StringBuilder();
         logOptionsMessage.append("Use TTS ").append(getEnabledDisabledIcon(options.getOrDefault("TTS","disabled"))).append("\n");
-        logOptionsMessage.append("Custom Sounds Commands" ).append(getEnabledDisabledIcon(options.getOrDefault("CustomSounds","disabled"))).append("\n");
+        logOptionsMessage.append("Custom Media Commands" ).append(getEnabledDisabledIcon(options.getOrDefault("CustomSounds","disabled"))).append("\n");
         embedBuilder.addField("Logging Options",logOptionsMessage.toString(),false);
 
         String prefix = variablesStorage.getCallBot() + " " + getCommand();
         embedBuilder.addField("Admin Commands","",false);
         embedBuilder.addField("Enable TTS usage",prefix + " tts <enabled/disabled>",true);
-        embedBuilder.addField("Enable Additional Sound commands",prefix + " CustomSounds <enabled/disabled>",true);
+        embedBuilder.addField("Enable Additional Media commands",prefix + " CustomSounds <enabled/disabled>",true);
 
         event.getChannel().sendMessage(embedBuilder.build()).queue();
 

@@ -22,10 +22,11 @@ public class UWU_Translater implements CommandInterface {
         indirectTranslations.put("L","W");
         indirectTranslations.put("l","w");
         indirectTranslations.put("V","B");
-        indirectTranslations.put("v","B");
+        indirectTranslations.put("v","b");
         indirectTranslations.put("ove","uv");
         indirectTranslations.put("what","whawt");
-        indirectTranslations.put("you","uwu");
+        indirectTranslations.put("You","U");
+        indirectTranslations.put("you","u");
         indirectTranslations.put("to","tuwu");
         indirectTranslations.put("on", "own");
         indirectTranslations.put("and","awnd");
@@ -85,7 +86,13 @@ public class UWU_Translater implements CommandInterface {
 
     @Override
     public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
-        String message = event.getChannel().getHistory().retrievePast(2).complete().get(1).getContentDisplay().replaceAll("\n"," \n ");
+        String message;
+        if(messageContent.equalsIgnoreCase("")){
+            message = event.getChannel().getHistory().retrievePast(2).complete().get(1).getContentDisplay().replaceAll("\n"," \n ");
+        }
+        else{
+            message = messageContent;
+        }
         StringBuilder result = new StringBuilder();
         if(message.length() != 0 ){
             for (String word : message.split(" ")) {

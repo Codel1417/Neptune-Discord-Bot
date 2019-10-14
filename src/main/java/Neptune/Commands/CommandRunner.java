@@ -3,12 +3,12 @@ package Neptune.Commands;
 import Neptune.Commands.AdminCommands.AdminOptions;
 import Neptune.Commands.AdminCommands.GuildInfo;
 import Neptune.Commands.AdminCommands.Logging;
+import Neptune.Commands.DevCommands.GuildList;
 import Neptune.Commands.DevCommands.ServerInfo;
 import Neptune.Commands.FunCommands.*;
 import Neptune.Commands.FunCommands.GIF.*;
 import Neptune.Commands.HelpCommands.Help;
-import Neptune.Commands.FunCommands.D10K;
-import Neptune.Commands.DevCommands.GuildList;
+import Neptune.Commands.FunCommands.PowerLevel;
 import Neptune.Commands.InProgress.VRC;
 import Neptune.Commands.UtilityCommands.*;
 import Neptune.Storage.VariablesStorage;
@@ -18,7 +18,6 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
 //TODO: Make commands shard aware
 //handles neptune base commands
@@ -29,8 +28,6 @@ public class CommandRunner extends CommonMethods {
     private final Say NepSayCommand;
     private final Translate translateMessage = new Translate();
     private final AdminOptions adminOptions = new AdminOptions();
-    private final static Logger Log = Logger.getLogger(CommandRunner.class.getName());
-    private final RandomMediaPicker randomMediaPicker = new RandomMediaPicker();
     private final Screenshare screenshare = new Screenshare();
     private final About about = new About();
     private final Leave leave = new Leave();
@@ -58,6 +55,7 @@ public class CommandRunner extends CommonMethods {
     private final Confused confused = new Confused();
     private final D10K d10K = new D10K();
     private final GuildList guildList = new GuildList();
+    private final PowerLevel powerLevel = new PowerLevel();
     public CommandRunner(VariablesStorage variablesStorage) {
         VariableStorageRead = variablesStorage;
         NepCountCommand = new Nep();
@@ -93,12 +91,11 @@ public class CommandRunner extends CommonMethods {
         commands.put(confused.getCommand(),confused);
         commands.put(d10K.getCommand(),d10K);
         commands.put(guildList.getCommand(),guildList);
-
-
+        commands.put(vrChatAPI.getCommand(),vrChatAPI);
+        commands.put(powerLevel.getCommand(),powerLevel);
 
         //dev commands
         if(variablesStorage.getDevMode()){
-            commands.put(vrChatAPI.getCommand(),vrChatAPI);
         }
     }
     public Map<String, Object> getCommandList(){

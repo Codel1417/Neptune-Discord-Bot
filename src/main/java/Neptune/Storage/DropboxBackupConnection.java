@@ -9,11 +9,11 @@ import com.dropbox.core.v2.users.FullAccount;
 
 import java.io.*;
 
-public class DropboxConnection implements Runnable {
+public class DropboxBackupConnection implements Runnable {
     private DbxClientV2 client;
     private int BackUpWaitTime = 1000000;
     String accessToken;
-    public DropboxConnection(String AccessToken){
+    public DropboxBackupConnection(String AccessToken){
     accessToken = AccessToken;
     }
 
@@ -32,11 +32,10 @@ public class DropboxConnection implements Runnable {
             File file = new File("NepDB.db");
             System.out.println("DROPBOX: Starting Backup");
 
-
             try (InputStream in = new FileInputStream(file)) {
                 FileMetadata metadata = client.files().uploadBuilder("/NepDB.db").withMode(WriteMode.OVERWRITE).uploadAndFinish(in);
                 if(metadata.getId() != null)
-                System.out.println("DROPBOX:    Backup Complete");
+                System.out.println("DROPBOX: Backup Complete");
             } catch (DbxException | IOException  e) {
                 e.printStackTrace();
             }
@@ -49,8 +48,7 @@ public class DropboxConnection implements Runnable {
 
         try {
             FullAccount account = client.users().getCurrentAccount();
-            System.out.println("DROPBOX: Connected to Dropbox");
-            System.out.println("DROPBOX: Backing up every " + (BackUpWaitTime/1000)/60 + " minutes");
+            System.out.println("DROPBOX: Connected to Dropbox. Backing up every " + (BackUpWaitTime/1000)/60 + " minutes");
 
         } catch (DbxException e) {
             e.printStackTrace();

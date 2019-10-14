@@ -21,7 +21,7 @@ public class VRChatRequest {
         result.put("visits",jsonObject.get("visits").getAsString());
         result.put("occupants",jsonObject.get("occupants").getAsString());
         result.put("authorName",jsonObject.get("authorName").getAsString());
-
+        result.put("assetUrl",jsonObject.get("assetUrl").getAsString());
         //populate map with values i care about;
         return result;
     }

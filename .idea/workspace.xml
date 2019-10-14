@@ -7,9 +7,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="db4b6966-4060-4bb3-bd8f-ce2ef72a3509" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/PowerLevel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/printShaderkeywords.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/Neptune.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/Neptune.test.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/ServerLogging/GuildLogging.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/ServerLogging/GuildLogging.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Storage/VariablesStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Storage/VariablesStorage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/AdminCommands/AdminOptions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/AdminCommands/AdminOptions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/CommandRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/CommandRunner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/Translate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/Translate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/UWU_Translater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/UWU_Translater.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/InProgress/VRC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/InProgress/VRC.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/PassiveCommands/guildListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/PassiveCommands/guildListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/VRChatRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/VRChatRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/ServerLogging/BotSettingsLogging.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Storage/DropboxConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Storage/DropboxBackupConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Storage/SQLite/SettingsStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Storage/SQLite/SettingsStorage.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -170,10 +185,16 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1567021179112" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15234375" />
     <property name="project.structure.side.proportion" value="0.30069125" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.repository.indices" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -258,25 +279,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Neptune-Discord-Bot [check]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="check" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <extension name="recording" autostart="false" />
-      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
-      <method v="2" />
+    <configuration name="printShaderkeywords" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="printShaderkeywords" />
+      <module name="Neptune.main" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <configuration name="Neptune-Discord-Bot [distZip]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
@@ -321,32 +329,12 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.printShaderkeywords" />
         <item itemvalue="Application.D10000_SQL_Import" />
         <item itemvalue="Gradle.Neptune-Discord-Bot [distZip]" />
         <item itemvalue="Gradle.Neptune-Discord-Bot [installDist]" />
-        <item itemvalue="Gradle.Neptune-Discord-Bot [check]" />
       </list>
     </recent_temporary>
-  </component>
-  <component name="ServiceViewManager">
-    <option name="allServicesViewState">
-      <serviceView>
-        <treeState>
-          <expand>
-            <path>
-              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@91eccd7" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-            </path>
-            <path>
-              <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@91eccd7" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceNode@4b522427" type="9fbbdea:ServiceModel$ServiceNode" />
-            </path>
-          </expand>
-          <select />
-        </treeState>
-      </serviceView>
-    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -372,7 +360,22 @@
       <workItem from="1568675583994" duration="9483000" />
       <workItem from="1568688723829" duration="1493000" />
       <workItem from="1568691231892" duration="763000" />
-      <workItem from="1568740581866" duration="2808000" />
+      <workItem from="1568740581866" duration="6152000" />
+      <workItem from="1568792991710" duration="1080000" />
+      <workItem from="1569097119558" duration="2047000" />
+      <workItem from="1569187489067" duration="3959000" />
+      <workItem from="1569287439812" duration="600000" />
+      <workItem from="1569364578186" duration="1189000" />
+      <workItem from="1569455187379" duration="1303000" />
+      <workItem from="1569470393578" duration="792000" />
+      <workItem from="1569795749836" duration="6411000" />
+      <workItem from="1569959816966" duration="1239000" />
+      <workItem from="1570077350322" duration="42000" />
+      <workItem from="1570391710077" duration="1213000" />
+      <workItem from="1570728708991" duration="1887000" />
+      <workItem from="1570837470566" duration="760000" />
+      <workItem from="1570848798789" duration="328000" />
+      <workItem from="1571002485265" duration="6658000" />
     </task>
     <task id="LOCAL-00001" summary="Massive changes to Message Interpreter">
       <created>1560181955559</created>
@@ -696,7 +699,14 @@
       <option name="project" value="LOCAL" />
       <updated>1568691268707</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="Fix Logging Previous Message">
+      <created>1568761391563</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1568761391563</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TodoView">
@@ -777,57 +787,84 @@
     <option name="LAST_COMMIT_MESSAGE" value="Fix Logging Previous Message" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="414" y="173" key="#com.intellij.execution.impl.EditConfigurationsDialog" />
-    <state x="414" y="173" key="#com.intellij.execution.impl.EditConfigurationsDialog/1920.1080/1920.1080" />
-    <state x="722" y="321" key="#com.intellij.fileTypes.FileTypeChooser" />
-    <state x="722" y="321" key="#com.intellij.fileTypes.FileTypeChooser/1920.1080/1050.1680" />
-    <state x="-1193" y="197" key="#com.intellij.ide.util.TreeClassChooserDialog" />
-    <state x="-1193" y="197" key="#com.intellij.ide.util.TreeClassChooserDialog/1920.1080/1920.1080" />
-    <state x="690" y="265" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" />
-    <state x="690" y="265" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/1920.1080/1920.1080" />
-    <state x="619" y="282" key="#com.intellij.util.ui.classpath.ChooseLibrariesDialog" />
-    <state x="619" y="282" key="#com.intellij.util.ui.classpath.ChooseLibrariesDialog/1920.1080/1920.1080" />
-    <state x="-1030" y="256" key="FileChooserDialogImpl" />
-    <state x="-1030" y="256" key="FileChooserDialogImpl/1920.1080/1920.1080" />
-    <state width="1877" height="280" key="GridCell.Tab.0.bottom" />
-    <state width="1877" height="280" key="GridCell.Tab.0.bottom/1920.1080/1050.1680" />
-    <state width="1877" height="280" key="GridCell.Tab.0.bottom/1920.1080/1920.1080" />
-    <state width="1877" height="280" key="GridCell.Tab.0.center" />
-    <state width="1877" height="280" key="GridCell.Tab.0.center/1920.1080/1050.1680" />
-    <state width="1877" height="280" key="GridCell.Tab.0.center/1920.1080/1920.1080" />
-    <state width="1877" height="280" key="GridCell.Tab.0.left" />
-    <state width="1877" height="280" key="GridCell.Tab.0.left/1920.1080/1050.1680" />
-    <state width="1877" height="280" key="GridCell.Tab.0.left/1920.1080/1920.1080" />
-    <state width="1877" height="280" key="GridCell.Tab.0.right" />
-    <state width="1877" height="280" key="GridCell.Tab.0.right/1920.1080/1050.1680" />
-    <state width="1877" height="280" key="GridCell.Tab.0.right/1920.1080/1920.1080" />
-    <state width="1877" height="280" key="GridCell.Tab.1.bottom" />
-    <state width="1877" height="280" key="GridCell.Tab.1.bottom/1920.1080/1050.1680" />
-    <state width="1877" height="280" key="GridCell.Tab.1.bottom/1920.1080/1920.1080" />
-    <state width="1877" height="280" key="GridCell.Tab.1.center" />
-    <state width="1877" height="280" key="GridCell.Tab.1.center/1920.1080/1050.1680" />
-    <state width="1877" height="280" key="GridCell.Tab.1.center/1920.1080/1920.1080" />
-    <state width="1877" height="280" key="GridCell.Tab.1.left" />
-    <state width="1877" height="280" key="GridCell.Tab.1.left/1920.1080/1050.1680" />
-    <state width="1877" height="280" key="GridCell.Tab.1.left/1920.1080/1920.1080" />
-    <state width="1877" height="280" key="GridCell.Tab.1.right" />
-    <state width="1877" height="280" key="GridCell.Tab.1.right/1920.1080/1050.1680" />
-    <state width="1877" height="280" key="GridCell.Tab.1.right/1920.1080/1920.1080" />
-    <state x="540" y="220" key="IDE.errors.dialog" />
-    <state x="540" y="220" key="IDE.errors.dialog/1920.1080/1920.1080" />
-    <state x="-1485" y="21" key="SettingsEditor" />
-    <state x="-1485" y="21" key="SettingsEditor/1920.1080/1920.1080" />
-    <state x="-1193" y="414" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate" />
-    <state x="-1193" y="414" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate/1920.1080/1920.1080" />
-    <state x="-1384" y="255" width="847" height="606" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" />
-    <state x="-1384" y="255" width="847" height="606" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/1920.1080/1920.1080" />
+    <state x="414" y="173" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1569044882185" />
+    <state x="414" y="173" key="#com.intellij.execution.impl.EditConfigurationsDialog/1920.1080/1920.1080" timestamp="1569044882185" />
+    <state x="722" y="321" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1569044882185" />
+    <state x="722" y="321" key="#com.intellij.fileTypes.FileTypeChooser/1920.1080/1050.1680" timestamp="1569044882185" />
+    <state x="-1193" y="197" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1569044882185" />
+    <state x="-1193" y="197" key="#com.intellij.ide.util.TreeClassChooserDialog/1920.1080/1920.1080" timestamp="1569044882185" />
+    <state x="690" y="265" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1569044882185" />
+    <state x="690" y="265" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/1920.1080/1920.1080" timestamp="1569044882185" />
+    <state x="619" y="282" key="#com.intellij.util.ui.classpath.ChooseLibrariesDialog" timestamp="1569044882185" />
+    <state x="619" y="282" key="#com.intellij.util.ui.classpath.ChooseLibrariesDialog/1920.1080/1920.1080" timestamp="1569044882185" />
+    <state x="-1030" y="256" key="FileChooserDialogImpl" timestamp="1569044882185" />
+    <state x="-1030" y="256" key="FileChooserDialogImpl/1920.1080/1920.1080" timestamp="1569044882185" />
+    <state width="1877" height="280" key="GridCell.Tab.0.bottom" timestamp="1569052135250">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="280" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1050.-338.1050.1640@0.0.1920.1040" timestamp="1569052135250" />
+    <state width="1877" height="280" key="GridCell.Tab.0.bottom/1920.1080/1050.1680" timestamp="1569044882185" />
+    <state width="1877" height="280" key="GridCell.Tab.0.bottom/1920.1080/1920.1080" timestamp="1569044882185" />
+    <state width="1877" height="280" key="GridCell.Tab.0.center" timestamp="1569052135250">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="280" key="GridCell.Tab.0.center/0.0.1920.1040/-1050.-338.1050.1640@0.0.1920.1040" timestamp="1569052135250" />
+    <state width="1877" height="280" key="GridCell.Tab.0.center/1920.1080/1050.1680" timestamp="1569044882185" />
+    <state width="1877" height="280" key="GridCell.Tab.0.center/1920.1080/1920.1080" timestamp="1569044882185" />
+    <state width="1877" height="280" key="GridCell.Tab.0.left" timestamp="1569052135250">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="280" key="GridCell.Tab.0.left/0.0.1920.1040/-1050.-338.1050.1640@0.0.1920.1040" timestamp="1569052135250" />
+    <state width="1877" height="280" key="GridCell.Tab.0.left/1920.1080/1050.1680" timestamp="1569044882185" />
+    <state width="1877" height="280" key="GridCell.Tab.0.left/1920.1080/1920.1080" timestamp="1569044882185" />
+    <state width="1877" height="280" key="GridCell.Tab.0.right" timestamp="1569052135250">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="280" key="GridCell.Tab.0.right/0.0.1920.1040/-1050.-338.1050.1640@0.0.1920.1040" timestamp="1569052135250" />
+    <state width="1877" height="280" key="GridCell.Tab.0.right/1920.1080/1050.1680" timestamp="1569044882185" />
+    <state width="1877" height="280" key="GridCell.Tab.0.right/1920.1080/1920.1080" timestamp="1569044882185" />
+    <state width="1877" height="280" key="GridCell.Tab.1.bottom" timestamp="1569052135250">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="280" key="GridCell.Tab.1.bottom/0.0.1920.1040/-1050.-338.1050.1640@0.0.1920.1040" timestamp="1569052135250" />
+    <state width="1877" height="280" key="GridCell.Tab.1.bottom/1920.1080/1050.1680" timestamp="1569044882185" />
+    <state width="1877" height="280" key="GridCell.Tab.1.bottom/1920.1080/1920.1080" timestamp="1569044882185" />
+    <state width="1877" height="280" key="GridCell.Tab.1.center" timestamp="1569052135250">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="280" key="GridCell.Tab.1.center/0.0.1920.1040/-1050.-338.1050.1640@0.0.1920.1040" timestamp="1569052135250" />
+    <state width="1877" height="280" key="GridCell.Tab.1.center/1920.1080/1050.1680" timestamp="1569044882185" />
+    <state width="1877" height="280" key="GridCell.Tab.1.center/1920.1080/1920.1080" timestamp="1569044882185" />
+    <state width="1877" height="280" key="GridCell.Tab.1.left" timestamp="1569052135250">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="280" key="GridCell.Tab.1.left/0.0.1920.1040/-1050.-338.1050.1640@0.0.1920.1040" timestamp="1569052135250" />
+    <state width="1877" height="280" key="GridCell.Tab.1.left/1920.1080/1050.1680" timestamp="1569044882185" />
+    <state width="1877" height="280" key="GridCell.Tab.1.left/1920.1080/1920.1080" timestamp="1569044882185" />
+    <state width="1877" height="280" key="GridCell.Tab.1.right" timestamp="1569052135250">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="280" key="GridCell.Tab.1.right/0.0.1920.1040/-1050.-338.1050.1640@0.0.1920.1040" timestamp="1569052135250" />
+    <state width="1877" height="280" key="GridCell.Tab.1.right/1920.1080/1050.1680" timestamp="1569044882185" />
+    <state width="1877" height="280" key="GridCell.Tab.1.right/1920.1080/1920.1080" timestamp="1569044882185" />
+    <state x="540" y="220" key="IDE.errors.dialog" timestamp="1569050538606">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="540" y="220" key="IDE.errors.dialog/0.0.1920.1040/-1050.-338.1050.1640@0.0.1920.1040" timestamp="1569050538606" />
+    <state x="540" y="220" key="IDE.errors.dialog/1920.1080/1920.1080" timestamp="1569044882185" />
+    <state x="-1485" y="21" key="SettingsEditor" timestamp="1569044882185" />
+    <state x="-1485" y="21" key="SettingsEditor/1920.1080/1920.1080" timestamp="1569044882185" />
+    <state x="-1193" y="414" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate" timestamp="1569044882185" />
+    <state x="-1193" y="414" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate/1920.1080/1920.1080" timestamp="1569044882185" />
+    <state x="-1384" y="255" width="847" height="606" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1569044882185" />
+    <state x="-1384" y="255" width="847" height="606" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/1920.1080/1920.1080" timestamp="1569044882185" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Neptune/messageInterprter.java</url>
-          <line>86</line>
+          <line>93</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
