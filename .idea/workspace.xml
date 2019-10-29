@@ -7,10 +7,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="db4b6966-4060-4bb3-bd8f-ce2ef72a3509" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_xerial_sqlite_jdbc_3_28_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Neptune.uml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/DevCommands/music.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Neko.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Nya.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Pout.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Senko.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Shocked.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Sleepy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Stare.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/Neptune_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/Neptune_jar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/CommandRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/CommandRunner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/GIF/Confused.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Confused.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/GIF/Cuddle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Cuddle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/GIF/Hug.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Hug.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/GIF/Nom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Nom.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/GIF/Pat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Pat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/GIF/Poke.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Poke.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/Imgur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Imgur.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/RandomMediaPicker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/RandomMediaPicker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/TenorGif.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/TenorGif.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/commandCategories.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/commandCategories.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Storage/TenorConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Storage/TenorConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Storage/VariablesStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Storage/VariablesStorage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/music/AudioController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/music/AudioController.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -159,7 +180,7 @@
     <property name="add_unversioned_files" value="$PROJECT_DIR$/NepAuth.json" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1567021179112" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -167,20 +188,23 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15234375" />
     <property name="project.structure.side.proportion" value="0.30069125" />
-    <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.repository.indices" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="Neptune.Commands.Image.GIF" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Austin Richards\IdeaProjects\Neptune-Discord-Bot\src\main\java" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Austin Richards\IdeaProjects\Neptune-Discord-Bot" />
       <recent name="C:\Users\Austin Richards\IdeaProjects\Neptune-Discord-Bot\src\main\resources\natives\linux-arm" />
       <recent name="C:\Users\Austin Richards\IdeaProjects\DIscord_JDA_Bot\nep_bot" />
       <recent name="C:\Users\Austin Richards\IdeaProjects\DIscord_JDA_Bot\src\main\java" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Austin Richards\IdeaProjects\Neptune-Discord-Bot\src\main\java" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -344,14 +368,13 @@
       <workItem from="1571002485265" duration="8320000" />
       <workItem from="1571092143655" duration="1537000" />
       <workItem from="1571162735149" duration="2632000" />
-      <workItem from="1571168396765" duration="1870000" />
-    </task>
-    <task id="LOCAL-00002" summary="More changes to reading the message&#10;added toggle for multiple prefixes in code&#10;Handle empty voice channels so the bot disconnects">
-      <created>1560630248153</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1560630248153</updated>
+      <workItem from="1571168396765" duration="2885000" />
+      <workItem from="1571438353698" duration="1489000" />
+      <workItem from="1571517577942" duration="531000" />
+      <workItem from="1571521450964" duration="1442000" />
+      <workItem from="1571883337603" duration="1994000" />
+      <workItem from="1572215140425" duration="2085000" />
+      <workItem from="1572306952306" duration="8730000" />
     </task>
     <task id="LOCAL-00003" summary="Refactor Storage system, now uses google cloud Firestore&#10;prepared backend for permissions&#10;Refactored analytics">
       <created>1561097881277</created>
@@ -689,17 +712,15 @@
       <option name="project" value="LOCAL" />
       <updated>1571168876079</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="Edit pom">
+      <created>1571170639206</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1571170639206</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
-  </component>
-  <component name="TodoView">
-    <todo-panel id="selected-file">
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
-    <todo-panel id="all">
-      <are-packages-shown value="true" />
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -742,7 +763,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Re-setup Project" />
     <MESSAGE value="Add Minecraft command" />
     <MESSAGE value="Add Dropbox Database Backup" />
     <MESSAGE value="Initial Tenor Support" />
@@ -767,7 +787,8 @@
     <MESSAGE value="Add powerlevel command" />
     <MESSAGE value="Set up maven" />
     <MESSAGE value="Remove Gradle" />
-    <option name="LAST_COMMIT_MESSAGE" value="Remove Gradle" />
+    <MESSAGE value="Edit pom" />
+    <option name="LAST_COMMIT_MESSAGE" value="Edit pom" />
   </component>
   <component name="WindowStateProjectService">
     <state x="414" y="173" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1569044882185" />

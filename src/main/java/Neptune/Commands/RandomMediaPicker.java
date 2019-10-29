@@ -28,7 +28,7 @@ public class RandomMediaPicker {
         Random rand = new Random();
         if (ImageFiles.size() != 0 && image) {
             File imageFile = ImageFiles.get(rand.nextInt(ImageFiles.size()));
-            event.getChannel().sendMessage("\n").addFile(ImageFiles.get(rand.nextInt(ImageFiles.size()))).queue();
+            event.getChannel().sendMessage("\n").addFile(imageFile).queue();
         }
         if (audioFiles.size() != 0 && audio) {
             File audioFile = audioFiles.get(rand.nextInt(audioFiles.size()));

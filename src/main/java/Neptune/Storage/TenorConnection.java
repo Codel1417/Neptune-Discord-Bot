@@ -20,7 +20,7 @@ public class TenorConnection extends ConvertJSON{
 
     public String getSingleImage(String SearchTerm){
         String returnURL;
-        String resultLimit = "10";
+        String resultLimit = "15";
         SearchTerm = SearchTerm.replaceAll(" ","-");
         final String url = String.format("https://api.tenor.com/v1/search?q=%1$s&key=%2$s&limit=%3$s",
                 SearchTerm, API_KEY, resultLimit);

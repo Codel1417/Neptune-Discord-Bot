@@ -1,4 +1,4 @@
-package Neptune.Commands.FunCommands;
+package Neptune.Commands.Image;
 
 import Neptune.Commands.CommandInterface;
 import Neptune.Commands.CommonMethods;
@@ -40,7 +40,7 @@ public class Imgur extends CommonMethods implements CommandInterface {
 
     @Override
     public commandCategories getCategory() {
-        return commandCategories.Fun;
+        return commandCategories.Image;
     }
 
     @Override

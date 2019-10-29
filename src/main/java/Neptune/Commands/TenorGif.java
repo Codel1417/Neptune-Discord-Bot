@@ -16,7 +16,7 @@ public abstract class TenorGif {
     Map authKeys = getAuthToken.GetToken(new File("NepAuth.json"));
     private final TenorConnection tenorConnection = new TenorConnection((String) authKeys.get("tenor"));
 
-    protected EmbedBuilder getImageEmbed(MessageReceivedEvent event, String Search) {
+    protected EmbedBuilder getImageDefaultEmbed(MessageReceivedEvent event, String Search) {
         List<IMentionable> Mentions = event.getMessage().getMentions();
         EmbedBuilder embedBuilder = new EmbedBuilder();
         StringBuilder mentionList = new StringBuilder();
@@ -30,6 +30,25 @@ public abstract class TenorGif {
         }
         embedBuilder.setColor(Color.MAGENTA);
         embedBuilder.setFooter("Powered by Tenor.com", "https://tenor.com/assets/img/tenor-logo.svg");
+        embedBuilder.setImage(tenorConnection.getSingleImage("Anime Girl " +  Search));
+
+        return embedBuilder;
+    }
+    protected EmbedBuilder getImageEmbed(MessageReceivedEvent event, String Search) {
+        List<IMentionable> Mentions = event.getMessage().getMentions();
+        EmbedBuilder embedBuilder = new EmbedBuilder();
+        StringBuilder mentionList = new StringBuilder();
+        for (IMentionable mentionable : Mentions) {
+            mentionList.append(mentionable.getAsMention()).append(" ");
+        }
+        if (mentionList.toString().equalsIgnoreCase("")) {
+            embedBuilder.setDescription("");
+        } else {
+            embedBuilder.setDescription("Neptune " + Search + "s " + mentionList);
+        }
+        embedBuilder.setColor(Color.MAGENTA);
+        //embedBuilder.setFooter("Powered by Tenor.com", "https://tenor.com/assets/img/tenor-logo.svg");
+        embedBuilder.setFooter("Powered by Tenor.com", null);
         embedBuilder.setImage(tenorConnection.getSingleImage("Anime Girl " +  Search));
 
         return embedBuilder;

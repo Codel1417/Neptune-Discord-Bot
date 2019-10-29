@@ -6,9 +6,15 @@ import Neptune.Commands.AdminCommands.Logging;
 import Neptune.Commands.DevCommands.GuildList;
 import Neptune.Commands.DevCommands.ServerInfo;
 import Neptune.Commands.FunCommands.*;
-import Neptune.Commands.FunCommands.GIF.*;
+import Neptune.Commands.Image.Tenor.*;
 import Neptune.Commands.HelpCommands.Help;
 import Neptune.Commands.FunCommands.PowerLevel;
+import Neptune.Commands.Image.Imgur;
+import Neptune.Commands.Image.Tenor.Pout;
+import Neptune.Commands.Image.Tenor.Senko;
+import Neptune.Commands.Image.Tenor.Stare;
+import Neptune.Commands.Image.Tenor.Neko;
+import Neptune.Commands.Image.Tenor.Shocked;
 import Neptune.Commands.InProgress.VRC;
 import Neptune.Commands.UtilityCommands.*;
 import Neptune.Storage.VariablesStorage;
@@ -23,8 +29,7 @@ import java.util.Map;
 //handles neptune base commands
 public class CommandRunner extends CommonMethods {
 
-    private final Nep NepCountCommand;
-    private final VariablesStorage VariableStorageRead;
+    private final Nep NepCountCommand = new Nep();
     private final Say NepSayCommand;
     private final Translate translateMessage = new Translate();
     private final AdminOptions adminOptions = new AdminOptions();
@@ -56,10 +61,16 @@ public class CommandRunner extends CommonMethods {
     private final D10K d10K = new D10K();
     private final GuildList guildList = new GuildList();
     private final PowerLevel powerLevel = new PowerLevel();
+    private final Pout pout = new Pout();
+    private final Senko senko = new Senko();
+    private final Stare stare = new Stare();
+    private final Neko neko = new Neko();
+    private final Shocked shocked = new Shocked();
+    private final Nya nya = new Nya();
+    private final Sleepy sleepy = new Sleepy();
+
     public CommandRunner(VariablesStorage variablesStorage) {
-        VariableStorageRead = variablesStorage;
-        NepCountCommand = new Nep();
-        NepSayCommand = new Say(new File(VariableStorageRead.getMediaFolder() + File.separator + "say"));
+        NepSayCommand = new Say(new File(variablesStorage.getMediaFolder() + File.separator + "say"));
 
         //Add all commands to this hashmap;
         commands.put(NepCountCommand.getCommand(),NepCountCommand);
@@ -93,6 +104,14 @@ public class CommandRunner extends CommonMethods {
         commands.put(guildList.getCommand(),guildList);
         commands.put(vrChatAPI.getCommand(),vrChatAPI);
         commands.put(powerLevel.getCommand(),powerLevel);
+        commands.put(pout.getCommand(),pout);
+        commands.put(senko.getCommand(),senko);
+        commands.put(stare.getCommand(),stare);
+        commands.put(neko.getCommand(),neko);
+        commands.put(shocked.getCommand(),shocked);
+        commands.put(nya.getCommand(),nya);
+        commands.put(sleepy.getCommand(),sleepy);
+
 
         //dev commands
         if(variablesStorage.getDevMode()){
@@ -102,7 +121,7 @@ public class CommandRunner extends CommonMethods {
         return commands;
     }
     public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage){
-        String[] CommandArray = getCommandName(event.getMessage().getContentRaw().trim().toLowerCase().replaceFirst(VariableStorageRead.getCallBot().toLowerCase(), "").trim());
+        String[] CommandArray = getCommandName(event.getMessage().getContentRaw().trim().toLowerCase().replaceFirst(variablesStorage.getCallBot().toLowerCase(), "").trim());
         if (commands.containsKey(CommandArray[0])){
             CommandInterface command = (CommandInterface) commands.get(CommandArray[0]);
             //TODO: add error message

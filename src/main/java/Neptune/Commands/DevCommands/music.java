@@ -1,31 +1,32 @@
-package Neptune.Commands.FunCommands.GIF;
+package Neptune.Commands.DevCommands;
 
 import Neptune.Commands.CommandInterface;
-import Neptune.Commands.TenorGif;
 import Neptune.Commands.commandCategories;
 import Neptune.Storage.VariablesStorage;
-import net.dv8tion.jda.api.EmbedBuilder;
+import Neptune.music.AudioController;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
-public class Confused extends TenorGif implements CommandInterface {
+public class music implements CommandInterface {
+    private AudioController AudioOut;
+
     @Override
     public String getName() {
-        return "Confused";
+        return "Music";
     }
 
     @Override
     public String getCommand() {
-        return "confused";
+        return "music";
     }
 
     @Override
     public String getDescription() {
-        return "Images of....... I don't know";
+        return "";
     }
 
     @Override
     public commandCategories getCategory() {
-        return commandCategories.Fun;
+        return commandCategories.Dev;
     }
 
     @Override
@@ -40,12 +41,12 @@ public class Confused extends TenorGif implements CommandInterface {
 
     @Override
     public boolean getRequireOwner() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean getHideCommand() {
-        return false;
+        return true;
     }
 
     @Override
@@ -55,8 +56,12 @@ public class Confused extends TenorGif implements CommandInterface {
 
     @Override
     public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
-        EmbedBuilder embedBuilder = getImageEmbed(event,getCommand());
-        event.getChannel().sendMessage(embedBuilder.build()).queue();
-        return true;
+        if (event.getGuild() != null && AudioOut == null) {
+            AudioOut = new AudioController(event);
+        }
+        if (event.getGuild().getAudioManager() != null || event.getMember().getVoiceState().getChannel() != null && event.getGuild() != null ) {
+            AudioOut.playSound(event, messageContent);
+        }
+        return false;
     }
 }

@@ -1,4 +1,4 @@
-package Neptune.Commands.FunCommands.GIF;
+package Neptune.Commands.Image.Tenor;
 
 import Neptune.Commands.CommandInterface;
 import Neptune.Commands.TenorGif;
@@ -7,25 +7,25 @@ import Neptune.Storage.VariablesStorage;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
-public class Cuddle extends TenorGif implements CommandInterface {
+public class Neko extends TenorGif implements CommandInterface {
     @Override
     public String getName() {
-        return "Cuddle";
+        return "Neko";
     }
 
     @Override
     public String getCommand() {
-        return "cuddle";
+        return "neko";
     }
 
     @Override
     public String getDescription() {
-        return "Pictures of cuddles";
+        return "Images of Nyas";
     }
 
     @Override
     public commandCategories getCategory() {
-        return commandCategories.Fun;
+        return commandCategories.Image;
     }
 
     @Override
@@ -55,7 +55,8 @@ public class Cuddle extends TenorGif implements CommandInterface {
 
     @Override
     public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
-        EmbedBuilder embedBuilder = getImageEmbed(event,getCommand());
+        EmbedBuilder embedBuilder = getImageEmbed(event,"neko anime");
         event.getChannel().sendMessage(embedBuilder.build()).queue();
-        return true;    }
+        return true;
+    }
 }

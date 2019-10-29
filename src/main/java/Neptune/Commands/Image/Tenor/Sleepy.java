@@ -1,4 +1,4 @@
-package Neptune.Commands.FunCommands.GIF;
+package Neptune.Commands.Image.Tenor;
 
 import Neptune.Commands.CommandInterface;
 import Neptune.Commands.TenorGif;
@@ -7,26 +7,25 @@ import Neptune.Storage.VariablesStorage;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
-public class Pat extends TenorGif implements CommandInterface {
-
+public class Sleepy extends TenorGif implements CommandInterface {
     @Override
     public String getName() {
-        return "pat";
+        return "Sleepy";
     }
 
     @Override
     public String getCommand() {
-        return "pat";
+        return "sleepy";
     }
 
     @Override
     public String getDescription() {
-        return "Pictures of Anime Pats";
+        return "Sleepy time";
     }
 
     @Override
     public commandCategories getCategory() {
-        return commandCategories.Fun;
+        return commandCategories.Image;
     }
 
     @Override
@@ -56,8 +55,8 @@ public class Pat extends TenorGif implements CommandInterface {
 
     @Override
     public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
-        EmbedBuilder embedBuilder = getImageEmbed(event,getCommand());
+        EmbedBuilder embedBuilder = getImageEmbed(event,"sleepy anime");
         event.getChannel().sendMessage(embedBuilder.build()).queue();
-        return true;
+        return false;
     }
 }

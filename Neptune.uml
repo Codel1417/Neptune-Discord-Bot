@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>Neptune</OriginalElement>
+  <nodes>
+    <node x="390.0" y="256.0">Neptune.Commands.FunCommands.GIF.Cuddle</node>
+    <node x="3391.0" y="256.0">Neptune.Commands.FunCommands.Imgur</node>
+    <node x="3661.0" y="327.0">Neptune.ServerLogging.GuildLogging</node>
+    <node x="700.0" y="474.0">Neptune.Listener</node>
+    <node x="2142.0" y="327.0">Neptune.Storage.SQLite.SettingsStorage</node>
+    <node x="3729.0" y="256.0">Neptune.Commands.CommandRunner</node>
+    <node x="3383.25" y="0.0">Neptune.Commands.CommonMethods</node>
+    <node x="1533.0" y="327.0">Neptune.Storage.VariablesStorage</node>
+    <node x="498.0" y="256.0">Neptune.Commands.FunCommands.GIF.Pat</node>
+    <node x="1736.0" y="327.0">Neptune.Commands.PassiveCommands.DM_ImageDownload</node>
+    <node x="2014.0" y="256.0">Neptune.Commands.FunCommands.Attack</node>
+    <node x="3297.0" y="327.0">Neptune.Commands.PassiveCommands.guildListener</node>
+    <node x="1728.0" y="256.0">Neptune.Commands.FunCommands.CoinFlip</node>
+    <node x="693.0" y="327.0">Neptune.messageInterprter</node>
+    <node x="2788.0" y="256.0">Neptune.Commands.UtilityCommands.Screenshare</node>
+    <node x="174.0" y="256.0">Neptune.Commands.FunCommands.GIF.Poke</node>
+    <node x="192.0" y="0.0">Neptune.Commands.TenorGif</node>
+    <node x="0.0" y="474.0">Neptune.Storage.SQLite.D10000Access</node>
+    <node x="2730.0" y="327.0">Neptune.FileDownloader</node>
+    <node x="3642.0" y="256.0">Neptune.Commands.InProgress.VRC</node>
+    <node x="448.0" y="327.0">Neptune.music.AudioPlayerSendHandler</node>
+    <node x="1939.0" y="327.0">Neptune.Storage.VRCApiConnection</node>
+    <node x="1463.0" y="256.0">Neptune.Commands.FunCommands.Translate</node>
+    <node x="2122.0" y="256.0">Neptune.Commands.FunCommands.GreatSleepKing</node>
+    <node x="175.0" y="474.0">Neptune.ServerLogging.EmoteLogging</node>
+    <node x="1261.0" y="256.0">Neptune.Commands.UtilityCommands.About</node>
+    <node x="1080.0" y="256.0">Neptune.Commands.FunCommands.Nep</node>
+    <node x="2931.0" y="256.0">Neptune.Commands.DevCommands.ServerInfo</node>
+    <node x="2286.0" y="256.0">Neptune.Commands.AdminCommands.GuildInfo</node>
+    <node x="903.0" y="327.0">Neptune.Commands.RandomMediaPicker</node>
+    <node x="1167.0" y="256.0">Neptune.Commands.FunCommands.D10K</node>
+    <node x="2551.0" y="256.0">Neptune.Commands.UtilityCommands.Uptime</node>
+    <node x="1113.0" y="327.0">Neptune.music.GuildMusicManager</node>
+    <node x="3492.0" y="256.0">Neptune.Commands.AdminCommands.AdminOptions</node>
+    <node x="0.0" y="256.0">Neptune.Commands.FunCommands.GIF.Hug</node>
+    <node x="3161.0" y="256.0">Neptune.Commands.FunCommands.RollDie</node>
+    <node x="3276.0" y="256.0">Neptune.Commands.AdminCommands.Logging</node>
+    <node x="672.0" y="256.0">Neptune.Commands.InProgress.Stats</node>
+    <node x="2919.0" y="327.0">Neptune.music.TrackScheduler</node>
+    <node x="2415.0" y="256.0">Neptune.Commands.FunCommands.PowerLevel</node>
+    <node x="0.0" y="403.0">Neptune.Storage.TenorConnection</node>
+    <node x="985.9999999999999" y="256.0">Neptune.Commands.FunCommands.Ping</node>
+    <node x="1850.0" y="256.0">Neptune.Commands.FunCommands.UWU_Translater</node>
+    <node x="1323.0" y="327.0">Neptune.Commands.commandCategories</node>
+    <node x="2659.0" y="256.0">Neptune.Commands.DevCommands.GuildList</node>
+    <node x="2338.0" y="327.0">Neptune.CycleGameStatus</node>
+    <node x="773.0" y="256.0">Neptune.Commands.UtilityCommands.MinecraftServerStatus</node>
+    <node x="196.0" y="327.0">Neptune.Storage.DropboxBackupConnection</node>
+    <node x="1362.0" y="256.0">Neptune.Commands.UtilityCommands.Leave</node>
+    <node x="350.0" y="474.0">Neptune.MessagePages</node>
+    <node x="2534.0" y="327.0">Neptune.music.AudioController</node>
+    <node x="14.0" y="327.0">Neptune.Storage.ConvertJSON</node>
+    <node x="585.0" y="256.0">Neptune.Commands.FunCommands.Say</node>
+    <node x="3479.0" y="327.0">Neptune.Commands.VRChatRequest</node>
+    <node x="525.0" y="474.0">Neptune.Storage.GetAuthToken</node>
+    <node x="847.0" y="474.0">Neptune.Main</node>
+    <node x="87.0" y="256.0">Neptune.Commands.FunCommands.GIF.Nom</node>
+    <node x="1635.5" y="0.0">Neptune.Commands.CommandInterface</node>
+    <node x="3067.0" y="256.0">Neptune.Commands.HelpCommands.Help</node>
+    <node x="1592.0" y="256.0">Neptune.Commands.FunCommands.PayRespect</node>
+    <node x="268.0" y="256.0">Neptune.Commands.FunCommands.GIF.Confused</node>
+    <node x="3108.0" y="327.0">Neptune.Storage.SQLite.LoggingHandler</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="Neptune.Commands.AdminCommands.GuildInfo" target="Neptune.Commands.CommandInterface">
+      <point x="0.0" y="-13.0" />
+      <point x="2340.5" y="186.0" />
+      <point x="1736.71875" y="186.0" />
+      <point x="22.21875" y="13.0" />
+    </edge>
+    <edge source="Neptune.Commands.DevCommands.GuildList" target="Neptune.Commands.CommandInterface">
+      <point x="0.0" y="-13.0" />
+      <point x="2713.5" y="156.0" />
+      <point x="1751.53125" y="156.0" />
+      <point x="37.03125" y="13.0" />
+    </edge>
+    <edge source="Neptune.Commands.FunCommands.RollDie" target="Neptune.Commands.CommandInterface">
+      <point x="-23.75" y="-13.0" />
+      <point x="3184.75" y="116.0" />
+      <point x="1771.28125" y="116.0" />
+      <point x="56.78125" y="13.0" />
+    </edge>
+    <edge source="Neptune.Commands.FunCommands.Imgur" target="Neptune.Commands.CommonMethods">
+      <point x="20.25" y="-13.0" />
+      <point x="0.0" y="13.0" />
+    </edge>
+    <edge source="Neptune.Commands.UtilityCommands.MinecraftServerStatus" target="Neptune.Commands.CommandInterface">
+      <point x="0.0" y="-13.0" />
+      <point x="869.5" y="166.0" />
+      <point x="1677.46875" y="166.0" />
+      <point x="-37.03125" y="13.0" />
+    </edge>
+    <edge source="Neptune.Commands.FunCommands.GreatSleepKing" target="Neptune.Commands.CommandInterface">
+      <point x="0.0" y="-13.0" />
+      <point x="2194.0" y="196.0" />
+      <point x="1731.78125" y="196.0" />
+      <point x="17.28125" y="13.0" />
+    </edge>
+    <edge source="Neptune.Commands.FunCommands.GIF.Hug" target="Neptune.Commands.TenorGif">
+      <point x="-16.75" y="-13.0" />
+      <point x="16.75" y="56.0" />
+      <point x="200.5" y="56.0" />
+      <point x="-42.5" y="13.0" />
+    </edge>
+    <edge source="Neptune.Commands.HelpCommands.Help" target="Neptune.Commands.CommandInterface">
+      <point x="-18.5" y="-13.0" />
+      <point x="3085.5" y="126.0" />
+      <point x="1766.34375" y="126.0" />
+      <point x="51.84375" y="13.0" />
+    </edge>
+    <edge source="Neptune.Commands.InProgress.Stats" target="Neptune.Commands.CommandInterface">
+      <point x="0.0" y="-13.0" />
+      <point x="712.5" y="156.0" />
+      <point x="1672.53125" y="156.0" />
+      <point x="-41.96875" y="13.0" />
+    </edge>
+    <edge source="Neptune.Commands.FunCommands.GIF.Confused" target="Neptune.Commands.CommandInterface">
+      <point x="25.5" y="-13.0" />
+      <point x="344.5" y="116.0" />
+      <point x="1652.78125" y="116.0" />
+      <point x="-61.71875" y="13.0" />
+    </edge>
+    <edge source="Neptune.Commands.FunCommands.Imgur" target="Neptune.Commands.CommandInterface">
+      <point x="-20.25" y="-13.0" />
+      <point x="3411.25" y="96.0" />
+      <point x="1781.15625" y="96.0" />
+      <point x="66.65625" y="13.0" />
+    </edge>
+    <edge source="Neptune.Commands.DevCommands.ServerInfo" target="Neptune.Commands.CommandInterface">
+      <point x="0.0" y="-13.0" />
+      <point x="2989.0" y="136.0" />
+      <point x="1761.40625" y="136.0" />
+      <point x="46.90625" y="13.0" />
+    </edge>
+    <edge source="Neptune.Commands.FunCommands.RollDie" target="Neptune.Commands.CommonMethods">
+      <point x="23.75" y="-13.0" />
+      <point x="3232.25" y="226.0" />
+      <point x="3412.6071428571427" y="226.0" />
+      <point x="-39.14285714285734" y="13.0" />
+    </edge>
+    <edge source="Neptune.Commands.HelpCommands.Help" target="Neptune.Commands.CommonMethods">
+      <point x="18.5" y="-13.0" />
+      <point x="3122.5" y="216.0" />
+      <point x="3393.035714285714" y="216.0" />
+      <point x="-58.71428571428578" y="13.0" />
+    </edge>
+    <edge source="Neptune.Commands.UtilityCommands.Uptime" target="Neptune.Commands.CommandInterface">
+      <point x="0.0" y="-13.0" />
+      <point x="2595.0" y="166.0" />
+      <point x="1746.59375" y="166.0" />
+      <point x="32.09375" y="13.0" />
+    </edge>
+    <edge source="Neptune.Commands.FunCommands.PayRespect" target="Neptune.Commands.CommandInterface">
+      <point x="0.0" y="-13.0" />
+      <point x="1650.0" y="236.0" />
+      <point x="1712.03125" y="236.0" />
+      <point x="-2.46875" y="13.0" />
+    </edge>
+    <edge source="Neptune.Commands.FunCommands.Translate" target="Neptune.Commands.CommandInterface">
+      <point x="0.0" y="-13.0" />
+      <point x="1517.5" y="226.0" />
+      <point x="1707.09375" y="226.0" />
+      <point x="-7.40625" y="13.0" />
+    </edge>
+    <edge source="Neptune.Commands.FunCommands.GIF.Cuddle" target="Neptune.Commands.CommandInterface">
+      <point x="22.0" y="-13.0" />
+      <point x="456.0" y="126.0" />
+      <point x="1657.71875" y="126.0" />
+      <point x="-56.78125" y="13.0" />
+    </edge>
+    <edge source="Neptune.Commands.FunCommands.GIF.Pat" target="Neptune.Commands.CommandInterface">
+      <point x="16.75" y="-13.0" />
+      <point x="548.25" y="136.0" />
+      <point x="1662.65625" y="136.0" />
+      <point x="-51.84375" y="13.0" />
+    </edge>
+    <edge source="Neptune.Commands.FunCommands.GIF.Nom" target="Neptune.Commands.CommandInterface">
+      <point x="16.75" y="-13.0" />
+      <point x="137.25" y="96.0" />
+      <point x="1642.90625" y="96.0" />
+      <point x="-71.59375" y="13.0" />
+    </edge>
+    <edge source="Neptune.Commands.FunCommands.GIF.Confused" target="Neptune.Commands.TenorGif">
+      <point x="-25.5" y="-13.0" />
+      <point x="293.5" y="76.0" />
+      <point x="251.5" y="76.0" />
+      <point x="8.5" y="13.0" />
+    </edge>
+    <edge source="Neptune.Commands.FunCommands.GIF.Nom" target="Neptune.Commands.TenorGif">
+      <point x="-16.75" y="-13.0" />
+      <point x="103.75" y="66.0" />
+      <point x="217.5" y="66.0" />
+      <point x="-25.5" y="13.0" />
+    </edge>
+    <edge source="Neptune.Commands.FunCommands.Say" target="Neptune.Commands.CommandInterface">
+      <point x="0.0" y="-13.0" />
+      <point x="618.5" y="146.0" />
+      <point x="1667.59375" y="146.0" />
+      <point x="-46.90625" y="13.0" />
+    </edge>
+    <edge source="Neptune.Commands.UtilityCommands.Screenshare" target="Neptune.Commands.CommandInterface">
+      <point x="0.0" y="-13.0" />
+      <point x="2849.5" y="146.0" />
+      <point x="1756.46875" y="146.0" />
+      <point x="41.96875" y="13.0" />
+    </edge>
+    <edge source="Neptune.Commands.FunCommands.GIF.Poke" target="Neptune.Commands.TenorGif">
+      <point x="-18.5" y="-13.0" />
+      <point x="192.5" y="76.0" />
+      <point x="234.5" y="76.0" />
+      <point x="-8.5" y="13.0" />
+    </edge>
+    <edge source="Neptune.Commands.CommandRunner" target="Neptune.Commands.CommonMethods">
+      <point x="0.0" y="-13.0" />
+      <point x="3797.5" y="46.0" />
+      <point x="3510.464285714286" y="46.0" />
+      <point x="58.71428571428578" y="13.0" />
+    </edge>
+    <edge source="Neptune.Commands.InProgress.VRC" target="Neptune.Commands.CommonMethods">
+      <point x="16.75" y="-13.0" />
+      <point x="3692.25" y="56.0" />
+      <point x="3490.8928571428573" y="56.0" />
+      <point x="39.14285714285734" y="13.0" />
+    </edge>
+    <edge source="Neptune.Commands.FunCommands.GIF.Poke" target="Neptune.Commands.CommandInterface">
+      <point x="18.5" y="-13.0" />
+      <point x="229.5" y="106.0" />
+      <point x="1647.84375" y="106.0" />
+      <point x="-66.65625" y="13.0" />
+    </edge>
+    <edge source="Neptune.Commands.FunCommands.GIF.Cuddle" target="Neptune.Commands.TenorGif">
+      <point x="-22.0" y="-13.0" />
+      <point x="412.0" y="66.0" />
+      <point x="268.5" y="66.0" />
+      <point x="25.5" y="13.0" />
+    </edge>
+    <edge source="Neptune.Commands.FunCommands.CoinFlip" target="Neptune.Commands.CommandInterface">
+      <point x="0.0" y="-13.0" />
+      <point x="1779.0" y="226.0" />
+      <point x="1716.96875" y="226.0" />
+      <point x="2.46875" y="13.0" />
+    </edge>
+    <edge source="Neptune.Commands.AdminCommands.AdminOptions" target="Neptune.Commands.CommonMethods">
+      <point x="32.5" y="-13.0" />
+      <point x="3589.5" y="76.0" />
+      <point x="3471.3214285714284" y="76.0" />
+      <point x="19.57142857142844" y="13.0" />
+    </edge>
+    <edge source="Neptune.Storage.TenorConnection" target="Neptune.Storage.ConvertJSON">
+      <point x="0.0" y="-13.0" />
+      <point x="0.0" y="13.0" />
+    </edge>
+    <edge source="Neptune.Commands.AdminCommands.Logging" target="Neptune.Commands.CommandInterface">
+      <point x="-23.75" y="-13.0" />
+      <point x="3299.75" y="106.0" />
+      <point x="1776.21875" y="106.0" />
+      <point x="61.71875" y="13.0" />
+    </edge>
+    <edge source="Neptune.Commands.FunCommands.GIF.Pat" target="Neptune.Commands.TenorGif">
+      <point x="-16.75" y="-13.0" />
+      <point x="514.75" y="56.0" />
+      <point x="285.5" y="56.0" />
+      <point x="42.5" y="13.0" />
+    </edge>
+    <edge source="Neptune.Commands.FunCommands.Nep" target="Neptune.Commands.CommandInterface">
+      <point x="0.0" y="-13.0" />
+      <point x="1113.5" y="186.0" />
+      <point x="1687.34375" y="186.0" />
+      <point x="-27.15625" y="13.0" />
+    </edge>
+    <edge source="Neptune.Commands.FunCommands.Attack" target="Neptune.Commands.CommandInterface">
+      <point x="0.0" y="-13.0" />
+      <point x="2058.0" y="206.0" />
+      <point x="1726.84375" y="206.0" />
+      <point x="12.34375" y="13.0" />
+    </edge>
+    <edge source="Neptune.Commands.InProgress.VRC" target="Neptune.Commands.CommandInterface">
+      <point x="-16.75" y="-13.0" />
+      <point x="3658.75" y="66.0" />
+      <point x="1791.03125" y="66.0" />
+      <point x="76.53125" y="13.0" />
+    </edge>
+    <edge source="Neptune.Commands.AdminCommands.Logging" target="Neptune.Commands.CommonMethods">
+      <point x="23.75" y="-13.0" />
+      <point x="3347.25" y="236.0" />
+      <point x="3432.1785714285716" y="236.0" />
+      <point x="-19.57142857142844" y="13.0" />
+    </edge>
+    <edge source="Neptune.Commands.FunCommands.D10K" target="Neptune.Commands.CommandInterface">
+      <point x="0.0" y="-13.0" />
+      <point x="1204.0" y="196.0" />
+      <point x="1692.28125" y="196.0" />
+      <point x="-22.21875" y="13.0" />
+    </edge>
+    <edge source="Neptune.Commands.FunCommands.GIF.Hug" target="Neptune.Commands.CommandInterface">
+      <point x="16.75" y="-13.0" />
+      <point x="50.25" y="86.0" />
+      <point x="1637.96875" y="86.0" />
+      <point x="-76.53125" y="13.0" />
+    </edge>
+    <edge source="Neptune.Commands.UtilityCommands.Leave" target="Neptune.Commands.CommandInterface">
+      <point x="0.0" y="-13.0" />
+      <point x="1402.5" y="216.0" />
+      <point x="1702.15625" y="216.0" />
+      <point x="-12.34375" y="13.0" />
+    </edge>
+    <edge source="Neptune.Commands.FunCommands.UWU_Translater" target="Neptune.Commands.CommandInterface">
+      <point x="0.0" y="-13.0" />
+      <point x="1922.0" y="216.0" />
+      <point x="1721.90625" y="216.0" />
+      <point x="7.40625" y="13.0" />
+    </edge>
+    <edge source="Neptune.Commands.FunCommands.PowerLevel" target="Neptune.Commands.CommandInterface">
+      <point x="0.0" y="-13.0" />
+      <point x="2473.0" y="176.0" />
+      <point x="1741.65625" y="176.0" />
+      <point x="27.15625" y="13.0" />
+    </edge>
+    <edge source="Neptune.Commands.FunCommands.Ping" target="Neptune.Commands.CommandInterface">
+      <point x="0.0" y="-13.0" />
+      <point x="1022.9999999999999" y="176.0" />
+      <point x="1682.40625" y="176.0" />
+      <point x="-32.09375" y="13.0" />
+    </edge>
+    <edge source="Neptune.Commands.UtilityCommands.About" target="Neptune.Commands.CommandInterface">
+      <point x="0.0" y="-13.0" />
+      <point x="1301.5" y="206.0" />
+      <point x="1697.21875" y="206.0" />
+      <point x="-17.28125" y="13.0" />
+    </edge>
+    <edge source="Neptune.Commands.AdminCommands.AdminOptions" target="Neptune.Commands.CommandInterface">
+      <point x="-32.5" y="-13.0" />
+      <point x="3524.5" y="86.0" />
+      <point x="1786.09375" y="86.0" />
+      <point x="71.59375" y="13.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="7020.0" y="4181.0" />
+  <SelectedNodes>
+    <node>Neptune.Commands.FunCommands.GIF.Cuddle</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
