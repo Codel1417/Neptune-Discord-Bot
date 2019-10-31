@@ -55,7 +55,7 @@ public class Shocked extends TenorGif implements CommandInterface {
 
     @Override
     public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
-        EmbedBuilder embedBuilder = getImageDefaultEmbed(event,getCommand());
+        EmbedBuilder embedBuilder = getImageDefaultEmbed(event,getCommand(),false);
         event.getChannel().sendMessage(embedBuilder.build()).queue();
         return true;
     }

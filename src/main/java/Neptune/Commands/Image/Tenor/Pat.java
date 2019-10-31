@@ -56,7 +56,7 @@ public class Pat extends TenorGif implements CommandInterface {
 
     @Override
     public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
-        EmbedBuilder embedBuilder = getImageDefaultEmbed(event,getCommand());
+        EmbedBuilder embedBuilder = getImageDefaultEmbed(event,getCommand(),true);
         event.getChannel().sendMessage(embedBuilder.build()).queue();
         return true;
     }

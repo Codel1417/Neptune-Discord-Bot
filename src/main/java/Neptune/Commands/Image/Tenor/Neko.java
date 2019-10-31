@@ -55,7 +55,7 @@ public class Neko extends TenorGif implements CommandInterface {
 
     @Override
     public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
-        EmbedBuilder embedBuilder = getImageEmbed(event,"neko anime");
+        EmbedBuilder embedBuilder = getImageEmbed(event,"neko anime",true,"Have some nekos");
         event.getChannel().sendMessage(embedBuilder.build()).queue();
         return true;
     }

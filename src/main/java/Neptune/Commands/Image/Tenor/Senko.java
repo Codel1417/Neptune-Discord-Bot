@@ -55,7 +55,7 @@ public class Senko extends TenorGif implements CommandInterface {
 
     @Override
     public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
-        EmbedBuilder embedBuilder = getImageEmbed(event,"senko-san");
+        EmbedBuilder embedBuilder = getImageEmbed(event,"senko-san",false,null);
         event.getChannel().sendMessage(embedBuilder.build()).queue();
         return true;
     }

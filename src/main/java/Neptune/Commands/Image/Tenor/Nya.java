@@ -55,7 +55,7 @@ public class Nya extends TenorGif implements CommandInterface {
 
     @Override
     public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
-        EmbedBuilder embedBuilder = getImageEmbed(event,"nya anime");
+        EmbedBuilder embedBuilder = getImageEmbed(event,"nya anime",true,"Neptune nya's");
         event.getChannel().sendMessage(embedBuilder.build()).queue();
         return false;
     }

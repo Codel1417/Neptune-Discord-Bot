@@ -55,7 +55,7 @@ public class Stare extends TenorGif implements CommandInterface {
 
     @Override
     public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
-        EmbedBuilder embedBuilder = getImageEmbed(event,"stare anime");
+        EmbedBuilder embedBuilder = getImageEmbed(event,"stare anime",true,"Neptune stares at");
         event.getChannel().sendMessage(embedBuilder.build()).queue();
         return true;
     }

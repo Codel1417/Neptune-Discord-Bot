@@ -7,31 +7,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="db4b6966-4060-4bb3-bd8f-ce2ef72a3509" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Neptune.uml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/DevCommands/music.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Neko.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Nya.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Pout.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Senko.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Shocked.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Sleepy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Stare.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/Neptune_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/Neptune_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_cli_commons_cli_1_4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Neptune/music/PlayerControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Neptune-Discord-Bot.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Neptune-Discord-Bot.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_sedmelluq_lavaplayer_1_3_22.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_sedmelluq_lavaplayer_1_3_23.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/CommandRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/CommandRunner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/GIF/Confused.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Confused.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/GIF/Cuddle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Cuddle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/GIF/Hug.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Hug.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/GIF/Nom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Nom.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/GIF/Pat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Pat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/GIF/Poke.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Poke.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/FunCommands/Imgur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Imgur.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/RandomMediaPicker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/RandomMediaPicker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Confused.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Confused.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Cuddle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Cuddle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Hug.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Hug.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Neko.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Neko.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Nom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Nom.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Nya.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Nya.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Pat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Pat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Poke.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Poke.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Pout.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Pout.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Senko.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Senko.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Shocked.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Shocked.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Sleepy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Sleepy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Stare.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/Image/Tenor/Stare.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/TenorGif.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/TenorGif.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Commands/commandCategories.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Commands/commandCategories.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Storage/TenorConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Storage/TenorConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/Storage/VariablesStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/Storage/VariablesStorage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/music/AudioController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/music/AudioController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Neptune/music/AudioPlayerSendHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Neptune/music/AudioPlayerSendHandler.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -374,14 +373,12 @@
       <workItem from="1571521450964" duration="1442000" />
       <workItem from="1571883337603" duration="1994000" />
       <workItem from="1572215140425" duration="2085000" />
-      <workItem from="1572306952306" duration="8730000" />
-    </task>
-    <task id="LOCAL-00003" summary="Refactor Storage system, now uses google cloud Firestore&#10;prepared backend for permissions&#10;Refactored analytics">
-      <created>1561097881277</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1561097881277</updated>
+      <workItem from="1572306952306" duration="8837000" />
+      <workItem from="1572330035689" duration="611000" />
+      <workItem from="1572377743318" duration="2081000" />
+      <workItem from="1572412519740" duration="1175000" />
+      <workItem from="1572473510549" duration="5401000" />
+      <workItem from="1572493263106" duration="4714000" />
     </task>
     <task id="LOCAL-00004" summary="TTS support added">
       <created>1561352609942</created>
@@ -719,7 +716,14 @@
       <option name="project" value="LOCAL" />
       <updated>1571170639206</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="Add more image commands">
+      <created>1572329278622</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1572329278623</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -763,7 +767,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add Minecraft command" />
     <MESSAGE value="Add Dropbox Database Backup" />
     <MESSAGE value="Initial Tenor Support" />
     <MESSAGE value="Logging Backend Stuff" />
@@ -788,7 +791,8 @@
     <MESSAGE value="Set up maven" />
     <MESSAGE value="Remove Gradle" />
     <MESSAGE value="Edit pom" />
-    <option name="LAST_COMMIT_MESSAGE" value="Edit pom" />
+    <MESSAGE value="Add more image commands" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add more image commands" />
   </component>
   <component name="WindowStateProjectService">
     <state x="414" y="173" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1569044882185" />

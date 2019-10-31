@@ -11,7 +11,6 @@ public class VariablesStorage {
     private String CallBot = "!Nep";  //not case sensitive
     private String OwnerID;
     private int MessageCooldownSeconds = 5; //set to zero to disable
-    
     //files
     private final File MediaFolder = new File("Media" + File.separator);
 
@@ -51,4 +50,5 @@ public class VariablesStorage {
         if (BotInfo.containsKey("owner-id")) OwnerID = (String) BotInfo.get("owner-id");
 
     }
+
 }

@@ -55,7 +55,7 @@ public class Sleepy extends TenorGif implements CommandInterface {
 
     @Override
     public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
-        EmbedBuilder embedBuilder = getImageEmbed(event,"sleepy anime");
+        EmbedBuilder embedBuilder = getImageEmbed(event,"sleepy anime",false,null);
         event.getChannel().sendMessage(embedBuilder.build()).queue();
         return false;
     }
