@@ -1,4 +1,4 @@
-package neptune.storage;
+package neptune.webConnection;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;

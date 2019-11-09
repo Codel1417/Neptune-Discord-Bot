@@ -1,6 +1,7 @@
-package neptune.storage;
+package neptune.webConnection;
 
 import com.google.gson.internal.LinkedTreeMap;
+import neptune.storage.ConvertJSON;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,7 +12,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class TenorConnection extends ConvertJSON{
+public class TenorConnection extends ConvertJSON {
 
     private String API_KEY;
     public TenorConnection(String API_KEY){

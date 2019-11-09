@@ -1,7 +1,7 @@
 package neptune.commands;
 
 import neptune.storage.GetAuthToken;
-import neptune.storage.TenorConnection;
+import neptune.webConnection.TenorConnection;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.IMentionable;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;

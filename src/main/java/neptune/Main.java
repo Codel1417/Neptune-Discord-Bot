@@ -4,7 +4,7 @@ import com.neovisionaries.ws.client.WebSocketFactory;
 import neptune.commands.PassiveCommands.DM_ImageDownload;
 import neptune.commands.PassiveCommands.guildListener;
 import neptune.music.PlayerControl;
-import neptune.storage.DropboxBackupConnection;
+import neptune.webConnection.DropboxBackupConnection;
 import neptune.storage.GetAuthToken;
 import neptune.storage.VariablesStorage;
 import net.dv8tion.jda.api.JDABuilder;

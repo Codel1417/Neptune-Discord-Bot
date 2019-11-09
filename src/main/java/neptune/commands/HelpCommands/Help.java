@@ -9,12 +9,13 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.awt.*;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class Help extends CommonMethods implements CommandInterface {
-
+    private LinkedList<String> Categories = new LinkedList<>();
+    public Help(){
+        //generate categories list from enum
+    }
     @Override
     public String getName() {
         return "Help";
@@ -66,57 +67,24 @@ public class Help extends CommonMethods implements CommandInterface {
         embedBuilder.setColor(Color.MAGENTA);
         embedBuilder.setAuthor("Help",event.getGuild().getSelfMember().getUser().getEffectiveAvatarUrl());
         embedBuilder.setDescription("Use " + variablesStorage.getCallBot() + " <Command>");
-
-        Map<String, Object> commands = new TreeMap<String, Object>(new CommandRunner(variablesStorage).getCommandList());
-
+        Map<String, Object> commands = new TreeMap<>(new CommandRunner(variablesStorage).getCommandList());
         String[] commandArray = getCommandName(messageContent);
-        commandCategories category = null;
-        //checks if a category was specified
-        if (!commandArray[0].equalsIgnoreCase("")){
-            for (commandCategories commandCat : commandCategories.values()){
-                if (commandCat.name().equalsIgnoreCase(commandArray[0])){
-                    category = commandCat;
-                    for (Object commandObject : commands.values()){
-                        CommandInterface command = (CommandInterface) commandObject;
-                        if (command.getCategory().name().equalsIgnoreCase(category.name()) && !command.getHideCommand() ){
-                            embedBuilder.addField(command.getCommand(), command.getDescription(),false);
-                        }
-                    }
-                    break;
+
+        //per command check
+        if (commands.containsKey(commandArray[0])){
+            CommandInterface command = (CommandInterface) commands.get(commandArray[0]);
+            if (!command.getHideCommand()) {
+                embedBuilder.setTitle(command.getName());
+                embedBuilder.setDescription(command.getDescription());
+                embedBuilder.addField("Command",command.getCommand(),true);
+                embedBuilder.addField("Category", command.getCategory().name(),true);
+                if (!command.getHelp().equals("")){
+                    embedBuilder.addField("Usage", command.getHelp(),true);
                 }
             }
         }
-        //check if command exists to display per command help
-        boolean perCommandHelp = false;
-        if (category == null) {
-            for (Object commandObject : commands.values()){
-                CommandInterface command = (CommandInterface) commandObject;
-                if (command.getCommand().equalsIgnoreCase(commandArray[0]) || command.getName().equalsIgnoreCase(commandArray[0])){
-                    if (!command.getHideCommand()) {
-                        embedBuilder.setTitle(command.getName());
-                        embedBuilder.setDescription(command.getDescription());
-                        embedBuilder.addField("Command",command.getCommand(),true);
-                        embedBuilder.addField("Category", command.getCategory().name(),true);
-                        if (command.getHelp() != ""){
-                            embedBuilder.addField("Usage", command.getHelp(),true);
-                        }
-                        perCommandHelp = true;
-                        break;
-                    }
-                }
-            }
-        }
-
-
-        //display all commands
-        if(!perCommandHelp && category == null){
-/*            for (Object commandObject : commands.values()){
-                CommandInterface command = (CommandInterface) commandObject;
-                if (!command.getHideCommand()){
-                    embedBuilder.addField(command.getCommand(), command.getDescription(),false);
-                }
-            }*/
-        embedBuilder = CreateSortedCommandList(commands,embedBuilder);
+        else {
+            embedBuilder = CreateSortedCommandList(commands,embedBuilder);
         }
 
         //send message
@@ -130,7 +98,6 @@ public class Help extends CommonMethods implements CommandInterface {
             CommandInterface command = (CommandInterface) commandObject;
 
             if (!command.getHideCommand()) { //exclude hidden commands
-                //Create array if it doesnt exist. COuld probably make this a String early
                 if (!CommandsSortedCategory.containsKey(command.getCategory().name())) {
                     CommandsSortedCategory.put(command.getCategory().name(), new StringBuilder());
                 }
@@ -141,6 +108,7 @@ public class Help extends CommonMethods implements CommandInterface {
         }
         CommandsSortedCategory = new TreeMap<>(CommandsSortedCategory);
 
+        //creates the embed
         for(Map.Entry<String, StringBuilder> entry : CommandsSortedCategory.entrySet()){
             String Category = entry.getKey();
             StringBuilder stringBuilder = entry.getValue();

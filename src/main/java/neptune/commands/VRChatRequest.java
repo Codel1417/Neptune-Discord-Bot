@@ -1,6 +1,6 @@
 package neptune.commands;
 
-import neptune.storage.VRCApiConnection;
+import neptune.webConnection.VRCApiConnection;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 

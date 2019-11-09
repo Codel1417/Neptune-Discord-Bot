@@ -111,9 +111,6 @@ public class CommandRunner extends CommonMethods {
         commands.put(whyWasIBreached.getCommand(),whyWasIBreached);
         commands.put(isCaliforniaOnFire.getCommand(), isCaliforniaOnFire);
         commands.put(aarakocra.getCommand(),aarakocra);
-        //dev commands
-        if(variablesStorage.getDevMode()){
-        }
     }
     public Map<String, Object> getCommandList(){
         return commands;
