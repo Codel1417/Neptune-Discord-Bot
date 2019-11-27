@@ -138,11 +138,11 @@ public class Logging extends CommonMethods implements CommandInterface {
         if (LoggingChannel == null){
             LoggingChannel = "";
         }
-        String LoggingStatus;
-        if (LoggingChannel.equalsIgnoreCase("")){
+
+        String LoggingStatus = LoggingInfo.getOrDefault("LoggingEnabled","");
+        if (LoggingStatus == null){
             LoggingStatus = "disabled";
         }
-        else LoggingStatus = "enabled";
 
         embedBuilder.addField("Logging Status",getEnabledDisabledIconText(LoggingStatus),true);
         if (!LoggingChannel.equalsIgnoreCase("")){

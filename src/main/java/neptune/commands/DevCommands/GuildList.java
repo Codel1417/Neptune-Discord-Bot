@@ -4,6 +4,7 @@ import neptune.commands.CommandInterface;
 import neptune.commands.commandCategories;
 import neptune.storage.VariablesStorage;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
@@ -63,7 +64,13 @@ public class GuildList implements CommandInterface {
         StringBuilder guilds = new StringBuilder();
         if(GuildList != null){
             for (Guild guild : GuildList){
-                guilds.append(guild.getId()).append(": ").append(guild.getName()).append("\n");
+                guilds.append(guild.getId()).append(": ").append(guild.getName());
+
+                //to check if guild owners are dumb enough to give bots permissions that they do not need.
+                if(guild.getSelfMember().hasPermission(Permission.ADMINISTRATOR)){
+                    guilds.append("(ADMIN)");
+                }
+                guilds.append("\n");
             }
         }
         EmbedBuilder embedBuilder = new EmbedBuilder();

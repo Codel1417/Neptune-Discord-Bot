@@ -62,6 +62,7 @@ public class Listener implements EventListener {
             if (LoggingOptions.get("LoggingChannel") == null) return;
             if(LoggingOptions.getOrDefault("LoggingChannel","").equalsIgnoreCase("")) return;
             if(LoggingOptions.getOrDefault("LoggingEnabled","").equalsIgnoreCase("")) return;
+            if(LoggingOptions.getOrDefault("LoggingChannel","").equalsIgnoreCase("disabled")) return;
 
             if(event instanceof GenericGuildVoiceEvent){
                 guildLogging.GuildVoice((GenericGuildVoiceEvent) event,LoggingOptions);

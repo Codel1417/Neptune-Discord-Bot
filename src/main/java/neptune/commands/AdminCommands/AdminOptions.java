@@ -3,6 +3,7 @@ package neptune.commands.AdminCommands;
 import neptune.commands.CommandInterface;
 import neptune.commands.CommonMethods;
 import neptune.commands.commandCategories;
+import neptune.storage.SQLite.CustomRoleSettingsStorage;
 import neptune.storage.SQLite.SettingsStorage;
 import neptune.storage.VariablesStorage;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -12,6 +13,7 @@ import java.awt.*;
 import java.util.Map;
 
 public class AdminOptions extends CommonMethods implements CommandInterface {
+    CustomRoleSettingsStorage customRoleSettingsStorage = new CustomRoleSettingsStorage();
 SettingsStorage settingsStorage = new SettingsStorage();
     @Override
     public String getName() {
@@ -85,6 +87,14 @@ SettingsStorage settingsStorage = new SettingsStorage();
                 settingsStorage.updateGuild(event.getGuild().getId(), "CustomSounds", options.get("CustomSounds"));
                 break;
             }
+            case "customrole":{
+                if (enabledOption){
+                    customRoleSettingsStorage.setEnabled(event.getGuild().getId(),"enabled");
+                }
+                else{
+                    customRoleSettingsStorage.setEnabled(event.getGuild().getId(),"disabled");
+                }
+            }
         }
         displayMenu(event,variablesStorage,options);
 
@@ -96,15 +106,24 @@ SettingsStorage settingsStorage = new SettingsStorage();
         embedBuilder.setTitle("Bot Options");
         embedBuilder.setDescription("Controls Neptune's additional features.");
 
+        String customRoleEnabled = "disabled";
+        if (customRoleSettingsStorage.getEnabled(event.getGuild().getId())){
+            customRoleEnabled = "enabled";
+        }
+
         StringBuilder logOptionsMessage = new StringBuilder();
         logOptionsMessage.append("Use TTS ").append(getEnabledDisabledIcon(options.getOrDefault("TTS","disabled"))).append("\n");
         logOptionsMessage.append("Custom Media Commands" ).append(getEnabledDisabledIcon(options.getOrDefault("CustomSounds","disabled"))).append("\n");
+        logOptionsMessage.append("Custom Role ").append(getEnabledDisabledIcon(customRoleEnabled)).append("\n");
+
+
         embedBuilder.addField("Logging Options",logOptionsMessage.toString(),false);
 
         String prefix = variablesStorage.getCallBot() + " " + getCommand();
         embedBuilder.addField("Admin Commands","",false);
         embedBuilder.addField("Enable TTS usage",prefix + " tts <enabled/disabled>",true);
         embedBuilder.addField("Enable Additional Media commands",prefix + " CustomSounds <enabled/disabled>",true);
+        embedBuilder.addField("Enable Custom Roles",prefix + " customrole <enabled/disabled>",true);
 
         event.getChannel().sendMessage(embedBuilder.build()).queue();
 

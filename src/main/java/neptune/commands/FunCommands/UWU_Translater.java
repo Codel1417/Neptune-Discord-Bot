@@ -10,6 +10,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class UWU_Translater implements CommandInterface {
     private HashMap<String, String> directTranslations = new HashMap<>();
@@ -86,6 +87,7 @@ public class UWU_Translater implements CommandInterface {
 
     @Override
     public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
+        Random random = new Random();
         String message;
         if(messageContent.equalsIgnoreCase("")){
             message = event.getChannel().getHistory().retrievePast(2).complete().get(1).getContentDisplay().replaceAll("\n"," \n ");
@@ -107,6 +109,10 @@ public class UWU_Translater implements CommandInterface {
                         if (word.toLowerCase().contains(partial.getKey().toLowerCase())){
                             word = word.replaceAll(partial.getKey(),partial.getValue());
                         }
+                    }
+                    if(word.contains(".")){
+                        String[] faces = {" OwO"," UwU "," ////w////< mphhhh!!~ "," 3c fufufu~ ","x3 hehe~ "," =////w///= weh~ "};
+                        word = word.replaceAll(".",faces[random.nextInt(faces.length)]);
                     }
                     result.append(word).append(" ");
                 }

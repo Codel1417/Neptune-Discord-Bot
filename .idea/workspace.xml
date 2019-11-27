@@ -7,15 +7,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="db4b6966-4060-4bb3-bd8f-ce2ef72a3509" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/InProgress/purgeChannel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/UtilityCommands/CustomRole.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/neptune/storage/SQLite/CustomRoleSettingsStorage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/neptune/storage/SQLite/CustomRoleStorage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/neptune/storage/SQLite/DatabaseMap.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/Listener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/Listener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/neptune/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/AdminCommands/AdminOptions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/AdminCommands/AdminOptions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/AdminCommands/GuildInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/AdminCommands/GuildInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/AdminCommands/Logging.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/AdminCommands/Logging.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/CommandRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/CommandRunner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/DevCommands/GuildList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/DevCommands/GuildList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/FunCommands/Say.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/FunCommands/Say.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/FunCommands/UWU_Translater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/FunCommands/UWU_Translater.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/HelpCommands/Help.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/HelpCommands/Help.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/TenorGif.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/TenorGif.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/VRChatRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/VRChatRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/storage/DropboxBackupConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/webConnection/DropboxBackupConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/storage/TenorConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/webConnection/TenorConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/storage/VRCApiConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/webConnection/VRCApiConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/UtilityCommands/About.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/UtilityCommands/About.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/serverLogging/GuildLogging.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/serverLogging/GuildLogging.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/storage/VariablesStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/storage/VariablesStorage.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -52,13 +62,6 @@
         <item name="NepDB.db" type="feb32156:DbDataSourceImpl" />
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
         <item name="main: schema" type="981a47c2:SqliteImplModel$Schema" />
-      </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="NepDB.db" type="feb32156:DbDataSourceImpl" />
-        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="main: schema" type="981a47c2:SqliteImplModel$Schema" />
-        <item name="Log: table" type="3d80ac25:SqliteImplModel$Table" />
       </path>
       <path>
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
@@ -178,17 +181,17 @@
     <property name="settings.editor.selected.configurable" value="duplicates.index" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="Neptune.Commands.Image.GIF" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Austin Richards\IdeaProjects\Neptune-Discord-Bot\src\main\java" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Austin Richards\IdeaProjects\Neptune-Discord-Bot" />
       <recent name="C:\Users\Austin Richards\IdeaProjects\Neptune-Discord-Bot\src\main\resources\natives\linux-arm" />
       <recent name="C:\Users\Austin Richards\IdeaProjects\DIscord_JDA_Bot\nep_bot" />
       <recent name="C:\Users\Austin Richards\IdeaProjects\DIscord_JDA_Bot\src\main\java" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="Neptune.Commands.Image.GIF" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Austin Richards\IdeaProjects\Neptune-Discord-Bot\src\main\java" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -310,6 +313,16 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="ServiceViewManager">
+    <option name="allServicesViewState">
+      <serviceView>
+        <treeState>
+          <expand />
+          <select />
+        </treeState>
+      </serviceView>
+    </option>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -371,14 +384,16 @@
       <workItem from="1572927363841" duration="688000" />
       <workItem from="1573254388879" duration="3463000" />
       <workItem from="1573272153848" duration="10685000" />
-      <workItem from="1573326484633" duration="8358000" />
-    </task>
-    <task id="LOCAL-00006" summary="Cache System added">
-      <created>1561581897783</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1561581897783</updated>
+      <workItem from="1573326484633" duration="14366000" />
+      <workItem from="1573531223344" duration="324000" />
+      <workItem from="1573531782606" duration="1620000" />
+      <workItem from="1573581882365" duration="1646000" />
+      <workItem from="1573602327592" duration="1937000" />
+      <workItem from="1573708666011" duration="613000" />
+      <workItem from="1574584697667" duration="639000" />
+      <workItem from="1574632741639" duration="18726000" />
+      <workItem from="1574731461503" duration="965000" />
+      <workItem from="1574807827180" duration="11946000" />
     </task>
     <task id="LOCAL-00007" summary="Proper Logging&#10;Removed a ton of warnings">
       <created>1561588748716</created>
@@ -716,7 +731,14 @@
       <option name="project" value="LOCAL" />
       <updated>1573330914273</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="Sort Help Page">
+      <created>1573335797263</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1573335797263</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -760,7 +782,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Logging Backend Stuff" />
     <MESSAGE value="Add libconnector for raspberry pi audio support" />
     <MESSAGE value="Add Guild Settings logging" />
     <MESSAGE value="Log significantly more things" />
@@ -785,7 +806,8 @@
     <MESSAGE value="Add more image commands" />
     <MESSAGE value="Add music mode" />
     <MESSAGE value="Add isCaliforniaOnFire Command&#10;Add WhyTheF***WasIHacked Command (breached)&#10;Update package names&#10;Begin Name generator" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add isCaliforniaOnFire Command&#10;Add WhyTheF***WasIHacked Command (breached)&#10;Update package names&#10;Begin Name generator" />
+    <MESSAGE value="Sort Help Page" />
+    <option name="LAST_COMMIT_MESSAGE" value="Sort Help Page" />
   </component>
   <component name="WindowStateProjectService">
     <state x="414" y="173" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1569044882185" />

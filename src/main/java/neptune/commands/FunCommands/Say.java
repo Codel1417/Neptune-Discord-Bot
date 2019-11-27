@@ -71,7 +71,7 @@ public class Say implements CommandInterface {
     @Override
     public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
         //rate limiting
-        if (isRateLimited(event.getMember().getUser(), variablesStorage)) return false;
+        if (isRateLimited(event.getMember().getUser())) return false;
 
         //open audio channel
         if (event.getGuild() != null && AudioOut == null) {
@@ -183,11 +183,10 @@ public class Say implements CommandInterface {
         }
     }
 
-    private boolean isRateLimited(User user, VariablesStorage variablesStorage) {
+    private boolean isRateLimited(User user) {
         //Checks if the user sent a command too quickly
-        if (variablesStorage.getMessageCooldownSeconds() > 0) {
             if(rateLimitMap.containsKey(user.getId())) {
-                if (System.currentTimeMillis() - rateLimitMap.get(user.getId()) < variablesStorage.getMessageCooldownSeconds() * 1000) {
+                if (System.currentTimeMillis() - rateLimitMap.get(user.getId()) < 5000) {
                     rateLimitMap.replace(user.getId(), System.currentTimeMillis());
                     return true;
                 } else {
@@ -198,7 +197,6 @@ public class Say implements CommandInterface {
             else {
                 rateLimitMap.put(user.getId(), System.currentTimeMillis());
             }
-        }
         return false;
     }
 }

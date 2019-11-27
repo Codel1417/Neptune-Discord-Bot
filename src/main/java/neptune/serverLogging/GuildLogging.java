@@ -153,7 +153,7 @@ public class GuildLogging {
         loggingHandler.deleteLogEntry(event.getMessageId());
 
         //stops bot messages and self messages from being logged.
-        if (user != null && user.isBot() | user.getId().equalsIgnoreCase(event.getJDA().getSelfUser().getId()) | textChannel.getId().equalsIgnoreCase(event.getChannel().getId())) {
+        if (user == null | user.isBot() | user.getId().equalsIgnoreCase(event.getJDA().getSelfUser().getId()) | textChannel.getId().equalsIgnoreCase(event.getChannel().getId())) {
             return;
         }
 

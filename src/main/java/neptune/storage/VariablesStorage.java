@@ -8,15 +8,9 @@ public class VariablesStorage {
     private final boolean devMode = true; //uses dev key and call command when true
     private String CallBot = "!Nep";  //not case sensitive
     private String OwnerID;
-    private int MessageCooldownSeconds = 5; //set to zero to disable
     //files
     private final File MediaFolder = new File("Media" + File.separator);
 
-
-
-    public int getMessageCooldownSeconds() {
-        return MessageCooldownSeconds;
-    }
 
     public File getMediaFolder() {
         return MediaFolder;
@@ -29,17 +23,12 @@ public class VariablesStorage {
         else return CallBot;
     }
 
-    public boolean getDevMode() {
-        return devMode;
-    }
-
     public String getOwnerID() {
         return OwnerID;
     }
 
+    //TODO, Hardcode owner-id since im the ownly owner and user id's are not secure
     public void Init(Map BotInfo) {
         if (BotInfo.containsKey("owner-id")) OwnerID = (String) BotInfo.get("owner-id");
-
     }
-
 }

@@ -9,13 +9,16 @@ import neptune.commands.FunCommands.*;
 import neptune.commands.HelpCommands.Help;
 import neptune.commands.ImageCommands.Imgur;
 import neptune.commands.ImageCommands.Tenor.*;
+import neptune.commands.UtilityCommands.CustomRole;
 import neptune.commands.InProgress.VRC;
 import neptune.commands.nameGenCommands.Aarakocra;
 import neptune.commands.UtilityCommands.*;
 import neptune.storage.VariablesStorage;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
+import java.awt.*;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,7 +26,7 @@ import java.util.Map;
 //TODO: Make commands shard aware
 //handles neptune base commands
 public class CommandRunner extends CommonMethods {
-
+    private HashMap <String, Object> commands = new HashMap<>();
     private final Nep NepCountCommand = new Nep();
     private final Say NepSayCommand;
     private final Translate translateMessage = new Translate();
@@ -46,7 +49,6 @@ public class CommandRunner extends CommonMethods {
     private final GuildInfo guildInfo = new GuildInfo();
     private final Logging logging = new Logging();
     private final ServerInfo serverInfo = new ServerInfo();
-    private HashMap <String, Object> commands = new HashMap<>();
     private final Pat pat = new Pat();
     private final Hug hug = new Hug();
     private final Poke poke = new Poke();
@@ -66,6 +68,7 @@ public class CommandRunner extends CommonMethods {
     private final WhyWasIBreached whyWasIBreached = new WhyWasIBreached();
     private final IsCaliforniaOnFire isCaliforniaOnFire = new IsCaliforniaOnFire();
     private final Aarakocra aarakocra = new Aarakocra();
+    private final CustomRole customRole = new CustomRole();
     public CommandRunner(VariablesStorage variablesStorage) {
         NepSayCommand = new Say(new File(variablesStorage.getMediaFolder() + File.separator + "say"));
 
@@ -111,6 +114,7 @@ public class CommandRunner extends CommonMethods {
         commands.put(whyWasIBreached.getCommand(),whyWasIBreached);
         commands.put(isCaliforniaOnFire.getCommand(), isCaliforniaOnFire);
         commands.put(aarakocra.getCommand(),aarakocra);
+        commands.put(customRole.getCommand(),customRole);
     }
     public Map<String, Object> getCommandList(){
         return commands;
@@ -122,8 +126,14 @@ public class CommandRunner extends CommonMethods {
             //TODO: add error message
             //Permission Check
             if(!variablesStorage.getOwnerID().equalsIgnoreCase(event.getAuthor().getId())){
-                if (command.getRequireManageServer() && !event.getMember().hasPermission(Permission.MANAGE_SERVER)) {return true;}
-                if (command.getRequireOwner() && !event.getAuthor().getId().matches(variablesStorage.getOwnerID())) {return true;}
+                if (command.getRequireManageServer() && !event.getMember().hasPermission(Permission.MANAGE_SERVER)) {
+                    permissionException(event);
+                    return true;
+                }
+                if (command.getRequireOwner() && !event.getAuthor().getId().matches(variablesStorage.getOwnerID())) {
+                    permissionException(event);
+                    return true;
+                }
             }
             //analytics
             //storageController.incrementAnalyticForCommand(command.getName().toLowerCase().trim());
@@ -131,7 +141,13 @@ public class CommandRunner extends CommonMethods {
             return command.run(event, variablesStorage, CommandArray[1]);
         }
         return false;
-        }
+    }
+    private void permissionException(MessageReceivedEvent event){
+        EmbedBuilder embedBuilder = new EmbedBuilder();
+        embedBuilder.setColor(Color.RED);
+        embedBuilder.setDescription("You Lack the Required permission to do that!");
+        event.getChannel().sendMessage(embedBuilder.build()).queue();
+    }
 }
 
 

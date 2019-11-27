@@ -4,9 +4,9 @@ import com.neovisionaries.ws.client.WebSocketFactory;
 import neptune.commands.PassiveCommands.DM_ImageDownload;
 import neptune.commands.PassiveCommands.guildListener;
 import neptune.music.PlayerControl;
-import neptune.webConnection.DropboxBackupConnection;
 import neptune.storage.GetAuthToken;
 import neptune.storage.VariablesStorage;
+import neptune.webConnection.DropboxBackupConnection;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -21,10 +21,11 @@ public class Main extends ListenerAdapter {
     private final static int mode = 1;
     private static String botToken;
     public static void main(String[] args) {
-        //todo eliminate variableStorage for auth keys, hardcode media directory since its relative
+        //todo eliminate variableStorage for auth keys, hardcode media directory since its relative, or convert to map/hashmap
         VariablesStorage variablesStorage = new VariablesStorage();
         GetAuthToken getAuthToken = new GetAuthToken();
         Map authKeys = getAuthToken.GetToken(new File("NepAuth.json"));
+
 
         //Auth
         variablesStorage.Init(authKeys);

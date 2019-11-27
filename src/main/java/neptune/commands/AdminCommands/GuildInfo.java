@@ -4,6 +4,7 @@ import neptune.commands.CommandInterface;
 import neptune.commands.commandCategories;
 import neptune.storage.VariablesStorage;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.VoiceChannel;
@@ -59,25 +60,31 @@ public class GuildInfo implements CommandInterface {
 
     @Override
     public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
+        Guild guild = event.getGuild();
+        if (!messageContent.equals("")){
+            guild = event.getJDA().getGuildById(messageContent.trim());
+        }
+
+
         EmbedBuilder embedBuilder = new EmbedBuilder();
         StringBuilder TextChannelList = new StringBuilder();
         StringBuilder VoiceChannelList = new StringBuilder();
         StringBuilder RoleList = new StringBuilder();
-        for (TextChannel channel : event.getGuild().getTextChannels()){
+        for (TextChannel channel : guild.getTextChannels()){
             TextChannelList.append(channel.getName()).append("\n");
         }
-        for (VoiceChannel channel : event.getGuild().getVoiceChannels()){
+        for (VoiceChannel channel : guild.getVoiceChannels()){
             VoiceChannelList.append(channel.getName()).append("\n");
         }
-        for (Role role : event.getGuild().getRoles()){
+        for (Role role : guild.getRoles()){
             RoleList.append(role.getName()).append("\n");
         }
 
         embedBuilder.setTitle(getName());
         embedBuilder.setColor(Color.MAGENTA);
-        embedBuilder.addField("Server Owner", event.getGuild().getOwner().getAsMention(),true);
-        embedBuilder.addField("Server Region",event.getGuild().getRegion().toString(),true);
-        embedBuilder.addField("Members", String.valueOf(event.getGuild().getMembers().size()),true);
+        embedBuilder.addField("Server Owner", guild.getOwner().getUser().getName(),true);
+        embedBuilder.addField("Server Region",guild.getRegion().toString(),true);
+        embedBuilder.addField("Members", String.valueOf(guild.getMembers().size()),true);
         embedBuilder.addField("Text Channels", TextChannelList.toString(),true);
         embedBuilder.addField("Voice Channels", VoiceChannelList.toString(),true);
         embedBuilder.addField("Roles",RoleList.toString(),true);

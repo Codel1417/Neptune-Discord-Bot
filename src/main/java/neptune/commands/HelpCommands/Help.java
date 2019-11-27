@@ -12,10 +12,8 @@ import java.awt.*;
 import java.util.*;
 
 public class Help extends CommonMethods implements CommandInterface {
-    private LinkedList<String> Categories = new LinkedList<>();
-    public Help(){
-        //generate categories list from enum
-    }
+
+    private EmbedBuilder sortedCommandList = null;
     @Override
     public String getName() {
         return "Help";
@@ -38,7 +36,7 @@ public class Help extends CommonMethods implements CommandInterface {
 
     @Override
     public String getHelp() {
-        return getCommand() + "<Command/Category>   for more detailed info";
+        return getCommand() + "<Command>   for more  info";
     }
 
     @Override
@@ -67,7 +65,10 @@ public class Help extends CommonMethods implements CommandInterface {
         embedBuilder.setColor(Color.MAGENTA);
         embedBuilder.setAuthor("Help",event.getGuild().getSelfMember().getUser().getEffectiveAvatarUrl());
         embedBuilder.setDescription("Use " + variablesStorage.getCallBot() + " <Command>");
+
+        //sort list
         Map<String, Object> commands = new TreeMap<>(new CommandRunner(variablesStorage).getCommandList());
+
         String[] commandArray = getCommandName(messageContent);
 
         //per command check
@@ -84,7 +85,11 @@ public class Help extends CommonMethods implements CommandInterface {
             }
         }
         else {
-            embedBuilder = CreateSortedCommandList(commands,embedBuilder);
+            //only generate help list once
+            if (sortedCommandList == null){
+                sortedCommandList = CreateSortedCommandList(commands,embedBuilder);
+            }
+            embedBuilder = sortedCommandList;
         }
 
         //send message
@@ -106,6 +111,7 @@ public class Help extends CommonMethods implements CommandInterface {
                 CommandsSortedCategory.put(command.getCategory().name(), stringBuilder);
             }
         }
+        //sort list
         CommandsSortedCategory = new TreeMap<>(CommandsSortedCategory);
 
         //creates the embed
