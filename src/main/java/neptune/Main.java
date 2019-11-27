@@ -18,7 +18,7 @@ import java.util.Map;
 
 public class Main extends ListenerAdapter {
     private static Runnable dropboxConnection;
-    private final static int mode = 1;
+    public final static int mode = 0;
     private static String botToken;
     public static void main(String[] args) {
         //todo eliminate variableStorage for auth keys, hardcode media directory since its relative, or convert to map/hashmap

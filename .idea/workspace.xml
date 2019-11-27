@@ -7,24 +7,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="db4b6966-4060-4bb3-bd8f-ce2ef72a3509" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/InProgress/purgeChannel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/UtilityCommands/CustomRole.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/neptune/storage/SQLite/CustomRoleSettingsStorage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/neptune/storage/SQLite/CustomRoleStorage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/neptune/storage/SQLite/DatabaseMap.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/neptune/Listener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/Listener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/neptune/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/AdminCommands/AdminOptions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/AdminCommands/AdminOptions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/AdminCommands/GuildInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/AdminCommands/GuildInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/AdminCommands/Logging.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/AdminCommands/Logging.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/CommandRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/CommandRunner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/DevCommands/GuildList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/DevCommands/GuildList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/FunCommands/Say.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/FunCommands/Say.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/FunCommands/UWU_Translater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/FunCommands/UWU_Translater.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/HelpCommands/Help.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/HelpCommands/Help.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/UtilityCommands/About.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/UtilityCommands/About.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/serverLogging/GuildLogging.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/serverLogging/GuildLogging.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/neptune/storage/VariablesStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/storage/VariablesStorage.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -393,14 +378,8 @@
       <workItem from="1574584697667" duration="639000" />
       <workItem from="1574632741639" duration="18726000" />
       <workItem from="1574731461503" duration="965000" />
-      <workItem from="1574807827180" duration="11946000" />
-    </task>
-    <task id="LOCAL-00007" summary="Proper Logging&#10;Removed a ton of warnings">
-      <created>1561588748716</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1561588748716</updated>
+      <workItem from="1574807827180" duration="13481000" />
+      <workItem from="1574828380736" duration="284000" />
     </task>
     <task id="LOCAL-00008" summary="Proper Logging&#10;Removed a ton of warnings">
       <created>1561598722162</created>
@@ -738,7 +717,14 @@
       <option name="project" value="LOCAL" />
       <updated>1573335797263</updated>
     </task>
-    <option name="localTasksCounter" value="56" />
+    <task id="LOCAL-00056" summary="Add Custom Roles Command&#10;Bug fixes">
+      <created>1574821601974</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1574821601974</updated>
+    </task>
+    <option name="localTasksCounter" value="57" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -782,7 +768,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add libconnector for raspberry pi audio support" />
     <MESSAGE value="Add Guild Settings logging" />
     <MESSAGE value="Log significantly more things" />
     <MESSAGE value="Internal Logging" />
@@ -807,7 +792,8 @@
     <MESSAGE value="Add music mode" />
     <MESSAGE value="Add isCaliforniaOnFire Command&#10;Add WhyTheF***WasIHacked Command (breached)&#10;Update package names&#10;Begin Name generator" />
     <MESSAGE value="Sort Help Page" />
-    <option name="LAST_COMMIT_MESSAGE" value="Sort Help Page" />
+    <MESSAGE value="Add Custom Roles Command&#10;Bug fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add Custom Roles Command&#10;Bug fixes" />
   </component>
   <component name="WindowStateProjectService">
     <state x="414" y="173" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1569044882185" />
