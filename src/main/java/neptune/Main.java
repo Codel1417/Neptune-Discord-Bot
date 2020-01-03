@@ -18,10 +18,14 @@ import java.util.Map;
 
 public class Main extends ListenerAdapter {
     private static Runnable dropboxConnection;
-    public final static int mode = 0;
+    /* Mode
+    0: Main
+    1: Dev
+    2: Music Bot
+     */
+    public final static int mode = 1;
     private static String botToken;
     public static void main(String[] args) {
-        //todo eliminate variableStorage for auth keys, hardcode media directory since its relative, or convert to map/hashmap
         VariablesStorage variablesStorage = new VariablesStorage();
         GetAuthToken getAuthToken = new GetAuthToken();
         Map authKeys = getAuthToken.GetToken(new File("NepAuth.json"));
@@ -32,7 +36,7 @@ public class Main extends ListenerAdapter {
 
         botToken = getJdaAuthKey(authKeys,mode);
 
-        if (mode == 3){
+        if (mode == 2){
             startJDAMusic(botToken);
         }
         else {

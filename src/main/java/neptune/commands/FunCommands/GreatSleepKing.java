@@ -3,10 +3,8 @@ package neptune.commands.FunCommands;
 import neptune.commands.CommandInterface;
 import neptune.commands.commandCategories;
 import neptune.storage.VariablesStorage;
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -80,10 +78,8 @@ public class GreatSleepKing implements CommandInterface {
         if(hours != 0){
             stringBuilder.append(" and ").append(hours).append("  hour(s) of ").append(emotions.get(random.nextInt(emotions.size())));
         }
-        EmbedBuilder embedBuilder = new EmbedBuilder();
-        embedBuilder.setAuthor("Great Sleep King").setColor(Color.MAGENTA).setDescription(stringBuilder);
 
-        event.getChannel().sendMessage(embedBuilder.build()).queue();
+        event.getChannel().sendMessage(stringBuilder).queue();
 
         return true;
     }

@@ -16,12 +16,6 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
     <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.11</version>
-            <scope>test</scope>
-        </dependency>
         <!-- https://mvnrepository.com/artifact/net.dv8tion/JDA -->
         <dependency>
             <groupId>net.dv8tion</groupId>
@@ -64,34 +58,11 @@
             <artifactId>commons-cli</artifactId>
             <version>1.4</version>
         </dependency>
-        <!--https://www.tensorflow.org/install/lang_java -->
-        <dependency>
-            <groupId>org.tensorflow</groupId>
-            <artifactId>libtensorflow</artifactId>
-            <version>1.14.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.tensorflow</groupId>
-            <artifactId>libtensorflow_jni_gpu</artifactId>
-            <version>1.14.0</version>
-        </dependency>
         <!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
             <version>1.12.1</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/net.sourceforge.htmlunit/htmlunit -->
-        <dependency>
-            <groupId>net.sourceforge.htmlunit</groupId>
-            <artifactId>htmlunit</artifactId>
-            <version>2.36.0</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>2.12.1</version>
         </dependency>
     </dependencies>
     <repositories>

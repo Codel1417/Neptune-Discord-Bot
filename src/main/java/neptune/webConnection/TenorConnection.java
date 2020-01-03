@@ -21,10 +21,9 @@ public class TenorConnection extends ConvertJSON {
 
     public String getSingleImage(String SearchTerm){
         String returnURL;
-        String resultLimit = "15";
         SearchTerm = SearchTerm.replaceAll(" ","-");
-        final String url = String.format("https://api.tenor.com/v1/search?q=%1$s&key=%2$s&limit=%3$s",
-                SearchTerm, API_KEY, resultLimit);
+        final String url = String.format("https://api.tenor.com/v1/search?q=%1$s&key=%2$s&limit=15&contentfilter=high&media_filter=minimal",
+                SearchTerm, API_KEY);
         System.out.println("Link " + url);
         HttpURLConnection connection = null;
         try {

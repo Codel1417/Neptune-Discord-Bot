@@ -112,7 +112,7 @@ public class UWU_Translater implements CommandInterface {
                     }
                     if(word.contains(".")){
                         String[] faces = {" OwO"," UwU "," ////w////< mphhhh!!~ "," 3c fufufu~ ","x3 hehe~ "," =////w///= weh~ "};
-                        word = word.replaceAll(".",faces[random.nextInt(faces.length)]);
+                        //word = word.replaceAll(".",faces[random.nextInt(faces.length)]);
                     }
                     result.append(word).append(" ");
                 }

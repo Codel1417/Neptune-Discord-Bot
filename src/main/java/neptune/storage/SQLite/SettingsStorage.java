@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SettingsStorage {
-    private String DatabaseURL = "jdbc:sqlite:NepDB.db";
+    private String DatabaseURL = Database.DatabaseURL;
     private final String GuildOptions = "Guilds";
     public SettingsStorage(){
         try {

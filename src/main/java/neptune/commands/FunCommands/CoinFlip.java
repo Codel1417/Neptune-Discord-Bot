@@ -3,7 +3,6 @@ package neptune.commands.FunCommands;
 import neptune.commands.CommandInterface;
 import neptune.commands.commandCategories;
 import neptune.storage.VariablesStorage;
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.Random;
@@ -62,11 +61,7 @@ public class CoinFlip implements CommandInterface {
             coin = "Heads";
         }
         else coin = "Tails";
-
-        EmbedBuilder embedBuilder = new EmbedBuilder();
-        embedBuilder.setTitle(getName());
-        embedBuilder.setDescription("I flipped a coin and it landed " + coin);
-        event.getChannel().sendMessage(embedBuilder.build()).queue();
+        event.getChannel().sendMessage("I flipped a coin and it landed " + coin).queue();
 
         return true;
     }

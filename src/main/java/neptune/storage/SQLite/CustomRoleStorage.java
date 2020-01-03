@@ -3,7 +3,7 @@ package neptune.storage.SQLite;
 import java.sql.*;
 
 public class CustomRoleStorage {
-    private String DatabaseURL = "jdbc:sqlite:NepDB.db";
+    private String DatabaseURL = Database.DatabaseURL;
     private final String TableName = "CustomRole";
 
     public CustomRoleStorage(){

@@ -4,7 +4,6 @@ import neptune.commands.CommandInterface;
 import neptune.commands.CommonMethods;
 import neptune.commands.commandCategories;
 import neptune.storage.VariablesStorage;
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.Random;
@@ -59,11 +58,8 @@ public class RollDie extends CommonMethods implements CommandInterface {
     @Override
     public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
         int sides = Integer.decode(messageContent);
-        EmbedBuilder embedBuilder = new EmbedBuilder();
-        embedBuilder.setTitle(getName());
         int result = random.nextInt(sides) + 1;
-        embedBuilder.setDescription("I rolled a d" + sides + " and landed a " + result);
-        event.getChannel().sendMessage(embedBuilder.build()).queue();
+        event.getChannel().sendMessage("I rolled a d" + sides + " and landed a " + result).queue();
         return true;
     }
 }

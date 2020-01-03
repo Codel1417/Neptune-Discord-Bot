@@ -26,7 +26,7 @@ public abstract class TenorGif {
         if (mentionList.toString().equalsIgnoreCase("") || !MentionMessage) {
             embedBuilder.setDescription("");
         } else {
-            embedBuilder.setDescription("neptune " + Search + "s " + mentionList);
+            embedBuilder.setDescription("Neptune " + Search + "s " + mentionList);
         }
         embedBuilder.setColor(Color.MAGENTA);
         embedBuilder.setFooter("Powered by Tenor.com", null);
@@ -46,7 +46,7 @@ public abstract class TenorGif {
         } else if (CustomMessage != null){
             embedBuilder.setDescription(CustomMessage + " " + mentionList);
         } else {
-            embedBuilder.setDescription("neptune " + Search + "s " + mentionList);
+            embedBuilder.setDescription("Neptune " + Search + "s " + mentionList);
         }
         embedBuilder.setColor(Color.MAGENTA);
         embedBuilder.setFooter("Powered by Tenor.com", null);

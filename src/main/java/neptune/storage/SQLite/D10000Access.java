@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class D10000Access {
-    String DatabaseURL = "jdbc:sqlite:NepDB.db";
+    String DatabaseURL = Database.DatabaseURL;
     String TableName = "D10000";
     public String getResult(int Result){
         System.out.println("SQL: Retrieving D10K Result #: " + Result);

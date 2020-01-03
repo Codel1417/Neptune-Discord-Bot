@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LoggingHandler {
-    private String DatabaseURL = "jdbc:sqlite:NepDB.db";
+    private String DatabaseURL = Database.DatabaseURL;
     private final String LogTableName = "Log";
 
     public LoggingHandler(){

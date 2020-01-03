@@ -13,10 +13,10 @@ import java.net.URL;
 public class VRCApiConnection {
     private String apikey = "";
 
-    public VRCApiConnection(){
-        updateAuthToken();
-    }
     public String httpRequest(String URL, String httpMethod){
+        if (apikey.equalsIgnoreCase("")){
+            updateAuthToken();
+        }
         System.out.println("VRCHAT: Sending http " + httpMethod + " request: " + URL);
         HttpURLConnection connection = null;
         try {

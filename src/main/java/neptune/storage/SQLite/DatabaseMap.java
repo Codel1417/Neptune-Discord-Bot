@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseMap {
-    private String DatabaseURL = "jdbc:sqlite:NepDB.db";
+    private String DatabaseURL = Database.DatabaseURL;
     private final String TableName = "DB_Info";
 
     public DatabaseMap(){

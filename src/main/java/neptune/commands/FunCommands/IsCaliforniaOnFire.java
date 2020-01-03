@@ -3,7 +3,6 @@ package neptune.commands.FunCommands;
 import neptune.commands.CommandInterface;
 import neptune.commands.commandCategories;
 import neptune.storage.VariablesStorage;
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class IsCaliforniaOnFire implements CommandInterface {
@@ -54,10 +53,7 @@ public class IsCaliforniaOnFire implements CommandInterface {
 
     @Override
     public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
-        EmbedBuilder embedBuilder = new EmbedBuilder();
-        embedBuilder.setTitle(getName());
-        embedBuilder.setDescription("Yes");
-        event.getChannel().sendMessage(embedBuilder.build()).queue();
+        event.getChannel().sendMessage("Yes").queue();
         return true;
     }
 }

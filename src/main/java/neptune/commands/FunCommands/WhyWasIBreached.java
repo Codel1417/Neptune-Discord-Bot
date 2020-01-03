@@ -3,7 +3,6 @@ package neptune.commands.FunCommands;
 import neptune.commands.CommandInterface;
 import neptune.commands.commandCategories;
 import neptune.storage.VariablesStorage;
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.Random;
@@ -67,10 +66,8 @@ public class WhyWasIBreached implements CommandInterface {
         stringBuilder.append("The f***ing ").append(threatActors[random.nextInt(threatActors.length)]).append(" used ").append(methods[random.nextInt(methods.length)])
                 .append(" to ").append(targets[random.nextInt(targets.length)]).append(" But we have since ").append(mitigations[random.nextInt(mitigations.length)])
                 .append(" , so it will never happen again.");
-        EmbedBuilder embedBuilder = new EmbedBuilder();
-        embedBuilder.setTitle(getName());
-        embedBuilder.setDescription(stringBuilder);
-        event.getChannel().sendMessage(embedBuilder.build()).queue();
+
+        event.getChannel().sendMessage(stringBuilder).queue();
         return true;
     }
 }
