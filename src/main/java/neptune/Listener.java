@@ -1,6 +1,7 @@
 package neptune;
 
 import neptune.serverLogging.GuildLogging;
+import neptune.storage.SQLite.LeaderboardStorage;
 import neptune.storage.SQLite.SettingsStorage;
 import neptune.storage.VariablesStorage;
 import net.dv8tion.jda.api.events.GenericEvent;
@@ -13,6 +14,7 @@ import net.dv8tion.jda.api.events.guild.update.GenericGuildUpdateEvent;
 import net.dv8tion.jda.api.events.guild.voice.GenericGuildVoiceEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.guild.GenericGuildMessageEvent;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.EventListener;
 
 import javax.annotation.Nonnull;
@@ -25,7 +27,7 @@ public class Listener implements EventListener {
     private final SettingsStorage settingsStorage = new SettingsStorage();
     private Runnable CycleActivity;
     private boolean ActivityThread;
-
+    private LeaderboardStorage leaderboardStorage = new LeaderboardStorage();
     Listener(VariablesStorage variableStorageRead) {
         messageInterprter = new messageInterprter(variableStorageRead);
     }
@@ -41,16 +43,22 @@ public class Listener implements EventListener {
             ActivityThread = true;
         }
 
+        //Leaderboard
+        if (event instanceof GuildMessageReceivedEvent){
+            if (((GuildMessageReceivedEvent) event).getAuthor().isBot()) return;
+            leaderboardStorage.incrementPoints(((GuildMessageReceivedEvent) event).getGuild().getId(),((GuildMessageReceivedEvent) event).getMember().getId());
+        }
+
         //Commands
         if (event instanceof MessageReceivedEvent){
             if (((MessageReceivedEvent) event).getAuthor().isBot()) return;
             messageInterprter.runEvent((MessageReceivedEvent) event);
+
         }
 
         //logging
         if (event instanceof GenericGuildEvent){
 
-            //TODO Add missing guilds
             String GuildID = ((GenericGuildEvent) event).getGuild().getId();
 
             if (GuildID == null) return;

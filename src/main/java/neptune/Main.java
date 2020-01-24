@@ -1,10 +1,9 @@
 package neptune;
 
 import com.neovisionaries.ws.client.WebSocketFactory;
-import neptune.commands.PassiveCommands.DM_ImageDownload;
 import neptune.commands.PassiveCommands.guildListener;
 import neptune.music.PlayerControl;
-import neptune.storage.GetAuthToken;
+import neptune.storage.SQLite.GetAuthToken;
 import neptune.storage.VariablesStorage;
 import neptune.webConnection.DropboxBackupConnection;
 import net.dv8tion.jda.api.JDABuilder;
@@ -13,10 +12,9 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 
 import javax.security.auth.login.LoginException;
-import java.io.File;
-import java.util.Map;
 
 public class Main extends ListenerAdapter {
+    private static GetAuthToken getAuthToken = new GetAuthToken();
     private static Runnable dropboxConnection;
     /* Mode
     0: Main
@@ -25,35 +23,29 @@ public class Main extends ListenerAdapter {
      */
     public final static int mode = 1;
     private static String botToken;
+    public static final String DatabaseURL = "jdbc:mysql://10.0.0.15/Neptune?user=adminer&password=DragonFi1417";
     public static void main(String[] args) {
+        botToken = getJdaAuthKey(mode);
         VariablesStorage variablesStorage = new VariablesStorage();
-        GetAuthToken getAuthToken = new GetAuthToken();
-        Map authKeys = getAuthToken.GetToken(new File("NepAuth.json"));
-
-
-        //Auth
-        variablesStorage.Init(authKeys);
-
-        botToken = getJdaAuthKey(authKeys,mode);
 
         if (mode == 2){
             startJDAMusic(botToken);
         }
         else {
-            if (mode == 0) startDropboxBackup((String) authKeys.get("dropbox"));
+            //if (mode == 0) startDropboxBackup((String) authKeys.get("dropbox"));
             startJDA(botToken,variablesStorage);
         }
     }
-    private static String getJdaAuthKey(Map keys, int mode){
+    private static String getJdaAuthKey(int mode){
         switch (mode){
             case 0: { //main
-                return (String) keys.get("token");
+                return getAuthToken.GetToken("discord-token");
             }
             case 1: { //debug
-                return (String) keys.get("dev-token");
+                return getAuthToken.GetToken("dev-discord-token");
             }
             case 2: {
-                return (String) keys.get("music-token");
+                return getAuthToken.GetToken("music-discord-token");
             }
         }
         return null;
@@ -70,7 +62,6 @@ public class Main extends ListenerAdapter {
         System.out.println("Starting JDA");
         DefaultShardManagerBuilder builder = new DefaultShardManagerBuilder();
         builder.addEventListeners(new Listener(variablesStorage));
-        builder.addEventListeners(new DM_ImageDownload());
         builder.addEventListeners(new guildListener(variablesStorage));
         builder.setActivity(Activity.playing("!Nep Help"));
         builder.setToken(token);

@@ -1,45 +1,21 @@
 package neptune.storage.SQLite;
 
+import neptune.Main;
+
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
 
 public class SettingsStorage {
-    private String DatabaseURL = Database.DatabaseURL;
-    private final String GuildOptions = "Guilds";
-    public SettingsStorage(){
-        try {
-            Connection connection = DriverManager.getConnection(DatabaseURL);
-            connection.createStatement().execute("CREATE TABLE IF NOT EXISTS `" + GuildOptions + "` (\n" +
-                    "  `GuildID` INT NOT NULL,\n" +
-                    "  `TTS` VARCHAR(45) NULL DEFAULT 'disabled',\n" +
-                    "  `CustomSounds` VARCHAR(45) NULL DEFAULT 'disabled',\n" +
-                    "  `LoggingChannel` INT NULL DEFAULT NULL,\n" +
-                    "  `LoggingEnabled` VARCHAR(45) NULL DEFAULT 'disabled',\n" +
-                    "  `TextChannelLogging` VARCHAR(45) NULL DEFAULT 'disabled',\n" +
-                    "  `VoiceChannelLogging` VARCHAR(45) NULL DEFAULT 'disabled',\n" +
-                    "  `MemberActivityLogging` VARCHAR(45) NULL DEFAULT 'disabled',\n" +
-                    "  `ServerModificationLogging` VARCHAR(45) NULL DEFAULT 'disabled',\n" +
-                    "  PRIMARY KEY (`GuildID`))");
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+    private String DatabaseURL = Main.DatabaseURL;
+    private final String GuildOptions = "GuildOptions";
     public boolean addGuild(String GuildID){
         System.out.println("SQL: Adding Guild " + GuildID);
         try {
             Connection connection;
             connection = DriverManager.getConnection(DatabaseURL);
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO "+ GuildOptions +"(GuildID, TTS, CustomSounds, TextChannelLogging, VoiceChannelLogging, MemberActivityLogging, ServerModificationLogging, LoggingEnabled) VALUES(?,?,?,?,?,?,?,?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO "+ GuildOptions +"(GuildID) VALUES(?)");
             preparedStatement.setString(1, GuildID);
-            preparedStatement.setString(2,"disabled");
-            preparedStatement.setString(3,"disabled");
-            preparedStatement.setString(4,"enabled");
-            preparedStatement.setString(5,"enabled");
-            preparedStatement.setString(6,"enabled");
-            preparedStatement.setString(7,"enabled");
-            preparedStatement.setString(8,"disabled");
             preparedStatement.execute();
             connection.close();
             return true;
@@ -60,12 +36,15 @@ public class SettingsStorage {
         Connection connection;
         try {
             connection = DriverManager.getConnection(DatabaseURL);
-            ResultSet resultSet = connection.prepareStatement("SELECT GuildID, TTS, CustomSounds, LoggingChannel, LoggingEnabled, TextChannelLogging, VoiceChannelLogging, MemberActivityLogging, ServerModificationLogging FROM "+ GuildOptions +" Where GuildID = " + GuildID).executeQuery();
+            ResultSet resultSet = connection.prepareStatement("SELECT GuildID, TTS, CustomSounds, LoggingChannel, LoggingEnabled, TextChannelLogging, VoiceChannelLogging, MemberActivityLogging, ServerModificationLogging, CustomRoleEnabled, LeaderboardsEnabled FROM "+ GuildOptions +" Where GuildID = " + GuildID).executeQuery();
             Map<String, String> results = new HashMap<>();
 
-            if (resultSet.isClosed()){
+            if (!resultSet.next()){
                 System.out.println("SQL: Guild does not Exist in database!");
-                return null;
+                if(addGuild(GuildID)){
+                    return getGuildSettings(GuildID);
+                }
+                else return null;
             }
 
             results.put("GuildID",resultSet.getString(1));
@@ -77,6 +56,9 @@ public class SettingsStorage {
             results.put("VoiceChannelLogging",resultSet.getString(7));
             results.put("MemberActivityLogging", resultSet.getString(8));
             results.put("ServerModificationLogging", resultSet.getString(9));
+            results.put("CustomRoleEnabled", resultSet.getString(9));
+            results.put("LeaderboardsEnabled", resultSet.getString(10));
+
             resultSet.close();
             connection.close();
             return results;

@@ -9,10 +9,10 @@ import neptune.commands.FunCommands.*;
 import neptune.commands.HelpCommands.Help;
 import neptune.commands.ImageCommands.Imgur;
 import neptune.commands.ImageCommands.Tenor.*;
-import neptune.commands.UtilityCommands.CustomRole;
 import neptune.commands.InProgress.VRC;
-import neptune.commands.nameGenCommands.Aarakocra;
+import neptune.commands.InProgress.needsMoreJPEG;
 import neptune.commands.UtilityCommands.*;
+import neptune.commands.nameGenCommands.Aarakocra;
 import neptune.storage.VariablesStorage;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
@@ -69,6 +69,7 @@ public class CommandRunner extends CommonMethods {
     private final IsCaliforniaOnFire isCaliforniaOnFire = new IsCaliforniaOnFire();
     private final Aarakocra aarakocra = new Aarakocra();
     private final CustomRole customRole = new CustomRole();
+    private final needsMoreJPEG needsMoreJPEG = new needsMoreJPEG();
     public CommandRunner(VariablesStorage variablesStorage) {
         NepSayCommand = new Say(new File(variablesStorage.getMediaFolder() + File.separator + "say"));
 
@@ -115,6 +116,7 @@ public class CommandRunner extends CommonMethods {
         commands.put(isCaliforniaOnFire.getCommand(), isCaliforniaOnFire);
         commands.put(aarakocra.getCommand(),aarakocra);
         commands.put(customRole.getCommand(),customRole);
+        commands.put(needsMoreJPEG.getCommand(),needsMoreJPEG);
     }
     public Map<String, Object> getCommandList(){
         return commands;

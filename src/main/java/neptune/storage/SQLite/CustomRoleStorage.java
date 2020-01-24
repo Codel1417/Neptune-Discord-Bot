@@ -1,30 +1,13 @@
 package neptune.storage.SQLite;
 
+import neptune.Main;
+
 import java.sql.*;
 
 public class CustomRoleStorage {
-    private String DatabaseURL = Database.DatabaseURL;
+    private String DatabaseURL = Main.DatabaseURL;
     private final String TableName = "CustomRole";
 
-    public CustomRoleStorage(){
-        Connection connection;
-        try {
-            connection = DriverManager.getConnection(DatabaseURL);
-            connection.createStatement().execute("CREATE TABLE IF NOT EXISTS `"+ TableName +"` (\n" +
-                    "  `GuildID` INT NOT NULL,\n" +
-                    "  `MemberID` INT NOT NULL,\n" +
-                    "  `RoleID` INT NOT NULL,\n" +
-                    "  PRIMARY KEY (`MemberID`,'GuildID'),\n" +
-                    "  CONSTRAINT `GuildID`\n" +
-                    "    FOREIGN KEY (`GuildID`)\n" +
-                    "    REFERENCES `Guilds` (`GuildID`)\n" +
-                    "    ON DELETE CASCADE\n" +
-                    "    ON UPDATE CASCADE)");
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
     public boolean addRole(String MemberID, String GuildID, String RoleID){
         System.out.println("SQL: Adding new Custom Role for guild: " + GuildID +  " Author ID: " + MemberID + " Role ID: " + RoleID);
         try {

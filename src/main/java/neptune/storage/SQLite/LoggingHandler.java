@@ -1,35 +1,14 @@
 package neptune.storage.SQLite;
 
+import neptune.Main;
+
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
 
 public class LoggingHandler {
-    private String DatabaseURL = Database.DatabaseURL;
+    private String DatabaseURL = Main.DatabaseURL;
     private final String LogTableName = "Log";
-
-    public LoggingHandler(){
-        Connection connection;
-        try {
-            connection = DriverManager.getConnection(DatabaseURL);
-            connection.createStatement().execute("CREATE TABLE IF NOT EXISTS `"+LogTableName+"` (\n" +
-                    "  `GuildID` INT NOT NULL,\n" +
-                    "  `ChannelID` INT NOT NULL,\n" +
-                    "  `AuthorID` INT NOT NULL,\n" +
-                    "  `MessageID` INT NOT NULL,\n" +
-                    "  `MessageContent` VARCHAR(45) NOT NULL,\n" +
-                    "  `PreviousMessage` VARCHAR(45) NULL,\n" +
-                    "  PRIMARY KEY (`MessageID`),\n" +
-                    "  CONSTRAINT `GuildID`\n" +
-                    "    FOREIGN KEY (`GuildID`)\n" +
-                    "    REFERENCES `Guilds` (`GuildID`)\n" +
-                    "    ON DELETE CASCADE\n" +
-                    "    ON UPDATE CASCADE)");
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
     public boolean newLogEntry(String GuildID,String ChannelID, String AuthorID, String MessageID, String MessageContent){
         System.out.println("SQL: Adding new Log entry for guild: " + GuildID +  " Channel ID: " + ChannelID + " Author ID: " + AuthorID + " Message ID: " + MessageID + " Message Content: " + MessageContent);

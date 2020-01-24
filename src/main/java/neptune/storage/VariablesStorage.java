@@ -1,11 +1,12 @@
 package neptune.storage;
 
 import neptune.Main;
+import neptune.storage.SQLite.GetAuthToken;
 
 import java.io.File;
-import java.util.Map;
 
 public class VariablesStorage {
+    GetAuthToken getAuthToken  = new GetAuthToken();
     //store global variables here
     public VariablesStorage(){
         if (Main.mode == 0){
@@ -14,7 +15,7 @@ public class VariablesStorage {
     }
     private boolean devMode = true; //uses dev key and call command when true
     private String CallBot = "!Nep";  //not case sensitive
-    private String OwnerID;
+    private String OwnerID = getAuthToken.GetToken("discord-owner-id");
     //files
     private final File MediaFolder = new File("Media" + File.separator);
 
@@ -34,7 +35,4 @@ public class VariablesStorage {
         return OwnerID;
     }
 
-    public void Init(Map BotInfo) {
-        if (BotInfo.containsKey("owner-id")) OwnerID = (String) BotInfo.get("owner-id");
-    }
 }

@@ -1,12 +1,14 @@
 package neptune.storage.SQLite;
 
+import neptune.Main;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class D10000Access {
-    String DatabaseURL = Database.DatabaseURL;
+    String DatabaseURL = Main.DatabaseURL;
     String TableName = "D10000";
     public String getResult(int Result){
         System.out.println("SQL: Retrieving D10K Result #: " + Result);

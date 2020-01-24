@@ -7,56 +7,43 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="db4b6966-4060-4bb3-bd8f-ce2ef72a3509" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/neptune/storage/SQLite/Database.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_guava_guava_18_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_jimfs_jimfs_1_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_protobuf_protobuf_java_3_6_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__mysql_mysql_connector_java_8_0_18.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_csv_1_7.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_simple_1_7_30.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/InProgress/needsMoreJPEG.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/neptune/storage/SQLite/GetAuthToken.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/neptune/storage/SQLite/LeaderboardStorage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/Neptune-Discord-Bot.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Neptune-Discord-Bot.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_net_commons_net_3_6.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_4_11.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_sourceforge_htmlunit_htmlunit_2_36_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_sourceforge_htmlunit_htmlunit_core_js_2_36_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_sourceforge_htmlunit_htmlunit_cssparser_1_5_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_sourceforge_htmlunit_neko_htmlunit_2_36_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_lang3_3_9.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_text_1_7.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpmime_4_5_9.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_api_2_12_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_core_2_12_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_brotli_dec_0_1_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_eclipse_jetty_jetty_client_9_4_20_v20190813.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_eclipse_jetty_jetty_http_9_4_20_v20190813.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_eclipse_jetty_jetty_io_9_4_20_v20190813.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_eclipse_jetty_jetty_util_9_4_20_v20190813.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_eclipse_jetty_jetty_xml_9_4_20_v20190813.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_eclipse_jetty_websocket_websocket_api_9_4_20_v20190813.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_eclipse_jetty_websocket_websocket_client_9_4_20_v20190813.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_eclipse_jetty_websocket_websocket_common_9_4_20_v20190813.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_tensorflow_libtensorflow_1_14_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_tensorflow_libtensorflow_jni_gpu_1_14_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__xalan_serializer_2_7_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__xalan_xalan_2_7_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__xerces_xercesImpl_2_12_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__xml_apis_xml_apis_1_4_01.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/D10000_SQL_Import.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/FileDownloader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/Listener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/Listener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/neptune/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/FunCommands/Attack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/FunCommands/Attack.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/FunCommands/CoinFlip.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/FunCommands/CoinFlip.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/FunCommands/GreatSleepKing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/FunCommands/GreatSleepKing.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/FunCommands/IsCaliforniaOnFire.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/FunCommands/IsCaliforniaOnFire.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/FunCommands/PayRespect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/FunCommands/PayRespect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/FunCommands/RollDie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/FunCommands/RollDie.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/FunCommands/UWU_Translater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/FunCommands/UWU_Translater.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/FunCommands/WhyWasIBreached.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/FunCommands/WhyWasIBreached.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/MessagePages.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/AdminCommands/AdminOptions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/AdminCommands/AdminOptions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/CommandRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/CommandRunner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/InProgress/purgeChannel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/PassiveCommands/DM_ImageDownload.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/TenorGif.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/TenorGif.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/storage/SQLite/CustomRoleSettingsStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/storage/SQLite/CustomRoleSettingsStorage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/UtilityCommands/CustomRole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/UtilityCommands/CustomRole.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/serverLogging/EmoteLogging.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/storage/GetAuthToken.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/storage/SQLite/CustomRoleSettingsStorage.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/neptune/storage/SQLite/CustomRoleStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/storage/SQLite/CustomRoleStorage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/neptune/storage/SQLite/D10000Access.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/storage/SQLite/D10000Access.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/storage/SQLite/DatabaseMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/storage/SQLite/DatabaseMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/storage/SQLite/Database.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/storage/SQLite/DatabaseMap.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/neptune/storage/SQLite/LoggingHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/storage/SQLite/LoggingHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/neptune/storage/SQLite/SettingsStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/storage/SQLite/SettingsStorage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/webConnection/TenorConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/webConnection/TenorConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/webConnection/VRCApiConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/webConnection/VRCApiConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/storage/VariablesStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/storage/VariablesStorage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/strings/mainStrings.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/printShaderkeywords.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,23 +67,25 @@
     <expand>
       <path>
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="NepDB.db" type="feb32156:DbDataSourceImpl" />
+        <item name="MYSQL" type="feb32156:DbDataSourceImpl" />
       </path>
       <path>
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="NepDB.db" type="feb32156:DbDataSourceImpl" />
+        <item name="MYSQL" type="feb32156:DbDataSourceImpl" />
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
       </path>
       <path>
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="NepDB.db" type="feb32156:DbDataSourceImpl" />
+        <item name="MYSQL" type="feb32156:DbDataSourceImpl" />
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="main: schema" type="981a47c2:SqliteImplModel$Schema" />
+        <item name="Neptune: schema" type="ebfa3cd1:MariaImplModel$Schema" />
       </path>
       <path>
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="NepDB.db" type="feb32156:DbDataSourceImpl" />
-        <item name="collations" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="MYSQL" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="Neptune: schema" type="ebfa3cd1:MariaImplModel$Schema" />
+        <item name="AuthKeys: table" type="dbc44a63:MariaImplModel$Table" />
       </path>
     </expand>
     <select />
@@ -191,7 +180,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="DatabaseDriversLRU" value="sqlite" />
+    <property name="DatabaseDriversLRU" value="sqlite&#10;mysql" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="add_unversioned_files" value="$PROJECT_DIR$/NepAuth.json" />
@@ -423,14 +412,18 @@
       <workItem from="1576800772680" duration="2977000" />
       <workItem from="1577326107628" duration="722000" />
       <workItem from="1578007570390" duration="17000" />
-      <workItem from="1578015011255" duration="1898000" />
-    </task>
-    <task id="LOCAL-00009" summary="Fix Sharding">
-      <created>1561689522012</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1561689522012</updated>
+      <workItem from="1578015011255" duration="3432000" />
+      <workItem from="1579187745459" duration="476000" />
+      <workItem from="1579220676232" duration="601000" />
+      <workItem from="1579415269846" duration="3199000" />
+      <workItem from="1579421262966" duration="53000" />
+      <workItem from="1579421326680" duration="6443000" />
+      <workItem from="1579492232105" duration="599000" />
+      <workItem from="1579523169321" duration="426000" />
+      <workItem from="1579570993065" duration="6516000" />
+      <workItem from="1579585307218" duration="601000" />
+      <workItem from="1579600916426" duration="1730000" />
+      <workItem from="1579861117233" duration="9248000" />
     </task>
     <task id="LOCAL-00010" summary="Rework Say">
       <created>1561765717424</created>
@@ -768,7 +761,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574828770632</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="Remove unnecessary embeds">
+      <created>1578021579384</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1578021579384</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -812,7 +812,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Log significantly more things" />
     <MESSAGE value="Internal Logging" />
     <MESSAGE value="Start status thread" />
     <MESSAGE value="Tenor Support&#10;Edit Listeners" />
@@ -837,96 +836,99 @@
     <MESSAGE value="Sort Help Page" />
     <MESSAGE value="Add Custom Roles Command&#10;Bug fixes" />
     <MESSAGE value="Logging Fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Logging Fixes" />
+    <MESSAGE value="Remove unnecessary embeds" />
+    <option name="LAST_COMMIT_MESSAGE" value="Remove unnecessary embeds" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="414" y="173" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1569044882185" />
-    <state x="414" y="173" key="#com.intellij.execution.impl.EditConfigurationsDialog/1920.1080/1920.1080" timestamp="1569044882185" />
-    <state x="722" y="321" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1569044882185" />
-    <state x="722" y="321" key="#com.intellij.fileTypes.FileTypeChooser/1920.1080/1050.1680" timestamp="1569044882185" />
-    <state x="-1193" y="197" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1569044882185" />
-    <state x="-1193" y="197" key="#com.intellij.ide.util.TreeClassChooserDialog/1920.1080/1920.1080" timestamp="1569044882185" />
-    <state x="690" y="265" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1569044882185" />
-    <state x="690" y="265" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/1920.1080/1920.1080" timestamp="1569044882185" />
-    <state x="619" y="282" key="#com.intellij.util.ui.classpath.ChooseLibrariesDialog" timestamp="1569044882185" />
-    <state x="619" y="282" key="#com.intellij.util.ui.classpath.ChooseLibrariesDialog/1920.1080/1920.1080" timestamp="1569044882185" />
-    <state x="-1030" y="256" key="FileChooserDialogImpl" timestamp="1569044882185" />
-    <state x="-1030" y="256" key="FileChooserDialogImpl/1920.1080/1920.1080" timestamp="1569044882185" />
-    <state width="1877" height="263" key="GridCell.Tab.0.bottom" timestamp="1576811182415">
+    <state x="2352" y="196" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1579870063642">
+      <screen x="1920" y="32" width="1680" height="1010" />
+    </state>
+    <state x="2352" y="196" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/1920.32.1680.1010@1920.32.1680.1010" timestamp="1579870063642" />
+    <state x="765" y="230" key="#com.intellij.ide.util.MemberChooser" timestamp="1579415949768">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="280" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1050.-338.1050.1640@0.0.1920.1040" timestamp="1569052135250" />
+    <state x="765" y="230" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040/1920.32.1680.1010@0.0.1920.1040" timestamp="1579415949768" />
+    <state x="2524" y="291" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1579868256514">
+      <screen x="1920" y="32" width="1680" height="1010" />
+    </state>
+    <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040/1920.32.1680.1010@0.0.1920.1040" timestamp="1579577533918" />
+    <state x="2524" y="291" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040/1920.32.1680.1010@1920.32.1680.1010" timestamp="1579868256514" />
+    <state x="513" y="115" key="CommitChangelistDialog2" timestamp="1578021578727">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="513" y="115" key="CommitChangelistDialog2/0.0.1920.1040/-1680.22.1680.1010@0.0.1920.1040" timestamp="1578021578727" />
+    <state x="2012" y="124" width="1496" height="826" key="DiffContextDialog" timestamp="1579574361629">
+      <screen x="1920" y="32" width="1680" height="1010" />
+    </state>
+    <state x="2012" y="124" width="1496" height="826" key="DiffContextDialog/0.0.1920.1040/1920.32.1680.1010@1920.32.1680.1010" timestamp="1579574361629" />
+    <state width="1637" height="274" key="GridCell.Tab.0.bottom" timestamp="1579872543702">
+      <screen x="1920" y="32" width="1680" height="1010" />
+    </state>
     <state width="1637" height="254" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1680.22.1680.1010@-1680.22.1680.1010" timestamp="1576726491677" />
     <state width="1877" height="263" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1680.22.1680.1010@0.0.1920.1040" timestamp="1576811182415" />
-    <state width="1877" height="280" key="GridCell.Tab.0.bottom/1920.1080/1050.1680" timestamp="1569044882185" />
-    <state width="1877" height="280" key="GridCell.Tab.0.bottom/1920.1080/1920.1080" timestamp="1569044882185" />
-    <state width="1877" height="263" key="GridCell.Tab.0.center" timestamp="1576811182415">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1877" height="274" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.32.1680.1010@0.0.1920.1040" timestamp="1579579437482" />
+    <state width="1637" height="274" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.32.1680.1010@1920.32.1680.1010" timestamp="1579872543702" />
+    <state width="1637" height="274" key="GridCell.Tab.0.center" timestamp="1579872543702">
+      <screen x="1920" y="32" width="1680" height="1010" />
     </state>
-    <state width="1877" height="280" key="GridCell.Tab.0.center/0.0.1920.1040/-1050.-338.1050.1640@0.0.1920.1040" timestamp="1569052135250" />
     <state width="1637" height="254" key="GridCell.Tab.0.center/0.0.1920.1040/-1680.22.1680.1010@-1680.22.1680.1010" timestamp="1576726491677" />
     <state width="1877" height="263" key="GridCell.Tab.0.center/0.0.1920.1040/-1680.22.1680.1010@0.0.1920.1040" timestamp="1576811182415" />
-    <state width="1877" height="280" key="GridCell.Tab.0.center/1920.1080/1050.1680" timestamp="1569044882185" />
-    <state width="1877" height="280" key="GridCell.Tab.0.center/1920.1080/1920.1080" timestamp="1569044882185" />
-    <state width="1877" height="263" key="GridCell.Tab.0.left" timestamp="1576811182415">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1877" height="274" key="GridCell.Tab.0.center/0.0.1920.1040/1920.32.1680.1010@0.0.1920.1040" timestamp="1579579437481" />
+    <state width="1637" height="274" key="GridCell.Tab.0.center/0.0.1920.1040/1920.32.1680.1010@1920.32.1680.1010" timestamp="1579872543702" />
+    <state width="1637" height="274" key="GridCell.Tab.0.left" timestamp="1579872543701">
+      <screen x="1920" y="32" width="1680" height="1010" />
     </state>
-    <state width="1877" height="280" key="GridCell.Tab.0.left/0.0.1920.1040/-1050.-338.1050.1640@0.0.1920.1040" timestamp="1569052135250" />
     <state width="1637" height="254" key="GridCell.Tab.0.left/0.0.1920.1040/-1680.22.1680.1010@-1680.22.1680.1010" timestamp="1576726491677" />
     <state width="1877" height="263" key="GridCell.Tab.0.left/0.0.1920.1040/-1680.22.1680.1010@0.0.1920.1040" timestamp="1576811182415" />
-    <state width="1877" height="280" key="GridCell.Tab.0.left/1920.1080/1050.1680" timestamp="1569044882185" />
-    <state width="1877" height="280" key="GridCell.Tab.0.left/1920.1080/1920.1080" timestamp="1569044882185" />
-    <state width="1877" height="263" key="GridCell.Tab.0.right" timestamp="1576811182415">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1877" height="274" key="GridCell.Tab.0.left/0.0.1920.1040/1920.32.1680.1010@0.0.1920.1040" timestamp="1579579437481" />
+    <state width="1637" height="274" key="GridCell.Tab.0.left/0.0.1920.1040/1920.32.1680.1010@1920.32.1680.1010" timestamp="1579872543701" />
+    <state width="1637" height="274" key="GridCell.Tab.0.right" timestamp="1579872543702">
+      <screen x="1920" y="32" width="1680" height="1010" />
     </state>
-    <state width="1877" height="280" key="GridCell.Tab.0.right/0.0.1920.1040/-1050.-338.1050.1640@0.0.1920.1040" timestamp="1569052135250" />
     <state width="1637" height="254" key="GridCell.Tab.0.right/0.0.1920.1040/-1680.22.1680.1010@-1680.22.1680.1010" timestamp="1576726491677" />
     <state width="1877" height="263" key="GridCell.Tab.0.right/0.0.1920.1040/-1680.22.1680.1010@0.0.1920.1040" timestamp="1576811182415" />
-    <state width="1877" height="280" key="GridCell.Tab.0.right/1920.1080/1050.1680" timestamp="1569044882185" />
-    <state width="1877" height="280" key="GridCell.Tab.0.right/1920.1080/1920.1080" timestamp="1569044882185" />
-    <state width="1877" height="263" key="GridCell.Tab.1.bottom" timestamp="1576811182415">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1877" height="274" key="GridCell.Tab.0.right/0.0.1920.1040/1920.32.1680.1010@0.0.1920.1040" timestamp="1579579437481" />
+    <state width="1637" height="274" key="GridCell.Tab.0.right/0.0.1920.1040/1920.32.1680.1010@1920.32.1680.1010" timestamp="1579872543702" />
+    <state width="1637" height="274" key="GridCell.Tab.1.bottom" timestamp="1579872543624">
+      <screen x="1920" y="32" width="1680" height="1010" />
     </state>
-    <state width="1877" height="280" key="GridCell.Tab.1.bottom/0.0.1920.1040/-1050.-338.1050.1640@0.0.1920.1040" timestamp="1569052135250" />
     <state width="1637" height="254" key="GridCell.Tab.1.bottom/0.0.1920.1040/-1680.22.1680.1010@-1680.22.1680.1010" timestamp="1576726491677" />
     <state width="1877" height="263" key="GridCell.Tab.1.bottom/0.0.1920.1040/-1680.22.1680.1010@0.0.1920.1040" timestamp="1576811182415" />
-    <state width="1877" height="280" key="GridCell.Tab.1.bottom/1920.1080/1050.1680" timestamp="1569044882185" />
-    <state width="1877" height="280" key="GridCell.Tab.1.bottom/1920.1080/1920.1080" timestamp="1569044882185" />
-    <state width="1877" height="263" key="GridCell.Tab.1.center" timestamp="1576811182415">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1877" height="274" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.32.1680.1010@0.0.1920.1040" timestamp="1579579437384" />
+    <state width="1637" height="274" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.32.1680.1010@1920.32.1680.1010" timestamp="1579872543624" />
+    <state width="1637" height="274" key="GridCell.Tab.1.center" timestamp="1579872543624">
+      <screen x="1920" y="32" width="1680" height="1010" />
     </state>
-    <state width="1877" height="280" key="GridCell.Tab.1.center/0.0.1920.1040/-1050.-338.1050.1640@0.0.1920.1040" timestamp="1569052135250" />
     <state width="1637" height="254" key="GridCell.Tab.1.center/0.0.1920.1040/-1680.22.1680.1010@-1680.22.1680.1010" timestamp="1576726491677" />
     <state width="1877" height="263" key="GridCell.Tab.1.center/0.0.1920.1040/-1680.22.1680.1010@0.0.1920.1040" timestamp="1576811182415" />
-    <state width="1877" height="280" key="GridCell.Tab.1.center/1920.1080/1050.1680" timestamp="1569044882185" />
-    <state width="1877" height="280" key="GridCell.Tab.1.center/1920.1080/1920.1080" timestamp="1569044882185" />
-    <state width="1877" height="263" key="GridCell.Tab.1.left" timestamp="1576811182415">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1877" height="274" key="GridCell.Tab.1.center/0.0.1920.1040/1920.32.1680.1010@0.0.1920.1040" timestamp="1579579437384" />
+    <state width="1637" height="274" key="GridCell.Tab.1.center/0.0.1920.1040/1920.32.1680.1010@1920.32.1680.1010" timestamp="1579872543624" />
+    <state width="1637" height="274" key="GridCell.Tab.1.left" timestamp="1579872543624">
+      <screen x="1920" y="32" width="1680" height="1010" />
     </state>
-    <state width="1877" height="280" key="GridCell.Tab.1.left/0.0.1920.1040/-1050.-338.1050.1640@0.0.1920.1040" timestamp="1569052135250" />
     <state width="1637" height="254" key="GridCell.Tab.1.left/0.0.1920.1040/-1680.22.1680.1010@-1680.22.1680.1010" timestamp="1576726491677" />
     <state width="1877" height="263" key="GridCell.Tab.1.left/0.0.1920.1040/-1680.22.1680.1010@0.0.1920.1040" timestamp="1576811182415" />
-    <state width="1877" height="280" key="GridCell.Tab.1.left/1920.1080/1050.1680" timestamp="1569044882185" />
-    <state width="1877" height="280" key="GridCell.Tab.1.left/1920.1080/1920.1080" timestamp="1569044882185" />
-    <state width="1877" height="263" key="GridCell.Tab.1.right" timestamp="1576811182415">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1877" height="274" key="GridCell.Tab.1.left/0.0.1920.1040/1920.32.1680.1010@0.0.1920.1040" timestamp="1579579437384" />
+    <state width="1637" height="274" key="GridCell.Tab.1.left/0.0.1920.1040/1920.32.1680.1010@1920.32.1680.1010" timestamp="1579872543624" />
+    <state width="1637" height="274" key="GridCell.Tab.1.right" timestamp="1579872543624">
+      <screen x="1920" y="32" width="1680" height="1010" />
     </state>
-    <state width="1877" height="280" key="GridCell.Tab.1.right/0.0.1920.1040/-1050.-338.1050.1640@0.0.1920.1040" timestamp="1569052135250" />
     <state width="1637" height="254" key="GridCell.Tab.1.right/0.0.1920.1040/-1680.22.1680.1010@-1680.22.1680.1010" timestamp="1576726491677" />
     <state width="1877" height="263" key="GridCell.Tab.1.right/0.0.1920.1040/-1680.22.1680.1010@0.0.1920.1040" timestamp="1576811182415" />
-    <state width="1877" height="280" key="GridCell.Tab.1.right/1920.1080/1050.1680" timestamp="1569044882185" />
-    <state width="1877" height="280" key="GridCell.Tab.1.right/1920.1080/1920.1080" timestamp="1569044882185" />
-    <state x="540" y="220" key="IDE.errors.dialog" timestamp="1569050538606">
+    <state width="1877" height="274" key="GridCell.Tab.1.right/0.0.1920.1040/1920.32.1680.1010@0.0.1920.1040" timestamp="1579579437384" />
+    <state width="1637" height="274" key="GridCell.Tab.1.right/0.0.1920.1040/1920.32.1680.1010@1920.32.1680.1010" timestamp="1579872543624" />
+    <state width="196" height="457" key="HiddenNamespacesPopup" timestamp="1579867707336">
+      <screen x="1920" y="32" width="1680" height="1010" />
+    </state>
+    <state width="196" height="457" key="HiddenNamespacesPopup/0.0.1920.1040/1920.32.1680.1010@1920.32.1680.1010" timestamp="1579867707336" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1578021587953">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="540" y="220" key="IDE.errors.dialog/0.0.1920.1040/-1050.-338.1050.1640@0.0.1920.1040" timestamp="1569050538606" />
-    <state x="540" y="220" key="IDE.errors.dialog/1920.1080/1920.1080" timestamp="1569044882185" />
-    <state x="-1485" y="21" key="SettingsEditor" timestamp="1569044882185" />
-    <state x="-1485" y="21" key="SettingsEditor/1920.1080/1920.1080" timestamp="1569044882185" />
-    <state x="-1193" y="414" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate" timestamp="1569044882185" />
-    <state x="-1193" y="414" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate/1920.1080/1920.1080" timestamp="1569044882185" />
-    <state x="-1384" y="255" width="847" height="606" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1569044882185" />
-    <state x="-1384" y="255" width="847" height="606" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/1920.1080/1920.1080" timestamp="1569044882185" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040/-1680.22.1680.1010@0.0.1920.1040" timestamp="1578021587953" />
+    <state x="2416" y="249" key="run.anything.popup" timestamp="1579865907069">
+      <screen x="1920" y="32" width="1680" height="1010" />
+    </state>
+    <state x="2416" y="249" key="run.anything.popup/0.0.1920.1040/1920.32.1680.1010@1920.32.1680.1010" timestamp="1579865907069" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

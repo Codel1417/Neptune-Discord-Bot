@@ -3,8 +3,8 @@ package neptune.commands.UtilityCommands;
 import neptune.commands.CommandInterface;
 import neptune.commands.CommonMethods;
 import neptune.commands.commandCategories;
-import neptune.storage.SQLite.CustomRoleSettingsStorage;
 import neptune.storage.SQLite.CustomRoleStorage;
+import neptune.storage.SQLite.SettingsStorage;
 import neptune.storage.VariablesStorage;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Role;
@@ -12,10 +12,12 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 
 import java.awt.*;
+import java.util.Map;
 
 public class CustomRole extends CommonMethods implements CommandInterface{
-    CustomRoleSettingsStorage customRoleSettingsStorage = new CustomRoleSettingsStorage();
     CustomRoleStorage customRoleStorage = new CustomRoleStorage();
+    SettingsStorage settingsStorage = new SettingsStorage();
+
     @Override
     public String getName() {
         return "Custom Role";
@@ -64,8 +66,9 @@ public class CustomRole extends CommonMethods implements CommandInterface{
     @Override
     public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
         String[] command = getCommandName(messageContent);
+        Map<String, String> options = settingsStorage.getGuildSettings(event.getGuild().getId());
 
-        if (customRoleSettingsStorage.getEnabled(event.getGuild().getId())) {
+        if (options.getOrDefault("CustomRoleEnabled","disabled").equals("enabled")) {
             switch (command[0]){
                 case "create":
                 case "editname": {
