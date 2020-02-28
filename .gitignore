@@ -1,14 +1,9 @@
-'nep_bot'
-.gradle/
 .idea/.name
 build/
 classes/
 out/
 src/test/
-NepAuth.json
-NepDB.db
 Media/
-/NepDB .db
 target/
 .settings/org.eclipse.core.resources.prefs
 .project

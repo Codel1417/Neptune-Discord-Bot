@@ -1,7 +1,7 @@
 package neptune.storage;
 
 import neptune.Main;
-import neptune.storage.SQLite.GetAuthToken;
+import neptune.storage.MySQL.GetAuthToken;
 
 import java.io.File;
 

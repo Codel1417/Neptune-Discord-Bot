@@ -2,7 +2,7 @@ package neptune;
 
 import neptune.commands.CommandRunner;
 import neptune.commands.RandomMediaPicker;
-import neptune.storage.SQLite.SettingsStorage;
+import neptune.storage.MySQL.SettingsStorage;
 import neptune.storage.VariablesStorage;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;

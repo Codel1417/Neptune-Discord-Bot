@@ -1,4 +1,4 @@
-package neptune.storage.SQLite;
+package neptune.storage.MySQL;
 
 import neptune.Main;
 
@@ -16,11 +16,15 @@ public class D10000Access {
         try {
             connection = DriverManager.getConnection(DatabaseURL);
             ResultSet resultSet = connection.prepareStatement("SELECT Result FROM " + TableName + " Where ID = " + Result).executeQuery();
-            String results = resultSet.getString(1);
             if (resultSet.isClosed()){
                 System.out.println("SQL: Result does not Exist in database!");
                 return null;
             }
+            if (!resultSet.next()) {
+                connection.close();
+                throw new SQLException();
+            }
+            String results = resultSet.getString(1);
             resultSet.close();
             connection.close();
             return results;

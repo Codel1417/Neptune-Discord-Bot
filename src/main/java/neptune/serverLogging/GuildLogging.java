@@ -1,6 +1,6 @@
 package neptune.serverLogging;
 
-import neptune.storage.SQLite.LoggingHandler;
+import neptune.storage.MySQL.LoggingHandler;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.channel.text.GenericTextChannelEvent;
@@ -153,10 +153,12 @@ public class GuildLogging {
         loggingHandler.deleteLogEntry(event.getMessageId());
 
         //stops bot messages and self messages from being logged.
-        if (user == null | user.isBot() | user.getId().equalsIgnoreCase(event.getJDA().getSelfUser().getId()) | textChannel.getId().equalsIgnoreCase(event.getChannel().getId())) {
+        if (user == null) {
             return;
         }
-
+        if ( user.isBot() | user.getId().equalsIgnoreCase(event.getJDA().getSelfUser().getId()) | textChannel.getId().equalsIgnoreCase(event.getChannel().getId())){
+            return;
+        }
         EmbedBuilder embedBuilder = getEmbedBuilder(event.getMessageId());
         embedBuilder.setDescription("Message deleted in " + event.getChannel().getAsMention());
 

@@ -1,4 +1,4 @@
-package neptune.storage.SQLite;
+package neptune.storage.MySQL;
 
 import neptune.Main;
 
@@ -11,9 +11,9 @@ public class LoggingHandler {
     private final String LogTableName = "Log";
 
     public boolean newLogEntry(String GuildID,String ChannelID, String AuthorID, String MessageID, String MessageContent){
+        Connection connection = null;
         System.out.println("SQL: Adding new Log entry for guild: " + GuildID +  " Channel ID: " + ChannelID + " Author ID: " + AuthorID + " Message ID: " + MessageID + " Message Content: " + MessageContent);
         try {
-            Connection connection;
             connection = DriverManager.getConnection(DatabaseURL);
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO "+ LogTableName +"(GuildID, ChannelID, AuthorID, MessageID, MessageContent, PreviousMessage) VALUES(?,?,?,?,?,?)");
             preparedStatement.setString(1,GuildID);
@@ -23,12 +23,24 @@ public class LoggingHandler {
             preparedStatement.setString(5,MessageContent);
             preparedStatement.setString(6,"");
             preparedStatement.execute();
-            connection.close();
             return true;
         } catch (SQLException e) {
+            if(e.getErrorCode()==1062){
+                deleteLogEntry(MessageID);
+                newLogEntry(GuildID,ChannelID,AuthorID,MessageID, MessageContent);
+            }
+            else{
                 System.out.println("SQL: Error Code= "+ e.getErrorCode());
                 e.printStackTrace();
             }
+        }
+        finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
         return false;
     }
     public boolean updateLogEntry(String MessageID, String MessageContent, String PreviousMessage){
@@ -76,17 +88,50 @@ public class LoggingHandler {
 
     public Map<String, String> getLogEntry(String MessageID){
         System.out.println("SQL: Retrieving Log Entry for message ID: " + MessageID);
-        Connection connection;
+        Connection connection = null;
         try {
             connection = DriverManager.getConnection(DatabaseURL);
             ResultSet resultSet = connection.prepareStatement("SELECT GuildID, ChannelID, AuthorID, MessageID, MessageContent, PreviousMessage FROM "+ LogTableName +" Where MessageID = " + MessageID).executeQuery();
             Map<String, String> results = new HashMap<>();
+            if (!resultSet.next()) {
+                connection.close();
+                throw new SQLException();
+            }
             results.put("GuildID",resultSet.getString(1));
             results.put("ChannelID", resultSet.getString(2));
             results.put("AuthorID", resultSet.getString(3));
             results.put("MessageID", resultSet.getString(4));
             results.put("MessageContent",resultSet.getString(5));
             results.put("PreviousMessage", resultSet.getString(6));
+            System.out.println(resultSet.getString(6));
+            resultSet.close();
+            connection.close();
+            return results;
+
+        } catch (SQLException e) {
+            System.out.println("SQL: Error Code= "+ e.getErrorCode());
+            System.out.println("SQL: Log entry not found");
+            //e.printStackTrace();
+            return null;
+        }
+        finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    public Map<String,String> getAllLogEntrys(){
+        System.out.println("SQL: Retrieving All Log Entrys");
+        Connection connection;
+        try {
+            connection = DriverManager.getConnection(DatabaseURL);
+            ResultSet resultSet = connection.prepareStatement("SELECT MessageID, GuildID FROM "+ LogTableName).executeQuery();
+            Map<String,String> results = new HashMap<>();
+            while (resultSet.next()){
+                results.put(resultSet.getString(1),resultSet.getString(2));
+            }
             resultSet.close();
             connection.close();
             return results;

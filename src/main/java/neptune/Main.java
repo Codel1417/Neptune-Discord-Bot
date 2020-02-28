@@ -3,9 +3,8 @@ package neptune;
 import com.neovisionaries.ws.client.WebSocketFactory;
 import neptune.commands.PassiveCommands.guildListener;
 import neptune.music.PlayerControl;
-import neptune.storage.SQLite.GetAuthToken;
+import neptune.storage.MySQL.GetAuthToken;
 import neptune.storage.VariablesStorage;
-import neptune.webConnection.DropboxBackupConnection;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -49,13 +48,6 @@ public class Main extends ListenerAdapter {
             }
         }
         return null;
-    }
-
-    private static void startDropboxBackup(String authKey){
-        dropboxConnection = new DropboxBackupConnection(authKey);
-        Thread dropboxConnectionThread = new Thread(dropboxConnection);
-        dropboxConnectionThread.setName("DropboxBackupThread");
-        dropboxConnectionThread.start();
     }
 
     private static void startJDA(String token, VariablesStorage variablesStorage){

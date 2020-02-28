@@ -1,6 +1,6 @@
 package neptune.commands;
 
-import neptune.storage.SQLite.GetAuthToken;
+import neptune.storage.MySQL.GetAuthToken;
 import neptune.webConnection.TenorConnection;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.IMentionable;

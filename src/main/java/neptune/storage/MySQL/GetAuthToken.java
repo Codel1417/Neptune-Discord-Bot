@@ -1,4 +1,4 @@
-package neptune.storage.SQLite;
+package neptune.storage.MySQL;
 
 import neptune.Main;
 

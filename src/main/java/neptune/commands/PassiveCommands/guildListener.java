@@ -1,7 +1,7 @@
 package neptune.commands.PassiveCommands;
 
-import neptune.storage.SQLite.LoggingHandler;
-import neptune.storage.SQLite.SettingsStorage;
+import neptune.storage.MySQL.LoggingHandler;
+import neptune.storage.MySQL.SettingsStorage;
 import neptune.storage.VariablesStorage;
 import net.dv8tion.jda.api.events.GenericEvent;
 import net.dv8tion.jda.api.events.channel.text.TextChannelDeleteEvent;
