@@ -7,46 +7,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="db4b6966-4060-4bb3-bd8f-ce2ef72a3509" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/Neptune_Discord_Bot_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/META-INF/MANIFEST.MF" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/neptune/storage/MySQL/GreatSleepKingStorage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Neptune-Discord-Bot.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Neptune-Discord-Bot.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/Neptune_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/Neptune_jar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_dropbox_core_dropbox_core_sdk_3_1_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_guava_guava_18_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_jimfs_jimfs_1_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_cli_commons_cli_1_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_simple_1_7_30.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_xerial_sqlite_jdbc_3_28_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/Listener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/Listener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/neptune/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/AdminCommands/AdminOptions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/AdminCommands/AdminOptions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/AdminCommands/Logging.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/AdminCommands/Logging.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/FunCommands/D10K.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/FunCommands/D10K.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/FunCommands/Nep.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/FunCommands/Nep.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/FunCommands/Say.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/FunCommands/Say.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/FunCommands/Translate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/FunCommands/Translate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/FunCommands/UWU_Translater.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/FunCommands/UWU_Translater.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/InProgress/needsMoreJPEG.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/InProgress/needsMoreJPEG.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/PassiveCommands/guildListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/PassiveCommands/guildListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/TenorGif.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/TenorGif.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/UtilityCommands/CustomRole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/UtilityCommands/CustomRole.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/commandCategories.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/commandCategories.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/messageInterprter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/messageInterprter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/serverLogging/GuildLogging.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/serverLogging/GuildLogging.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/storage/SQLite/CustomRoleStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/storage/MySQL/CustomRoleStorage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/storage/SQLite/D10000Access.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/storage/MySQL/D10000Access.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/storage/SQLite/GetAuthToken.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/storage/MySQL/GetAuthToken.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/storage/SQLite/LeaderboardStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/storage/MySQL/LeaderboardStorage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/storage/SQLite/LoggingHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/storage/MySQL/LoggingHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/storage/SQLite/SettingsStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/storage/MySQL/SettingsStorage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/storage/VariablesStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/storage/VariablesStorage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/webConnection/DropboxBackupConnection.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/storage/MySQL/CustomRoleStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/storage/MySQL/CustomRoleStorage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/storage/MySQL/D10000Access.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/storage/MySQL/D10000Access.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/storage/MySQL/GetAuthToken.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/storage/MySQL/GetAuthToken.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/storage/MySQL/GreatSleepKingStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/storage/MySQL/GreatSleepKingStorage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/storage/MySQL/LeaderboardStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/storage/MySQL/LeaderboardStorage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/storage/MySQL/LoggingHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/storage/MySQL/LoggingHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/storage/MySQL/SettingsStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/storage/MySQL/SettingsStorage.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,6 +59,13 @@
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
         <item name="Neptune: schema" type="ebfa3cd1:MariaImplModel$Schema" />
         <item name="AuthKeys: table" type="dbc44a63:MariaImplModel$Table" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="MYSQL" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="Neptune: schema" type="ebfa3cd1:MariaImplModel$Schema" />
+        <item name="Log: table" type="dbc44a63:MariaImplModel$Table" />
       </path>
     </expand>
     <select />
@@ -201,10 +178,11 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.last.edited" value="Problems" />
     <property name="project.structure.proportion" value="0.15234375" />
     <property name="project.structure.side.proportion" value="0.30069125" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.gutterIcons" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="SQL Resolution Scopes" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -439,13 +417,9 @@
       <workItem from="1582331776729" duration="973000" />
       <workItem from="1582369984598" duration="599000" />
       <workItem from="1582854799162" duration="7782000" />
-    </task>
-    <task id="LOCAL-00011" summary="Add screenshare link generator">
-      <created>1562362189563</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1562362189563</updated>
+      <workItem from="1582867359210" duration="45000" />
+      <workItem from="1583011879830" duration="1956000" />
+      <workItem from="1583013853036" duration="384000" />
     </task>
     <task id="LOCAL-00012" summary="Add screenshare link generator">
       <created>1562362341493</created>
@@ -783,7 +757,14 @@
       <option name="project" value="LOCAL" />
       <updated>1579872846677</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="Move to MySQL">
+      <created>1582867389462</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1582867389462</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -855,13 +836,18 @@
     <option name="LAST_COMMIT_MESSAGE" value="Move to MySQL" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="552" y="178" key="#Inspections" timestamp="1583011947875">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="178" key="#Inspections/0.0.1920.1040/1920.0.1680.1010@0.0.1920.1040" timestamp="1583011947875" />
     <state x="2490" y="292" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog" timestamp="1580382418667">
       <screen x="1920" y="32" width="1680" height="1010" />
     </state>
     <state x="2490" y="292" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog/0.0.1920.1040/1920.32.1680.1010@1920.32.1680.1010" timestamp="1580382418667" />
-    <state x="2352" y="196" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1579870063642">
-      <screen x="1920" y="32" width="1680" height="1010" />
+    <state x="494" y="169" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1583012912675">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="494" y="169" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/1920.0.1680.1010@0.0.1920.1040" timestamp="1583012912675" />
     <state x="2352" y="196" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/1920.32.1680.1010@1920.32.1680.1010" timestamp="1579870063642" />
     <state x="765" y="230" key="#com.intellij.ide.util.MemberChooser" timestamp="1579415949768">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -881,85 +867,99 @@
       <screen x="1920" y="32" width="1680" height="1010" />
     </state>
     <state x="2490" y="292" key="#com.intellij.util.ui.classpath.ChooseLibrariesDialog/1920.32.1680.1010/0.0.1920.1040@1920.32.1680.1010" timestamp="1580125836343" />
-    <state x="2369" y="144" key="CommitChangelistDialog2" timestamp="1579872846062">
-      <screen x="1920" y="32" width="1680" height="1010" />
+    <state x="707" y="366" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1583011925934">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="707" y="366" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1920.1040/1920.0.1680.1010@0.0.1920.1040" timestamp="1583011925934" />
+    <state x="513" y="115" key="CommitChangelistDialog2" timestamp="1582867388813">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="513" y="115" key="CommitChangelistDialog2/0.0.1920.1040/-1680.22.1680.1010@0.0.1920.1040" timestamp="1578021578727" />
+    <state x="513" y="115" key="CommitChangelistDialog2/0.0.1920.1040/1920.32.1680.1010@0.0.1920.1040" timestamp="1582867388813" />
     <state x="2369" y="144" key="CommitChangelistDialog2/0.0.1920.1040/1920.32.1680.1010@1920.32.1680.1010" timestamp="1579872846062" />
     <state x="2012" y="124" width="1496" height="826" key="DiffContextDialog" timestamp="1579574361629">
       <screen x="1920" y="32" width="1680" height="1010" />
     </state>
     <state x="2012" y="124" width="1496" height="826" key="DiffContextDialog/0.0.1920.1040/1920.32.1680.1010@1920.32.1680.1010" timestamp="1579574361629" />
-    <state x="2540" y="292" key="FileChooserDialogImpl" timestamp="1580384367175">
-      <screen x="1920" y="32" width="1680" height="1010" />
+    <state x="709" y="268" key="FileChooserDialogImpl" timestamp="1583012057207">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="709" y="268" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1680.1010@0.0.1920.1040" timestamp="1583012057207" />
     <state x="2540" y="292" key="FileChooserDialogImpl/0.0.1920.1040/1920.32.1680.1010@1920.32.1680.1010" timestamp="1580384367175" />
     <state x="2540" y="292" key="FileChooserDialogImpl/1920.32.1680.1010/0.0.1920.1040@1920.32.1680.1010" timestamp="1580127122564" />
-    <state width="1877" height="283" key="GridCell.Tab.0.bottom" timestamp="1582867347325">
+    <state width="1877" height="283" key="GridCell.Tab.0.bottom" timestamp="1583013837388">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1637" height="254" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1680.22.1680.1010@-1680.22.1680.1010" timestamp="1576726491677" />
     <state width="1877" height="263" key="GridCell.Tab.0.bottom/0.0.1920.1040/-1680.22.1680.1010@0.0.1920.1040" timestamp="1576811182415" />
+    <state width="1877" height="283" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1680.1010@0.0.1920.1040" timestamp="1583013837388" />
     <state width="1877" height="283" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.32.1680.1010@0.0.1920.1040" timestamp="1582867347325" />
     <state width="1637" height="274" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.32.1680.1010@1920.32.1680.1010" timestamp="1579873032579" />
     <state width="1877" height="283" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.39.1680.1010@0.0.1920.1040" timestamp="1582331991811" />
     <state width="1637" height="303" key="GridCell.Tab.0.bottom/1920.32.1680.1010/0.0.1920.1040@1920.32.1680.1010" timestamp="1580130442508" />
-    <state width="1877" height="283" key="GridCell.Tab.0.center" timestamp="1582867347325">
+    <state width="1877" height="283" key="GridCell.Tab.0.center" timestamp="1583013837388">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1637" height="254" key="GridCell.Tab.0.center/0.0.1920.1040/-1680.22.1680.1010@-1680.22.1680.1010" timestamp="1576726491677" />
     <state width="1877" height="263" key="GridCell.Tab.0.center/0.0.1920.1040/-1680.22.1680.1010@0.0.1920.1040" timestamp="1576811182415" />
+    <state width="1877" height="283" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1680.1010@0.0.1920.1040" timestamp="1583013837388" />
     <state width="1877" height="283" key="GridCell.Tab.0.center/0.0.1920.1040/1920.32.1680.1010@0.0.1920.1040" timestamp="1582867347325" />
     <state width="1637" height="274" key="GridCell.Tab.0.center/0.0.1920.1040/1920.32.1680.1010@1920.32.1680.1010" timestamp="1579873032579" />
     <state width="1877" height="283" key="GridCell.Tab.0.center/0.0.1920.1040/1920.39.1680.1010@0.0.1920.1040" timestamp="1582331991811" />
     <state width="1637" height="303" key="GridCell.Tab.0.center/1920.32.1680.1010/0.0.1920.1040@1920.32.1680.1010" timestamp="1580130442508" />
-    <state width="1877" height="283" key="GridCell.Tab.0.left" timestamp="1582867347325">
+    <state width="1877" height="283" key="GridCell.Tab.0.left" timestamp="1583013837388">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1637" height="254" key="GridCell.Tab.0.left/0.0.1920.1040/-1680.22.1680.1010@-1680.22.1680.1010" timestamp="1576726491677" />
     <state width="1877" height="263" key="GridCell.Tab.0.left/0.0.1920.1040/-1680.22.1680.1010@0.0.1920.1040" timestamp="1576811182415" />
+    <state width="1877" height="283" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1680.1010@0.0.1920.1040" timestamp="1583013837388" />
     <state width="1877" height="283" key="GridCell.Tab.0.left/0.0.1920.1040/1920.32.1680.1010@0.0.1920.1040" timestamp="1582867347325" />
     <state width="1637" height="274" key="GridCell.Tab.0.left/0.0.1920.1040/1920.32.1680.1010@1920.32.1680.1010" timestamp="1579873032579" />
     <state width="1877" height="283" key="GridCell.Tab.0.left/0.0.1920.1040/1920.39.1680.1010@0.0.1920.1040" timestamp="1582331991811" />
     <state width="1637" height="303" key="GridCell.Tab.0.left/1920.32.1680.1010/0.0.1920.1040@1920.32.1680.1010" timestamp="1580130442508" />
-    <state width="1877" height="283" key="GridCell.Tab.0.right" timestamp="1582867347325">
+    <state width="1877" height="283" key="GridCell.Tab.0.right" timestamp="1583013837388">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1637" height="254" key="GridCell.Tab.0.right/0.0.1920.1040/-1680.22.1680.1010@-1680.22.1680.1010" timestamp="1576726491677" />
     <state width="1877" height="263" key="GridCell.Tab.0.right/0.0.1920.1040/-1680.22.1680.1010@0.0.1920.1040" timestamp="1576811182415" />
+    <state width="1877" height="283" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1680.1010@0.0.1920.1040" timestamp="1583013837388" />
     <state width="1877" height="283" key="GridCell.Tab.0.right/0.0.1920.1040/1920.32.1680.1010@0.0.1920.1040" timestamp="1582867347325" />
     <state width="1637" height="274" key="GridCell.Tab.0.right/0.0.1920.1040/1920.32.1680.1010@1920.32.1680.1010" timestamp="1579873032579" />
     <state width="1877" height="283" key="GridCell.Tab.0.right/0.0.1920.1040/1920.39.1680.1010@0.0.1920.1040" timestamp="1582331991811" />
     <state width="1637" height="303" key="GridCell.Tab.0.right/1920.32.1680.1010/0.0.1920.1040@1920.32.1680.1010" timestamp="1580130442508" />
-    <state width="1877" height="283" key="GridCell.Tab.1.bottom" timestamp="1582867347325">
+    <state width="1877" height="283" key="GridCell.Tab.1.bottom" timestamp="1583013837388">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1637" height="254" key="GridCell.Tab.1.bottom/0.0.1920.1040/-1680.22.1680.1010@-1680.22.1680.1010" timestamp="1576726491677" />
     <state width="1877" height="263" key="GridCell.Tab.1.bottom/0.0.1920.1040/-1680.22.1680.1010@0.0.1920.1040" timestamp="1576811182415" />
+    <state width="1877" height="283" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.0.1680.1010@0.0.1920.1040" timestamp="1583013837388" />
     <state width="1877" height="283" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.32.1680.1010@0.0.1920.1040" timestamp="1582867347325" />
     <state width="1637" height="274" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.32.1680.1010@1920.32.1680.1010" timestamp="1579873032580" />
     <state width="1637" height="274" key="GridCell.Tab.1.bottom/1920.32.1680.1010/0.0.1920.1040@1920.32.1680.1010" timestamp="1580130442501" />
-    <state width="1877" height="283" key="GridCell.Tab.1.center" timestamp="1582867347325">
+    <state width="1877" height="283" key="GridCell.Tab.1.center" timestamp="1583013837388">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1637" height="254" key="GridCell.Tab.1.center/0.0.1920.1040/-1680.22.1680.1010@-1680.22.1680.1010" timestamp="1576726491677" />
     <state width="1877" height="263" key="GridCell.Tab.1.center/0.0.1920.1040/-1680.22.1680.1010@0.0.1920.1040" timestamp="1576811182415" />
+    <state width="1877" height="283" key="GridCell.Tab.1.center/0.0.1920.1040/1920.0.1680.1010@0.0.1920.1040" timestamp="1583013837388" />
     <state width="1877" height="283" key="GridCell.Tab.1.center/0.0.1920.1040/1920.32.1680.1010@0.0.1920.1040" timestamp="1582867347325" />
     <state width="1637" height="274" key="GridCell.Tab.1.center/0.0.1920.1040/1920.32.1680.1010@1920.32.1680.1010" timestamp="1579873032579" />
     <state width="1637" height="274" key="GridCell.Tab.1.center/1920.32.1680.1010/0.0.1920.1040@1920.32.1680.1010" timestamp="1580130442501" />
-    <state width="1877" height="283" key="GridCell.Tab.1.left" timestamp="1582867347325">
+    <state width="1877" height="283" key="GridCell.Tab.1.left" timestamp="1583013837388">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1637" height="254" key="GridCell.Tab.1.left/0.0.1920.1040/-1680.22.1680.1010@-1680.22.1680.1010" timestamp="1576726491677" />
     <state width="1877" height="263" key="GridCell.Tab.1.left/0.0.1920.1040/-1680.22.1680.1010@0.0.1920.1040" timestamp="1576811182415" />
+    <state width="1877" height="283" key="GridCell.Tab.1.left/0.0.1920.1040/1920.0.1680.1010@0.0.1920.1040" timestamp="1583013837388" />
     <state width="1877" height="283" key="GridCell.Tab.1.left/0.0.1920.1040/1920.32.1680.1010@0.0.1920.1040" timestamp="1582867347325" />
     <state width="1637" height="274" key="GridCell.Tab.1.left/0.0.1920.1040/1920.32.1680.1010@1920.32.1680.1010" timestamp="1579873032579" />
     <state width="1637" height="274" key="GridCell.Tab.1.left/1920.32.1680.1010/0.0.1920.1040@1920.32.1680.1010" timestamp="1580130442501" />
-    <state width="1877" height="283" key="GridCell.Tab.1.right" timestamp="1582867347325">
+    <state width="1877" height="283" key="GridCell.Tab.1.right" timestamp="1583013837388">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1637" height="254" key="GridCell.Tab.1.right/0.0.1920.1040/-1680.22.1680.1010@-1680.22.1680.1010" timestamp="1576726491677" />
     <state width="1877" height="263" key="GridCell.Tab.1.right/0.0.1920.1040/-1680.22.1680.1010@0.0.1920.1040" timestamp="1576811182415" />
+    <state width="1877" height="283" key="GridCell.Tab.1.right/0.0.1920.1040/1920.0.1680.1010@0.0.1920.1040" timestamp="1583013837388" />
     <state width="1877" height="283" key="GridCell.Tab.1.right/0.0.1920.1040/1920.32.1680.1010@0.0.1920.1040" timestamp="1582867347325" />
     <state width="1637" height="274" key="GridCell.Tab.1.right/0.0.1920.1040/1920.32.1680.1010@1920.32.1680.1010" timestamp="1579873032580" />
     <state width="1637" height="274" key="GridCell.Tab.1.right/1920.32.1680.1010/0.0.1920.1040@1920.32.1680.1010" timestamp="1580130442501" />
@@ -967,14 +967,16 @@
       <screen x="1920" y="32" width="1680" height="1010" />
     </state>
     <state width="196" height="457" key="HiddenNamespacesPopup/0.0.1920.1040/1920.32.1680.1010@1920.32.1680.1010" timestamp="1579867707336" />
-    <state x="2240" y="112" key="SettingsEditor" timestamp="1580384396694">
-      <screen x="1920" y="32" width="1680" height="1010" />
+    <state x="366" y="82" key="SettingsEditor" timestamp="1583012102778">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="366" y="82" key="SettingsEditor/0.0.1920.1040/1920.0.1680.1010@0.0.1920.1040" timestamp="1583012102778" />
     <state x="2240" y="112" key="SettingsEditor/0.0.1920.1040/1920.32.1680.1010@1920.32.1680.1010" timestamp="1580384396694" />
     <state x="2240" y="112" key="SettingsEditor/1920.32.1680.1010/0.0.1920.1040@1920.32.1680.1010" timestamp="1580127124562" />
-    <state width="82" height="441" key="SqlResolveConfigurable" timestamp="1580384359802">
-      <screen x="1920" y="32" width="1680" height="1010" />
+    <state width="200" height="455" key="SqlResolveConfigurable" timestamp="1583012051872">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state width="200" height="455" key="SqlResolveConfigurable/0.0.1920.1040/1920.0.1680.1010@0.0.1920.1040" timestamp="1583012051872" />
     <state width="82" height="441" key="SqlResolveConfigurable/0.0.1920.1040/1920.32.1680.1010@1920.32.1680.1010" timestamp="1580384359802" />
     <state x="2403" y="278" key="Vcs.Push.Dialog.v2" timestamp="1579872863124">
       <screen x="1920" y="32" width="1680" height="1010" />

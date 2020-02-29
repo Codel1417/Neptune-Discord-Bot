@@ -8,54 +8,80 @@ public class CustomRoleStorage {
     private String DatabaseURL = Main.DatabaseURL;
     private final String TableName = "CustomRole";
 
-    public boolean addRole(String MemberID, String GuildID, String RoleID){
-        System.out.println("SQL: Adding new Custom Role for guild: " + GuildID +  " Author ID: " + MemberID + " Role ID: " + RoleID);
+    public boolean addRole(String MemberID, String GuildID, String RoleID) {
+        System.out.println("SQL: Adding new Custom Role for guild: " + GuildID + " Author ID: " + MemberID + " Role ID: " + RoleID);
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        boolean result = false;
         try {
-            Connection connection;
             connection = DriverManager.getConnection(DatabaseURL);
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO "+ TableName +"(GuildID, MemberID, RoleID) VALUES(?,?,?)");
-            preparedStatement.setString(1,GuildID);
-            preparedStatement.setString(2,MemberID);
-            preparedStatement.setString(3,RoleID);
+            preparedStatement = connection.prepareStatement("INSERT INTO " + TableName + "(GuildID, MemberID, RoleID) VALUES(?,?,?)");
+            preparedStatement.setString(1, GuildID);
+            preparedStatement.setString(2, MemberID);
+            preparedStatement.setString(3, RoleID);
             preparedStatement.execute();
-            connection.close();
-            return true;
+            result = true;
         } catch (SQLException e) {
-            System.out.println("SQL: Error Code= "+ e.getErrorCode());
+            System.out.println("SQL: Error Code= " + e.getErrorCode());
             e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try {
+                preparedStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
-        return false;
+        return result;
     }
-    public boolean removeRole(String RoleID){
+    public boolean removeRole(String RoleID) {
         System.out.println("SQL: Deleting Role; " + RoleID);
-        try {
-            Connection connection = DriverManager.getConnection(DatabaseURL);
-            boolean result = connection.createStatement().execute("DELETE FROM "+ TableName +
-                    " WHERE RoleID = " + RoleID + ";");
-            connection.close();
-            return result;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-    public String getRoleID(String GuildID, String MemberID){
-        System.out.println("SQL: Retrieving role for Member: " + MemberID);
-        Connection connection;
+        boolean result = false;
+        Connection connection = null;
         try {
             connection = DriverManager.getConnection(DatabaseURL);
-            ResultSet resultSet = connection.prepareStatement("SELECT RoleID FROM "+ TableName +" Where MemberID = " + MemberID + " AND GuildID = " + GuildID).executeQuery();
-            String result;
-            result = resultSet.getString(1);
-            resultSet.close();
-            connection.close();
-            return result;
-
+            result = connection.createStatement().execute("DELETE FROM " + TableName +
+                    " WHERE RoleID = " + RoleID + ";");
         } catch (SQLException e) {
-            System.out.println("SQL: Error Code= "+ e.getErrorCode());
+            e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+    public String getRoleID(String GuildID, String MemberID) {
+        System.out.println("SQL: Retrieving role for Member: " + MemberID);
+        Connection connection = null;
+        String result = null;
+        ResultSet resultSet = null;
+        try {
+            connection = DriverManager.getConnection(DatabaseURL);
+            resultSet = connection.prepareStatement("SELECT RoleID FROM " + TableName + " Where MemberID = " + MemberID + " AND GuildID = " + GuildID).executeQuery();
+            result = resultSet.getString(1);
+        } catch (SQLException e) {
+            System.out.println("SQL: Error Code= " + e.getErrorCode());
             System.out.println("SQL: Role entry not found");
             //e.printStackTrace();
-            return null;
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
+        return result;
     }
 }

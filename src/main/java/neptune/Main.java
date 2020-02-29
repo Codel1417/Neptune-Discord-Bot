@@ -20,7 +20,7 @@ public class Main extends ListenerAdapter {
     1: Dev
     2: Music Bot
      */
-    public final static int mode = 1;
+    public final static int mode = 0;
     private static String botToken;
     public static final String DatabaseURL = "jdbc:mysql://10.0.0.15/Neptune?user=adminer&password=DragonFi1417";
     public static void main(String[] args) {
