@@ -8,6 +8,7 @@
   <component name="ChangeListManager">
     <list default="true" id="db4b6966-4060-4bb3-bd8f-ce2ef72a3509" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -143,7 +144,7 @@
     <property name="add_unversioned_files" value="$PROJECT_DIR$/NepAuth.json" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1567021179112" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/META-INF" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -385,6 +386,7 @@
       <workItem from="1585969339649" duration="670000" />
       <workItem from="1587598710413" duration="758000" />
       <workItem from="1588045213912" duration="11000" />
+      <workItem from="1591151848924" duration="970000" />
     </task>
     <task id="LOCAL-00013" summary="Add screenshare link generator">
       <created>1562362730664</created>

@@ -22,7 +22,7 @@ public class Main extends ListenerAdapter {
      */
     public final static int mode = 0;
     private static String botToken;
-    public static final String DatabaseURL = "jdbc:mysql://10.0.0.15/Neptune?user=adminer&password=DragonFi1417";
+    public static final String DatabaseURL = "jdbc:mysql://localhost/Neptune?user=Neptune&password=Neptune";
     public static void main(String[] args) {
         botToken = getJdaAuthKey(mode);
         VariablesStorage variablesStorage = new VariablesStorage();
