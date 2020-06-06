@@ -11,21 +11,22 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import java.awt.*;
 import java.util.Map;
 
-public class AdminOptions extends CommonMethods implements CommandInterface {
-SettingsStorage settingsStorage = new SettingsStorage();
+public class LeaderboardOptions extends CommonMethods implements CommandInterface {
+    SettingsStorage settingsStorage = new SettingsStorage();
+
     @Override
     public String getName() {
-        return "Admin Menu";
+        return "Leaderboard Options";
     }
 
     @Override
     public String getCommand() {
-        return "options";
+        return "leaderboardOptions";
     }
 
     @Override
     public String getDescription() {
-        return "Shows server admin options menu";
+        return "Control Leaderboard settings";
     }
 
     @Override
@@ -35,7 +36,7 @@ SettingsStorage settingsStorage = new SettingsStorage();
 
     @Override
     public String getHelp() {
-        return "";
+        return null;
     }
 
     @Override
@@ -66,35 +67,23 @@ SettingsStorage settingsStorage = new SettingsStorage();
         if (CommandArray[1].equalsIgnoreCase("enabled")){
             enabledOption = true;
         }
-
         switch (CommandArray[0].toLowerCase()) {
-            case "tts": {
+            case "levelUp":{
                 if (enabledOption) {
-                    options.put("TTS", "enabled");
-                } else {
-                    options.put("TTS", "disabled");
-
-                }
-                settingsStorage.updateGuild(event.getGuild().getId(), "TTS", options.get("TTS"));
+                    options.put("LeaderboardLevelUpNotificationsEnabled", "enabled");
+                } else options.put("LeaderboardLevelUpNotificationsEnabled", "disabled");
+                settingsStorage.updateGuild(event.getGuild().getId(), "LeaderboardLevelUpNotificationsEnabled", options.get("LeaderboardLevelUpNotificationsEnabled"));
                 break;
             }
-            case "customsounds": {
+            case "leaderboards":{
                 if (enabledOption) {
-                    options.put("CustomSounds", "enabled");
-                } else options.put("CustomSounds", "disabled");
-                settingsStorage.updateGuild(event.getGuild().getId(), "CustomSounds", options.get("CustomSounds"));
-                break;
-            }
-            case "customrole":{
-                if (enabledOption) {
-                    options.put("CustomRoleEnabled", "enabled");
-                } else options.put("CustomRoleEnabled", "disabled");
-                settingsStorage.updateGuild(event.getGuild().getId(), "CustomRoleEnabled", options.get("CustomRoleEnabled"));
+                    options.put("LeaderboardsEnabled", "enabled");
+                } else options.put("LeaderboardsEnabled", "disabled");
+                settingsStorage.updateGuild(event.getGuild().getId(), "LeaderboardsEnabled", options.get("LeaderboardsEnabled"));
                 break;
             }
         }
         displayMenu(event,variablesStorage,options);
-
         return true;
     }
     private void displayMenu(MessageReceivedEvent event, VariablesStorage variablesStorage, Map<String,String> options){
@@ -105,23 +94,23 @@ SettingsStorage settingsStorage = new SettingsStorage();
 
 
         StringBuilder logOptionsMessage = new StringBuilder();
-        logOptionsMessage.append("Use TTS ").append(getEnabledDisabledIcon(options.getOrDefault("TTS","disabled"))).append("\n");
-        logOptionsMessage.append("Custom Media Commands" ).append(getEnabledDisabledIcon(options.getOrDefault("CustomSounds","disabled"))).append("\n");
-        logOptionsMessage.append("Custom Role ").append(getEnabledDisabledIcon(options.getOrDefault("CustomRoleEnabled","disabled"))).append("\n");
+        logOptionsMessage.append("Level Up Notifications" ).append(getEnabledDisabledIcon(options.getOrDefault("LeaderboardLevelUpNotificationsEnabled","disabled"))).append("\n");
         logOptionsMessage.append("Leaderboards ").append(getEnabledDisabledIcon(options.getOrDefault("LeaderboardsEnabled","false"))).append("\n");
 
 
         embedBuilder.addField("Logging Options",logOptionsMessage.toString(),false);
 
         String prefix = variablesStorage.getCallBot() + " " + getCommand();
-        embedBuilder.addField("Admin Commands","",false);
-        embedBuilder.addField("Enable TTS usage",prefix + " tts <enabled/disabled>",true);
-        embedBuilder.addField("Enable Additional Media commands",prefix + " CustomSounds <enabled/disabled>",true);
-        embedBuilder.addField("Enable Custom Roles",prefix + " customrole <enabled/disabled>",true);
+        embedBuilder.addField("Leaderboard Commands Commands","",false);
+        embedBuilder.addField("Enable Level Up Notifications",prefix + " levelup <enabled/disabled>",true);
+        embedBuilder.addField("Enable Leaderboards",prefix + " leaderboards <enabled/disabled>",true);
 
         event.getChannel().sendMessage(embedBuilder.build()).queue();
 
     }
 
-}
 
+
+
+
+}

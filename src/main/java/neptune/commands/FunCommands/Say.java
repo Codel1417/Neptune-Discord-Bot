@@ -15,12 +15,12 @@ import java.io.File;
 import java.util.*;
 
 public class Say implements CommandInterface {
+    File folder;
     private AudioController AudioOut;
     private File[] listOfFiles;
     private HashMap<String, Long> rateLimitMap = new HashMap<>();
     public Say(File folder){
-        listOfFiles = folder.listFiles();
-        System.out.println("Say Files: " + listOfFiles.length);
+        this.folder = folder;
     }
     private SettingsStorage settingsStorage = new SettingsStorage();
     @Override
@@ -77,6 +77,8 @@ public class Say implements CommandInterface {
         if (event.getGuild() != null && AudioOut == null) {
             AudioOut = new AudioController(event);
         }
+        listOfFiles = folder.listFiles();
+        System.out.println("Say Files: " + listOfFiles.length);
         Queue<File> results = searchQuotes(messageContent);
         if (results.size() == 1) {
             saySingleMatch(results.iterator().next(), event);

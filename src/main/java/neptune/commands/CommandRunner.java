@@ -2,6 +2,7 @@ package neptune.commands;
 
 import neptune.commands.AdminCommands.AdminOptions;
 import neptune.commands.AdminCommands.GuildInfo;
+import neptune.commands.AdminCommands.LeaderboardOptions;
 import neptune.commands.AdminCommands.Logging;
 import neptune.commands.DevCommands.GuildList;
 import neptune.commands.DevCommands.ServerInfo;
@@ -70,6 +71,8 @@ public class CommandRunner extends CommonMethods {
     private final Aarakocra aarakocra = new Aarakocra();
     private final CustomRole customRole = new CustomRole();
     private final needsMoreJPEG needsMoreJPEG = new needsMoreJPEG();
+    private final LeaderboardOptions leaderboardOptions = new LeaderboardOptions();
+    private final Leaderboard leaderboard = new Leaderboard();
     public CommandRunner(VariablesStorage variablesStorage) {
         NepSayCommand = new Say(new File(variablesStorage.getMediaFolder() + File.separator + "say"));
 
@@ -117,6 +120,8 @@ public class CommandRunner extends CommonMethods {
         commands.put(aarakocra.getCommand(),aarakocra);
         commands.put(customRole.getCommand(),customRole);
         commands.put(needsMoreJPEG.getCommand(),needsMoreJPEG);
+        commands.put(leaderboardOptions.getCommand(),leaderboardOptions);
+        commands.put(leaderboard.getCommand(),leaderboard);
     }
     public Map<String, Object> getCommandList(){
         return commands;

@@ -14,15 +14,14 @@ import javax.security.auth.login.LoginException;
 
 public class Main extends ListenerAdapter {
     private static GetAuthToken getAuthToken = new GetAuthToken();
-    private static Runnable dropboxConnection;
     /* Mode
     0: Main
     1: Dev
     2: Music Bot
      */
-    public final static int mode = 0;
+    public final static int mode = 1;
     private static String botToken;
-    public static final String DatabaseURL = "jdbc:mysql://localhost/Neptune?user=Neptune&password=Neptune";
+    public static final String DatabaseURL = "jdbc:mysql://10.0.0.52/Neptune?user=Neptune&password=Neptune";
     public static void main(String[] args) {
         botToken = getJdaAuthKey(mode);
         VariablesStorage variablesStorage = new VariablesStorage();

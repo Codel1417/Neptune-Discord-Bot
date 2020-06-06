@@ -48,7 +48,7 @@ public class SettingsStorage {
         ResultSet resultSet = null;
         try {
             connection = DriverManager.getConnection(DatabaseURL);
-            resultSet = connection.prepareStatement("SELECT GuildID, TTS, CustomSounds, LoggingChannel, LoggingEnabled, TextChannelLogging, VoiceChannelLogging, MemberActivityLogging, ServerModificationLogging, CustomRoleEnabled, LeaderboardsEnabled FROM " + GuildOptions + " Where GuildID = " + GuildID).executeQuery();
+            resultSet = connection.prepareStatement("SELECT GuildID, TTS, CustomSounds, LoggingChannel, LoggingEnabled, TextChannelLogging, VoiceChannelLogging, MemberActivityLogging, ServerModificationLogging, CustomRoleEnabled, LeaderboardsEnabled,LeaderboardLevelUpNotificationsEnabled FROM " + GuildOptions + " Where GuildID = " + GuildID).executeQuery();
             Map<String, String> results = new HashMap<>();
 
             if (!resultSet.next()) {
@@ -69,7 +69,7 @@ public class SettingsStorage {
             results.put("ServerModificationLogging", resultSet.getString(9));
             results.put("CustomRoleEnabled", resultSet.getString(9));
             results.put("LeaderboardsEnabled", resultSet.getString(10));
-
+            results.put("LeaderboardLevelUpNotificationsEnabled",resultSet.getString(11));
 
             return results;
 

@@ -3,6 +3,8 @@ package neptune.storage.MySQL;
 import neptune.Main;
 
 import java.sql.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LeaderboardStorage {
     private String DatabaseURL = Main.DatabaseURL;
@@ -98,5 +100,36 @@ public class LeaderboardStorage {
             }
         }
         return result;
+    }
+    public Map getTopUsers(String GuildID){
+        Map results = new HashMap();
+        Connection connection = null;
+        ResultSet resultSet = null;
+        try {
+            connection = DriverManager.getConnection(DatabaseURL);
+            resultSet = connection.prepareStatement("SELECT MemberID, Points FROM neptune.leaderboard WHERE GuildID = " +GuildID +" ORDER BY points DESC LIMIT 10;").executeQuery();
+            if (resultSet.isClosed()){
+                return results;
+            }
+            resultSet.next();
+            while (!resultSet.isAfterLast()) {
+                results.put(resultSet.getString(1), resultSet.getString(2));
+                resultSet.next();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return results;
+        }
     }
 }

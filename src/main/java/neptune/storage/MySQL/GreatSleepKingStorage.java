@@ -41,16 +41,18 @@ public class GreatSleepKingStorage {
         }
         return result;
     }
-    public boolean setTime(String MemberID, String Mood, String MoodTime, String TimeCreatedMS) {
+    public boolean setTime(String MemberID, String Mood, String MoodTime,  String Sleep, String TimeCreatedMS) {
         Connection connection = null;
         boolean result = false;
         PreparedStatement preparedStatement = null;
+        deleteEntry(MemberID);
         try {
             connection = DriverManager.getConnection(DatabaseURL);
-            preparedStatement = connection.prepareStatement("INSERT INTO " + TableName + "(MenberID, Mood, MoodTime, TimeCreatedMS) VALUES (?,?,?,?)");
+            preparedStatement = connection.prepareStatement("INSERT INTO " + TableName + "(MenberID, Mood, MoodTime, SleepTime, TimeCreatedMS) VALUES (?,?,?,?,?)");
             preparedStatement.setString(1, MemberID);
             preparedStatement.setString(2, Mood);
             preparedStatement.setString(3, MoodTime);
+            preparedStatement.setString(4, Sleep);
             preparedStatement.setString(4, TimeCreatedMS);
             result = preparedStatement.execute();
 
@@ -70,7 +72,19 @@ public class GreatSleepKingStorage {
         }
         return result;
     }
-    public void updateTime(String MemberID, String Mood, String MoodTime, String TimeCreatedMS){
 
+    public boolean deleteEntry(String MemberID){
+        System.out.println("SQL: Deleting log entries for channel ID; " + MemberID);
+
+        try {
+            Connection connection = DriverManager.getConnection(DatabaseURL);
+            boolean result = connection.createStatement().execute("DELETE FROM "+ TableName +
+                    " WHERE MemberID = " + MemberID + ";");
+            connection.close();
+            return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }
