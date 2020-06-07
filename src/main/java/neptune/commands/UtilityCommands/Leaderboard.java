@@ -72,7 +72,6 @@ public class Leaderboard implements CommandInterface {
                 member = event.getJDA().getUserById(userID).getAsMention();
             }
             catch (NullPointerException e){
-               System.out.println("User not in server");
             }
 
             stringBuilder.append(count).append(") ").append(member).append(" Level: ").append(calculateRank(Integer.parseInt(result.getValue())));

@@ -1,6 +1,8 @@
 package neptune.storage.MySQL;
 
 import neptune.Main;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.HashMap;
@@ -9,10 +11,11 @@ import java.util.Map;
 public class LoggingHandler {
     private String DatabaseURL = Main.DatabaseURL;
     private final String LogTableName = "Log";
+    protected static final Logger log = LogManager.getLogger();
 
     public boolean newLogEntry(String GuildID,String ChannelID, String AuthorID, String MessageID, String MessageContent) {
         Connection connection = null;
-        System.out.println("SQL: Adding new Log entry for guild: " + GuildID + " Channel ID: " + ChannelID + " Author ID: " + AuthorID + " Message ID: " + MessageID + " Message Content: " + MessageContent);
+        log.debug("SQL: Adding new Log entry for guild: " + GuildID + " Channel ID: " + ChannelID + " Author ID: " + AuthorID + " Message ID: " + MessageID + " Message Content: " + MessageContent);
         PreparedStatement preparedStatement = null;
         try {
             connection = DriverManager.getConnection(DatabaseURL);
@@ -30,25 +33,25 @@ public class LoggingHandler {
                 deleteLogEntry(MessageID);
                 newLogEntry(GuildID, ChannelID, AuthorID, MessageID, MessageContent);
             } else {
-                System.out.println("SQL: Error Code= " + e.getErrorCode());
-                e.printStackTrace();
+                log.error("SQL: Error Code= " + e.getErrorCode());
+                log.error(e.toString());
             }
         } finally {
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error(e.toString());
             }
             try {
                 preparedStatement.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error(e.toString());
             }
         }
         return false;
     }
     public boolean updateLogEntry(String MessageID, String MessageContent, String PreviousMessage) {
-        System.out.println("SQL: Updating Log entry ; " + MessageID);
+        log.debug("SQL: Updating Log entry ; " + MessageID);
         PreparedStatement preparedStatement = null;
         Connection connection = null;
         boolean result = false;
@@ -59,23 +62,23 @@ public class LoggingHandler {
             preparedStatement.setString(2, PreviousMessage);
             result = preparedStatement.execute();
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.toString());
         } finally {
             try {
                 preparedStatement.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error(e.toString());
             }
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error(e.toString());
             }
         }
         return result;
     }
     public boolean deleteLogEntry(String MessageID) {
-        System.out.println("SQL: Deleting log entry; " + MessageID);
+        log.debug("SQL: Deleting log entry; " + MessageID);
         boolean result = false;
         Connection connection = null;
         try {
@@ -88,13 +91,13 @@ public class LoggingHandler {
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error(e.toString());
             }
         }
         return result;
     }
     public boolean deleteChannelMessages(String ChannelID){
-        System.out.println("SQL: Deleting log entries for channel ID; " + ChannelID);
+        log.debug("SQL: Deleting log entries for channel ID; " + ChannelID);
 
         try {
             Connection connection = DriverManager.getConnection(DatabaseURL);
@@ -109,7 +112,7 @@ public class LoggingHandler {
     }
 
     public Map<String, String> getLogEntry(String MessageID) {
-        System.out.println("SQL: Retrieving Log Entry for message ID: " + MessageID);
+        log.debug("SQL: Retrieving Log Entry for message ID: " + MessageID);
         Connection connection = null;
         ResultSet resultSet = null;
         try {
@@ -130,20 +133,20 @@ public class LoggingHandler {
             return results;
 
         } catch (SQLException e) {
-            System.out.println("SQL: Error Code= " + e.getErrorCode());
-            System.out.println("SQL: Log entry not found");
+            log.error("SQL: Error Code= " + e.getErrorCode());
+            log.error("SQL: Log entry not found");
             //e.printStackTrace();
             return null;
         } finally {
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error(e.toString());
             }
             try {
                 resultSet.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error(e.toString());
             }
         }
     }

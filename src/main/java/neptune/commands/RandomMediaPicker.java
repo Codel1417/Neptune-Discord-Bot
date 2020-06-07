@@ -2,6 +2,8 @@ package neptune.commands;
 
 import neptune.music.AudioController;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -13,13 +15,13 @@ public class RandomMediaPicker {
     private AudioController AudioOut;
     private ArrayList<File> ImageFiles;
     private ArrayList<File> audioFiles;
+    protected static final Logger log = LogManager.getLogger();
 
     public void sendMedia(File Folder, MessageReceivedEvent event, boolean image, boolean audio){
         if (Folder == null || !Folder.exists() && !Folder.isDirectory()) return; //null check
-        System.out.println("Finding Random Media from folder" + Folder.getAbsolutePath());
+        log.debug("Finding Random Media from folder" + Folder.getAbsolutePath());
         searchFolder(Folder, audio, image);
-        System.out.println("        Image Files: " + ImageFiles.size());
-        System.out.println("        Audio Files: " + audioFiles.size());
+        log.debug("Image Files: " + ImageFiles.size() + " Audio Files: " + audioFiles.size());
 
         if (event.getGuild() != null && AudioOut == null) {
             AudioOut = new AudioController(event);

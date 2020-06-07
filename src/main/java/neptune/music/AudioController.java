@@ -16,6 +16,8 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.VoiceChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.exceptions.PermissionException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,6 +28,7 @@ public class AudioController {
     private final AudioPlayerManager playerManager;
     private final Map<String, GuildMusicManager> musicManagers;
     private static final int DEFAULT_VOLUME = 35; //(0 - 150, where 100 is default max volume)
+    protected static final Logger log = LogManager.getLogger();
 
     public AudioController(MessageReceivedEvent event) {
         this.playerManager = new DefaultAudioPlayerManager();
@@ -57,7 +60,7 @@ public class AudioController {
             }
         }
         loadAndPlay(mng, audioURL);
-        System.out.println("Playing audio file " + audioURL);
+        log.debug("Playing audio file " + audioURL);
     }
     private void loadAndPlay(GuildMusicManager mng, String url)
     {
@@ -89,7 +92,7 @@ public class AudioController {
             @Override
             public void loadFailed(FriendlyException exception)
             {
-                System.out.println("AudioController: Load Failed: File: " + exception);
+                log.error("AudioController: Load Failed: File: " + exception);
             }
         });
     }

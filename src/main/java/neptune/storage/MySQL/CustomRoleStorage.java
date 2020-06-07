@@ -1,15 +1,19 @@
 package neptune.storage.MySQL;
 
 import neptune.Main;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 
 public class CustomRoleStorage {
     private String DatabaseURL = Main.DatabaseURL;
     private final String TableName = "CustomRole";
+    protected static final Logger log = LogManager.getLogger();
 
     public boolean addRole(String MemberID, String GuildID, String RoleID) {
-        System.out.println("SQL: Adding new Custom Role for guild: " + GuildID + " Author ID: " + MemberID + " Role ID: " + RoleID);
+
+        log.debug("SQL: Adding new Custom Role for guild: " + GuildID + " Author ID: " + MemberID + " Role ID: " + RoleID);
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         boolean result = false;
@@ -22,8 +26,8 @@ public class CustomRoleStorage {
             preparedStatement.execute();
             result = true;
         } catch (SQLException e) {
-            System.out.println("SQL: Error Code= " + e.getErrorCode());
-            e.printStackTrace();
+            log.error("SQL: Error Code= " + e.getErrorCode());
+            log.error(e.toString());
         } finally {
             try {
                 connection.close();
@@ -39,7 +43,7 @@ public class CustomRoleStorage {
         return result;
     }
     public boolean removeRole(String RoleID) {
-        System.out.println("SQL: Deleting Role; " + RoleID);
+        log.debug("SQL: Deleting Role; " + RoleID);
         boolean result = false;
         Connection connection = null;
         try {
@@ -58,7 +62,7 @@ public class CustomRoleStorage {
         return result;
     }
     public String getRoleID(String GuildID, String MemberID) {
-        System.out.println("SQL: Retrieving role for Member: " + MemberID);
+        log.debug("SQL: Retrieving role for Member: " + MemberID);
         Connection connection = null;
         String result = null;
         ResultSet resultSet = null;
@@ -67,8 +71,7 @@ public class CustomRoleStorage {
             resultSet = connection.prepareStatement("SELECT RoleID FROM " + TableName + " Where MemberID = " + MemberID + " AND GuildID = " + GuildID).executeQuery();
             result = resultSet.getString(1);
         } catch (SQLException e) {
-            System.out.println("SQL: Error Code= " + e.getErrorCode());
-            System.out.println("SQL: Role entry not found");
+            log.error("SQL: Error Code= " + e.getErrorCode() + "\nSQL: Role entry not found");
             //e.printStackTrace();
         } finally {
             try {

@@ -18,6 +18,8 @@ import neptune.storage.VariablesStorage;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.awt.*;
 import java.io.File;
@@ -27,6 +29,7 @@ import java.util.Map;
 //TODO: Make commands shard aware
 //handles neptune base commands
 public class CommandRunner extends CommonMethods {
+    protected static final Logger log = LogManager.getLogger();
     private HashMap <String, Object> commands = new HashMap<>();
     private final Nep NepCountCommand = new Nep();
     private final Say NepSayCommand;
@@ -144,7 +147,7 @@ public class CommandRunner extends CommonMethods {
             }
             //analytics
             //storageController.incrementAnalyticForCommand(command.getName().toLowerCase().trim());
-            System.out.println("NEPTUNE: Running Command: " + command.getName());
+            log.info("NEPTUNE: Running Command: " + command.getName());
             return command.run(event, variablesStorage, CommandArray[1]);
         }
         return false;

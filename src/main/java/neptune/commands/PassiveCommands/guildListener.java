@@ -9,6 +9,8 @@ import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.api.events.guild.GuildLeaveEvent;
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceUpdateEvent;
 import net.dv8tion.jda.api.hooks.EventListener;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Nonnull;
 
@@ -19,6 +21,7 @@ public class guildListener implements EventListener {
     public guildListener(VariablesStorage variablesStorage) {
         this.VariableStorageRead = variablesStorage;
     }
+    protected static final Logger log = LogManager.getLogger();
 
     private void onGuildJoin(GuildJoinEvent guildJoinEvent) {
 
@@ -33,7 +36,7 @@ public class guildListener implements EventListener {
             if (guildVoiceUpdateEvent.getChannelLeft().getMembers().size() == 1 && guildVoiceUpdateEvent.getChannelLeft().getGuild().getAudioManager().isConnected()) {
                 guildVoiceUpdateEvent.getChannelLeft().getGuild().getAudioManager().setSendingHandler(null);
                 guildVoiceUpdateEvent.getChannelLeft().getGuild().getAudioManager().closeAudioConnection();
-                System.out.println("VOICE: Channel Empty, Disconnecting from VC");
+                log.info("VOICE: Channel Empty, Disconnecting from VC");
             }
         } catch (Exception ignored) {
         }

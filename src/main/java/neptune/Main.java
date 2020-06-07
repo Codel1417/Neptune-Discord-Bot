@@ -1,6 +1,7 @@
 package neptune;
 
 import com.neovisionaries.ws.client.WebSocketFactory;
+import neptune.commands.PassiveCommands.Listener;
 import neptune.commands.PassiveCommands.guildListener;
 import neptune.music.PlayerControl;
 import neptune.storage.MySQL.GetAuthToken;
@@ -9,10 +10,13 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.security.auth.login.LoginException;
 
 public class Main extends ListenerAdapter {
+    protected static final Logger log = LogManager.getLogger();
     private static GetAuthToken getAuthToken = new GetAuthToken();
     /* Mode
     0: Main
@@ -50,7 +54,7 @@ public class Main extends ListenerAdapter {
     }
 
     private static void startJDA(String token, VariablesStorage variablesStorage){
-        System.out.println("Starting JDA");
+        log.info("Starting JDA");
         DefaultShardManagerBuilder builder = new DefaultShardManagerBuilder();
         builder.addEventListeners(new Listener(variablesStorage));
         builder.addEventListeners(new guildListener(variablesStorage));
@@ -61,11 +65,11 @@ public class Main extends ListenerAdapter {
         try {
             builder.build();
         } catch (LoginException e) {
-            e.printStackTrace();
+            log.error(e.toString());
         }
     }
     private static void startJDAMusic(String token){
-        System.out.println("Starting JDA Music");
+        log.info("Starting JDA Music");
         JDABuilder builder = new JDABuilder();
         builder.setToken(token);
         builder.addEventListeners(new PlayerControl());
@@ -74,7 +78,7 @@ public class Main extends ListenerAdapter {
         try {
             builder.build();
         } catch (LoginException e) {
-            e.printStackTrace();
+            log.error(e.toString());
         }
     }
 }

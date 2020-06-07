@@ -1,5 +1,7 @@
-package neptune;
+package neptune.commands.PassiveCommands;
 
+import neptune.CycleGameStatus;
+import neptune.messageInterprter;
 import neptune.serverLogging.GuildLogging;
 import neptune.storage.MySQL.LeaderboardStorage;
 import neptune.storage.MySQL.SettingsStorage;
@@ -22,7 +24,7 @@ import java.util.Map;
 
 //intercepts discord messages
 public class Listener implements EventListener {
-    private final messageInterprter messageInterprter;
+    private final neptune.messageInterprter messageInterprter;
     private final GuildLogging guildLogging = new GuildLogging();
     private final SettingsStorage settingsStorage = new SettingsStorage();
     private Runnable CycleActivity;

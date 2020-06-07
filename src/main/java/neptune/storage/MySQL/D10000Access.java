@@ -1,6 +1,8 @@
 package neptune.storage.MySQL;
 
 import neptune.Main;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,8 +12,9 @@ import java.sql.SQLException;
 public class D10000Access {
     String DatabaseURL = Main.DatabaseURL;
     String TableName = "D10000";
+    protected static final Logger log = LogManager.getLogger();
     public String getResult(int Result) {
-        System.out.println("SQL: Retrieving D10K Result #: " + Result);
+        log.debug("SQL: Retrieving D10K Result #: " + Result);
         Connection connection = null;
         String results = null;
         ResultSet resultSet = null;
@@ -19,7 +22,7 @@ public class D10000Access {
             connection = DriverManager.getConnection(DatabaseURL);
             resultSet = connection.prepareStatement("SELECT Result FROM " + TableName + " Where ID = " + Result).executeQuery();
             if (resultSet.isClosed()) {
-                System.out.println("SQL: Result does not Exist in database!");
+                log.error("SQL: Result does not Exist in database!");
             }
             if (!resultSet.next()) {
                 connection.close();
@@ -30,8 +33,8 @@ public class D10000Access {
             connection.close();
 
         } catch (SQLException e) {
-            System.out.println("    Error Code= " + e.getErrorCode());
-            e.printStackTrace();
+            log.error("rror Code= " + e.getErrorCode());
+            log.error(e.toString());
         } finally {
             try {
                 connection.close();

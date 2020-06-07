@@ -1,6 +1,8 @@
 package neptune.storage.MySQL;
 
 import neptune.Main;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.HashMap;
@@ -9,6 +11,7 @@ import java.util.Map;
 public class LeaderboardStorage {
     private String DatabaseURL = Main.DatabaseURL;
     private final String TableName = "Leaderboard";
+    protected static final Logger log = LogManager.getLogger();
 
     public boolean addMember(String GuildID, String MemberId) {
         Connection connection = null;
@@ -29,19 +32,19 @@ public class LeaderboardStorage {
                 //System.out.println("    Data Exists :)");
                 result = true;
             } else {
-                System.out.println("    Error Code= " + e.getErrorCode());
-                e.printStackTrace();
+                log.error("Error Code= " + e.getErrorCode());
+                log.error(e.toString());
             }
         } finally {
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error(e.toString());
             }
             try {
                 preparedStatement.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error(e.toString());
             }
         }
         return result;
@@ -61,17 +64,17 @@ public class LeaderboardStorage {
                 addMember(GuildID, MemberID);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.toString());
         } finally {
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error(e.toString());
             }
             try {
                 preparedStatement.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error(e.toString());
             }
         }
         return result;
@@ -86,17 +89,17 @@ public class LeaderboardStorage {
             connection.close();
             result = resultSet.getInt(1);
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.toString());
         } finally {
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error(e.toString());
             }
             try {
                 resultSet.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error(e.toString());
             }
         }
         return result;
@@ -117,17 +120,17 @@ public class LeaderboardStorage {
                 resultSet.next();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.toString());
         } finally {
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error(e.toString());
             }
             try {
                 resultSet.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error(e.toString());
             }
             return results;
         }

@@ -7,18 +7,21 @@ import neptune.storage.VariablesStorage;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.util.Arrays;
 import java.util.Map;
 
-class messageInterprter {
+public class messageInterprter {
     private final VariablesStorage VariableStorageRead;
     private final CommandRunner nepCommands;
     private final RandomMediaPicker randomMediaPicker = new RandomMediaPicker();
     private final SettingsStorage settingsStorage = new SettingsStorage();
+    protected static final Logger log = LogManager.getLogger();
 
-    messageInterprter(VariablesStorage variablesStorage) {
+    public messageInterprter(VariablesStorage variablesStorage) {
         nepCommands = new CommandRunner(variablesStorage);
         VariableStorageRead = variablesStorage;
 
@@ -41,7 +44,7 @@ class messageInterprter {
         return false;
     }
 
-    void runEvent(MessageReceivedEvent event) {
+    public void runEvent(MessageReceivedEvent event) {
         boolean multiPrefix;
 
         //check if the bot was called in chat
@@ -96,6 +99,6 @@ class messageInterprter {
             stringBuilder.append("    Author ID: ").append(event.getAuthor().getId());
         stringBuilder.append("    Message Contents: ").append(event.getMessage().getContentRaw());
         stringBuilder.append("    message: ").append(event.getMessage());
-        System.out.println(stringBuilder.toString());
+        log.info(stringBuilder.toString());
     }
 }

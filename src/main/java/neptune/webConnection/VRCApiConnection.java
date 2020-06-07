@@ -2,6 +2,8 @@ package neptune.webConnection;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
@@ -12,12 +14,13 @@ import java.net.URL;
 
 public class VRCApiConnection {
     private String apikey = "";
+    protected static final Logger log = LogManager.getLogger();
 
     public String httpRequest(String URL, String httpMethod){
         if (apikey.equalsIgnoreCase("")){
             updateAuthToken();
         }
-        System.out.println("VRCHAT: Sending http " + httpMethod + " request: " + URL);
+        log.debug("VRCHAT: Sending http " + httpMethod + " request: " + URL);
         HttpURLConnection connection = null;
         try {
             java.net.URL url = new URL(URL);
@@ -28,7 +31,7 @@ public class VRCApiConnection {
             connection.setRequestProperty("user-agent", "VRChatJava");
             connection.setRequestProperty("Authorization","Basic " +  apikey);
             connection.setRequestProperty("Cookie", "auth=" + apikey);
-            System.out.println("VRCHAT: Response Code = " + connection.getResponseCode());
+            log.debug("VRCHAT: Response Code = " + connection.getResponseCode());
 
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(connection.getInputStream()));

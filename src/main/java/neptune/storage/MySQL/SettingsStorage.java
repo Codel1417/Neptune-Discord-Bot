@@ -1,6 +1,8 @@
 package neptune.storage.MySQL;
 
 import neptune.Main;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.HashMap;
@@ -9,8 +11,10 @@ import java.util.Map;
 public class SettingsStorage {
     private String DatabaseURL = Main.DatabaseURL;
     private final String GuildOptions = "GuildOptions";
+    protected static final Logger log = LogManager.getLogger();
+
     public boolean addGuild(String GuildID) {
-        System.out.println("SQL: Adding Guild " + GuildID);
+        log.debug("SQL: Adding Guild " + GuildID);
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -25,25 +29,25 @@ public class SettingsStorage {
                 //System.out.println("    Data Exists :)");
                 return true;
             } else {
-                System.out.println("    Error Code= " + e.getErrorCode());
-                e.printStackTrace();
+                log.error("Error Code= " + e.getErrorCode());
+                log.error(e.toString());
                 return false;
             }
         } finally {
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error(e.toString());
             }
             try {
                 preparedStatement.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error(e.toString());
             }
         }
     }
     public Map<String,String> getGuildSettings(String GuildID) {
-        System.out.println("SQL: Retrieving Guild " + GuildID);
+        log.debug("SQL: Retrieving Guild " + GuildID);
         Connection connection = null;
         ResultSet resultSet = null;
         try {
@@ -52,7 +56,7 @@ public class SettingsStorage {
             Map<String, String> results = new HashMap<>();
 
             if (!resultSet.next()) {
-                System.out.println("SQL: Guild does not Exist in database!");
+                log.error("SQL: Guild does not Exist in database!");
                 if (addGuild(GuildID)) {
                     return getGuildSettings(GuildID);
                 } else return null;
@@ -74,45 +78,44 @@ public class SettingsStorage {
             return results;
 
         } catch (SQLException e) {
-            System.out.println("    Error Code= " + e.getErrorCode());
-            e.printStackTrace();
+            log.error("Error Code= " + e.getErrorCode());
+            log.error(e.toString());
             return null;
         } finally {
             try {
                 resultSet.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error(e.toString());
             }
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error(e.toString());
             }
         }
     }
     public boolean deleteGuild(String GuildID) {
-        System.out.println("SQL: Deleting Guild " + GuildID);
+        log.debug("SQL: Deleting Guild " + GuildID);
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(DatabaseURL);
             boolean result = connection.createStatement().execute("DELETE FROM " + GuildOptions +
                     " WHERE GuildID = " + GuildID + ";");
             connection.close();
-            System.out.println("    Success");
             return result;
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.toString());
         } finally {
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error(e.toString());
             }
         }
         return false;
     }
     public boolean updateGuild(String GuildID, String Field, String Value) {
-        System.out.println("SQL: Setting Field: " + Field + " to the value: " + Value + " for the Guild: " + GuildID);
+        log.debug("SQL: Setting Field: " + Field + " to the value: " + Value + " for the Guild: " + GuildID);
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -122,17 +125,17 @@ public class SettingsStorage {
             boolean result = preparedStatement.execute();
             return result;
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.toString());
         } finally {
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error(e.toString());
             }
             try {
                 preparedStatement.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error(e.toString());
             }
         }
         return false;

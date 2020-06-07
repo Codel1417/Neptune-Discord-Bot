@@ -1,6 +1,8 @@
 package neptune.storage.MySQL;
 
 import neptune.Main;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.HashMap;
@@ -9,12 +11,14 @@ import java.util.Map;
 public class GreatSleepKingStorage {
     private String DatabaseURL = Main.DatabaseURL;
     private final String TableName = "GreatSleepKing";
+    protected static final Logger log = LogManager.getLogger();
 
     public Map<String,String> getSleepInfo(String MemberID) {
         HashMap<String, String> result = new HashMap();
         Connection connection = null;
         ResultSet resultSet = null;
         try {
+            log.debug("Getting info for GSK for member: " + MemberID);
             connection = DriverManager.getConnection(DatabaseURL);
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT SleepTime, Mood, MoodTime, TimeCreatedMS FROM " + TableName + " WHERE MemberID =  (?)");
             preparedStatement.setString(1, MemberID);
@@ -26,17 +30,17 @@ public class GreatSleepKingStorage {
                 result.put("TimeCreatedMS", resultSet.getString(4));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.toString());
         } finally {
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error(e.toString());
             }
             try {
                 resultSet.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error(e.toString());
             }
         }
         return result;
@@ -57,24 +61,27 @@ public class GreatSleepKingStorage {
             result = preparedStatement.execute();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.toString());
+
         } finally {
             try {
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error(e.toString());
+
             }
             try {
                 preparedStatement.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                log.error(e.toString());
+
             }
         }
         return result;
     }
 
     public boolean deleteEntry(String MemberID){
-        System.out.println("SQL: Deleting log entries for channel ID; " + MemberID);
+        log.debug("SQL: Deleting Sleep King entry for Member: " + MemberID);
 
         try {
             Connection connection = DriverManager.getConnection(DatabaseURL);
@@ -83,7 +90,8 @@ public class GreatSleepKingStorage {
             connection.close();
             return result;
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e.toString());
+
         }
         return false;
     }

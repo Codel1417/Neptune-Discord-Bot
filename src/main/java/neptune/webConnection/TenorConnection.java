@@ -2,6 +2,8 @@ package neptune.webConnection;
 
 import com.google.gson.internal.LinkedTreeMap;
 import neptune.storage.ConvertJSON;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class TenorConnection extends ConvertJSON {
-
+    protected static final Logger log = LogManager.getLogger();
     private String API_KEY;
     public TenorConnection(String API_KEY){
         this.API_KEY = API_KEY;
@@ -24,14 +26,14 @@ public class TenorConnection extends ConvertJSON {
         SearchTerm = SearchTerm.replaceAll(" ","-");
         final String url = String.format("https://api.tenor.com/v1/search?q=%1$s&key=%2$s&limit=15&contentfilter=high&media_filter=minimal",
                 SearchTerm, API_KEY);
-        System.out.println("Link " + url);
+        log.debug("Link " + url);
         HttpURLConnection connection = null;
         try {
             // Get request
             connection = (HttpURLConnection) new URL(url).openConnection();
             connection.setRequestMethod("GET");
             connection.setRequestProperty("Content-Type", "application/json");
-            System.out.println("Response Code = " + connection.getResponseCode());
+            log.debug("Response Code = " + connection.getResponseCode());
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(connection.getInputStream()));
             String inputLine;
@@ -53,7 +55,7 @@ public class TenorConnection extends ConvertJSON {
             LinkedTreeMap gif = (LinkedTreeMap) media.get("gif");
             return (String) gif.get("url");
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.toString());
         }
         returnURL = "";
         return returnURL;
