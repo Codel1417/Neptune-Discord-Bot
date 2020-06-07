@@ -28,7 +28,7 @@ public class GetAuthToken {
             connection.close();
 
         } catch (SQLException e) {
-            log.error(e.toString());
+            log.fatal(e.toString());
             System.exit(1);
         } finally {
             try {

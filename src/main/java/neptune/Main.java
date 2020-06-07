@@ -27,9 +27,9 @@ public class Main extends ListenerAdapter {
     private static String botToken;
     public static final String DatabaseURL = "jdbc:mysql://10.0.0.52/Neptune?user=Neptune&password=Neptune";
     public static void main(String[] args) {
+        log.traceEntry();
         botToken = getJdaAuthKey(mode);
         VariablesStorage variablesStorage = new VariablesStorage();
-
         if (mode == 2){
             startJDAMusic(botToken);
         }

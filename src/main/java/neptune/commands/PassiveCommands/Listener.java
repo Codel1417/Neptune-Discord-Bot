@@ -30,7 +30,7 @@ public class Listener implements EventListener {
     private Runnable CycleActivity;
     private boolean ActivityThread;
     private LeaderboardStorage leaderboardStorage = new LeaderboardStorage();
-    Listener(VariablesStorage variableStorageRead) {
+    public Listener(VariablesStorage variableStorageRead) {
         messageInterprter = new messageInterprter(variableStorageRead);
     }
 
