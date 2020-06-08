@@ -61,7 +61,7 @@
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <manifestEntries>
                                         <Main-Class>neptune.Main</Main-Class>
-                                        <Multi-Release>true</Multi-Release>
+                                        <Multi-Release>true</Multi-Release> <!--Fixes log4j2 reflection error-->
                                     </manifestEntries>
                                 </transformer>
                                 <transformer implementation="com.github.edwgiz.maven_shade_plugin.log4j2_cache_transformer.PluginsCacheFileTransformer">
