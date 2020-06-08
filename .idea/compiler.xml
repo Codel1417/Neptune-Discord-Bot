@@ -6,13 +6,19 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Neptune-Discord-Bot" />
+        <module name="Neptune_Discord_Bot" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="Neptune-Discord-Bot" target="1.11" />
+      <module name="Neptune-Discord-Bot" target="11" />
       <module name="Neptune.main" target="11" />
       <module name="Neptune.test" target="11" />
+      <module name="Neptune_Discord_Bot" target="11" />
     </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="Neptune_Discord_Bot" options="" />
+    </option>
   </component>
 </project>
