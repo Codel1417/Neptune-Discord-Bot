@@ -2,7 +2,6 @@ package neptune.commands;
 
 import neptune.commands.AdminCommands.AdminOptions;
 import neptune.commands.AdminCommands.GuildInfo;
-import neptune.commands.AdminCommands.LeaderboardOptions;
 import neptune.commands.AdminCommands.Logging;
 import neptune.commands.DevCommands.GuildList;
 import neptune.commands.DevCommands.ServerInfo;
@@ -74,8 +73,8 @@ public class CommandRunner extends CommonMethods {
     private final Aarakocra aarakocra = new Aarakocra();
     private final CustomRole customRole = new CustomRole();
     private final needsMoreJPEG needsMoreJPEG = new needsMoreJPEG();
-    private final LeaderboardOptions leaderboardOptions = new LeaderboardOptions();
     private final Leaderboard leaderboard = new Leaderboard();
+    private final Magic8Ball magic8Ball = new Magic8Ball();
     public CommandRunner(VariablesStorage variablesStorage) {
         NepSayCommand = new Say(new File(variablesStorage.getMediaFolder() + File.separator + "say"));
 
@@ -123,8 +122,8 @@ public class CommandRunner extends CommonMethods {
         commands.put(aarakocra.getCommand(),aarakocra);
         commands.put(customRole.getCommand(),customRole);
         commands.put(needsMoreJPEG.getCommand(),needsMoreJPEG);
-        commands.put(leaderboardOptions.getCommand(),leaderboardOptions);
         commands.put(leaderboard.getCommand(),leaderboard);
+        commands.put(magic8Ball.getCommand(),magic8Ball);
     }
     public Map<String, Object> getCommandList(){
         return commands;
@@ -133,7 +132,6 @@ public class CommandRunner extends CommonMethods {
         String[] CommandArray = getCommandName(event.getMessage().getContentRaw().trim().toLowerCase().replaceFirst(variablesStorage.getCallBot().toLowerCase(), "").trim());
         if (commands.containsKey(CommandArray[0])){
             CommandInterface command = (CommandInterface) commands.get(CommandArray[0]);
-            //TODO: add error message
             //Permission Check
             if(!variablesStorage.getOwnerID().equalsIgnoreCase(event.getAuthor().getId())){
                 if (command.getRequireManageServer() && !event.getMember().hasPermission(Permission.MANAGE_SERVER)) {

@@ -92,6 +92,20 @@ SettingsStorage settingsStorage = new SettingsStorage();
                 settingsStorage.updateGuild(event.getGuild().getId(), "CustomRoleEnabled", options.get("CustomRoleEnabled"));
                 break;
             }
+            case "levelUp":{
+                if (enabledOption) {
+                    options.put("LeaderboardLevelUpNotificationsEnabled", "enabled");
+                } else options.put("LeaderboardLevelUpNotificationsEnabled", "disabled");
+                settingsStorage.updateGuild(event.getGuild().getId(), "LeaderboardLevelUpNotificationsEnabled", options.get("LeaderboardLevelUpNotificationsEnabled"));
+                break;
+            }
+            case "leaderboards":{
+                if (enabledOption) {
+                    options.put("LeaderboardsEnabled", "enabled");
+                } else options.put("LeaderboardsEnabled", "disabled");
+                settingsStorage.updateGuild(event.getGuild().getId(), "LeaderboardsEnabled", options.get("LeaderboardsEnabled"));
+                break;
+            }
         }
         displayMenu(event,variablesStorage,options);
 
@@ -109,16 +123,19 @@ SettingsStorage settingsStorage = new SettingsStorage();
         logOptionsMessage.append("Custom Media Commands" ).append(getEnabledDisabledIcon(options.getOrDefault("CustomSounds","disabled"))).append("\n");
         logOptionsMessage.append("Custom Role ").append(getEnabledDisabledIcon(options.getOrDefault("CustomRoleEnabled","disabled"))).append("\n");
         logOptionsMessage.append("Leaderboards ").append(getEnabledDisabledIcon(options.getOrDefault("LeaderboardsEnabled","false"))).append("\n");
+        logOptionsMessage.append("Level Up Notifications" ).append(getEnabledDisabledIcon(options.getOrDefault("LeaderboardLevelUpNotificationsEnabled","disabled"))).append("\n");
 
 
         embedBuilder.addField("Logging Options",logOptionsMessage.toString(),false);
 
         String prefix = variablesStorage.getCallBot() + " " + getCommand();
-        embedBuilder.addField("Admin Commands","",false);
-        embedBuilder.addField("Enable TTS usage",prefix + " tts <enabled/disabled>",true);
-        embedBuilder.addField("Enable Additional Media commands",prefix + " CustomSounds <enabled/disabled>",true);
-        embedBuilder.addField("Enable Custom Roles",prefix + " customrole <enabled/disabled>",true);
-
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Enable TTS usage:").append(prefix).append(" tts <enabled/disabled>\n");
+        stringBuilder.append("Enable Additional Media commands: ").append(prefix).append(" CustomSounds <enabled/disabled>\n");
+        stringBuilder.append("Enable Custom Roles:").append(prefix).append(" customrole <enabled/disabled>\n");
+        stringBuilder.append("Enable Level Up Notifications: ").append(prefix).append(" levelup <enabled/disabled>\n");
+        stringBuilder.append("Enable Leaderboards: ").append(prefix).append(" leaderboards <enabled/disabled>\n");
+        embedBuilder.addField("Admin Commands",stringBuilder.toString(),false);
         event.getChannel().sendMessage(embedBuilder.build()).queue();
 
     }

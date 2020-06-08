@@ -24,14 +24,20 @@
     <select>
       <path>
         <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="BRANCH:master" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:origin/master" type="e8cecc67:BranchNodeDescriptor" />
       </path>
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="db4b6966-4060-4bb3-bd8f-ce2ef72a3509" name="Default Changelist" comment="Sort Leaderboard.java">
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/UtilityCommands/Screenshare.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/UtilityCommands/Screenshare.java" afterDir="false" />
+    <list default="true" id="db4b6966-4060-4bb3-bd8f-ce2ef72a3509" name="Default Changelist" comment="Hide Screenshare Command. No longer needed with go live">
+      <change afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/FunCommands/Magic8Ball.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/AdminCommands/AdminOptions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/AdminCommands/AdminOptions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/AdminCommands/LeaderboardOptions.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/CommandRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/CommandRunner.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -421,14 +427,7 @@
       <workItem from="1591588266662" duration="5896000" />
       <workItem from="1591594590125" duration="61000" />
       <workItem from="1591619298145" duration="522000" />
-      <workItem from="1591621286698" duration="207000" />
-    </task>
-    <task id="LOCAL-00017" summary="Update random media selection">
-      <created>1563500993540</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1563500993540</updated>
+      <workItem from="1591621286698" duration="3150000" />
     </task>
     <task id="LOCAL-00018" summary="Update files to switch devices">
       <created>1564562874087</created>
@@ -766,7 +765,14 @@
       <option name="project" value="LOCAL" />
       <updated>1591621362969</updated>
     </task>
-    <option name="localTasksCounter" value="66" />
+    <task id="LOCAL-00066" summary="Hide Screenshare Command. No longer needed with go live">
+      <created>1591621520521</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1591621520521</updated>
+    </task>
+    <option name="localTasksCounter" value="67" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -793,7 +799,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="master" />
+                        <option value="origin/master" />
                       </list>
                     </value>
                   </entry>
@@ -821,8 +827,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Move logging to new database setup" />
-    <MESSAGE value="Fix Admin Menu&#10;Fix RandomMediaPicker" />
     <MESSAGE value="Update JDA to 4.0.1&#10;Clean up console&#10;begin VRC API" />
     <MESSAGE value="Update LavaPlayer&#10;Add Activity Cycle for Status&#10;Clean up errors&#10;Begin D10K Command&#10;Fix Jar Build" />
     <MESSAGE value="Complete D10K Command" />
@@ -846,7 +850,9 @@
     <MESSAGE value="Configure Logger" />
     <MESSAGE value="Configure Jar, Color Code Logs" />
     <MESSAGE value="Sort Leaderboard.java" />
-    <option name="LAST_COMMIT_MESSAGE" value="Sort Leaderboard.java" />
+    <MESSAGE value="Hide Screenshare COmmand. No longer needed with go live" />
+    <MESSAGE value="Hide Screenshare Command. No longer needed with go live" />
+    <option name="LAST_COMMIT_MESSAGE" value="Hide Screenshare Command. No longer needed with go live" />
   </component>
   <component name="WindowStateProjectService">
     <state x="552" y="178" key="#Inspections" timestamp="1583011947875">
@@ -862,10 +868,10 @@
     </state>
     <state x="494" y="169" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/1920.0.1680.1010@0.0.1920.1040" timestamp="1583012912675" />
     <state x="494" y="176" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1080/1920.32.1680.1050@0.0.1920.1080" timestamp="1591593660958" />
-    <state x="765" y="246" key="#com.intellij.ide.util.MemberChooser" timestamp="1591545104425">
+    <state x="765" y="246" key="#com.intellij.ide.util.MemberChooser" timestamp="1591623628476">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="765" y="246" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1080/1920.32.1680.1050@0.0.1920.1080" timestamp="1591545104425" />
+    <state x="765" y="246" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1080/1920.32.1680.1050@0.0.1920.1080" timestamp="1591623628476" />
     <state x="616" y="301" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1591589723562">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -889,54 +895,54 @@
     <state x="709" y="268" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1680.1010@0.0.1920.1040" timestamp="1583012057207" />
     <state x="709" y="268" key="FileChooserDialogImpl/0.0.1920.1040/1920.39.1680.1010@0.0.1920.1040" timestamp="1584470005601" />
     <state x="709" y="278" key="FileChooserDialogImpl/0.0.1920.1080/1920.32.1680.1050@0.0.1920.1080" timestamp="1591589750957" />
-    <state width="1877" height="327" key="GridCell.Tab.0.bottom" timestamp="1591594499967">
+    <state width="1877" height="586" key="GridCell.Tab.0.bottom" timestamp="1591624471345">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1877" height="283" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1680.1010@0.0.1920.1040" timestamp="1583013837388" />
     <state width="1242" height="642" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.32.1680.1010@1920.32.1680.1010" timestamp="1587604664641" />
-    <state width="1877" height="327" key="GridCell.Tab.0.bottom/0.0.1920.1080/1920.32.1680.1050@0.0.1920.1080" timestamp="1591594499967" />
-    <state width="1877" height="327" key="GridCell.Tab.0.center" timestamp="1591594499967">
+    <state width="1877" height="586" key="GridCell.Tab.0.bottom/0.0.1920.1080/1920.32.1680.1050@0.0.1920.1080" timestamp="1591624471345" />
+    <state width="1877" height="586" key="GridCell.Tab.0.center" timestamp="1591624471345">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1877" height="283" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1680.1010@0.0.1920.1040" timestamp="1583013837388" />
     <state width="1242" height="642" key="GridCell.Tab.0.center/0.0.1920.1040/1920.32.1680.1010@1920.32.1680.1010" timestamp="1587604664640" />
-    <state width="1877" height="327" key="GridCell.Tab.0.center/0.0.1920.1080/1920.32.1680.1050@0.0.1920.1080" timestamp="1591594499967" />
-    <state width="1877" height="327" key="GridCell.Tab.0.left" timestamp="1591594499967">
+    <state width="1877" height="586" key="GridCell.Tab.0.center/0.0.1920.1080/1920.32.1680.1050@0.0.1920.1080" timestamp="1591624471344" />
+    <state width="1877" height="586" key="GridCell.Tab.0.left" timestamp="1591624471344">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1877" height="283" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1680.1010@0.0.1920.1040" timestamp="1583013837388" />
     <state width="1242" height="642" key="GridCell.Tab.0.left/0.0.1920.1040/1920.32.1680.1010@1920.32.1680.1010" timestamp="1587604664640" />
-    <state width="1877" height="327" key="GridCell.Tab.0.left/0.0.1920.1080/1920.32.1680.1050@0.0.1920.1080" timestamp="1591594499967" />
-    <state width="1877" height="327" key="GridCell.Tab.0.right" timestamp="1591594499967">
+    <state width="1877" height="586" key="GridCell.Tab.0.left/0.0.1920.1080/1920.32.1680.1050@0.0.1920.1080" timestamp="1591624471344" />
+    <state width="1877" height="586" key="GridCell.Tab.0.right" timestamp="1591624471345">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1877" height="283" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1680.1010@0.0.1920.1040" timestamp="1583013837388" />
     <state width="1242" height="642" key="GridCell.Tab.0.right/0.0.1920.1040/1920.32.1680.1010@1920.32.1680.1010" timestamp="1587604664641" />
-    <state width="1877" height="327" key="GridCell.Tab.0.right/0.0.1920.1080/1920.32.1680.1050@0.0.1920.1080" timestamp="1591594499967" />
-    <state width="1877" height="440" key="GridCell.Tab.1.bottom" timestamp="1591594499964">
+    <state width="1877" height="586" key="GridCell.Tab.0.right/0.0.1920.1080/1920.32.1680.1050@0.0.1920.1080" timestamp="1591624471345" />
+    <state width="1242" height="440" key="GridCell.Tab.1.bottom" timestamp="1591624471265">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1877" height="283" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.0.1680.1010@0.0.1920.1040" timestamp="1583013837388" />
     <state width="1242" height="642" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.32.1680.1010@1920.32.1680.1010" timestamp="1587604664641" />
-    <state width="1877" height="440" key="GridCell.Tab.1.bottom/0.0.1920.1080/1920.32.1680.1050@0.0.1920.1080" timestamp="1591594499964" />
-    <state width="1877" height="440" key="GridCell.Tab.1.center" timestamp="1591594499964">
+    <state width="1242" height="440" key="GridCell.Tab.1.bottom/0.0.1920.1080/1920.32.1680.1050@0.0.1920.1080" timestamp="1591624471265" />
+    <state width="1242" height="440" key="GridCell.Tab.1.center" timestamp="1591624471265">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1877" height="283" key="GridCell.Tab.1.center/0.0.1920.1040/1920.0.1680.1010@0.0.1920.1040" timestamp="1583013837388" />
     <state width="1242" height="642" key="GridCell.Tab.1.center/0.0.1920.1040/1920.32.1680.1010@1920.32.1680.1010" timestamp="1587604664641" />
-    <state width="1877" height="440" key="GridCell.Tab.1.center/0.0.1920.1080/1920.32.1680.1050@0.0.1920.1080" timestamp="1591594499964" />
-    <state width="1877" height="440" key="GridCell.Tab.1.left" timestamp="1591594499964">
+    <state width="1242" height="440" key="GridCell.Tab.1.center/0.0.1920.1080/1920.32.1680.1050@0.0.1920.1080" timestamp="1591624471265" />
+    <state width="1242" height="440" key="GridCell.Tab.1.left" timestamp="1591624471265">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1877" height="283" key="GridCell.Tab.1.left/0.0.1920.1040/1920.0.1680.1010@0.0.1920.1040" timestamp="1583013837388" />
     <state width="1242" height="642" key="GridCell.Tab.1.left/0.0.1920.1040/1920.32.1680.1010@1920.32.1680.1010" timestamp="1587604664641" />
-    <state width="1877" height="440" key="GridCell.Tab.1.left/0.0.1920.1080/1920.32.1680.1050@0.0.1920.1080" timestamp="1591594499964" />
-    <state width="1877" height="440" key="GridCell.Tab.1.right" timestamp="1591594499964">
+    <state width="1242" height="440" key="GridCell.Tab.1.left/0.0.1920.1080/1920.32.1680.1050@0.0.1920.1080" timestamp="1591624471265" />
+    <state width="1242" height="440" key="GridCell.Tab.1.right" timestamp="1591624471265">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1877" height="283" key="GridCell.Tab.1.right/0.0.1920.1040/1920.0.1680.1010@0.0.1920.1040" timestamp="1583013837388" />
     <state width="1242" height="642" key="GridCell.Tab.1.right/0.0.1920.1040/1920.32.1680.1010@1920.32.1680.1010" timestamp="1587604664641" />
-    <state width="1877" height="440" key="GridCell.Tab.1.right/0.0.1920.1080/1920.32.1680.1050@0.0.1920.1080" timestamp="1591594499964" />
+    <state width="1242" height="440" key="GridCell.Tab.1.right/0.0.1920.1080/1920.32.1680.1050@0.0.1920.1080" timestamp="1591624471265" />
     <state x="744" y="42" key="SettingsEditor" timestamp="1591590785873">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
