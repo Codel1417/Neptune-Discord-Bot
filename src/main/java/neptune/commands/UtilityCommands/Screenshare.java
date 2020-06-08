@@ -46,7 +46,7 @@ public class Screenshare implements CommandInterface {
 
     @Override
     public boolean getHideCommand() {
-        return false;
+        return true;
     }
 
     @Override

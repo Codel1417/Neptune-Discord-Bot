@@ -5,12 +5,33 @@
       <artifact name="Neptune-Discord-Bot:jar" />
     </artifacts-to-build>
   </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:master" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </select>
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="db4b6966-4060-4bb3-bd8f-ce2ef72a3509" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dependency-reduced-pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/UtilityCommands/Leaderboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/UtilityCommands/Leaderboard.java" afterDir="false" />
+    <list default="true" id="db4b6966-4060-4bb3-bd8f-ce2ef72a3509" name="Default Changelist" comment="Sort Leaderboard.java">
+      <change beforePath="$PROJECT_DIR$/src/main/java/neptune/commands/UtilityCommands/Screenshare.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/neptune/commands/UtilityCommands/Screenshare.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -141,6 +162,8 @@
     <property name="Repository.Attach.Annotations" value="false" />
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="add_unversioned_files" value="$PROJECT_DIR$/NepAuth.json" />
@@ -398,13 +421,7 @@
       <workItem from="1591588266662" duration="5896000" />
       <workItem from="1591594590125" duration="61000" />
       <workItem from="1591619298145" duration="522000" />
-    </task>
-    <task id="LOCAL-00016" summary="Update random media selection">
-      <created>1563499080490</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1563499080490</updated>
+      <workItem from="1591621286698" duration="207000" />
     </task>
     <task id="LOCAL-00017" summary="Update random media selection">
       <created>1563500993540</created>
@@ -742,7 +759,14 @@
       <option name="project" value="LOCAL" />
       <updated>1591594463275</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="Sort Leaderboard.java">
+      <created>1591621362969</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1591621362969</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -763,7 +787,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -785,7 +821,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Set up new Database controller" />
     <MESSAGE value="Move logging to new database setup" />
     <MESSAGE value="Fix Admin Menu&#10;Fix RandomMediaPicker" />
     <MESSAGE value="Update JDA to 4.0.1&#10;Clean up console&#10;begin VRC API" />
@@ -810,7 +845,8 @@
     <MESSAGE value="Set up logger" />
     <MESSAGE value="Configure Logger" />
     <MESSAGE value="Configure Jar, Color Code Logs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Configure Jar, Color Code Logs" />
+    <MESSAGE value="Sort Leaderboard.java" />
+    <option name="LAST_COMMIT_MESSAGE" value="Sort Leaderboard.java" />
   </component>
   <component name="WindowStateProjectService">
     <state x="552" y="178" key="#Inspections" timestamp="1583011947875">
@@ -842,11 +878,11 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="707" y="366" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1920.1040/1920.0.1680.1010@0.0.1920.1040" timestamp="1583011925934" />
-    <state x="513" y="119" key="CommitChangelistDialog2" timestamp="1591594462628">
+    <state x="513" y="119" key="CommitChangelistDialog2" timestamp="1591621330849">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="513" y="115" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1680.1010@0.0.1920.1040" timestamp="1583014252731" />
-    <state x="513" y="119" key="CommitChangelistDialog2/0.0.1920.1080/1920.32.1680.1050@0.0.1920.1080" timestamp="1591594462628" />
+    <state x="513" y="119" key="CommitChangelistDialog2/0.0.1920.1080/1920.32.1680.1050@0.0.1920.1080" timestamp="1591621330849" />
     <state x="709" y="278" key="FileChooserDialogImpl" timestamp="1591589750957">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -915,6 +951,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="200" height="455" key="SqlResolveConfigurable/0.0.1920.1040/1920.0.1680.1010@0.0.1920.1040" timestamp="1583012051872" />
+    <state x="552" y="272" key="Vcs.Push.Dialog.v2" timestamp="1591621421203">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="552" y="272" key="Vcs.Push.Dialog.v2/0.0.1920.1080/1920.32.1680.1050@0.0.1920.1080" timestamp="1591621421203" />
     <state x="623" y="235" width="672" height="678" key="search.everywhere.popup" timestamp="1591542184750">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
