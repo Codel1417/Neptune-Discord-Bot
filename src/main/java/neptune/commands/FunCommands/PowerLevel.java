@@ -18,7 +18,7 @@ public class PowerLevel implements CommandInterface {
 
     @Override
     public String getCommand() {
-        return "powerlevel";
+        return "powerLevel";
     }
 
     @Override

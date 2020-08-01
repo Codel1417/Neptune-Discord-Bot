@@ -3,10 +3,7 @@ package neptune.commands.UtilityCommands;
 import neptune.commands.CommandInterface;
 import neptune.commands.commandCategories;
 import neptune.storage.VariablesStorage;
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-
-import java.awt.*;
 
 public class Leave implements CommandInterface {
     @Override
@@ -59,19 +56,11 @@ public class Leave implements CommandInterface {
         if (event.getGuild() != null && event.getGuild().getAudioManager().isConnected()) {
             event.getGuild().getAudioManager().setSendingHandler(null);
             event.getGuild().getAudioManager().closeAudioConnection();
-            EmbedBuilder embedBuilder = new EmbedBuilder();
-            embedBuilder.setTitle("Left Voice Channel");
-            embedBuilder.setDescription("Neptune has left the Chat!");
-            embedBuilder.setColor(Color.MAGENTA);
-            event.getChannel().sendMessage(embedBuilder.build()).queue();
+            event.getChannel().sendMessage("Neptune has left the Chat!").queue();
             return true;
         }
         else {
-            EmbedBuilder embedBuilder = new EmbedBuilder();
-            embedBuilder.setTitle("Unable to leave Voice Channel");
-            embedBuilder.setDescription("Neptune is not connected to a voice channel");
-            embedBuilder.setColor(Color.RED);
-            event.getChannel().sendMessage(embedBuilder.build()).queue();
+            event.getChannel().sendMessage("Neptune is not connected to a voice channel").queue();
             return false;
         }
     }

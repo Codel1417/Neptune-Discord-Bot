@@ -1,8 +1,8 @@
 package neptune.commands.PassiveCommands;
 
-import neptune.storage.MySQL.LoggingHandler;
 import neptune.storage.MySQL.SettingsStorage;
 import neptune.storage.VariablesStorage;
+import neptune.storage.logsStorageHandler;
 import net.dv8tion.jda.api.events.GenericEvent;
 import net.dv8tion.jda.api.events.channel.text.TextChannelDeleteEvent;
 import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
@@ -17,7 +17,8 @@ import javax.annotation.Nonnull;
 public class guildListener implements EventListener {
     private VariablesStorage VariableStorageRead;
     private SettingsStorage settingsStorage = new SettingsStorage();
-    private LoggingHandler loggingHandler = new LoggingHandler();
+    logsStorageHandler logStorage = new logsStorageHandler();
+
     public guildListener(VariablesStorage variablesStorage) {
         this.VariableStorageRead = variablesStorage;
     }
@@ -51,10 +52,11 @@ public class guildListener implements EventListener {
            onGuildVoiceUpdate((GuildVoiceUpdateEvent) event);
        }
        else if (event instanceof GuildLeaveEvent){
-           settingsStorage.deleteGuild(((GuildLeaveEvent) event).getGuild().getId());
+           logStorage.deleteGuild(((GuildLeaveEvent) event).getGuild().getId());
+
        }
        else if (event instanceof TextChannelDeleteEvent){
-           loggingHandler.deleteChannelMessages(((TextChannelDeleteEvent) event).getChannel().getId());
+           logStorage.deleteChannel(((TextChannelDeleteEvent) event).getGuild().getId(),((TextChannelDeleteEvent) event).getChannel().getId());
        }
     }
 

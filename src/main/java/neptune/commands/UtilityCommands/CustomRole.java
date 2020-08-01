@@ -3,7 +3,6 @@ package neptune.commands.UtilityCommands;
 import neptune.commands.CommandInterface;
 import neptune.commands.CommonMethods;
 import neptune.commands.commandCategories;
-import neptune.storage.MySQL.CustomRoleStorage;
 import neptune.storage.MySQL.SettingsStorage;
 import neptune.storage.VariablesStorage;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -25,7 +24,7 @@ public class CustomRole extends CommonMethods implements CommandInterface{
 
     @Override
     public String getCommand() {
-        return "customrole";
+        return "customRole";
     }
 
     @Override
@@ -40,7 +39,7 @@ public class CustomRole extends CommonMethods implements CommandInterface{
 
     @Override
     public String getHelp() {
-        return "!nep customrole for more info";
+        return "!nep customRole for more info";
     }
 
     @Override

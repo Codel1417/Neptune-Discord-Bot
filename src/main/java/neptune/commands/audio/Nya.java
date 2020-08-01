@@ -1,34 +1,37 @@
-package neptune.commands.FunCommands;
+package neptune.commands.audio;
 
 import neptune.commands.CommandInterface;
+import neptune.commands.RandomMediaPicker;
 import neptune.commands.commandCategories;
 import neptune.storage.VariablesStorage;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
-public class IsCaliforniaOnFire implements CommandInterface {
+import java.io.File;
+
+public class Nya implements CommandInterface {
     @Override
     public String getName() {
-        return "Is California on Fire?";
+        return "Nya";
     }
 
     @Override
     public String getCommand() {
-        return "isCaliforniaOnFire";
+        return "nya";
     }
 
     @Override
     public String getDescription() {
-        return "Ever wonder if california is on fire?";
+        return "Nyaaaa sounds";
     }
 
     @Override
     public commandCategories getCategory() {
-        return commandCategories.Fun;
+        return commandCategories.Audio;
     }
 
     @Override
     public String getHelp() {
-        return "";
+        return null;
     }
 
     @Override
@@ -53,7 +56,9 @@ public class IsCaliforniaOnFire implements CommandInterface {
 
     @Override
     public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
-        event.getChannel().sendMessage("Yes").queue();
+        RandomMediaPicker randomMediaPicker = new RandomMediaPicker();
+        randomMediaPicker.sendMedia(new File(variablesStorage.getMediaFolder() + File.separator + "Custom" + File.separator + getCommand()), event, false, true);
+
         return true;
     }
 }

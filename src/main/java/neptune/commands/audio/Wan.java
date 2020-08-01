@@ -1,36 +1,37 @@
-package neptune.commands.ImageCommands.Tenor;
+package neptune.commands.audio;
 
 import neptune.commands.CommandInterface;
-import neptune.commands.TenorGif;
+import neptune.commands.RandomMediaPicker;
 import neptune.commands.commandCategories;
 import neptune.storage.VariablesStorage;
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
-public class Nya extends TenorGif implements CommandInterface {
+import java.io.File;
+
+public class Wan implements CommandInterface {
     @Override
     public String getName() {
-        return "Nya";
+        return "Wan";
     }
 
     @Override
     public String getCommand() {
-        return "nya";
+        return "wan";
     }
 
     @Override
     public String getDescription() {
-        return "Nya >.<";
+        return "WanWan sounds";
     }
 
     @Override
     public commandCategories getCategory() {
-        return commandCategories.Image;
+        return commandCategories.Audio;
     }
 
     @Override
     public String getHelp() {
-        return "";
+        return null;
     }
 
     @Override
@@ -55,8 +56,8 @@ public class Nya extends TenorGif implements CommandInterface {
 
     @Override
     public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
-        EmbedBuilder embedBuilder = getImageEmbed(event,"nya anime",true,"Neptune nya's");
-        event.getChannel().sendMessage(embedBuilder.build()).queue();
-        return false;
+        RandomMediaPicker randomMediaPicker = new RandomMediaPicker();
+        randomMediaPicker.sendMedia(new File(variablesStorage.getMediaFolder() + File.separator + "Custom" + File.separator + getCommand()), event, false, true);
+        return true;
     }
 }

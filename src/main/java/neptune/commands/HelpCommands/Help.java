@@ -36,7 +36,7 @@ public class Help extends CommonMethods implements CommandInterface {
 
     @Override
     public String getHelp() {
-        return getCommand() + "<Command>   for more  info";
+        return getCommand() + "<Command> for more info";
     }
 
     @Override

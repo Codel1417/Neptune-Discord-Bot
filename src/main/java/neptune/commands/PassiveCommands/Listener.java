@@ -3,7 +3,6 @@ package neptune.commands.PassiveCommands;
 import neptune.CycleGameStatus;
 import neptune.messageInterprter;
 import neptune.serverLogging.GuildLogging;
-import neptune.storage.MySQL.LeaderboardStorage;
 import neptune.storage.MySQL.SettingsStorage;
 import neptune.storage.VariablesStorage;
 import net.dv8tion.jda.api.events.GenericEvent;

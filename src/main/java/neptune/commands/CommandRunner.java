@@ -1,7 +1,7 @@
 package neptune.commands;
 
 import neptune.commands.AdminCommands.AdminOptions;
-import neptune.commands.AdminCommands.GuildInfo;
+import neptune.commands.UtilityCommands.GuildInfo;
 import neptune.commands.AdminCommands.Logging;
 import neptune.commands.DevCommands.GuildList;
 import neptune.commands.DevCommands.ServerInfo;
@@ -12,6 +12,10 @@ import neptune.commands.ImageCommands.Tenor.*;
 import neptune.commands.InProgress.VRC;
 import neptune.commands.InProgress.needsMoreJPEG;
 import neptune.commands.UtilityCommands.*;
+import neptune.commands.audio.Awoo;
+import neptune.commands.audio.Nya;
+import neptune.commands.audio.Say;
+import neptune.commands.audio.Wan;
 import neptune.commands.nameGenCommands.Aarakocra;
 import neptune.storage.VariablesStorage;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -75,6 +79,8 @@ public class CommandRunner extends CommonMethods {
     private final needsMoreJPEG needsMoreJPEG = new needsMoreJPEG();
     private final Leaderboard leaderboard = new Leaderboard();
     private final Magic8Ball magic8Ball = new Magic8Ball();
+    private final Awoo awoo = new Awoo();
+    private final Wan wan = new Wan();
     public CommandRunner(VariablesStorage variablesStorage) {
         NepSayCommand = new Say(new File(variablesStorage.getMediaFolder() + File.separator + "say"));
 
@@ -124,14 +130,23 @@ public class CommandRunner extends CommonMethods {
         commands.put(needsMoreJPEG.getCommand(),needsMoreJPEG);
         commands.put(leaderboard.getCommand(),leaderboard);
         commands.put(magic8Ball.getCommand(),magic8Ball);
+        commands.put(awoo.getCommand(),awoo);
+        commands.put(wan.getCommand(),wan);
     }
     public Map<String, Object> getCommandList(){
         return commands;
     }
     public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage){
         String[] CommandArray = getCommandName(event.getMessage().getContentRaw().trim().toLowerCase().replaceFirst(variablesStorage.getCallBot().toLowerCase(), "").trim());
-        if (commands.containsKey(CommandArray[0])){
-            CommandInterface command = (CommandInterface) commands.get(CommandArray[0]);
+        CommandInterface command = null;
+
+        //check for command
+        for (Map.Entry<String, Object> set : commands.entrySet()){
+            if (CommandArray[0].equalsIgnoreCase(set.getKey())){
+                command = (CommandInterface) set.getValue();
+            }
+        }
+        if (command != null){
             //Permission Check
             if(!variablesStorage.getOwnerID().equalsIgnoreCase(event.getAuthor().getId())){
                 if (command.getRequireManageServer() && !event.getMember().hasPermission(Permission.MANAGE_SERVER)) {
@@ -144,7 +159,6 @@ public class CommandRunner extends CommonMethods {
                 }
             }
             //analytics
-            //storageController.incrementAnalyticForCommand(command.getName().toLowerCase().trim());
             log.info("NEPTUNE: Running Command: " + command.getName());
             return command.run(event, variablesStorage, CommandArray[1]);
         }

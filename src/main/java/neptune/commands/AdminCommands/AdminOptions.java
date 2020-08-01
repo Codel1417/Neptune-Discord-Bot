@@ -66,7 +66,6 @@ SettingsStorage settingsStorage = new SettingsStorage();
         if (CommandArray[1].equalsIgnoreCase("enabled")){
             enabledOption = true;
         }
-
         switch (CommandArray[0].toLowerCase()) {
             case "tts": {
                 if (enabledOption) {
@@ -76,13 +75,6 @@ SettingsStorage settingsStorage = new SettingsStorage();
 
                 }
                 settingsStorage.updateGuild(event.getGuild().getId(), "TTS", options.get("TTS"));
-                break;
-            }
-            case "customsounds": {
-                if (enabledOption) {
-                    options.put("CustomSounds", "enabled");
-                } else options.put("CustomSounds", "disabled");
-                settingsStorage.updateGuild(event.getGuild().getId(), "CustomSounds", options.get("CustomSounds"));
                 break;
             }
             case "customrole":{
@@ -120,7 +112,6 @@ SettingsStorage settingsStorage = new SettingsStorage();
 
         StringBuilder logOptionsMessage = new StringBuilder();
         logOptionsMessage.append("Use TTS ").append(getEnabledDisabledIcon(options.getOrDefault("TTS","disabled"))).append("\n");
-        logOptionsMessage.append("Custom Media Commands" ).append(getEnabledDisabledIcon(options.getOrDefault("CustomSounds","disabled"))).append("\n");
         logOptionsMessage.append("Custom Role ").append(getEnabledDisabledIcon(options.getOrDefault("CustomRoleEnabled","disabled"))).append("\n");
         logOptionsMessage.append("Leaderboards ").append(getEnabledDisabledIcon(options.getOrDefault("LeaderboardsEnabled","false"))).append("\n");
         logOptionsMessage.append("Level Up Notifications" ).append(getEnabledDisabledIcon(options.getOrDefault("LeaderboardLevelUpNotificationsEnabled","disabled"))).append("\n");
@@ -131,7 +122,6 @@ SettingsStorage settingsStorage = new SettingsStorage();
         String prefix = variablesStorage.getCallBot() + " " + getCommand();
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Enable TTS usage:").append(prefix).append(" tts <enabled/disabled>\n");
-        stringBuilder.append("Enable Additional Media commands: ").append(prefix).append(" CustomSounds <enabled/disabled>\n");
         stringBuilder.append("Enable Custom Roles:").append(prefix).append(" customrole <enabled/disabled>\n");
         stringBuilder.append("Enable Level Up Notifications: ").append(prefix).append(" levelup <enabled/disabled>\n");
         stringBuilder.append("Enable Leaderboards: ").append(prefix).append(" leaderboards <enabled/disabled>\n");

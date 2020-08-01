@@ -2,15 +2,15 @@ package neptune.commands.FunCommands;
 
 import neptune.commands.CommandInterface;
 import neptune.commands.commandCategories;
-import neptune.storage.MySQL.GreatSleepKingStorage;
 import neptune.storage.VariablesStorage;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.HashMap;
 import java.util.Random;
 
 public class GreatSleepKing implements CommandInterface {
+    HashMap<String,HashMap<String,String>> previousResults = new HashMap<>();
     ArrayList<String> emotions = new ArrayList<>();
     public GreatSleepKing(){
         //https://simple.wikipedia.org/wiki/List_of_emotions
@@ -72,8 +72,7 @@ public class GreatSleepKing implements CommandInterface {
 
     @Override
     public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
-        GreatSleepKingStorage greatSleepKingStorage = new GreatSleepKingStorage();
-        Map<String,String> map = greatSleepKingStorage.getSleepInfo(event.getMember().getId());
+        HashMap<String,String> map = previousResults.get(event.getMember().getId());
         int sleep,hours = 0;
         String emotion;
         if (map == null || Integer.parseInt(map.get("TimeCreatedMS")) > 64800000){
@@ -81,7 +80,12 @@ public class GreatSleepKing implements CommandInterface {
             sleep = random.nextInt(24);
             hours = random.nextInt(24-sleep);
             emotion = emotions.get(random.nextInt(emotions.size()));
-            greatSleepKingStorage.setTime(event.getMember().getId(),emotion,String.valueOf(hours),String.valueOf(sleep),String.valueOf(System.currentTimeMillis()));
+            map = new HashMap<>();
+            map.put("SleepTime", String.valueOf(sleep));
+            map.put("MoodTime", String.valueOf(hours));
+            map.put("Mood",emotion);
+            map.put("TimeCreatedMS",String.valueOf(System.currentTimeMillis()));
+            previousResults.put(event.getMember().getId(),map);
         }
         else{
             sleep = Integer.parseInt(map.get("SleepTime"));

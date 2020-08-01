@@ -1,4 +1,4 @@
-package neptune.commands.FunCommands;
+package neptune.commands.audio;
 
 import neptune.commands.CommandInterface;
 import neptune.commands.commandCategories;
@@ -40,7 +40,7 @@ public class Say implements CommandInterface {
 
     @Override
     public commandCategories getCategory() {
-        return commandCategories.Fun;
+        return commandCategories.Audio;
     }
 
     @Override
