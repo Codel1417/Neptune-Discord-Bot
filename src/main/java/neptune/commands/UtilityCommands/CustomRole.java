@@ -4,18 +4,22 @@ import neptune.commands.CommandInterface;
 import neptune.commands.CommonMethods;
 import neptune.commands.commandCategories;
 import neptune.storage.MySQL.SettingsStorage;
+import neptune.storage.guildObject.customRoleObject;
+import neptune.storage.guildObject.guildOptionsObject;
+import neptune.storage.GuildStorageHandler;
 import neptune.storage.VariablesStorage;
+import neptune.storage.guildObject;
+import neptune.storage.options;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.Map;
 
-public class CustomRole extends CommonMethods implements CommandInterface{
-    CustomRoleStorage customRoleStorage = new CustomRoleStorage();
-    SettingsStorage settingsStorage = new SettingsStorage();
+public class CustomRole extends CommonMethods implements CommandInterface {
 
     @Override
     public String getName() {
@@ -65,21 +69,29 @@ public class CustomRole extends CommonMethods implements CommandInterface{
     @Override
     public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
         String[] command = getCommandName(messageContent);
-        Map<String, String> options = settingsStorage.getGuildSettings(event.getGuild().getId());
-
-        if (options.getOrDefault("CustomRoleEnabled","disabled").equals("enabled")) {
+        GuildStorageHandler guildStorageHandler = new GuildStorageHandler();
+        guildObject guildEntity;
+        try {
+            guildEntity = guildStorageHandler.readFile(event.getGuild().getId());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        guildOptionsObject guildOptionsEntity = guildEntity.getGuildOptions();
+        if (guildOptionsEntity.getOption(options.CustomRoleEnabled)) {
             switch (command[0]){
                 case "create":
+                    //TODO: add role
                 case "editname": {
-                    editRoleName(event,command[1]);
+                    editRoleName(event,command[1],guildEntity);
                     break;
                 }
                 case "editcolor":{
-                    editRoleColor(event,command[1]);
+                    editRoleColor(event,command[1],guildEntity);
                     break;
                 }
                 case "remove":{
-                    removeRole(event);
+                    removeRole(event,guildEntity);
                     break;
                 }
                 default:{
@@ -107,21 +119,21 @@ public class CustomRole extends CommonMethods implements CommandInterface{
         event.getChannel().sendMessage(embedBuilder.build()).queue();
 
     }
-    private void editRoleName(MessageReceivedEvent event, String RoleName){
+    private guildObject editRoleName(MessageReceivedEvent event, String RoleName, guildObject guildEntity){
         if (RoleName.equalsIgnoreCase("")){
             EmbedBuilder embedBuilder = new EmbedBuilder();
             embedBuilder.setTitle(getName())
                         .setColor(Color.RED)
                         .setDescription("Please include a name.");
             event.getChannel().sendMessage(embedBuilder.build()).queue();
-            return;
+            return guildEntity;
         }
-        if (getRole(event) == null){
-            createRole(event,RoleName);
+        if (getRole(event,guildEntity) == null){
+            return createRole(event,RoleName,guildEntity);
         }
-        Role userRole = event.getGuild().getRoleById(getRole(event));
+        Role userRole = event.getGuild().getRoleById(getRole(event,guildEntity));
         if (userRole == null){
-            createRole(event,RoleName);
+            return createRole(event,RoleName,guildEntity);
         }
         else{
             try {
@@ -139,22 +151,22 @@ public class CustomRole extends CommonMethods implements CommandInterface{
             }
         }
     }
-    private void editRoleColor(MessageReceivedEvent event, String RoleColor){
+    private guildObject editRoleColor(MessageReceivedEvent event, String RoleColor, guildObject guildEntity){
         if (RoleColor.equalsIgnoreCase("")){
             EmbedBuilder embedBuilder = new EmbedBuilder();
             embedBuilder.setTitle(getName())
                     .setColor(Color.RED)
                     .setDescription("Please include a Color.");
             event.getChannel().sendMessage(embedBuilder.build()).queue();
-            return;
+            return guildEntity;
         }
-        if (getRole(event) == null){
+        if (getRole(event,guildEntity) == null){
             EmbedBuilder embedBuilder = new EmbedBuilder();
             embedBuilder.setTitle(getName())
                     .setColor(Color.RED)
                     .setDescription("Please create a role before trying to change the color.");
             event.getChannel().sendMessage(embedBuilder.build()).queue();
-            return;
+            return guildEntity;
         }
         Role userRole = event.getGuild().getRoleById(getRole(event));
         if (userRole == null){
@@ -163,7 +175,7 @@ public class CustomRole extends CommonMethods implements CommandInterface{
                     .setColor(Color.RED)
                     .setDescription("Please create a role before trying to change the color.");
             event.getChannel().sendMessage(embedBuilder.build()).queue();
-            return;
+            return guildEntity;
         }
         else{
             try {
@@ -184,9 +196,10 @@ public class CustomRole extends CommonMethods implements CommandInterface{
                 embedBuilder.setDescription("Neptune lacks the required permission to manage roles.");
                 event.getChannel().sendMessage(embedBuilder.build()).queue();
             }
+            return guildEntity;
         }
     }
-    private void createRole(MessageReceivedEvent event, String RoleName){
+    private guildObject createRole(MessageReceivedEvent event, String RoleName, guildObject guildEntity){
         try {
             Role role = event.getGuild().createRole().setName(RoleName).setPermissions().complete();
             customRoleStorage.addRole(event.getMember().getId(),event.getGuild().getId(),role.getId());
@@ -202,10 +215,12 @@ public class CustomRole extends CommonMethods implements CommandInterface{
             embedBuilder.setDescription("Neptune lacks the required permission to manage roles.");
             event.getChannel().sendMessage(embedBuilder.build()).queue();
         }
+        return guildEntity;
     }
-    private void removeRole(MessageReceivedEvent event){
+    private guildObject removeRole(MessageReceivedEvent event, guildObject guildEntity){
         try {
-            String roleID = getRole(event);
+            customRoleObject customRoleEntity = guildEntity.getCustomRole();
+            String roleID = getRole(event,guildEntity);
             event.getGuild().getRoleById(roleID).delete().reason("Custom Role Remove").complete();
             customRoleStorage.removeRole(roleID);
             EmbedBuilder embedBuilder = new EmbedBuilder();
@@ -220,7 +235,8 @@ public class CustomRole extends CommonMethods implements CommandInterface{
             event.getChannel().sendMessage(embedBuilder.build()).queue();
         }
     }
-    private String getRole(MessageReceivedEvent event){
-        return customRoleStorage.getRoleID(event.getGuild().getId(),event.getMember().getId());
+    private String getRole(MessageReceivedEvent event, guildObject guildEntity){
+        customRoleObject customRoleEntity = guildEntity.getCustomRole();
+        return customRoleEntity.getRoleID(event.getMember().getId());
     }
 }

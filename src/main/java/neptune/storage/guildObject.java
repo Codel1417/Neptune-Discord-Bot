@@ -114,15 +114,15 @@ public class guildObject {
             return finalSortedMap;
         }
     }
-    private class guildOptionsObject{
-        private Map<String, Boolean> GuildOptions;
+    public class guildOptionsObject{
+        private Map<options, Boolean> GuildOptions;
         public guildOptionsObject(){
             GuildOptions = new HashMap<>();
         }
-        public boolean getOption(String Option){
+        public boolean getOption(options Option){
             return GuildOptions.getOrDefault(Option,false);
         }
-        public void setOption(String Option, Boolean value){
+        public void setOption(options Option, Boolean value){
             GuildOptions.put(Option,value);
         }
     }

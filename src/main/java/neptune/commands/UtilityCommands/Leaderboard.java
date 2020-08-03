@@ -2,17 +2,18 @@ package neptune.commands.UtilityCommands;
 
 import neptune.commands.CommandInterface;
 import neptune.commands.commandCategories;
+import neptune.storage.GuildStorageHandler;
 import neptune.storage.VariablesStorage;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Leaderboard implements CommandInterface {
-    LeaderboardStorage leaderboardStorage = new LeaderboardStorage();
     @Override
     public String getName() {
         return "Leaderboard";
@@ -65,7 +66,14 @@ public class Leaderboard implements CommandInterface {
         embedBuilder.setColor(Color.MAGENTA);
         embedBuilder.setTitle(getName());
         int count = 1;
-        Map<String,Integer> results =  leaderboardStorage.getTopUsers(event.getGuild().getId());
+        GuildStorageHandler guildStorageHandler = new GuildStorageHandler();
+        Map<String, Integer> results;
+        try {
+            results = guildStorageHandler.readFile(event.getGuild().getId()).getLeaderboard().getTopUsers();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+            return false;
+        }
 
         //https://howtodoinjava.com/sort/java-sort-map-by-values/
         LinkedHashMap<String, Integer> reverseSortedMap = new LinkedHashMap<>();
