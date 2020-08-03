@@ -23,6 +23,7 @@ public class guildObject {
     private customRoleObject customRoleEntity;
     private leaderboardObject leaderboardEntity;
     private guildOptionsObject guildOptionsEntity;
+
     public guildObject(String GuildID){
         guildID = GuildID;
         version = 1;
@@ -41,7 +42,7 @@ public class guildObject {
     private String guildID;
     int version;
 
-    private class logOptionsObject{
+    public class logOptionsObject{
         private Map<String, Boolean> loggingOptions;
         private String Channel;
         public logOptionsObject(){
@@ -61,7 +62,7 @@ public class guildObject {
             Channel = channelID;
         }
     }
-    private class customRoleObject{
+    public class customRoleObject{
         private Map<String, String> customRoles;
         public customRoleObject(){
             customRoles = new HashMap<>();
@@ -73,7 +74,7 @@ public class guildObject {
             customRoles.put(MemberID,RoleID);
         }
     }
-    private class leaderboardObject{
+    public class leaderboardObject{
         private Map <String, Integer> leaderboards;
         public leaderboardObject(){
             leaderboards = new HashMap<>();
