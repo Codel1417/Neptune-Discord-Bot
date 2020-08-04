@@ -3,7 +3,6 @@ package neptune.serverLogging;
 import neptune.storage.logObject;
 import neptune.storage.logsStorageHandler;
 import neptune.storage.Enum.LoggingOptionsEnum;
-import neptune.storage.guildObject.logOptionsObject;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.channel.text.GenericTextChannelEvent;
@@ -24,7 +23,7 @@ import net.dv8tion.jda.api.events.message.guild.GenericGuildMessageEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageDeleteEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageUpdateEvent;
-
+import neptune.storage.logOptionsObject;
 import java.awt.*;
 import java.io.IOException;
 

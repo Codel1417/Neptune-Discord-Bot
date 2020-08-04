@@ -7,7 +7,7 @@ import neptune.storage.GuildStorageHandler;
 import neptune.storage.VariablesStorage;
 import neptune.storage.guildObject;
 import neptune.storage.Enum.LoggingOptionsEnum;
-import neptune.storage.guildObject.logOptionsObject;
+import neptune.storage.logOptionsObject;
 import net.dv8tion.jda.api.events.GenericEvent;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.channel.text.GenericTextChannelEvent;

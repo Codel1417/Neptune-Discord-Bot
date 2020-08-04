@@ -1,21 +1,21 @@
 package neptune.commands.UtilityCommands;
 
+import java.awt.Color;
+import java.io.IOException;
+
 import neptune.commands.CommandInterface;
 import neptune.commands.CommonMethods;
 import neptune.commands.commandCategories;
-import neptune.storage.guildObject.customRoleObject;
-import neptune.storage.guildObject.guildOptionsObject;
 import neptune.storage.GuildStorageHandler;
 import neptune.storage.VariablesStorage;
+import neptune.storage.customRoleObject;
 import neptune.storage.guildObject;
+import neptune.storage.guildOptionsObject;
 import neptune.storage.Enum.options;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
-
-import java.awt.*;
-import java.io.IOException;
 
 public class CustomRole extends CommonMethods implements CommandInterface {
 
