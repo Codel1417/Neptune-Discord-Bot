@@ -1,0 +1,28 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Debug (Launch) - Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Main<Neptune_Discord_Bot>",
+            "request": "launch",
+            "mainClass": "neptune.Main",
+            "projectName": "Neptune_Discord_Bot"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-GuildStorageHandler<Neptune_Discord_Bot>",
+            "request": "launch",
+            "mainClass": "neptune.storage.GuildStorageHandler",
+            "projectName": "Neptune_Discord_Bot"
+        }
+    ]
+}

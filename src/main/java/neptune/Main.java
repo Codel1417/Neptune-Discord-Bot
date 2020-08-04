@@ -25,7 +25,7 @@ public class Main extends ListenerAdapter {
      */
     public final static int mode = 1;
     private static String botToken;
-    public static final String DatabaseURL = "jdbc:mysql://10.0.0.52/Neptune?user=Neptune&password=Neptune";
+    public static final String DatabaseURL = "jdbc:mysql://172.25.0.67/Neptune?user=Neptune&password=Neptune";
     public static void main(String[] args) {
         log.traceEntry();
         botToken = getJdaAuthKey(mode);

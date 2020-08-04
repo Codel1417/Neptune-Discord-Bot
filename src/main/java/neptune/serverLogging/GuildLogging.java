@@ -2,6 +2,8 @@ package neptune.serverLogging;
 
 import neptune.storage.logObject;
 import neptune.storage.logsStorageHandler;
+import neptune.storage.Enum.LoggingOptionsEnum;
+import neptune.storage.guildObject.logOptionsObject;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.channel.text.GenericTextChannelEvent;
@@ -25,16 +27,15 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageUpdateEvent;
 
 import java.awt.*;
 import java.io.IOException;
-import java.util.Map;
 
 public class GuildLogging {
     logsStorageHandler logsStorageHandler = new logsStorageHandler();
 
-    public void GuildVoice(GenericGuildVoiceEvent event, Map<String, String> LoggingOptions) {
-        TextChannel textChannel = event.getGuild().getTextChannelById(LoggingOptions.get("LoggingChannel"));
+    public void GuildVoice(GenericGuildVoiceEvent event, logOptionsObject LoggingOptions) {
+        TextChannel textChannel = event.getGuild().getTextChannelById(LoggingOptions.getChannel());
 
         //check if logging is enabled
-        if (!LoggingOptions.getOrDefault("VoiceChannelLogging", "disabled").equalsIgnoreCase("enabled")) {
+        if (!LoggingOptions.getOption(LoggingOptionsEnum.VoiceChannelLogging)) {
             return;
         }
         if (event instanceof GuildVoiceJoinEvent) {
@@ -93,11 +94,11 @@ public class GuildLogging {
         textChannel.sendMessage(embedBuilder.build()).queue();
     }
 
-    public void GuildText(GenericGuildMessageEvent event, Map<String, String> LoggingOptions) {
-        TextChannel textChannel = event.getGuild().getTextChannelById(LoggingOptions.get("LoggingChannel"));
+    public void GuildText(GenericGuildMessageEvent event, logOptionsObject LoggingOptions) {
+        TextChannel textChannel = event.getGuild().getTextChannelById(LoggingOptions.getChannel());
 
         //check if logging is enabled
-        if (!LoggingOptions.getOrDefault("TextChannelLogging", "disabled").equalsIgnoreCase("enabled")) {
+        if (!LoggingOptions.getOption(LoggingOptionsEnum.TextChannelLogging)) {
             return;
         }
 
@@ -189,11 +190,11 @@ public class GuildLogging {
         textChannel.sendMessage(embedBuilder.build()).queue();
     }
 
-    public void GuildMember(GenericGuildMemberEvent event, Map<String,String> LoggingOptions) {
-        TextChannel textChannel = event.getGuild().getTextChannelById(LoggingOptions.get("LoggingChannel"));
+    public void GuildMember(GenericGuildMemberEvent event, logOptionsObject LoggingOptions) {
+        TextChannel textChannel = event.getGuild().getTextChannelById(LoggingOptions.getChannel());
 
         //check if logging is enabled
-        if (!LoggingOptions.getOrDefault("MemberActivityLogging", "disabled").equalsIgnoreCase("enabled")) {
+        if (!LoggingOptions.getOption(LoggingOptionsEnum.MemberActivityLogging)) {
             return;
         }
 
@@ -251,11 +252,11 @@ public class GuildLogging {
         textChannel.sendMessage(embedBuilder.build()).queue();
     }
 
-    public void GuildSettings(GenericGuildUpdateEvent event, Map<String, String> LoggingOptions) {
-        TextChannel textChannel = event.getGuild().getTextChannelById(LoggingOptions.get("LoggingChannel"));
+    public void GuildSettings(GenericGuildUpdateEvent event, logOptionsObject LoggingOptions) {
+        TextChannel textChannel = event.getGuild().getTextChannelById(LoggingOptions.getChannel());
 
         //check if logging is enabled
-        if (!LoggingOptions.getOrDefault("ServerModificationLogging", "disabled").equalsIgnoreCase("enabled")) {
+        if (!LoggingOptions.getOption(LoggingOptionsEnum.ServerModificationLogging)) {
             return;
         }
         if (event instanceof GuildUpdateAfkChannelEvent) {
@@ -404,10 +405,10 @@ public class GuildLogging {
         textChannel.sendMessage(embedBuilder.build()).queue();
     }
 
-    public void GuildTextChannel(GenericTextChannelEvent event, Map<String, String> LoggingOptions) {
-        TextChannel textChannel = event.getGuild().getTextChannelById(LoggingOptions.get("LoggingChannel"));
+    public void GuildTextChannel(GenericTextChannelEvent event, logOptionsObject LoggingOptions) {
+        TextChannel textChannel = event.getGuild().getTextChannelById(LoggingOptions.getChannel());
         //check if logging is enabled
-        if (!LoggingOptions.getOrDefault("MemberActivityLogging", "disabled").equalsIgnoreCase("enabled")) {
+        if (!LoggingOptions.getOption(LoggingOptionsEnum.MemberActivityLogging)) {
             return;
         }
         if (event instanceof TextChannelCreateEvent) {
@@ -532,10 +533,10 @@ public class GuildLogging {
         }
         textChannel.sendMessage(embedBuilder.build()).queue();
     }
-    public void GuildVoiceChannel(GenericVoiceChannelEvent event, Map<String, String> LoggingOptions){
-        TextChannel textChannel = event.getGuild().getTextChannelById(LoggingOptions.get("LoggingChannel"));
+    public void GuildVoiceChannel(GenericVoiceChannelEvent event, logOptionsObject LoggingOptions){
+        TextChannel textChannel = event.getGuild().getTextChannelById(LoggingOptions.getChannel());
         //check if logging is enabled
-        if (!LoggingOptions.getOrDefault("MemberActivityLogging","disabled").equalsIgnoreCase("enabled")){
+        if (!LoggingOptions.getOption(LoggingOptionsEnum.MemberActivityLogging)){
             return;
         }
         if (event instanceof VoiceChannelCreateEvent){

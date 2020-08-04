@@ -29,7 +29,6 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-//TODO: Make commands shard aware
 //handles neptune base commands
 public class CommandRunner extends CommonMethods {
     protected static final Logger log = LogManager.getLogger();

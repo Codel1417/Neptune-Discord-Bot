@@ -18,6 +18,7 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Random;
 
 public class Imgur extends CommonMethods implements CommandInterface {
@@ -70,22 +71,21 @@ public class Imgur extends CommonMethods implements CommandInterface {
 
     @Override
     public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
-        String search = getCommandName(messageContent)[0]; //get first entry for now
-        //TODO: handle whitespace
+        String search = getCommandName(messageContent)[0]; // get first entry for now
+        // TODO: handle whitespace
 
-        //errors are handled by breaking the rest of the command
+        // errors are handled by breaking the rest of the command
 
-        //get content from imgur
+        // get content from imgur
         try {
             URL url = new URL("https://api.imgur.com/3/gallery/search/viral/all/1?q=" + search);
             HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
             httpsURLConnection.setRequestMethod("GET");
             httpsURLConnection.setRequestProperty("Content-Type", "application/json");
-            httpsURLConnection.setRequestProperty("Authorization"," Client-ID b1a9974a8f499db");
+            httpsURLConnection.setRequestProperty("Authorization", " Client-ID b1a9974a8f499db");
             System.out.println("Response Code = " + httpsURLConnection.getResponseCode());
 
-            BufferedReader in = new BufferedReader(
-                    new InputStreamReader(httpsURLConnection.getInputStream()));
+            BufferedReader in = new BufferedReader(new InputStreamReader(httpsURLConnection.getInputStream()));
             String inputLine;
             StringBuffer content = new StringBuffer();
             while ((inputLine = in.readLine()) != null) {
@@ -94,27 +94,30 @@ public class Imgur extends CommonMethods implements CommandInterface {
             in.close();
             httpsURLConnection.disconnect();
 
-            //Convert json into readable format
+            // Convert json into readable format
             Gson gson = new GsonBuilder().create();
-            Type typeOfHashMap = new TypeToken<LinkedTreeMap>() { }.getType();
-            LinkedTreeMap json = gson.fromJson(content.toString(), typeOfHashMap);
+            Type typeOfHashMap = new TypeToken<LinkedTreeMap>() {
+            }.getType();
+            LinkedTreeMap<String, Type> json = gson.fromJson(content.toString(), typeOfHashMap);
 
-            //move through data
-            ArrayList<LinkedTreeMap> results = (ArrayList<LinkedTreeMap>) json.get("data");
+            // move through data
+            ArrayList<LinkedTreeMap<String, Type>> results = (ArrayList<LinkedTreeMap<String, Type>>) json.get("data");
 
-            //remove unwanted entries
-            ArrayList<LinkedTreeMap> temp = (ArrayList<LinkedTreeMap>) results.clone(); //clone list to skip error.
-            ArrayList<LinkedTreeMap> ImageList = new ArrayList<>();
+            // remove unwanted entries
+            ArrayList<LinkedTreeMap<String, Type>> temp = (ArrayList<LinkedTreeMap<String, Type>>) results.clone(); // clone
+                                                                                                                    // list
+                                                                                                                    // to
+                                                                                                                    // skip
+                                                                                                                    // error.
+            ArrayList<LinkedTreeMap<String, Type>> ImageList = new ArrayList<>();
 
-
-            for(LinkedTreeMap map : temp){
-                if(map.get("nsfw").toString().equalsIgnoreCase("true")){
+            for (LinkedTreeMap map : temp) {
+                if (map.get("nsfw").toString().equalsIgnoreCase("true")) {
                     results.remove(map);
-                }
-                else{
-                    if(map.get("is_album").toString().equalsIgnoreCase("true")){
+                } else {
+                    if (map.get("is_album").toString().equalsIgnoreCase("true")) {
                         ArrayList<LinkedTreeMap> list = (ArrayList<LinkedTreeMap>) map.get("images");
-                        ImageList.addAll(list);
+                        ImageList.addAll((Collection<? extends LinkedTreeMap<String, Type>>) list);
                     }
                     else{
                         ImageList.add(map);

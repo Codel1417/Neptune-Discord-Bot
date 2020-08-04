@@ -6,7 +6,6 @@ import neptune.storage.GuildStorageHandler;
 import neptune.storage.VariablesStorage;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-
 import java.awt.*;
 import java.io.IOException;
 import java.util.Comparator;

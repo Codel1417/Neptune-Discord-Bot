@@ -7,8 +7,6 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.awt.*;
-import java.util.Map;
-import java.util.Set;
 
 public class ServerInfo implements CommandInterface {
     @Override
@@ -62,11 +60,6 @@ public class ServerInfo implements CommandInterface {
         embedBuilder.setTitle(getName());
         embedBuilder.setColor(Color.MAGENTA);
         StringBuilder stringBuilder = new StringBuilder();
-        Set<Map.Entry<Object, Object>> properties = System.getProperties().entrySet();
-        for (Map.Entry<Object, Object> object : properties){
-            //stringBuilder.append("\n").append(object.getKey()).append("\" : \"").append(object.getValue()).append("\"\n");
-            //embedBuilder.addField((String) object.getKey(),(String) object.getValue(),true);
-        }
         embedBuilder.setDescription(stringBuilder.toString());
         event.getChannel().sendMessage(embedBuilder.build()).queue();
 

@@ -2,6 +2,9 @@ package neptune.storage;
 
 import java.util.*;
 
+import neptune.storage.Enum.LoggingOptionsEnum;
+import neptune.storage.Enum.options;
+
 public class guildObject {
     public logOptionsObject getLogOptions() {
         return logOptionsEntity;
@@ -43,16 +46,16 @@ public class guildObject {
     int version;
 
     public class logOptionsObject{
-        private Map<String, Boolean> loggingOptions;
+        private Map<LoggingOptionsEnum, Boolean> loggingOptions;
         private String Channel;
         public logOptionsObject(){
             loggingOptions = new HashMap<>();
             Channel = null;
         }
-        public boolean getOption(String option){
+        public boolean getOption(LoggingOptionsEnum option){
             return loggingOptions.getOrDefault(option,false);
         }
-        public void setOption(String option, Boolean value){
+        public void setOption(LoggingOptionsEnum option, Boolean value){
             loggingOptions.put(option,value);
         }
         public String getChannel(){
@@ -72,6 +75,9 @@ public class guildObject {
         }
         public void addRole(String MemberID, String RoleID){
             customRoles.put(MemberID,RoleID);
+        }
+        public void removeRole(String MemberID){
+            customRoles.remove(MemberID);
         }
     }
     public class leaderboardObject{
