@@ -9,11 +9,11 @@ guildOptionsEntity:
   GuildOptions: {}
 guildID: "12345"
 version: 1
+logOptions:
+  channel: null
 customRole:
   customRoles: {}
 leaderboard:
   leaderboards: {}
 guildOptions:
   GuildOptions: {}
-logOptions:
-  channel: null

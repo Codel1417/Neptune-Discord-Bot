@@ -98,18 +98,18 @@ public class Imgur extends CommonMethods implements CommandInterface {
             Gson gson = new GsonBuilder().create();
             Type typeOfHashMap = new TypeToken<LinkedTreeMap>() {
             }.getType();
-            LinkedTreeMap<String, Type> json = gson.fromJson(content.toString(), typeOfHashMap);
+            LinkedTreeMap json = gson.fromJson(content.toString(), typeOfHashMap);
 
             // move through data
-            ArrayList<LinkedTreeMap<String, Type>> results = (ArrayList<LinkedTreeMap<String, Type>>) json.get("data");
+            ArrayList<LinkedTreeMap> results = (ArrayList<LinkedTreeMap>) json.get("data");
 
             // remove unwanted entries
-            ArrayList<LinkedTreeMap<String, Type>> temp = (ArrayList<LinkedTreeMap<String, Type>>) results.clone(); // clone
+            ArrayList<LinkedTreeMap> temp = (ArrayList<LinkedTreeMap>) results.clone(); // clone
                                                                                                                     // list
                                                                                                                     // to
                                                                                                                     // skip
                                                                                                                     // error.
-            ArrayList<LinkedTreeMap<String, Type>> ImageList = new ArrayList<>();
+            ArrayList<LinkedTreeMap> ImageList = new ArrayList<>();
 
             for (LinkedTreeMap map : temp) {
                 if (map.get("nsfw").toString().equalsIgnoreCase("true")) {
@@ -117,7 +117,7 @@ public class Imgur extends CommonMethods implements CommandInterface {
                 } else {
                     if (map.get("is_album").toString().equalsIgnoreCase("true")) {
                         ArrayList<LinkedTreeMap> list = (ArrayList<LinkedTreeMap>) map.get("images");
-                        ImageList.addAll((Collection<? extends LinkedTreeMap<String, Type>>) list);
+                        ImageList.addAll((Collection<? extends LinkedTreeMap>) list);
                     }
                     else{
                         ImageList.add(map);
