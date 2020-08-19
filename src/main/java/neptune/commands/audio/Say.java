@@ -2,7 +2,6 @@ package neptune.commands.audio;
 
 import neptune.commands.CommandInterface;
 import neptune.commands.commandCategories;
-import neptune.storage.MySQL.SettingsStorage;
 import neptune.storage.VariablesStorage;
 import neptune.music.AudioController;
 import net.dv8tion.jda.api.MessageBuilder;
@@ -22,7 +21,6 @@ public class Say implements CommandInterface {
     public Say(File folder){
         this.folder = folder;
     }
-    private SettingsStorage settingsStorage = new SettingsStorage();
     @Override
     public String getName() {
         return "Say";
@@ -110,18 +108,11 @@ public class Say implements CommandInterface {
                 AudioOut.playSound(event, quote.getAbsolutePath());
             }
         }
-        boolean tts = settingsStorage.getGuildSettings(event.getGuild().getId()).getOrDefault("TTS","disabled").equalsIgnoreCase("enabled");
 
         if (event.getMember().hasPermission(Permission.MESSAGE_WRITE)) {
             MessageBuilder builder = new MessageBuilder();
-            if (event.getGuild().getAudioManager() == null || event.getMember().getVoiceState().getChannel() == null) {
-                if (event.getMember().hasPermission(Permission.MESSAGE_TTS) && event.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_TTS)) {
-                    builder.setTTS(tts);
-                }
-            }
-            else builder.setTTS(false);
             builder.append(quote.getName().replace(".wav", ""));
-            builder.sendTo(event.getChannel()).queue();
+            event.getChannel().sendMessage(builder.build()).queue();
 
         }
     }

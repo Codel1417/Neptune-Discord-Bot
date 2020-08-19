@@ -2,14 +2,11 @@ package neptune.commands.FunCommands;
 
 import neptune.commands.CommandInterface;
 import neptune.commands.commandCategories;
-import neptune.storage.MySQL.SettingsStorage;
 import neptune.storage.VariablesStorage;
 import net.dv8tion.jda.api.MessageBuilder;
-import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class Nep implements CommandInterface {
-    SettingsStorage settingsStorage = new SettingsStorage();
     //nep nep
     //only counts neps
     @Override
@@ -59,8 +56,6 @@ public class Nep implements CommandInterface {
 
     @Override
     public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
-
-        boolean tts = settingsStorage.getGuildSettings(event.getGuild().getId()).getOrDefault("TTS","disabled").equalsIgnoreCase("enabled");
         String[] nepArray = messageContent.split(" ");
         String reply = "nep ";
         // search for pattern in a
@@ -77,12 +72,8 @@ public class Nep implements CommandInterface {
         }
 
         MessageBuilder builder = new MessageBuilder();
-        if (event.getMember().hasPermission(Permission.MESSAGE_TTS) && event.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_TTS)) {
-            builder.setTTS(tts);
-        }
-        else builder.setTTS(false);
         builder.append(responseLine.toString());
-        builder.sendTo(event.getChannel()).queue();
+        event.getChannel().sendMessage(builder.build()).queue();
         //event.getChannel().sendMessage(responseLine.toString()).queue();
         return true;    }
 

@@ -1,9 +1,15 @@
 package neptune.storage;
 
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import com.fasterxml.jackson.module.paranamer.ParanamerModule;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import neptune.storage.Enum.options;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,6 +25,11 @@ public class GuildStorageHandler {
             return null;
         }
         ObjectMapper om = new ObjectMapper(new YAMLFactory());
+        om.registerModule(new ParanamerModule());
+        om.setVisibility(PropertyAccessor.ALL, Visibility.NONE);
+        om.setVisibility(PropertyAccessor.FIELD, Visibility.ANY);
+        om.setVisibility(PropertyAccessor.CREATOR, Visibility.ANY);
+
         log.debug("Reading File: " +  file.getAbsolutePath());
         guildObject guildEntity = om.readValue(file,guildObject.class);
         return guildEntity;
@@ -34,9 +45,12 @@ public class GuildStorageHandler {
     }
     public static void main(String[] args){
         GuildStorageHandler guildStorageHandler = new GuildStorageHandler();
-        guildObject guildObject = new guildObject("12345");
+        //guildObject guildObject = new guildObject("12345");
+        //guildObject.getGuildOptions().setOption(options.LoggingEnabled, true);
+        guildObject guildObjecta;
         try {
-            guildStorageHandler.writeFile(guildObject);
+            guildObjecta = guildStorageHandler.readFile("12345");
+            System.out.println(guildObjecta.getGuildOptions().getOption(options.LoggingEnabled));
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -6,18 +6,24 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
+@JsonIgnoreProperties(ignoreUnknown=true)
+@JsonAutoDetect(fieldVisibility=JsonAutoDetect.Visibility.ANY)
 public class leaderboardObject {
-    @JsonProperty
+    @JsonProperty("leaderboards")
     private Map <String, Integer> leaderboards;
+
     public leaderboardObject(){
         leaderboards = new HashMap<>();
     }
+    @JsonIgnore
     public int getPoints(String MemberID){
         return leaderboards.getOrDefault(MemberID,0);
     }
+    @JsonIgnore
     public void incrimentPoint(String MemberID){
         int points = leaderboards.getOrDefault(MemberID, 0);
         points ++;

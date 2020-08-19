@@ -2,10 +2,8 @@ package neptune.commands.FunCommands;
 
 import neptune.commands.CommandInterface;
 import neptune.commands.commandCategories;
-import neptune.storage.MySQL.SettingsStorage;
 import neptune.storage.VariablesStorage;
 import net.dv8tion.jda.api.MessageBuilder;
-import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 
@@ -13,7 +11,6 @@ public class Translate implements CommandInterface {
     private final int TranslateChangeSize = 6;
     private final String SmallWord = "Nep";
     private final String LargeWord = "Nepu";
-    private SettingsStorage settingsStorage = new SettingsStorage();
     @Override
     public String getName() {
         return "Translate";
@@ -80,16 +77,9 @@ public class Translate implements CommandInterface {
             }
             else translatedMessage.append(LargeWord).append(" ");
         }
-        boolean tts = settingsStorage.getGuildSettings(event.getGuild().getId()).getOrDefault("TTS","disabled").equalsIgnoreCase("enabled");
-
         MessageBuilder builder = new MessageBuilder();
-        if (event.getMember().hasPermission(Permission.MESSAGE_TTS) && event.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_TTS)) {
-            builder.setTTS(tts);
-        }
-        else builder.setTTS(false);
         builder.append(translatedMessage.toString());
-        builder.sendTo(event.getChannel()).queue();
-        //event.getChannel().sendMessage(translatedMessage.toString()).queue();
+        event.getChannel().sendMessage(builder.build()).queue();
         return true;
     }
 }

@@ -1,19 +1,12 @@
 ---
-logOptionsEntity:
-  channel: null
-customRoleEntity:
-  customRoles: {}
-leaderboardEntity:
-  leaderboards: {}
-guildOptionsEntity:
-  GuildOptions: {}
 guildID: "12345"
 version: 1
-logOptions:
-  channel: null
+guildOptions:
+  GuildOptions:
+    LoggingEnabled: true
 customRole:
   customRoles: {}
+logOptions:
+  channel: null
 leaderboard:
   leaderboards: {}
-guildOptions:
-  GuildOptions: {}
