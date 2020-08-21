@@ -14,18 +14,17 @@ import org.apache.logging.log4j.Logger;
 import javax.annotation.Nonnull;
 
 public class guildListener implements EventListener {
-    private VariablesStorage VariableStorageRead;
     logsStorageHandler logStorage = new logsStorageHandler();
 
-    public guildListener(VariablesStorage variablesStorage) {
-        this.VariableStorageRead = variablesStorage;
+    public guildListener() {
     }
     protected static final Logger log = LogManager.getLogger();
 
     private void onGuildJoin(GuildJoinEvent guildJoinEvent) {
 
         //notifies the owner of the bot when someone adds the bot to their server.
-        guildJoinEvent.getJDA().getUserById(VariableStorageRead.getOwnerID()).openPrivateChannel().queue((channel) ->
+
+        guildJoinEvent.getJDA().getUserById(new VariablesStorage().getOwnerID()).openPrivateChannel().queue((channel) ->
                 channel.sendMessage("GUILD: New Server Added: " + guildJoinEvent.getGuild().getName()).queue());
     }
 
@@ -43,19 +42,19 @@ public class guildListener implements EventListener {
 
     @Override
     public void onEvent(@Nonnull GenericEvent event) {
-       if (event instanceof GuildJoinEvent){
-           onGuildJoin((GuildJoinEvent) event);
-       }
-       else if (event instanceof GuildVoiceUpdateEvent){
-           onGuildVoiceUpdate((GuildVoiceUpdateEvent) event);
-       }
-       else if (event instanceof GuildLeaveEvent){
-           logStorage.deleteGuild(((GuildLeaveEvent) event).getGuild().getId());
+        if (event instanceof GuildJoinEvent){
+            onGuildJoin((GuildJoinEvent) event);
+        }
+        else if (event instanceof GuildVoiceUpdateEvent){
+            onGuildVoiceUpdate((GuildVoiceUpdateEvent) event);
+        }
+        else if (event instanceof GuildLeaveEvent){
+            logStorage.deleteGuild(((GuildLeaveEvent) event).getGuild().getId());
 
-       }
-       else if (event instanceof TextChannelDeleteEvent){
-           logStorage.deleteChannel(((TextChannelDeleteEvent) event).getGuild().getId(),((TextChannelDeleteEvent) event).getChannel().getId());
-       }
+        }
+        else if (event instanceof TextChannelDeleteEvent){
+            logStorage.deleteChannel(((TextChannelDeleteEvent) event).getGuild().getId(),((TextChannelDeleteEvent) event).getChannel().getId());
+        }
     }
 
 }

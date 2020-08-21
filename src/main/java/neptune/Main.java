@@ -5,7 +5,6 @@ import neptune.commands.PassiveCommands.Listener;
 import neptune.commands.PassiveCommands.guildListener;
 import neptune.music.PlayerControl;
 import neptune.storage.MySQL.GetAuthToken;
-import neptune.storage.VariablesStorage;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -29,13 +28,12 @@ public class Main extends ListenerAdapter {
     public static void main(String[] args) {
         log.traceEntry();
         botToken = getJdaAuthKey(mode);
-        VariablesStorage variablesStorage = new VariablesStorage();
         if (mode == 2){
             startJDAMusic(botToken);
         }
         else {
             //if (mode == 0) startDropboxBackup((String) authKeys.get("dropbox"));
-            startJDA(botToken,variablesStorage);
+            startJDA(botToken);
         }
     }
     private static String getJdaAuthKey(int mode){
@@ -53,11 +51,11 @@ public class Main extends ListenerAdapter {
         return null;
     }
 
-    private static void startJDA(String token, VariablesStorage variablesStorage){
+    private static void startJDA(String token){
         log.info("Starting JDA");
         DefaultShardManagerBuilder builder = new DefaultShardManagerBuilder();
-        builder.addEventListeners(new Listener(variablesStorage));
-        builder.addEventListeners(new guildListener(variablesStorage));
+        builder.addEventListeners(new Listener());
+        builder.addEventListeners(new guildListener());
         builder.setActivity(Activity.playing("!Nep Help"));
         builder.setToken(token);
 

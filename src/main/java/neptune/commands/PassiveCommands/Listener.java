@@ -4,7 +4,6 @@ import neptune.CycleGameStatus;
 import neptune.messageInterprter;
 import neptune.serverLogging.GuildLogging;
 import neptune.storage.GuildStorageHandler;
-import neptune.storage.VariablesStorage;
 import neptune.storage.guildObject;
 import neptune.storage.Enum.LoggingOptionsEnum;
 import neptune.storage.logOptionsObject;
@@ -33,7 +32,7 @@ public class Listener implements EventListener {
 
     GuildStorageHandler guildStorageHandler = new GuildStorageHandler();
 
-    public Listener(VariablesStorage variableStorageRead) {
+    public Listener() {
         messageInterprter = new messageInterprter();
     }
 
