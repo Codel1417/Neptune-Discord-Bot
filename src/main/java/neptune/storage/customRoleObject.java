@@ -5,12 +5,10 @@ import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-@JsonIgnoreProperties(ignoreUnknown=true)
 @JsonAutoDetect(fieldVisibility=JsonAutoDetect.Visibility.ANY)
 public class customRoleObject {
-    @JsonProperty("customRoles")
+    @JsonIgnore()
     private Map<String, String> customRoles;
     public customRoleObject(){
         customRoles = new HashMap<>();

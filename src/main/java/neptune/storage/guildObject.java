@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
-@JsonIgnoreProperties(ignoreUnknown=true)
+
 @JsonAutoDetect(fieldVisibility=JsonAutoDetect.Visibility.ANY)
 public class guildObject {
     public logOptionsObject getLogOptions() {
@@ -15,20 +15,25 @@ public class guildObject {
     public customRoleObject getCustomRole() {
         return customRoleEntity;
     }
-
+    @JsonGetter("leaderboardEntity")
     public leaderboardObject getLeaderboard() {
         return leaderboardEntity;
     }
     public guildOptionsObject getGuildOptions() {
         return guildOptionsEntity;
     }
-    
+
+    @JsonSetter("leaderboardEntity")
+    public void getLeaderboard(logOptionsObject logOptionsEntity){
+        this.leaderboardEntity = leaderboardEntity;
+    }
+    @JsonProperty("logOptionsEntity")
     private logOptionsObject logOptionsEntity;
-    
+    @JsonProperty("customRoleEntity")
     private customRoleObject customRoleEntity;
-    
+    @JsonProperty("leaderboardEntity")
     private leaderboardObject leaderboardEntity;
-    
+    @JsonProperty("guildOptionsEntity")
     private guildOptionsObject guildOptionsEntity;
     private guildObject(){};
     public guildObject(String GuildID){
