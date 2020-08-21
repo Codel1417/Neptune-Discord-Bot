@@ -10,7 +10,6 @@ import neptune.commands.HelpCommands.Help;
 import neptune.commands.ImageCommands.Imgur;
 import neptune.commands.ImageCommands.Tenor.*;
 import neptune.commands.InProgress.VRC;
-import neptune.commands.InProgress.needsMoreJPEG;
 import neptune.commands.UtilityCommands.*;
 import neptune.commands.audio.Awoo;
 import neptune.commands.audio.Nya;
@@ -18,6 +17,7 @@ import neptune.commands.audio.Say;
 import neptune.commands.audio.Wan;
 import neptune.commands.nameGenCommands.Aarakocra;
 import neptune.storage.VariablesStorage;
+import neptune.storage.guildObject;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -75,12 +75,12 @@ public class CommandRunner extends CommonMethods {
     private final IsCaliforniaOnFire isCaliforniaOnFire = new IsCaliforniaOnFire();
     private final Aarakocra aarakocra = new Aarakocra();
     private final CustomRole customRole = new CustomRole();
-    private final needsMoreJPEG needsMoreJPEG = new needsMoreJPEG();
     private final Leaderboard leaderboard = new Leaderboard();
     private final Magic8Ball magic8Ball = new Magic8Ball();
     private final Awoo awoo = new Awoo();
     private final Wan wan = new Wan();
-    public CommandRunner(VariablesStorage variablesStorage) {
+    public CommandRunner() {
+        VariablesStorage variablesStorage = new VariablesStorage();
         NepSayCommand = new Say(new File(variablesStorage.getMediaFolder() + File.separator + "say"));
 
         //Add all commands to this hashmap;
@@ -126,7 +126,6 @@ public class CommandRunner extends CommonMethods {
         commands.put(isCaliforniaOnFire.getCommand(), isCaliforniaOnFire);
         commands.put(aarakocra.getCommand(),aarakocra);
         commands.put(customRole.getCommand(),customRole);
-        commands.put(needsMoreJPEG.getCommand(),needsMoreJPEG);
         commands.put(leaderboard.getCommand(),leaderboard);
         commands.put(magic8Ball.getCommand(),magic8Ball);
         commands.put(awoo.getCommand(),awoo);
@@ -135,8 +134,8 @@ public class CommandRunner extends CommonMethods {
     public Map<String, Object> getCommandList(){
         return commands;
     }
-    public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage){
-        String[] CommandArray = getCommandName(event.getMessage().getContentRaw().trim().toLowerCase().replaceFirst(variablesStorage.getCallBot().toLowerCase(), "").trim());
+    public guildObject run(MessageReceivedEvent event, guildObject guildEntity){
+        String[] CommandArray = getCommandName(event.getMessage().getContentRaw().trim().toLowerCase().replaceFirst("!nep", "").trim());
         CommandInterface command = null;
 
         //check for command
@@ -147,21 +146,16 @@ public class CommandRunner extends CommonMethods {
         }
         if (command != null){
             //Permission Check
-            if(!variablesStorage.getOwnerID().equalsIgnoreCase(event.getAuthor().getId())){
                 if (command.getRequireManageServer() && !event.getMember().hasPermission(Permission.MANAGE_SERVER)) {
                     permissionException(event);
-                    return true;
+                    return guildEntity;
                 }
-                if (command.getRequireOwner() && !event.getAuthor().getId().matches(variablesStorage.getOwnerID())) {
-                    permissionException(event);
-                    return true;
-                }
-            }
+
             //analytics
             log.info("NEPTUNE: Running Command: " + command.getName());
-            return command.run(event, variablesStorage, CommandArray[1]);
+            return command.run(event,, CommandArray[1], guildEntity);
         }
-        return false;
+        return guildEntity;
     }
     private void permissionException(MessageReceivedEvent event){
         EmbedBuilder embedBuilder = new EmbedBuilder();

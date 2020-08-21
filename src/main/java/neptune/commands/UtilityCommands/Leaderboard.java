@@ -3,7 +3,7 @@ package neptune.commands.UtilityCommands;
 import neptune.commands.CommandInterface;
 import neptune.commands.commandCategories;
 import neptune.storage.GuildStorageHandler;
-import neptune.storage.VariablesStorage;
+import neptune.storage.guildObject;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import java.awt.*;
@@ -44,11 +44,6 @@ public class Leaderboard implements CommandInterface {
     }
 
     @Override
-    public boolean getRequireOwner() {
-        return false;
-    }
-
-    @Override
     public boolean getHideCommand() {
         return false;
     }
@@ -59,7 +54,7 @@ public class Leaderboard implements CommandInterface {
     }
 
     @Override
-    public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
+    public guildObject run(MessageReceivedEvent event, String messageContent, guildObject guildEntity) {
         StringBuilder stringBuilder = new StringBuilder();
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setColor(Color.MAGENTA);
@@ -71,7 +66,7 @@ public class Leaderboard implements CommandInterface {
             results = guildStorageHandler.readFile(event.getGuild().getId()).getLeaderboard().getTopUsers();
         } catch (IOException e1) {
             e1.printStackTrace();
-            return false;
+            return guildEntity;
         }
 
         //https://howtodoinjava.com/sort/java-sort-map-by-values/
@@ -97,7 +92,7 @@ public class Leaderboard implements CommandInterface {
         }
         embedBuilder.setDescription(stringBuilder.toString());
         event.getChannel().sendMessage(embedBuilder.build()).queue();
-        return false;
+        return guildEntity;
     }
     public int calculateRank(int points){
         int rank = 1;

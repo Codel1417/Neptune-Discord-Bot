@@ -1,13 +1,10 @@
 package neptune.commands.UtilityCommands;
 
 import java.awt.Color;
-import java.io.IOException;
 
 import neptune.commands.CommandInterface;
 import neptune.commands.CommonMethods;
 import neptune.commands.commandCategories;
-import neptune.storage.GuildStorageHandler;
-import neptune.storage.VariablesStorage;
 import neptune.storage.customRoleObject;
 import neptune.storage.guildObject;
 import neptune.storage.guildOptionsObject;
@@ -50,11 +47,6 @@ public class CustomRole extends CommonMethods implements CommandInterface {
     }
 
     @Override
-    public boolean getRequireOwner() {
-        return false;
-    }
-
-    @Override
     public boolean getHideCommand() {
         return false;
     }
@@ -65,16 +57,8 @@ public class CustomRole extends CommonMethods implements CommandInterface {
     }
 
     @Override
-    public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
+    public guildObject run(MessageReceivedEvent event, String messageContent, guildObject guildEntity) {
         String[] command = getCommandName(messageContent);
-        GuildStorageHandler guildStorageHandler = new GuildStorageHandler();
-        guildObject guildEntity;
-        try {
-            guildEntity = guildStorageHandler.readFile(event.getGuild().getId());
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
         guildOptionsObject guildOptionsEntity = guildEntity.getGuildOptions();
         if (guildOptionsEntity.getOption(options.CustomRoleEnabled)) {
             switch (command[0]){
@@ -105,7 +89,7 @@ public class CustomRole extends CommonMethods implements CommandInterface {
             embedBuilder.setDescription("Custom roles is not enabled, Please have an admin enable it in options.");
             event.getChannel().sendMessage(embedBuilder.build()).queue();
         }
-        return false;
+        return guildEntity;
     }
     private void menu(MessageReceivedEvent event){
         EmbedBuilder embedBuilder = new EmbedBuilder();

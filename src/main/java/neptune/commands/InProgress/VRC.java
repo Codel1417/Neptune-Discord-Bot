@@ -4,7 +4,7 @@ import neptune.commands.CommandInterface;
 import neptune.commands.CommonMethods;
 import neptune.commands.VRChatRequest;
 import neptune.commands.commandCategories;
-import neptune.storage.VariablesStorage;
+import neptune.storage.guildObject;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
@@ -44,11 +44,6 @@ public class VRC extends CommonMethods implements CommandInterface {
     }
 
     @Override
-    public boolean getRequireOwner() {
-        return false;
-    }
-
-    @Override
     public boolean getHideCommand() {
         return true;
     }
@@ -59,20 +54,20 @@ public class VRC extends CommonMethods implements CommandInterface {
     }
 
     @Override
-    public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
+    public guildObject run(MessageReceivedEvent event, String messageContent, guildObject guildEntity) {
         String[] command = getCommandName(messageContent);
         switch(command[0]){
             case "world":{
-                getWorldByID(command[1],event,variablesStorage);
+                getWorldByID(command[1],event);
                 break;
             }
             case "online":{
                 getOnline(event);
                 break;
             }
-            default: displayMenu(event, variablesStorage);
+            default: displayMenu(event);
         }
-        return true;
+        return guildEntity;
     }
 
     private void getOnline(MessageReceivedEvent event){
@@ -83,7 +78,7 @@ public class VRC extends CommonMethods implements CommandInterface {
         embedBuilder.addField("VRChat Users Currently Online", result + " users online", true);
         event.getChannel().sendMessage(embedBuilder.build()).queue();
     }
-    private void getWorldByID(String search, MessageReceivedEvent event, VariablesStorage variablesStorage){
+    private void getWorldByID(String search, MessageReceivedEvent event){
         EmbedBuilder embedBuilder = getEmbedBuilder();
 
         //API
@@ -111,9 +106,6 @@ public class VRC extends CommonMethods implements CommandInterface {
             if (!result.getOrDefault("occupants","").equalsIgnoreCase("")){
                 embedBuilder.addField("Occupants",result.get("occupants") + " users",true);
             }
-            if (!result.getOrDefault("assetUrl","").equalsIgnoreCase("")  && variablesStorage.getOwnerID().equalsIgnoreCase(event.getAuthor().getId())){
-                embedBuilder.addField("assetUrl",result.get("assetUrl"),true);
-            }
         }
         catch (NullPointerException e){
             embedBuilder.setDescription("World ID does not exist or threw an error");
@@ -129,13 +121,13 @@ public class VRC extends CommonMethods implements CommandInterface {
         embedBuilder.setFooter("Powered by VRChat", "https://vrchat.com/public/media/logo.png");
         return embedBuilder;
     }
-    private void displayMenu(MessageReceivedEvent event, VariablesStorage variablesStorage){
+    private void displayMenu(MessageReceivedEvent event){
         EmbedBuilder embedBuilder = getEmbedBuilder();
         embedBuilder.setTitle("VRChat Help");
         embedBuilder.setDescription("Interact with the VRChat API");
-        embedBuilder.addField("Get Users Online",variablesStorage.getCallBot() +" " + getCommand() + " online",false);
-        embedBuilder.addField("World ID Search",variablesStorage.getCallBot() +" " + getCommand() + " world <ID>",false);
-        embedBuilder.addField("User ID Search",variablesStorage.getCallBot() +" " + getCommand() + " user <ID>",false);
+        embedBuilder.addField("Get Users Online","!nep " + getCommand() + " online",false);
+        embedBuilder.addField("World ID Search","!nep " + getCommand() + " world <ID>",false);
+        embedBuilder.addField("User ID Search","!nep " + getCommand() + " user <ID>",false);
         event.getChannel().sendMessage(embedBuilder.build()).queue();
     }
 }

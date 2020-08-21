@@ -2,7 +2,7 @@ package neptune.commands.FunCommands;
 
 import neptune.commands.CommandInterface;
 import neptune.commands.commandCategories;
-import neptune.storage.VariablesStorage;
+import neptune.storage.guildObject;
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
@@ -40,11 +40,6 @@ public class Nep implements CommandInterface {
     }
 
     @Override
-    public boolean getRequireOwner() {
-        return false;
-    }
-
-    @Override
     public boolean getHideCommand() {
         return false;
     }
@@ -55,7 +50,7 @@ public class Nep implements CommandInterface {
     }
 
     @Override
-    public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
+    public guildObject run(MessageReceivedEvent event,String messageContent, guildObject guildEntity) {
         String[] nepArray = messageContent.split(" ");
         String reply = "nep ";
         // search for pattern in a
@@ -75,6 +70,6 @@ public class Nep implements CommandInterface {
         builder.append(responseLine.toString());
         event.getChannel().sendMessage(builder.build()).queue();
         //event.getChannel().sendMessage(responseLine.toString()).queue();
-        return true;    }
-
+        return guildEntity;    
+    }
 }

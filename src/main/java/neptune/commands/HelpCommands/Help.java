@@ -4,7 +4,7 @@ import neptune.commands.CommandInterface;
 import neptune.commands.CommandRunner;
 import neptune.commands.CommonMethods;
 import neptune.commands.commandCategories;
-import neptune.storage.VariablesStorage;
+import neptune.storage.guildObject;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
@@ -45,11 +45,6 @@ public class Help extends CommonMethods implements CommandInterface {
     }
 
     @Override
-    public boolean getRequireOwner() {
-        return false;
-    }
-
-    @Override
     public boolean getHideCommand() {
         return true;
     }
@@ -60,14 +55,14 @@ public class Help extends CommonMethods implements CommandInterface {
     }
 
     @Override
-    public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
+    public guildObject run(MessageReceivedEvent event,String messageContent, guildObject guildEntity) {
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setColor(Color.MAGENTA);
         embedBuilder.setAuthor("Help",event.getGuild().getSelfMember().getUser().getEffectiveAvatarUrl());
-        embedBuilder.setDescription("Use " + variablesStorage.getCallBot() + " <Command>");
+        embedBuilder.setDescription("Use !nep <Command>");
 
         //sort list
-        Map<String, Object> commands = new TreeMap<>(new CommandRunner(variablesStorage).getCommandList());
+        Map<String, Object> commands = new TreeMap<>(new CommandRunner().getCommandList());
 
         String[] commandArray = getCommandName(messageContent);
 
@@ -94,7 +89,7 @@ public class Help extends CommonMethods implements CommandInterface {
 
         //send message
         event.getChannel().sendMessage(embedBuilder.build()).queue();
-        return true;
+        return guildEntity;
     }
 
     private EmbedBuilder CreateSortedCommandList(Map<String, Object> Commands, EmbedBuilder embedBuilder){

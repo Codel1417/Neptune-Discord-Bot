@@ -2,7 +2,7 @@ package neptune.commands.UtilityCommands;
 
 import neptune.commands.CommandInterface;
 import neptune.commands.commandCategories;
-import neptune.storage.VariablesStorage;
+import neptune.storage.guildObject;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
@@ -41,11 +41,6 @@ public class Uptime implements CommandInterface {
     }
 
     @Override
-    public boolean getRequireOwner() {
-        return false;
-    }
-
-    @Override
     public boolean getHideCommand() {
         return false;
     }
@@ -55,7 +50,7 @@ public class Uptime implements CommandInterface {
         return false;
     }
 
-    public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent){
+    public guildObject run(MessageReceivedEvent event, String messageContent, guildObject guildEntity){
         //Taken from Almighty Alpaca
         //https://github.com/Java-Discord-Bot-System/Plugin-Uptime/blob/master/src/main/java/com/almightyalpaca/discord/bot/plugin/uptime/UptimePlugin.java#L28-L42
         final long duration = ManagementFactory.getRuntimeMXBean().getUptime();
@@ -76,6 +71,6 @@ public class Uptime implements CommandInterface {
         embedBuilder.setDescription("I've been online for: " + uptime);
         embedBuilder.setColor(Color.MAGENTA);
         event.getChannel().sendMessage(embedBuilder.build()).queue();
-        return true;
+        return guildEntity;
     }
 }

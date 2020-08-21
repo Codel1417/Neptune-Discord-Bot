@@ -4,6 +4,7 @@ import neptune.commands.CommandInterface;
 import neptune.commands.RandomMediaPicker;
 import neptune.commands.commandCategories;
 import neptune.storage.VariablesStorage;
+import neptune.storage.guildObject;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.io.File;
@@ -40,11 +41,6 @@ public class Wan implements CommandInterface {
     }
 
     @Override
-    public boolean getRequireOwner() {
-        return false;
-    }
-
-    @Override
     public boolean getHideCommand() {
         return false;
     }
@@ -55,9 +51,10 @@ public class Wan implements CommandInterface {
     }
 
     @Override
-    public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
+    public guildObject run(MessageReceivedEvent event, String messageContent, guildObject guildEntity) {
+        VariablesStorage variablesStorage = new VariablesStorage();
         RandomMediaPicker randomMediaPicker = new RandomMediaPicker();
         randomMediaPicker.sendMedia(new File(variablesStorage.getMediaFolder() + File.separator + "Custom" + File.separator + getCommand()), event, false, true);
-        return true;
+        return guildEntity;
     }
 }

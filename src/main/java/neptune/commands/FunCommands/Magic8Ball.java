@@ -3,7 +3,7 @@ package neptune.commands.FunCommands;
 import neptune.commands.CommandInterface;
 import neptune.commands.CommonMethods;
 import neptune.commands.commandCategories;
-import neptune.storage.VariablesStorage;
+import neptune.storage.guildObject;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
@@ -42,11 +42,6 @@ public class Magic8Ball extends CommonMethods implements CommandInterface {
     }
 
     @Override
-    public boolean getRequireOwner() {
-        return false;
-    }
-
-    @Override
     public boolean getHideCommand() {
         return false;
     }
@@ -57,7 +52,7 @@ public class Magic8Ball extends CommonMethods implements CommandInterface {
     }
 
     @Override
-    public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
+    public guildObject run(MessageReceivedEvent event,String messageContent, guildObject guildEntity) {
         String[] Responses = {"It is certain.","It is decidedly so.","Without a doubt.","Yes – definitely.","You may rely on it.",
         "As I see it, yes.","Most likely.","Outlook good.","Yes.","Signs point to yes.","Reply hazy, try again.",
         "Ask again later.","Better not tell you now.","Cannot predict now.","Concentrate and ask again.",
@@ -74,6 +69,6 @@ public class Magic8Ball extends CommonMethods implements CommandInterface {
             embedBuilder.setDescription(response);
         }
         event.getChannel().sendMessage(embedBuilder.build()).queue();
-        return false;
+        return guildEntity;
     }
 }

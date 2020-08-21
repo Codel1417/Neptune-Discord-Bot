@@ -3,7 +3,9 @@ package neptune;
 import neptune.commands.CommandRunner;
 import neptune.commands.RandomMediaPicker;
 import neptune.storage.MySQL.SettingsStorage;
+import neptune.storage.GuildStorageHandler;
 import neptune.storage.VariablesStorage;
+import neptune.storage.guildObject;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -11,34 +13,36 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Map;
 
 public class messageInterprter {
-    private final VariablesStorage VariableStorageRead;
     private final CommandRunner nepCommands;
     private final RandomMediaPicker randomMediaPicker = new RandomMediaPicker();
     private final SettingsStorage settingsStorage = new SettingsStorage();
     protected static final Logger log = LogManager.getLogger();
 
-    public messageInterprter(VariablesStorage variablesStorage) {
-        nepCommands = new CommandRunner(variablesStorage);
-        VariableStorageRead = variablesStorage;
+    public messageInterprter() {
+        nepCommands = new CommandRunner();
 
     }
 
-    private boolean isBotCalled(Message message, boolean multiplePrefix){
-        //check for Normal Commands
-        if(Arrays.asList(message.getContentRaw().split(" ")).get(0).trim().equalsIgnoreCase(VariableStorageRead.getCallBot())) return true;
+    private boolean isBotCalled(Message message, boolean multiplePrefix) {
+        // check for Normal Commands
+        if (Arrays.asList(message.getContentRaw().split(" ")).get(0).trim()
+                .equalsIgnoreCase(VariableStorageRead.getCallBot()))
+            return true;
 
-        //for future use
+        // for future use
         if (multiplePrefix) {
 
-            String[] prefix = new String[]{VariableStorageRead.getCallBot(),"=","./"}; //command prefix supported
-            String[] Split = message.getContentRaw().split(" "); //splits the message into an array
+            String[] prefix = new String[] { "!nep", "=", "./" }; // command prefix supported
+            String[] Split = message.getContentRaw().split(" "); // splits the message into an array
 
             for (String string : prefix) {
-                if (Split[0].toLowerCase().contains(string.toLowerCase()) || Split[0].equalsIgnoreCase(string)) return true;
+                if (Split[0].toLowerCase().contains(string.toLowerCase()) || Split[0].equalsIgnoreCase(string))
+                    return true;
             }
         }
         return false;
@@ -46,6 +50,15 @@ public class messageInterprter {
 
     public void runEvent(MessageReceivedEvent event) {
         boolean multiPrefix;
+
+        // read guild file
+        guildObject guildEntity;
+        try {
+            guildEntity = new GuildStorageHandler().readFile(event.getGuild().getId());
+        } catch (IOException e1) {
+            log.info("Adding guild: " + event.getGuild().getId());
+            guildEntity = new guildObject(event.getGuild().getId());   
+        }
 
         //check if the bot was called in chat
         try {
@@ -60,12 +73,11 @@ public class messageInterprter {
             if (isBotCalled(event.getMessage(), multiPrefix)) {
                 //print the message log in the console if the message was a command
                 printConsoleLog(event);
-
+                nepCommands.run(event, guildEntity);
                 //run command
-                if (!nepCommands.run(event, VariableStorageRead)) {
-                    if(multiPrefix){
-                        randomMediaPicker.sendMedia(new File(VariableStorageRead.getMediaFolder() + File.separator + "Custom" + File.separator +  event.getMessage().getContentRaw().replace("=","").replace("./","").trim()), event, true, true);
-                    }
+                if(multiPrefix){
+                    VariablesStorage variablesStorage = new VariablesStorage();
+                    randomMediaPicker.sendMedia(new File(variablesStorage.getMediaFolder() + File.separator + "Custom" + File.separator +  event.getMessage().getContentRaw().replace("=","").replace("./","").trim()), event, true, true);
                 }
             }
             //return if bot was not called

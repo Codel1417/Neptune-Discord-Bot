@@ -2,7 +2,7 @@ package neptune.commands.FunCommands;
 
 import neptune.commands.CommandInterface;
 import neptune.commands.commandCategories;
-import neptune.storage.VariablesStorage;
+import neptune.storage.guildObject;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class Ping implements CommandInterface {
@@ -37,11 +37,6 @@ public class Ping implements CommandInterface {
     }
 
     @Override
-    public boolean getRequireOwner() {
-        return false;
-    }
-
-    @Override
     public boolean getHideCommand() {
         return false;
     }
@@ -52,8 +47,8 @@ public class Ping implements CommandInterface {
     }
 
     @Override
-    public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
+    public guildObject run(MessageReceivedEvent event,String messageContent, guildObject guildEntity) {
         event.getChannel().sendMessage("pong").queue();
-        return true;
+        return guildEntity;
     }
 }

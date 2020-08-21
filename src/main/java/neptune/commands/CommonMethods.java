@@ -14,20 +14,20 @@ public abstract class CommonMethods {
         }
         return returnText;
     }
-    protected String getEnabledDisabledIcon(String value){
+    protected String getEnabledDisabledIcon(Boolean value){
         String enabled = "\u2705";
         String disabled = "\u274C";
 
-        if(value.equalsIgnoreCase("enabled")){
+        if(value){
             return enabled;
         }
         else return disabled;
     }
-    protected String getEnabledDisabledIconText(String value){
+    protected String getEnabledDisabledIconText(Boolean value){
         String enabled = "\u2705 Enabled";
         String disabled = "\u274C Disabled";
 
-        if(value.equalsIgnoreCase("enabled")){
+        if(value){
             return enabled;
         }
         else return disabled;

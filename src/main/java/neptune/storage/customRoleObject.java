@@ -5,7 +5,6 @@ import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonAutoDetect(fieldVisibility=JsonAutoDetect.Visibility.ANY)
 public class customRoleObject {
     @JsonIgnore()

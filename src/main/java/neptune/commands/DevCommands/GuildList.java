@@ -2,7 +2,7 @@ package neptune.commands.DevCommands;
 
 import neptune.commands.CommandInterface;
 import neptune.commands.commandCategories;
-import neptune.storage.VariablesStorage;
+import neptune.storage.guildObject;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
@@ -44,11 +44,6 @@ public class GuildList implements CommandInterface {
     }
 
     @Override
-    public boolean getRequireOwner() {
-        return true;
-    }
-
-    @Override
     public boolean getHideCommand() {
         return true;
     }
@@ -59,7 +54,7 @@ public class GuildList implements CommandInterface {
     }
 
     @Override
-    public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
+    public guildObject run(MessageReceivedEvent event, String messageContent, guildObject guildEntity) {
         List<Guild> GuildList = event.getJDA().getShardManager().getGuilds();
         StringBuilder guilds = new StringBuilder();
         if(GuildList != null){
@@ -78,6 +73,6 @@ public class GuildList implements CommandInterface {
         embedBuilder.setDescription(guilds.toString());
         embedBuilder.setColor(Color.MAGENTA);
         event.getChannel().sendMessage(embedBuilder.build()).queue();
-        return true;
+        return guildEntity;
     }
 }

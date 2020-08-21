@@ -3,6 +3,7 @@ package neptune.commands.UtilityCommands;
 import neptune.commands.CommandInterface;
 import neptune.commands.commandCategories;
 import neptune.storage.VariablesStorage;
+import neptune.storage.guildObject;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class Leave implements CommandInterface {
@@ -37,11 +38,6 @@ public class Leave implements CommandInterface {
     }
 
     @Override
-    public boolean getRequireOwner() {
-        return false;
-    }
-
-    @Override
     public boolean getHideCommand() {
         return false;
     }
@@ -52,16 +48,16 @@ public class Leave implements CommandInterface {
     }
 
     @Override
-    public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
+    public guildObject run(MessageReceivedEvent event,String messageContent, guildObject guildEntity) {
         if (event.getGuild() != null && event.getGuild().getAudioManager().isConnected()) {
             event.getGuild().getAudioManager().setSendingHandler(null);
             event.getGuild().getAudioManager().closeAudioConnection();
             event.getChannel().sendMessage("Neptune has left the Chat!").queue();
-            return true;
+            return guildEntity;
         }
         else {
             event.getChannel().sendMessage("Neptune is not connected to a voice channel").queue();
-            return false;
+            return guildEntity;
         }
     }
 }

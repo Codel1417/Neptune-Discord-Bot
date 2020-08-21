@@ -2,7 +2,7 @@ package neptune.commands.nameGenCommands;
 
 import neptune.commands.CommandInterface;
 import neptune.commands.commandCategories;
-import neptune.storage.VariablesStorage;
+import neptune.storage.guildObject;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
@@ -40,11 +40,6 @@ public class Aarakocra implements CommandInterface {
     }
 
     @Override
-    public boolean getRequireOwner() {
-        return false;
-    }
-
-    @Override
     public boolean getHideCommand() {
         return false;
     }
@@ -55,7 +50,7 @@ public class Aarakocra implements CommandInterface {
     }
 
     @Override
-    public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
+    public guildObject run(MessageReceivedEvent event, String messageContent, guildObject guildEntity) {
         Random random = new Random();
         String[] nm1 = {"", "", "", "", "", "c", "cl", "cr", "d", "g", "gr", "h", "k", "kh", "kl", "kr", "q", "qh", "ql", "qr", "r", "rh", "s", "y", "z"};
         String[] nm2 = {"a", "e", "i", "u", "a", "e", "i", "u", "a", "e", "i", "u", "a", "e", "i", "u", "a", "e", "i", "u", "a", "e", "i", "u", "a", "e", "i", "u", "ae", "aia", "ee", "oo", "ou", "ua", "uie"};
@@ -89,6 +84,6 @@ public class Aarakocra implements CommandInterface {
 
 
 
-        return false;
+        return guildEntity;
     }
 }

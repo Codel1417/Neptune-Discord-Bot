@@ -2,7 +2,7 @@ package neptune.commands.FunCommands;
 
 import neptune.commands.CommandInterface;
 import neptune.commands.commandCategories;
-import neptune.storage.VariablesStorage;
+import neptune.storage.guildObject;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.Random;
@@ -40,11 +40,6 @@ public class CoinFlip implements CommandInterface {
     }
 
     @Override
-    public boolean getRequireOwner() {
-        return false;
-    }
-
-    @Override
     public boolean getHideCommand() {
         return false;
     }
@@ -55,7 +50,7 @@ public class CoinFlip implements CommandInterface {
     }
 
     @Override
-    public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
+    public guildObject run(MessageReceivedEvent event,String messageContent, guildObject guildEntity) {
         String coin;
         if (random.nextInt(2) + 1 == 1){
             coin = "Heads";
@@ -63,6 +58,6 @@ public class CoinFlip implements CommandInterface {
         else coin = "Tails";
         event.getChannel().sendMessage("I flipped a coin and it landed " + coin).queue();
 
-        return true;
+        return guildEntity;
     }
 }

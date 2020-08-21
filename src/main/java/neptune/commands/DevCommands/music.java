@@ -2,7 +2,7 @@ package neptune.commands.DevCommands;
 
 import neptune.commands.CommandInterface;
 import neptune.commands.commandCategories;
-import neptune.storage.VariablesStorage;
+import neptune.storage.guildObject;
 import neptune.music.AudioController;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
@@ -40,11 +40,6 @@ public class music implements CommandInterface {
     }
 
     @Override
-    public boolean getRequireOwner() {
-        return true;
-    }
-
-    @Override
     public boolean getHideCommand() {
         return true;
     }
@@ -55,13 +50,13 @@ public class music implements CommandInterface {
     }
 
     @Override
-    public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
+    public guildObject run(MessageReceivedEvent event, String messageContent, guildObject guildEntity) {
         if (event.getGuild() != null && AudioOut == null) {
             AudioOut = new AudioController(event);
         }
         if (event.getGuild().getAudioManager() != null || event.getMember().getVoiceState().getChannel() != null && event.getGuild() != null ) {
             AudioOut.playSound(event, messageContent);
         }
-        return false;
+        return guildEntity;
     }
 }

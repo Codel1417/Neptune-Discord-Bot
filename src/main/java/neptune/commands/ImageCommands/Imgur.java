@@ -3,7 +3,8 @@ package neptune.commands.ImageCommands;
 import neptune.commands.CommandInterface;
 import neptune.commands.CommonMethods;
 import neptune.commands.commandCategories;
-import neptune.storage.VariablesStorage;
+import neptune.storage.guildObject;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.internal.LinkedTreeMap;
@@ -55,11 +56,6 @@ public class Imgur extends CommonMethods implements CommandInterface {
     }
 
     @Override
-    public boolean getRequireOwner() {
-        return false;
-    }
-
-    @Override
     public boolean getHideCommand() {
         return false;
     }
@@ -70,7 +66,7 @@ public class Imgur extends CommonMethods implements CommandInterface {
     }
 
     @Override
-    public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
+    public guildObject run(MessageReceivedEvent event, String messageContent, guildObject guildEntity) {
         String search = getCommandName(messageContent)[0]; // get first entry for now
         // TODO: handle whitespace
 
@@ -131,7 +127,7 @@ public class Imgur extends CommonMethods implements CommandInterface {
                 embedBuilder.setColor(Color.RED);
                 embedBuilder.setDescription("Unable to find any Images :(");
                 event.getChannel().sendMessage(embedBuilder.build()).queue();
-                return false;
+                return guildEntity;
 
             }
             LinkedTreeMap image = ImageList.get(random.nextInt(ImageList.size())); //the image details
@@ -145,10 +141,10 @@ public class Imgur extends CommonMethods implements CommandInterface {
                     .setDescription("I Found this for you")
                     .setFooter("Powered By Imgur",null);
             event.getChannel().sendMessage(embedBuilder.build()).queue();
-            return true;
+            return guildEntity;
         } catch (Exception e){
             e.printStackTrace();
         }
-        return false;
+        return guildEntity;
     }
 }

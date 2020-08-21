@@ -2,7 +2,7 @@ package neptune.commands.UtilityCommands;
 
 import neptune.commands.CommandInterface;
 import neptune.commands.commandCategories;
-import neptune.storage.VariablesStorage;
+import neptune.storage.guildObject;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Role;
@@ -44,10 +44,6 @@ public class GuildInfo implements CommandInterface {
         return false;
     }
 
-    @Override
-    public boolean getRequireOwner() {
-        return false;
-    }
 
     @Override
     public boolean getHideCommand() {
@@ -60,7 +56,7 @@ public class GuildInfo implements CommandInterface {
     }
 
     @Override
-    public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
+    public guildObject run(MessageReceivedEvent event, String messageContent, guildObject guildentity) {
         Guild guild = event.getGuild();
         if (!messageContent.equals("")){
             guild = event.getJDA().getGuildById(messageContent.trim());
@@ -91,6 +87,6 @@ public class GuildInfo implements CommandInterface {
         //embedBuilder.addField("Roles",RoleList.toString(),true);
         embedBuilder.addField("Server Created", guild.getTimeCreated().format(DateTimeFormatter.ISO_DATE_TIME),true);
         event.getChannel().sendMessage(embedBuilder.build()).queue();
-        return false;
+        return guildentity;
     }
 }

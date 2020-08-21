@@ -1,6 +1,8 @@
 package neptune.commands;
 
 import neptune.storage.VariablesStorage;
+import neptune.storage.guildObject;
+import neptune.storage.guildOptionsObject;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public interface CommandInterface {
@@ -10,9 +12,8 @@ public interface CommandInterface {
     commandCategories getCategory();
     String getHelp();
     boolean getRequireManageServer();
-    boolean getRequireOwner();
     boolean getHideCommand();
     boolean getRequireManageUsers();
-    boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent);
+    guildObject run(MessageReceivedEvent event, String messageContent, guildObject guildEntity);
 
 }

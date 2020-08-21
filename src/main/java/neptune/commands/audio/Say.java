@@ -2,7 +2,7 @@ package neptune.commands.audio;
 
 import neptune.commands.CommandInterface;
 import neptune.commands.commandCategories;
-import neptune.storage.VariablesStorage;
+import neptune.storage.guildObject;
 import neptune.music.AudioController;
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.Permission;
@@ -51,10 +51,6 @@ public class Say implements CommandInterface {
         return false;
     }
 
-    @Override
-    public boolean getRequireOwner() {
-        return false;
-    }
 
     @Override
     public boolean getHideCommand() {
@@ -67,9 +63,9 @@ public class Say implements CommandInterface {
     }
 
     @Override
-    public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
+    public guildObject run(MessageReceivedEvent event, String messageContent, guildObject guildEntity) {
         //rate limiting
-        if (isRateLimited(event.getMember().getUser())) return false;
+        if (isRateLimited(event.getMember().getUser())) return guildEntity;
 
         //open audio channel
         if (event.getGuild() != null && AudioOut == null) {
@@ -88,7 +84,7 @@ public class Say implements CommandInterface {
             Thread thread = new Thread(runnable);
             thread.start();
         }
-        return false;
+        return guildEntity;
     }
 
     private void saySingleMatch(File quote, MessageReceivedEvent event) {

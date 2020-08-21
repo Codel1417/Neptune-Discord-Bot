@@ -2,7 +2,7 @@ package neptune.commands.DevCommands;
 
 import neptune.commands.CommandInterface;
 import neptune.commands.commandCategories;
-import neptune.storage.VariablesStorage;
+import neptune.storage.guildObject;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
@@ -39,10 +39,6 @@ public class ServerInfo implements CommandInterface {
         return false;
     }
 
-    @Override
-    public boolean getRequireOwner() {
-        return true;
-    }
 
     @Override
     public boolean getHideCommand() {
@@ -55,7 +51,7 @@ public class ServerInfo implements CommandInterface {
     }
 
     @Override
-    public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
+    public guildObject run(MessageReceivedEvent event,String messageContent, guildObject guildEntity) {
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setTitle(getName());
         embedBuilder.setColor(Color.MAGENTA);
@@ -63,6 +59,6 @@ public class ServerInfo implements CommandInterface {
         embedBuilder.setDescription(stringBuilder.toString());
         event.getChannel().sendMessage(embedBuilder.build()).queue();
 
-        return false;
+        return guildEntity;
     }
 }

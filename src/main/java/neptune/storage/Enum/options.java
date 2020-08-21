@@ -1,5 +1,5 @@
 package neptune.storage.Enum;
 
 public enum options {
-    CustomRoleEnabled,LoggingEnabled
+    CustomRoleEnabled,LoggingEnabled,LeaderboardLevelUpNotification, leaderboardEnabled
 }

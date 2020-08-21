@@ -2,7 +2,7 @@ package neptune.commands.FunCommands;
 
 import neptune.commands.CommandInterface;
 import neptune.commands.commandCategories;
-import neptune.storage.VariablesStorage;
+import neptune.storage.guildObject;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.ArrayList;
@@ -56,11 +56,6 @@ public class GreatSleepKing implements CommandInterface {
     }
 
     @Override
-    public boolean getRequireOwner() {
-        return false;
-    }
-
-    @Override
     public boolean getHideCommand() {
         return false;
     }
@@ -71,7 +66,7 @@ public class GreatSleepKing implements CommandInterface {
     }
 
     @Override
-    public boolean run(MessageReceivedEvent event, VariablesStorage variablesStorage, String messageContent) {
+    public guildObject run(MessageReceivedEvent event,String messageContent,guildObject guildEntity) {
         HashMap<String,String> map = previousResults.get(event.getMember().getId());
         int sleep,hours = 0;
         String emotion;
@@ -101,6 +96,6 @@ public class GreatSleepKing implements CommandInterface {
 
         event.getChannel().sendMessage(stringBuilder).queue();
 
-        return true;
+        return guildEntity;
     }
 }
