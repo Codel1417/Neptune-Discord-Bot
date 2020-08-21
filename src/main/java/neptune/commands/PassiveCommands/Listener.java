@@ -18,7 +18,6 @@ import net.dv8tion.jda.api.events.guild.update.GenericGuildUpdateEvent;
 import net.dv8tion.jda.api.events.guild.voice.GenericGuildVoiceEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.guild.GenericGuildMessageEvent;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.EventListener;
 
 import javax.annotation.Nonnull;
@@ -35,7 +34,7 @@ public class Listener implements EventListener {
     GuildStorageHandler guildStorageHandler = new GuildStorageHandler();
 
     public Listener(VariablesStorage variableStorageRead) {
-        messageInterprter = new messageInterprter(variableStorageRead);
+        messageInterprter = new messageInterprter();
     }
 
     @Override
@@ -47,19 +46,6 @@ public class Listener implements EventListener {
             CycleActivityThread.setName("CycleActivityThread");
             CycleActivityThread.start();
             ActivityThread = true;
-        }
-
-        // Leaderboard
-        if (event instanceof GuildMessageReceivedEvent) {
-            if (((GuildMessageReceivedEvent) event).getAuthor().isBot())
-                return;
-            guildObject guildEntity;
-            try {
-                guildEntity = guildStorageHandler.readFile(((GuildMessageReceivedEvent) event).getGuild().getId());
-                guildEntity.getLeaderboard().incrimentPoint(((GuildMessageReceivedEvent) event).getMember().getId());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
 
         //Commands

@@ -2,11 +2,10 @@ package neptune;
 
 import neptune.commands.CommandRunner;
 import neptune.commands.RandomMediaPicker;
-import neptune.storage.MySQL.SettingsStorage;
 import neptune.storage.GuildStorageHandler;
 import neptune.storage.VariablesStorage;
 import neptune.storage.guildObject;
-import net.dv8tion.jda.api.entities.Guild;
+import neptune.storage.Enum.options;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.apache.logging.log4j.LogManager;
@@ -15,12 +14,10 @@ import org.apache.logging.log4j.Logger;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Map;
 
 public class messageInterprter {
     private final CommandRunner nepCommands;
     private final RandomMediaPicker randomMediaPicker = new RandomMediaPicker();
-    private final SettingsStorage settingsStorage = new SettingsStorage();
     protected static final Logger log = LogManager.getLogger();
 
     public messageInterprter() {
@@ -31,7 +28,7 @@ public class messageInterprter {
     private boolean isBotCalled(Message message, boolean multiplePrefix) {
         // check for Normal Commands
         if (Arrays.asList(message.getContentRaw().split(" ")).get(0).trim()
-                .equalsIgnoreCase(VariableStorageRead.getCallBot()))
+                .equalsIgnoreCase("!nep"))
             return true;
 
         // for future use
@@ -59,21 +56,18 @@ public class messageInterprter {
             log.info("Adding guild: " + event.getGuild().getId());
             guildEntity = new guildObject(event.getGuild().getId());   
         }
-
+        //leaderboard
+        guildEntity.getLeaderboard().incrimentPoint(event.getMember().getId());
         //check if the bot was called in chat
         try {
-            Map<String,String> test = checkStoredGuild(event.getGuild());
-            if (test == null){
-                multiPrefix = false;
-            }
-            else{
-                multiPrefix = test.getOrDefault("CustomSounds","disabled").equalsIgnoreCase("enabled");
-            }
+
+            multiPrefix = guildEntity.getGuildOptions().getOption(options.customSounds);
 
             if (isBotCalled(event.getMessage(), multiPrefix)) {
                 //print the message log in the console if the message was a command
                 printConsoleLog(event);
-                nepCommands.run(event, guildEntity);
+                guildEntity = nepCommands.run(event, guildEntity);
+                new GuildStorageHandler().writeFile(guildEntity);
                 //run command
                 if(multiPrefix){
                     VariablesStorage variablesStorage = new VariablesStorage();
@@ -87,20 +81,6 @@ public class messageInterprter {
     }
 
 
-    private Map<String, String> checkStoredGuild(Guild guildObject) {
-        /*
-        Checks the list to see if the current guild/server is stored, if not create a new guild entry.
-         */
-        if(guildObject != null) {
-            Map<String, String> storedGuild =  settingsStorage.getGuildSettings(guildObject.getId());
-            if (storedGuild == null){
-                settingsStorage.addGuild(guildObject.getId());
-                return settingsStorage.getGuildSettings(guildObject.getId());
-            }
-            return storedGuild;
-        }
-        return null;
-    }
     private void printConsoleLog(MessageReceivedEvent event){
         StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append("NEPTUNE: New Message:");

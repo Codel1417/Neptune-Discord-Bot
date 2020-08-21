@@ -3,7 +3,6 @@ package neptune.commands.ImageCommands.Tenor;
 import neptune.commands.CommandInterface;
 import neptune.commands.TenorGif;
 import neptune.commands.commandCategories;
-import neptune.storage.VariablesStorage;
 import neptune.storage.guildObject;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;

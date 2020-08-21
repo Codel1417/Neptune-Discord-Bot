@@ -153,7 +153,7 @@ public class CommandRunner extends CommonMethods {
 
             //analytics
             log.info("NEPTUNE: Running Command: " + command.getName());
-            return command.run(event,, CommandArray[1], guildEntity);
+            return command.run(event, CommandArray[1], guildEntity);
         }
         return guildEntity;
     }

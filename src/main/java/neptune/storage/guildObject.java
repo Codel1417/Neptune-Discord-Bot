@@ -24,7 +24,6 @@ public class guildObject {
 
     @JsonSetter("leaderboardEntity")
     public void getLeaderboard(logOptionsObject logOptionsEntity){
-        this.leaderboardEntity = leaderboardEntity;
     }
     @JsonProperty("logOptionsEntity")
     private logOptionsObject logOptionsEntity;

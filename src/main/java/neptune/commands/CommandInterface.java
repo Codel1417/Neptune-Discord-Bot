@@ -1,8 +1,6 @@
 package neptune.commands;
 
-import neptune.storage.VariablesStorage;
 import neptune.storage.guildObject;
-import neptune.storage.guildOptionsObject;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public interface CommandInterface {
