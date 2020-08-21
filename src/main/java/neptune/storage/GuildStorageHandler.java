@@ -9,6 +9,7 @@ import com.fasterxml.jackson.module.paranamer.ParanamerModule;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.TestOnly;
 
 import neptune.storage.Enum.options;
 
@@ -18,11 +19,12 @@ import java.io.IOException;
 public class GuildStorageHandler {
     protected static final Logger log = LogManager.getLogger();
     String guildsDir = "Guilds";
+
     public guildObject readFile(String guildID) throws IOException {
-        File file = new File(guildsDir + File.separator + guildID  +  ".yaml");
+        File file = new File(guildsDir + File.separator + guildID + ".yaml");
 
         // Instantiating a new ObjectMapper as a YAMLFactory
-        if (!file.exists()){
+        if (!file.exists()) {
             return null;
         }
         ObjectMapper om = new ObjectMapper(new YAMLFactory());
@@ -30,21 +32,23 @@ public class GuildStorageHandler {
         om.setVisibility(PropertyAccessor.ALL, Visibility.ANY);
         om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-        log.debug("Reading File: " +  file.getAbsolutePath());
-        guildObject guildEntity = om.readValue(file,guildObject.class);
+        log.debug("Reading File: " + file.getAbsolutePath());
+        guildObject guildEntity = om.readValue(file, guildObject.class);
         return guildEntity;
     }
+
     public void writeFile(guildObject guildEntity) throws IOException {
         File file = new File(guildsDir + File.separator + guildEntity.getGuildID() + ".yaml");
         // Instantiating a new ObjectMapper as a YAMLFactory
-        file.getParentFile().mkdirs(); //makes required folders
+        file.getParentFile().mkdirs(); // makes required folders
         ObjectMapper om = new ObjectMapper(new YAMLFactory());
         om.setVisibility(PropertyAccessor.ALL, Visibility.ANY);
-        log.debug("Writing File: " +  file.getAbsolutePath());
-        om.writeValue(file,guildEntity);
+        log.debug("Writing File: " + file.getAbsolutePath());
+        om.writeValue(file, guildEntity);
 
     }
-    public static void main(String[] args){
+
+    public static void deserializationTest(){
         GuildStorageHandler guildStorageHandler = new GuildStorageHandler();
         guildObject guildObject = new guildObject("12345");
         guildObject.getGuildOptions().setOption(options.LoggingEnabled, true);
