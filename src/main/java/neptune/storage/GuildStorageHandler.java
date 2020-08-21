@@ -47,7 +47,7 @@ public class GuildStorageHandler {
 
     }
 
-    public static void deserializationTest(){
+    public void deserializationTest(){
         GuildStorageHandler guildStorageHandler = new GuildStorageHandler();
         guildObject guildObject = new guildObject("12345");
         guildObject.getGuildOptions().setOption(options.LoggingEnabled, true);
