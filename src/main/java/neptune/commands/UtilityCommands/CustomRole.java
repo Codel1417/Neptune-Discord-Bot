@@ -8,7 +8,7 @@ import neptune.commands.commandCategories;
 import neptune.storage.customRoleObject;
 import neptune.storage.guildObject;
 import neptune.storage.guildOptionsObject;
-import neptune.storage.Enum.options;
+import neptune.storage.Enum.GuildOptionsEnum;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -60,7 +60,7 @@ public class CustomRole extends CommonMethods implements CommandInterface {
     public guildObject run(MessageReceivedEvent event, String messageContent, guildObject guildEntity) {
         String[] command = getCommandName(messageContent);
         guildOptionsObject guildOptionsEntity = guildEntity.getGuildOptions();
-        if (guildOptionsEntity.getOption(options.CustomRoleEnabled)) {
+        if (guildOptionsEntity.getOption(GuildOptionsEnum.CustomRoleEnabled)) {
             switch (command[0]){
                 case "create":
                     createRole(event, command[1], guildEntity);

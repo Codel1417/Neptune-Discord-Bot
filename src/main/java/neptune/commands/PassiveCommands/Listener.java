@@ -15,8 +15,8 @@ import net.dv8tion.jda.api.events.guild.GenericGuildEvent;
 import net.dv8tion.jda.api.events.guild.member.GenericGuildMemberEvent;
 import net.dv8tion.jda.api.events.guild.update.GenericGuildUpdateEvent;
 import net.dv8tion.jda.api.events.guild.voice.GenericGuildVoiceEvent;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.guild.GenericGuildMessageEvent;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.EventListener;
 
 import javax.annotation.Nonnull;
@@ -48,9 +48,9 @@ public class Listener implements EventListener {
         }
 
         //Commands
-        if (event instanceof MessageReceivedEvent){
-            if (((MessageReceivedEvent) event).getAuthor().isBot()) return;
-            messageInterprter.runEvent((MessageReceivedEvent) event);
+        if (event instanceof GuildMessageReceivedEvent){
+            if (((GuildMessageReceivedEvent) event).getAuthor().isBot()) return;
+            messageInterprter.runEvent((GuildMessageReceivedEvent) event);
 
         }
 
@@ -62,12 +62,11 @@ public class Listener implements EventListener {
             guildObject guildEntity;
             try {
                 guildEntity = guildStorageHandler.readFile(GuildID);
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
                 return;
             }
             logOptionsObject logOptionsEntity = guildEntity.getLogOptions();
-            logOptionsEntity.getChannel();
             if (logOptionsEntity.getChannel() == null) return;
             if(!logOptionsEntity.getOption(LoggingOptionsEnum.GlobalLogging)) return;
 

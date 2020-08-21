@@ -21,6 +21,8 @@ import neptune.storage.guildObject;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -134,7 +136,7 @@ public class CommandRunner extends CommonMethods {
     public Map<String, Object> getCommandList(){
         return commands;
     }
-    public guildObject run(MessageReceivedEvent event, guildObject guildEntity){
+    public guildObject run(GuildMessageReceivedEvent event, guildObject guildEntity){
         String[] CommandArray = getCommandName(event.getMessage().getContentRaw().trim().toLowerCase().replaceFirst("!nep", "").trim());
         CommandInterface command = null;
 

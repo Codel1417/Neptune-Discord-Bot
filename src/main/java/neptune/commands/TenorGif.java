@@ -1,6 +1,6 @@
 package neptune.commands;
 
-import neptune.storage.MySQL.GetAuthToken;
+import neptune.storage.commandLineOptionsSingleton;
 import neptune.webConnection.TenorConnection;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.IMentionable;
@@ -11,8 +11,7 @@ import java.util.List;
 
 public abstract class TenorGif {
     //GetAuthToken getAuthToken = new GetAuthToken();
-    private  GetAuthToken getAuthToken = new GetAuthToken();
-    private final TenorConnection tenorConnection = new TenorConnection(getAuthToken.GetToken("tenor-token"));
+    private final TenorConnection tenorConnection = new TenorConnection(commandLineOptionsSingleton.getInstance().getOptions().getOptionValue("t"));
 
     protected EmbedBuilder getImageDefaultEmbed(MessageReceivedEvent event, String Search, boolean MentionMessage) {
         List<IMentionable> Mentions = event.getMessage().getMentions();

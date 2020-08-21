@@ -6,7 +6,7 @@ import neptune.commands.commandCategories;
 import neptune.storage.guildObject;
 import neptune.storage.Enum.LoggingOptionsEnum;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 import java.awt.*;
 
@@ -52,7 +52,7 @@ public class Logging extends CommonMethods implements CommandInterface {
     }
 
     @Override
-    public guildObject run(MessageReceivedEvent event,String messageContent, guildObject guildEntity) {
+    public guildObject run(GuildMessageReceivedEvent event,String messageContent, guildObject guildEntity) {
         String[] command = getCommandName(messageContent);
         boolean enabledOption = false;
         if (command[1].equalsIgnoreCase("enabled")){
@@ -61,7 +61,7 @@ public class Logging extends CommonMethods implements CommandInterface {
         switch (command[0]){
             case "global":{
                 if(enabledOption){
-                    guildEntity.getLogOptions().setChannel(event.getTextChannel().getId());
+                    guildEntity.getLogOptions().setChannel(event.getChannel().getId());
                     guildEntity.getLogOptions().setOption(LoggingOptionsEnum.GlobalLogging, enabledOption);
                 }
                 else{
@@ -92,7 +92,7 @@ public class Logging extends CommonMethods implements CommandInterface {
 
         return guildEntity;
     }
-    private void displayMenu(MessageReceivedEvent event,guildObject guildEntity){
+    private void displayMenu(GuildMessageReceivedEvent event,guildObject guildEntity){
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setColor(Color.MAGENTA);
         embedBuilder.setTitle("Logging Options");

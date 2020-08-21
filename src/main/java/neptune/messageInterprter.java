@@ -5,9 +5,10 @@ import neptune.commands.RandomMediaPicker;
 import neptune.storage.GuildStorageHandler;
 import neptune.storage.VariablesStorage;
 import neptune.storage.guildObject;
-import neptune.storage.Enum.options;
+import neptune.storage.Enum.GuildOptionsEnum;
 import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -45,7 +46,7 @@ public class messageInterprter {
         return false;
     }
 
-    public void runEvent(MessageReceivedEvent event) {
+    public void runEvent(GuildMessageReceivedEvent event) {
         boolean multiPrefix;
 
         // read guild file
@@ -61,7 +62,7 @@ public class messageInterprter {
         //check if the bot was called in chat
         try {
 
-            multiPrefix = guildEntity.getGuildOptions().getOption(options.customSounds);
+            multiPrefix = guildEntity.getGuildOptions().getOption(GuildOptionsEnum.customSounds);
 
             if (isBotCalled(event.getMessage(), multiPrefix)) {
                 //print the message log in the console if the message was a command
@@ -81,7 +82,7 @@ public class messageInterprter {
     }
 
 
-    private void printConsoleLog(MessageReceivedEvent event){
+    private void printConsoleLog(GuildMessageReceivedEvent event){
         StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append("NEPTUNE: New Message:");
             if (event.getGuild() != null) {

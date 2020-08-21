@@ -1,4 +1,6 @@
-.idea/.name
+.idea/
+.vscode/
+.settings/
 build/
 classes/
 out/
@@ -15,3 +17,6 @@ target/
 .factorypath
 Guilds/
 Neptune_Discord_Bot.iml
+Logs/
+Guilds/
+.vscode/launch.json

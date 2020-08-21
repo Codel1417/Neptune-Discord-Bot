@@ -10,7 +10,7 @@ import com.fasterxml.jackson.module.paranamer.ParanamerModule;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import neptune.storage.Enum.options;
+import neptune.storage.Enum.GuildOptionsEnum;
 
 import java.io.File;
 import java.io.IOException;
@@ -50,12 +50,12 @@ public class GuildStorageHandler {
     public void deserializationTest(){
         GuildStorageHandler guildStorageHandler = new GuildStorageHandler();
         guildObject guildObject = new guildObject("12345");
-        guildObject.getGuildOptions().setOption(options.LoggingEnabled, true);
+        guildObject.getGuildOptions().setOption(GuildOptionsEnum.LoggingEnabled, true);
         guildObject guildObjecta;
         try {
             guildStorageHandler.writeFile(guildObject);
             guildObjecta = guildStorageHandler.readFile("12345");
-            System.out.println(guildObjecta.getGuildOptions().getOption(options.LoggingEnabled));
+            System.out.println(guildObjecta.getGuildOptions().getOption(GuildOptionsEnum.LoggingEnabled));
         } catch (IOException e) {
             e.printStackTrace();
         }

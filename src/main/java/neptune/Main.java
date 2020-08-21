@@ -3,52 +3,45 @@ package neptune;
 import com.neovisionaries.ws.client.WebSocketFactory;
 import neptune.commands.PassiveCommands.Listener;
 import neptune.commands.PassiveCommands.guildListener;
-import neptune.music.PlayerControl;
-import neptune.storage.MySQL.GetAuthToken;
-import net.dv8tion.jda.api.JDABuilder;
+import neptune.storage.commandLineOptionsSingleton;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
+
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.security.auth.login.LoginException;
 
 public class Main extends ListenerAdapter {
+    static Options Options = new Options();
     protected static final Logger log = LogManager.getLogger();
-    private static GetAuthToken getAuthToken = new GetAuthToken();
-    /* Mode
-    0: Main
-    1: Dev
-    2: Music Bot
-     */
-    public final static int mode = 1;
-    private static String botToken;
-    public static final String DatabaseURL = "jdbc:mysql://172.25.0.67/Neptune?user=Neptune&password=Neptune";
+
+    public static final String DatabaseURL = "jdbc:mysql://localhost/Neptune?user=Neptune&password=Neptune";
+
     public static void main(String[] args) {
-        log.traceEntry();
-        botToken = getJdaAuthKey(mode);
-        if (mode == 2){
-            startJDAMusic(botToken);
+
+        // CLI
+        Options.addRequiredOption("d", "discord-token", true, "The discord bot token");
+        Options.addRequiredOption("t", "tenor", true, "Tenor api key");
+        Options.addRequiredOption("o", "owner-id", true, "My Discord member id;");
+        Options.addOption("m", "media-dir", true, " Directory to look for media"); // not yet used
+
+        CommandLineParser parser = new DefaultParser();
+        CommandLine cmd = null;
+        try {
+            cmd = parser.parse(Options, args);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
-        else {
-            //if (mode == 0) startDropboxBackup((String) authKeys.get("dropbox"));
-            startJDA(botToken);
-        }
-    }
-    private static String getJdaAuthKey(int mode){
-        switch (mode){
-            case 0: { //main
-                return getAuthToken.GetToken("discord-token");
-            }
-            case 1: { //debug
-                return getAuthToken.GetToken("dev-discord-token");
-            }
-            case 2: {
-                return getAuthToken.GetToken("music-discord-token");
-            }
-        }
-        return null;
+        commandLineOptionsSingleton.getInstance().setOptions(cmd);
+
+        startJDA(cmd.getOptionValue("d"));
     }
 
     private static void startJDA(String token){
@@ -59,19 +52,6 @@ public class Main extends ListenerAdapter {
         builder.setActivity(Activity.playing("!Nep Help"));
         builder.setToken(token);
 
-        builder.setWebsocketFactory(new WebSocketFactory().setVerifyHostname(false));
-        try {
-            builder.build();
-        } catch (LoginException e) {
-            log.error(e.toString());
-        }
-    }
-    private static void startJDAMusic(String token){
-        log.info("Starting JDA Music");
-        JDABuilder builder = new JDABuilder();
-        builder.setToken(token);
-        builder.addEventListeners(new PlayerControl());
-        builder.setActivity(Activity.listening(".play"));
         builder.setWebsocketFactory(new WebSocketFactory().setVerifyHostname(false));
         try {
             builder.build();

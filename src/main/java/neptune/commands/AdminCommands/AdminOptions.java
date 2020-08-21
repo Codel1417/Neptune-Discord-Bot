@@ -5,9 +5,9 @@ import neptune.commands.CommonMethods;
 import neptune.commands.commandCategories;
 import neptune.storage.guildObject;
 import neptune.storage.guildOptionsObject;
-import neptune.storage.Enum.options;
+import neptune.storage.Enum.GuildOptionsEnum;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 import java.awt.*;
 
@@ -53,7 +53,7 @@ public class AdminOptions extends CommonMethods implements CommandInterface {
     }
 
     @Override
-    public guildObject run(MessageReceivedEvent event,String messageContent, guildObject guildEntity) {
+    public guildObject run(GuildMessageReceivedEvent event,String messageContent, guildObject guildEntity) {
         String[] CommandArray = getCommandName(messageContent);
         guildOptionsObject guildoptionsEntity;
 
@@ -65,15 +65,15 @@ public class AdminOptions extends CommonMethods implements CommandInterface {
         }
         switch (CommandArray[0].toLowerCase()) {
             case "customrole":{
-                guildoptionsEntity.setOption(options.CustomRoleEnabled, enabledOption);
+                guildoptionsEntity.setOption(GuildOptionsEnum.CustomRoleEnabled, enabledOption);
                 break;
             }
             case "levelUp":{
-                guildoptionsEntity.setOption(options.LeaderboardLevelUpNotification, enabledOption);
+                guildoptionsEntity.setOption(GuildOptionsEnum.LeaderboardLevelUpNotification, enabledOption);
                 break;
             }
             case "leaderboards":{
-                guildoptionsEntity.setOption(options.leaderboardEnabled, enabledOption);
+                guildoptionsEntity.setOption(GuildOptionsEnum.leaderboardEnabled, enabledOption);
                 break;
             }
         }
@@ -81,7 +81,7 @@ public class AdminOptions extends CommonMethods implements CommandInterface {
 
         return guildEntity;
     }
-    private void displayMenu(MessageReceivedEvent event, guildOptionsObject guildOptionsEntity){
+    private void displayMenu(GuildMessageReceivedEvent event, guildOptionsObject guildOptionsEntity){
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setColor(Color.MAGENTA);
         embedBuilder.setTitle("Bot Options");
@@ -89,9 +89,9 @@ public class AdminOptions extends CommonMethods implements CommandInterface {
 
 
         StringBuilder logOptionsMessage = new StringBuilder();
-        logOptionsMessage.append("Custom Role ").append(getEnabledDisabledIcon(guildOptionsEntity.getOption(options.CustomRoleEnabled))).append("\n");
-        logOptionsMessage.append("Leaderboards ").append(getEnabledDisabledIcon(guildOptionsEntity.getOption(options.leaderboardEnabled))).append("\n");
-        logOptionsMessage.append("Level Up Notifications" ).append(getEnabledDisabledIcon(guildOptionsEntity.getOption(options.LeaderboardLevelUpNotification))).append("\n");
+        logOptionsMessage.append("Custom Role ").append(getEnabledDisabledIcon(guildOptionsEntity.getOption(GuildOptionsEnum.CustomRoleEnabled))).append("\n");
+        logOptionsMessage.append("Leaderboards ").append(getEnabledDisabledIcon(guildOptionsEntity.getOption(GuildOptionsEnum.leaderboardEnabled))).append("\n");
+        logOptionsMessage.append("Level Up Notifications" ).append(getEnabledDisabledIcon(guildOptionsEntity.getOption(GuildOptionsEnum.LeaderboardLevelUpNotification))).append("\n");
 
 
         embedBuilder.addField("Logging Options",logOptionsMessage.toString(),false);
