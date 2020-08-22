@@ -4,7 +4,7 @@ import neptune.commands.CommandInterface;
 import neptune.commands.commandCategories;
 import neptune.storage.guildObject;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 import java.awt.*;
 
@@ -51,7 +51,7 @@ public class ServerInfo implements CommandInterface {
     }
 
     @Override
-    public guildObject run(MessageReceivedEvent event,String messageContent, guildObject guildEntity) {
+    public guildObject run(GuildMessageReceivedEvent event,String messageContent, guildObject guildEntity) {
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setTitle(getName());
         embedBuilder.setColor(Color.MAGENTA);

@@ -8,7 +8,7 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.VoiceChannel;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 import java.awt.*;
 import java.time.format.DateTimeFormatter;
@@ -56,7 +56,7 @@ public class GuildInfo implements CommandInterface {
     }
 
     @Override
-    public guildObject run(MessageReceivedEvent event, String messageContent, guildObject guildentity) {
+    public guildObject run(GuildMessageReceivedEvent event, String messageContent, guildObject guildentity) {
         Guild guild = event.getGuild();
         if (!messageContent.equals("")){
             guild = event.getJDA().getGuildById(messageContent.trim());

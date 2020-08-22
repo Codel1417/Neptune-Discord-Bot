@@ -3,7 +3,7 @@ package neptune.commands.UtilityCommands;
 import neptune.commands.CommandInterface;
 import neptune.commands.commandCategories;
 import neptune.storage.guildObject;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 public class Leave implements CommandInterface {
     @Override
@@ -47,7 +47,7 @@ public class Leave implements CommandInterface {
     }
 
     @Override
-    public guildObject run(MessageReceivedEvent event,String messageContent, guildObject guildEntity) {
+    public guildObject run(GuildMessageReceivedEvent event,String messageContent, guildObject guildEntity) {
         if (event.getGuild() != null && event.getGuild().getAudioManager().isConnected()) {
             event.getGuild().getAudioManager().setSendingHandler(null);
             event.getGuild().getAudioManager().closeAudioConnection();

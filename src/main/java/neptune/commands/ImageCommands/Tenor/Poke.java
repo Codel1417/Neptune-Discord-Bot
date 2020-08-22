@@ -5,7 +5,7 @@ import neptune.commands.TenorGif;
 import neptune.commands.commandCategories;
 import neptune.storage.guildObject;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 public class Poke extends TenorGif implements CommandInterface {
     @Override
@@ -49,7 +49,7 @@ public class Poke extends TenorGif implements CommandInterface {
     }
 
     @Override
-    public guildObject run(MessageReceivedEvent event, String messageContent, guildObject guildEntity) {
+    public guildObject run(GuildMessageReceivedEvent event, String messageContent, guildObject guildEntity) {
         EmbedBuilder embedBuilder = getImageDefaultEmbed(event,getCommand(),true);
         event.getChannel().sendMessage(embedBuilder.build()).queue();
         return guildEntity;

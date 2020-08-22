@@ -21,17 +21,19 @@ public class GuildStorageHandler {
 
     public guildObject readFile(String guildID) throws IOException {
         File file = new File(guildsDir + File.separator + guildID + ".yaml");
-
+        log.debug("Reading File: " + file.getAbsolutePath());
         // Instantiating a new ObjectMapper as a YAMLFactory
         if (!file.exists()) {
-            return null;
+            log.info("Adding guild: " + guildID);
+            guildObject guildEntity = new guildObject(guildID);
+            writeFile(guildEntity);
+            return guildEntity;
         }
         ObjectMapper om = new ObjectMapper(new YAMLFactory());
         om.registerModule(new ParanamerModule());
         om.setVisibility(PropertyAccessor.ALL, Visibility.ANY);
         om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-        log.debug("Reading File: " + file.getAbsolutePath());
         guildObject guildEntity = om.readValue(file, guildObject.class);
         return guildEntity;
     }

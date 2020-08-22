@@ -48,15 +48,12 @@ public class messageInterprter {
 
     public void runEvent(GuildMessageReceivedEvent event) {
         boolean multiPrefix;
-
+        System.out.println("Load Guild");
         // read guild file
-        guildObject guildEntity;
+        guildObject guildEntity = null;;
         try {
             guildEntity = new GuildStorageHandler().readFile(event.getGuild().getId());
-        } catch (IOException e1) {
-            log.info("Adding guild: " + event.getGuild().getId());
-            guildEntity = new guildObject(event.getGuild().getId());   
-        }
+        } catch (IOException e1) {e1.printStackTrace();}
         //leaderboard
         guildEntity.getLeaderboard().incrimentPoint(event.getMember().getId());
         //check if the bot was called in chat

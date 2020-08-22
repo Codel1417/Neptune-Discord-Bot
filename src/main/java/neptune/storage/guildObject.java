@@ -18,6 +18,12 @@ public class guildObject {
     public leaderboardObject getLeaderboard() {
         return leaderboardEntity;
     }
+    @JsonSetter("leaderboardEntity")
+    public void setLeaderboard(leaderboardObject leaderboardEntity){
+        this.leaderboardEntity = leaderboardEntity;
+    }
+
+
     public guildOptionsObject getGuildOptions() {
         return guildOptionsEntity;
     }

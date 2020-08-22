@@ -4,7 +4,7 @@ import neptune.commands.CommandInterface;
 import neptune.commands.commandCategories;
 import neptune.storage.guildObject;
 import net.dv8tion.jda.api.MessageBuilder;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 
 public class Translate implements CommandInterface {
@@ -52,7 +52,7 @@ public class Translate implements CommandInterface {
     }
 
     @Override
-    public guildObject run(MessageReceivedEvent event,String messageContent, guildObject guildEntity) {
+    public guildObject run(GuildMessageReceivedEvent event,String messageContent, guildObject guildEntity) {
 
         String message;
         if(messageContent.equalsIgnoreCase("")){

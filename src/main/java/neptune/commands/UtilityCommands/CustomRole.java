@@ -11,7 +11,7 @@ import neptune.storage.guildOptionsObject;
 import neptune.storage.Enum.GuildOptionsEnum;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 
 public class CustomRole extends CommonMethods implements CommandInterface {
@@ -57,7 +57,7 @@ public class CustomRole extends CommonMethods implements CommandInterface {
     }
 
     @Override
-    public guildObject run(MessageReceivedEvent event, String messageContent, guildObject guildEntity) {
+    public guildObject run(GuildMessageReceivedEvent event, String messageContent, guildObject guildEntity) {
         String[] command = getCommandName(messageContent);
         guildOptionsObject guildOptionsEntity = guildEntity.getGuildOptions();
         if (guildOptionsEntity.getOption(GuildOptionsEnum.CustomRoleEnabled)) {
@@ -91,7 +91,7 @@ public class CustomRole extends CommonMethods implements CommandInterface {
         }
         return guildEntity;
     }
-    private void menu(MessageReceivedEvent event){
+    private void menu(GuildMessageReceivedEvent event){
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setColor(Color.MAGENTA);
         embedBuilder.setTitle(getName());
@@ -102,7 +102,7 @@ public class CustomRole extends CommonMethods implements CommandInterface {
         event.getChannel().sendMessage(embedBuilder.build()).queue();
 
     }
-    private guildObject editRoleName(MessageReceivedEvent event, String RoleName, guildObject guildEntity){
+    private guildObject editRoleName(GuildMessageReceivedEvent event, String RoleName, guildObject guildEntity){
         if (RoleName.equalsIgnoreCase("")){
             EmbedBuilder embedBuilder = new EmbedBuilder();
             embedBuilder.setTitle(getName())
@@ -135,7 +135,7 @@ public class CustomRole extends CommonMethods implements CommandInterface {
         return guildEntity;
         }
     }
-    private guildObject editRoleColor(MessageReceivedEvent event, String RoleColor, guildObject guildEntity){
+    private guildObject editRoleColor(GuildMessageReceivedEvent event, String RoleColor, guildObject guildEntity){
         if (RoleColor.equalsIgnoreCase("")){
             EmbedBuilder embedBuilder = new EmbedBuilder();
             embedBuilder.setTitle(getName())
@@ -183,7 +183,7 @@ public class CustomRole extends CommonMethods implements CommandInterface {
             return guildEntity;
         }
     }
-    private guildObject createRole(MessageReceivedEvent event, String RoleName, guildObject guildEntity){
+    private guildObject createRole(GuildMessageReceivedEvent event, String RoleName, guildObject guildEntity){
         try {
             Role role = event.getGuild().createRole().setName(RoleName).setPermissions().complete();
             customRoleObject customRoleEntity = guildEntity.getCustomRole();
@@ -202,7 +202,7 @@ public class CustomRole extends CommonMethods implements CommandInterface {
         }
         return guildEntity;
     }
-    private guildObject removeRole(MessageReceivedEvent event, guildObject guildEntity){
+    private guildObject removeRole(GuildMessageReceivedEvent event, guildObject guildEntity){
         try {
             customRoleObject customRoleEntity = guildEntity.getCustomRole();
             String roleID = getRole(event,guildEntity);
@@ -221,7 +221,7 @@ public class CustomRole extends CommonMethods implements CommandInterface {
         }
         return guildEntity;
     }
-    private String getRole(MessageReceivedEvent event, guildObject guildEntity){
+    private String getRole(GuildMessageReceivedEvent event, guildObject guildEntity){
         customRoleObject customRoleEntity = guildEntity.getCustomRole();
         return customRoleEntity.getRoleID(event.getMember().getId());
     }

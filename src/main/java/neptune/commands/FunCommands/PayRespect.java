@@ -3,7 +3,7 @@ package neptune.commands.FunCommands;
 import neptune.commands.CommandInterface;
 import neptune.commands.commandCategories;
 import neptune.storage.guildObject;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 public class PayRespect implements CommandInterface {
     @Override
@@ -47,7 +47,7 @@ public class PayRespect implements CommandInterface {
     }
 
     @Override
-    public guildObject run(MessageReceivedEvent event,String messageContent, guildObject guildEntity) {
+    public guildObject run(GuildMessageReceivedEvent event,String messageContent, guildObject guildEntity) {
 
         event.getChannel().sendMessage(event.getMember().getAsMention() + " has paid respect").queue();
         return guildEntity;

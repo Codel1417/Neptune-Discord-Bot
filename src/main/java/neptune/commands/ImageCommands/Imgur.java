@@ -10,7 +10,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.internal.LinkedTreeMap;
 import com.google.gson.reflect.TypeToken;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.awt.*;
@@ -66,7 +66,7 @@ public class Imgur extends CommonMethods implements CommandInterface {
     }
 
     @Override
-    public guildObject run(MessageReceivedEvent event, String messageContent, guildObject guildEntity) {
+    public guildObject run(GuildMessageReceivedEvent event, String messageContent, guildObject guildEntity) {
         String search = getCommandName(messageContent)[0]; // get first entry for now
         // TODO: handle whitespace
 

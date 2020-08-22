@@ -1,7 +1,6 @@
 package neptune.commands;
 
 import neptune.music.AudioController;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 import org.apache.logging.log4j.LogManager;

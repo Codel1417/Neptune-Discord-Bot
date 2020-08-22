@@ -21,7 +21,6 @@ import net.dv8tion.jda.api.hooks.EventListener;
 
 import javax.annotation.Nonnull;
 
-import java.io.IOException;
 
 //intercepts discord messages
 public class Listener implements EventListener {
@@ -59,7 +58,7 @@ public class Listener implements EventListener {
             String GuildID = ((GenericGuildEvent) event).getGuild().getId();
 
             if (GuildID == null) return;
-            guildObject guildEntity;
+            guildObject guildEntity = null;
             try {
                 guildEntity = guildStorageHandler.readFile(GuildID);
             } catch (Exception e) {

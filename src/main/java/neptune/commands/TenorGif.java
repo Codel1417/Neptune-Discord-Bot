@@ -4,7 +4,7 @@ import neptune.storage.commandLineOptionsSingleton;
 import neptune.webConnection.TenorConnection;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.IMentionable;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 import java.awt.*;
 import java.util.List;
@@ -13,7 +13,7 @@ public abstract class TenorGif {
     //GetAuthToken getAuthToken = new GetAuthToken();
     private final TenorConnection tenorConnection = new TenorConnection(commandLineOptionsSingleton.getInstance().getOptions().getOptionValue("t"));
 
-    protected EmbedBuilder getImageDefaultEmbed(MessageReceivedEvent event, String Search, boolean MentionMessage) {
+    protected EmbedBuilder getImageDefaultEmbed(GuildMessageReceivedEvent event, String Search, boolean MentionMessage) {
         List<IMentionable> Mentions = event.getMessage().getMentions();
         EmbedBuilder embedBuilder = new EmbedBuilder();
         StringBuilder mentionList = new StringBuilder();
@@ -31,7 +31,7 @@ public abstract class TenorGif {
 
         return embedBuilder;
     }
-    protected EmbedBuilder getImageEmbed(MessageReceivedEvent event, String Search, boolean MentionMessage, String CustomMessage) {
+    protected EmbedBuilder getImageEmbed(GuildMessageReceivedEvent event, String Search, boolean MentionMessage, String CustomMessage) {
         List<IMentionable> Mentions = event.getMessage().getMentions();
         EmbedBuilder embedBuilder = new EmbedBuilder();
         StringBuilder mentionList = new StringBuilder();

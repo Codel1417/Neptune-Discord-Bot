@@ -5,7 +5,7 @@ import neptune.commands.commandCategories;
 import neptune.storage.guildObject;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 import java.util.List;
 import java.util.Random;
@@ -52,7 +52,7 @@ public class PowerLevel implements CommandInterface {
     }
 
     @Override
-    public guildObject run(MessageReceivedEvent event,String messageContent, guildObject guildEntity) {
+    public guildObject run(GuildMessageReceivedEvent event,String messageContent, guildObject guildEntity) {
         EmbedBuilder embedBuilder = new EmbedBuilder();
         Random random = new Random();
         int powerlevel = random.nextInt(random.nextInt(9001)) + 1;

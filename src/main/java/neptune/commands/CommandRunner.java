@@ -20,7 +20,6 @@ import neptune.storage.VariablesStorage;
 import neptune.storage.guildObject;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 import org.apache.logging.log4j.LogManager;
@@ -159,7 +158,7 @@ public class CommandRunner extends CommonMethods {
         }
         return guildEntity;
     }
-    private void permissionException(MessageReceivedEvent event){
+    private void permissionException(GuildMessageReceivedEvent event) {
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setColor(Color.RED);
         embedBuilder.setDescription("You Lack the Required permission to do that!");

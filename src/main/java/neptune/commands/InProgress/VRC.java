@@ -6,7 +6,7 @@ import neptune.commands.VRChatRequest;
 import neptune.commands.commandCategories;
 import neptune.storage.guildObject;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 import java.awt.*;
 import java.util.Map;
@@ -54,7 +54,7 @@ public class VRC extends CommonMethods implements CommandInterface {
     }
 
     @Override
-    public guildObject run(MessageReceivedEvent event, String messageContent, guildObject guildEntity) {
+    public guildObject run(GuildMessageReceivedEvent event, String messageContent, guildObject guildEntity) {
         String[] command = getCommandName(messageContent);
         switch(command[0]){
             case "world":{
@@ -70,7 +70,7 @@ public class VRC extends CommonMethods implements CommandInterface {
         return guildEntity;
     }
 
-    private void getOnline(MessageReceivedEvent event){
+    private void getOnline(GuildMessageReceivedEvent event){
         //API
         String result = vrChatRequest.getOnlineUsers();
         //Send Message
@@ -78,7 +78,7 @@ public class VRC extends CommonMethods implements CommandInterface {
         embedBuilder.addField("VRChat Users Currently Online", result + " users online", true);
         event.getChannel().sendMessage(embedBuilder.build()).queue();
     }
-    private void getWorldByID(String search, MessageReceivedEvent event){
+    private void getWorldByID(String search, GuildMessageReceivedEvent event){
         EmbedBuilder embedBuilder = getEmbedBuilder();
 
         //API
@@ -121,7 +121,7 @@ public class VRC extends CommonMethods implements CommandInterface {
         embedBuilder.setFooter("Powered by VRChat", "https://vrchat.com/public/media/logo.png");
         return embedBuilder;
     }
-    private void displayMenu(MessageReceivedEvent event){
+    private void displayMenu(GuildMessageReceivedEvent event){
         EmbedBuilder embedBuilder = getEmbedBuilder();
         embedBuilder.setTitle("VRChat Help");
         embedBuilder.setDescription("Interact with the VRChat API");

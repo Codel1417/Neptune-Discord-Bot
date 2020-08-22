@@ -14,7 +14,7 @@ import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.VoiceChannel;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.exceptions.PermissionException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -30,7 +30,7 @@ public class AudioController {
     private static final int DEFAULT_VOLUME = 35; //(0 - 150, where 100 is default max volume)
     protected static final Logger log = LogManager.getLogger();
 
-    public AudioController(MessageReceivedEvent event) {
+    public AudioController(GuildMessageReceivedEvent event) {
         this.playerManager = new DefaultAudioPlayerManager();
         playerManager.registerSourceManager(new YoutubeAudioSourceManager());
         //playerManager.registerSourceManager(new SoundCloudAudioSourceManager());
@@ -47,7 +47,7 @@ public class AudioController {
 
     }
 
-   public void playSound(MessageReceivedEvent event, String audioURL) {
+   public void playSound(GuildMessageReceivedEvent event, String audioURL) {
         VoiceChannel chan = event.getMember().getVoiceState().getChannel();
         guild = event.getGuild();
         mng = getMusicManager(event.getGuild());

@@ -4,7 +4,7 @@ import neptune.commands.CommandInterface;
 import neptune.commands.CommonMethods;
 import neptune.commands.commandCategories;
 import neptune.storage.guildObject;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 import java.util.Random;
 
@@ -51,7 +51,7 @@ public class RollDie extends CommonMethods implements CommandInterface {
     }
 
     @Override
-    public guildObject run(MessageReceivedEvent event,String messageContent, guildObject guildEntity) {
+    public guildObject run(GuildMessageReceivedEvent event,String messageContent, guildObject guildEntity) {
         int sides = Integer.decode(messageContent);
         int result = random.nextInt(sides) + 1;
         event.getChannel().sendMessage("I rolled a d" + sides + " and landed a " + result).queue();

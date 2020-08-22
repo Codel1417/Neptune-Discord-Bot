@@ -4,7 +4,7 @@ import neptune.commands.CommandInterface;
 import neptune.commands.commandCategories;
 import neptune.storage.guildObject;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 import java.awt.*;
 import java.lang.management.ManagementFactory;
@@ -50,7 +50,7 @@ public class Uptime implements CommandInterface {
         return false;
     }
 
-    public guildObject run(MessageReceivedEvent event, String messageContent, guildObject guildEntity){
+    public guildObject run(GuildMessageReceivedEvent event, String messageContent, guildObject guildEntity){
         //Taken from Almighty Alpaca
         //https://github.com/Java-Discord-Bot-System/Plugin-Uptime/blob/master/src/main/java/com/almightyalpaca/discord/bot/plugin/uptime/UptimePlugin.java#L28-L42
         final long duration = ManagementFactory.getRuntimeMXBean().getUptime();

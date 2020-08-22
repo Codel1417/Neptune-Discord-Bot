@@ -3,7 +3,7 @@ package neptune.commands.FunCommands;
 import neptune.commands.CommandInterface;
 import neptune.commands.commandCategories;
 import neptune.storage.guildObject;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 import java.util.Random;
 
@@ -50,7 +50,7 @@ public class WhyWasIBreached implements CommandInterface {
     }
 
     @Override
-    public guildObject run(MessageReceivedEvent event,String messageContent, guildObject guildEntity) {
+    public guildObject run(GuildMessageReceivedEvent event,String messageContent, guildObject guildEntity) {
         String[] threatActors = {"Russians", "NSA", "FBI", "North Koreans", "Chinese", "Anonymous collective", "teenage hacking prodigies", "Iranians", "KGB", "industrial spies", "competition", "Europeans", "Americans", "cyber terrorists", "advanced persistent threats", "state actors", "rogue AIs", "APTs", "Fancy Bears", "foreign assets", "master hackers", "technology whiz kids", "script kiddies", "hacking activists", "hacking people", "security community", "internet crowd"};
         String[] methods ={"0-day exploits", "unprecedented XSS vulnerabilities", "infiltrators", "overwhelming force", "botnets", "ransomware", "DDoS attacks", "IoT malware", "advanced techniques", "hacking drones", "cyborg bees", "digital nukes", "the open door in our basement", "that one vulnerability we were going to patch next Tuesday", "that other vulnerability we were going to patch next tuesday", "something something vulnerability", "vectors we really couldn't have prevented", "vulnerabilities in a 3rd party solution", "weaknesses in our vendors", "nefarious techniques", "an issue in Wordpress 1.0", "Heartbleed", "a vulnerability in Windows XP SP1", "pen and paper based social engineering", "an open window in the server room", "30 - 50 feral hogs"};
         String[] targets = {"gain access to some data", "cause a minor disturbance", "potentially access some customer data", "cause an undetermined amount of damage", "partially disrupt our services", "breach our high security servers", "glimpse into our database", "transfer 7 petabytes of data", "extract some private keys", "do something, but we aren't quite sure what it is", "make a mess", "make us look bad", "force us to release this report", "hack the coffee maker", "install a C99"};

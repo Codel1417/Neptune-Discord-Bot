@@ -7,7 +7,7 @@ import neptune.music.AudioController;
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.User;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 
 import java.io.File;
@@ -63,7 +63,7 @@ public class Say implements CommandInterface {
     }
 
     @Override
-    public guildObject run(MessageReceivedEvent event, String messageContent, guildObject guildEntity) {
+    public guildObject run(GuildMessageReceivedEvent event, String messageContent, guildObject guildEntity) {
         //rate limiting
         if (isRateLimited(event.getMember().getUser())) return guildEntity;
 
@@ -87,7 +87,7 @@ public class Say implements CommandInterface {
         return guildEntity;
     }
 
-    private void saySingleMatch(File quote, MessageReceivedEvent event) {
+    private void saySingleMatch(File quote, GuildMessageReceivedEvent event) {
         //storageController.incrementAnalyticForCommand("Say", quote.getName().replace("."," ").replace(" wav",""));
 
         if (event.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_MANAGE)) {

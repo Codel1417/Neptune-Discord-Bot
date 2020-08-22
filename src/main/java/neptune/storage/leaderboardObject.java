@@ -7,16 +7,16 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
 @JsonAutoDetect(fieldVisibility=JsonAutoDetect.Visibility.ANY)
 public class leaderboardObject {
     @JsonProperty("leaderboards")
-    private Map <String, Integer> leaderboards;
+    private Map <String, Integer> leaderboards = new HashMap<>();
 
-    public leaderboardObject(){
-        leaderboards = new HashMap<>();
-    }
+    public leaderboardObject(){}
     @JsonIgnore
     public int getPoints(String MemberID){
         return leaderboards.getOrDefault(MemberID,0);
@@ -53,5 +53,14 @@ public class leaderboardObject {
             finalSortedMap.put(entry1.getKey(),entry1.getValue());
         }
         return finalSortedMap;
+    }
+
+    @JsonGetter("leaderboards")
+    private Map<String, Integer> getLeaderboards() {
+        return leaderboards;
+    }
+    @JsonSetter("leaderboards")
+    private void setLeaderboards(Map<String, Integer> leaderboards) {
+        this.leaderboards = leaderboards;
     }
 }

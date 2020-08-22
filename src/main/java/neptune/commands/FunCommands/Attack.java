@@ -6,7 +6,7 @@ import neptune.commands.commandCategories;
 import neptune.storage.VariablesStorage;
 import neptune.storage.guildObject;
 import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 import java.io.File;
 import java.util.List;
@@ -54,7 +54,7 @@ public class Attack implements CommandInterface {
     }
 
     @Override
-    public guildObject run(MessageReceivedEvent event,String messageContent, guildObject guildEntity) {
+    public guildObject run(GuildMessageReceivedEvent event,String messageContent, guildObject guildEntity) {
         VariablesStorage variablesStorage = new VariablesStorage();
         Random random = new Random();
         StringBuilder stringBuilder = new StringBuilder();

@@ -5,7 +5,8 @@ import neptune.commands.commandCategories;
 import neptune.storage.GuildStorageHandler;
 import neptune.storage.guildObject;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+
 import java.awt.*;
 import java.io.IOException;
 import java.util.Comparator;
@@ -54,7 +55,7 @@ public class Leaderboard implements CommandInterface {
     }
 
     @Override
-    public guildObject run(MessageReceivedEvent event, String messageContent, guildObject guildEntity) {
+    public guildObject run(GuildMessageReceivedEvent event, String messageContent, guildObject guildEntity) {
         StringBuilder stringBuilder = new StringBuilder();
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setColor(Color.MAGENTA);

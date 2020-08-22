@@ -5,7 +5,7 @@ import neptune.commands.commandCategories;
 import neptune.storage.guildObject;
 import me.dilley.MineStat;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 import java.awt.*;
 
@@ -51,7 +51,7 @@ public class MinecraftServerStatus implements CommandInterface {
     }
 
     @Override
-    public guildObject run(MessageReceivedEvent event,String messageContent, guildObject guildEntity) {
+    public guildObject run(GuildMessageReceivedEvent event,String messageContent, guildObject guildEntity) {
         String serverDomain;
         int port = 25565;
         String[] mcServer = messageContent.split(":");
