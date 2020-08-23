@@ -26,6 +26,8 @@ public class SettingsStorage {
 
             while (resultSet.next()){
                 guildObject guildEntity = new guildObject(resultSet.getString(1));
+                guildStorageHandler.writeFile(guildEntity);
+                guildEntity = guildStorageHandler.readFile(resultSet.getString(1));
                 guildEntity.getGuildOptions().setOption(GuildOptionsEnum.customSounds, resultSet.getString(3).equalsIgnoreCase("enabled"));
                 guildEntity.getLogOptions().setChannel(resultSet.getString(4));
                 guildEntity.getLogOptions().setOption(LoggingOptionsEnum.GlobalLogging, resultSet.getString(5).equalsIgnoreCase("enabled"));
