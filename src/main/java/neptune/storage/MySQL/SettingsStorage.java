@@ -28,18 +28,18 @@ public class SettingsStorage {
                 guildObject guildEntity = new guildObject(resultSet.getString(1));
                 guildStorageHandler.writeFile(guildEntity);
                 guildEntity = guildStorageHandler.readFile(resultSet.getString(1));
-                guildEntity.getGuildOptions().setOption(GuildOptionsEnum.customSounds, resultSet.getString(3).equalsIgnoreCase("enabled"));
+                guildEntity.getGuildOptions().setOption(GuildOptionsEnum.customSounds, resultSet.getString(2).equalsIgnoreCase("enabled"));
 
                 try {
-                    guildEntity.getLogOptions().setChannel(resultSet.getString(4));
+                    guildEntity.getLogOptions().setChannel(resultSet.getString(3));
                 }
                 catch (NullPointerException ignored){}
 
-                guildEntity.getLogOptions().setOption(LoggingOptionsEnum.GlobalLogging, resultSet.getString(5).equalsIgnoreCase("enabled"));
-                guildEntity.getLogOptions().setOption(LoggingOptionsEnum.TextChannelLogging, resultSet.getString(6).equalsIgnoreCase("enabled"));
-                guildEntity.getLogOptions().setOption(LoggingOptionsEnum.VoiceChannelLogging, resultSet.getString(7).equalsIgnoreCase("enabled"));
-                guildEntity.getLogOptions().setOption(LoggingOptionsEnum.MemberActivityLogging, resultSet.getString(8).equalsIgnoreCase("enabled"));
-                guildEntity.getLogOptions().setOption(LoggingOptionsEnum.ServerModificationLogging, resultSet.getString(9).equalsIgnoreCase("enabled"));
+                guildEntity.getLogOptions().setOption(LoggingOptionsEnum.GlobalLogging, resultSet.getString(4).equalsIgnoreCase("enabled"));
+                guildEntity.getLogOptions().setOption(LoggingOptionsEnum.TextChannelLogging, resultSet.getString(5).equalsIgnoreCase("enabled"));
+                guildEntity.getLogOptions().setOption(LoggingOptionsEnum.VoiceChannelLogging, resultSet.getString(6).equalsIgnoreCase("enabled"));
+                guildEntity.getLogOptions().setOption(LoggingOptionsEnum.MemberActivityLogging, resultSet.getString(7).equalsIgnoreCase("enabled"));
+                guildEntity.getLogOptions().setOption(LoggingOptionsEnum.ServerModificationLogging, resultSet.getString(8).equalsIgnoreCase("enabled"));
                 guildEntity.getGuildOptions().setOption(GuildOptionsEnum.CustomRoleEnabled, resultSet.getString(9).equalsIgnoreCase("enabled"));
                 guildEntity.getGuildOptions().setOption(GuildOptionsEnum.leaderboardEnabled, resultSet.getString(10).equalsIgnoreCase("enabled"));
                 guildEntity.getGuildOptions().setOption(GuildOptionsEnum.LeaderboardLevelUpNotification, resultSet.getString(11).equalsIgnoreCase("enabled"));
