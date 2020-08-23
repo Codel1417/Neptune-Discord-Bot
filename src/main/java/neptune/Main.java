@@ -4,6 +4,7 @@ import com.neovisionaries.ws.client.WebSocketFactory;
 import neptune.commands.PassiveCommands.Listener;
 import neptune.commands.PassiveCommands.guildListener;
 import neptune.storage.commandLineOptionsSingleton;
+import neptune.storage.MySQL.SettingsStorage;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
@@ -22,9 +23,11 @@ public class Main extends ListenerAdapter {
     static Options Options = new Options();
     protected static final Logger log = LogManager.getLogger();
 
-    public static final String DatabaseURL = "jdbc:mysql://localhost/Neptune?user=Neptune&password=Neptune";
-
     public static void main(String[] args) {
+        //Convert old database to new storage system
+        SettingsStorage settingsStorage = new SettingsStorage();
+        settingsStorage.convertToYAML();
+
 
         // CLI
         Options.addRequiredOption("d", "discord-token", true, "The discord bot token");

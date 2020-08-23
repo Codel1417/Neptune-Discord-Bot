@@ -1,87 +1,48 @@
 package neptune.storage.MySQL;
 
-import neptune.Main;
+import neptune.storage.GuildStorageHandler;
+import neptune.storage.guildObject;
+import neptune.storage.Enum.GuildOptionsEnum;
+import neptune.storage.Enum.LoggingOptionsEnum;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.IOException;
 import java.sql.*;
-import java.util.HashMap;
-import java.util.Map;
-
 public class SettingsStorage {
-    private String DatabaseURL = Main.DatabaseURL;
-    private final String GuildOptions = "GuildOptions";
+    private String DatabaseURL = "jdbc:mysql://10.0.0.52/Neptune?user=Neptune&password=Neptune";
     protected static final Logger log = LogManager.getLogger();
 
-    public boolean addGuild(String GuildID) {
-        log.debug("SQL: Adding Guild " + GuildID);
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        try {
-            connection = DriverManager.getConnection(DatabaseURL);
-            preparedStatement = connection.prepareStatement("INSERT INTO " + GuildOptions + "(GuildID) VALUES(?)");
-            preparedStatement.setString(1, GuildID);
-            preparedStatement.execute();
-
-            return true;
-        } catch (SQLException e) {
-            if (e.getErrorCode() == 19) {
-                //System.out.println("    Data Exists :)");
-                return true;
-            } else {
-                log.error("Error Code= " + e.getErrorCode());
-                log.error(e.toString());
-                return false;
-            }
-        } finally {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                log.error(e.toString());
-            }
-            try {
-                preparedStatement.close();
-            } catch (SQLException e) {
-                log.error(e.toString());
-            }
-        }
-    }
-    public Map<String,String> getGuildSettings(String GuildID) {
-        log.debug("SQL: Retrieving Guild " + GuildID);
+    public void convertToYAML() {
         Connection connection = null;
         ResultSet resultSet = null;
+        GuildStorageHandler guildStorageHandler = new GuildStorageHandler();
         try {
             connection = DriverManager.getConnection(DatabaseURL);
-            resultSet = connection.prepareStatement("SELECT GuildID, TTS, CustomSounds, LoggingChannel, LoggingEnabled, TextChannelLogging, VoiceChannelLogging, MemberActivityLogging, ServerModificationLogging, CustomRoleEnabled, LeaderboardsEnabled,LeaderboardLevelUpNotificationsEnabled FROM " + GuildOptions + " Where GuildID = " + GuildID).executeQuery();
-            Map<String, String> results = new HashMap<>();
+            resultSet = connection.prepareStatement("SELECT GuildID, CustomSounds, LoggingChannel, LoggingEnabled, TextChannelLogging, VoiceChannelLogging, MemberActivityLogging, ServerModificationLogging, CustomRoleEnabled, LeaderboardsEnabled,LeaderboardLevelUpNotificationsEnabled FROM GuildOptions Where GuildID = *").executeQuery();
 
-            if (!resultSet.next()) {
-                log.error("SQL: Guild does not Exist in database!");
-                if (addGuild(GuildID)) {
-                    return getGuildSettings(GuildID);
-                } else return null;
+            while (resultSet.next()){
+                guildObject guildEntity = new guildObject(resultSet.getString(1));
+                guildEntity.getGuildOptions().setOption(GuildOptionsEnum.customSounds, resultSet.getString(3).equalsIgnoreCase("enabled"));
+                guildEntity.getLogOptions().setChannel(resultSet.getString(4));
+                guildEntity.getLogOptions().setOption(LoggingOptionsEnum.GlobalLogging, resultSet.getString(5).equalsIgnoreCase("enabled"));
+                guildEntity.getLogOptions().setOption(LoggingOptionsEnum.TextChannelLogging, resultSet.getString(6).equalsIgnoreCase("enabled"));
+                guildEntity.getLogOptions().setOption(LoggingOptionsEnum.VoiceChannelLogging, resultSet.getString(7).equalsIgnoreCase("enabled"));
+                guildEntity.getLogOptions().setOption(LoggingOptionsEnum.MemberActivityLogging, resultSet.getString(8).equalsIgnoreCase("enabled"));
+                guildEntity.getLogOptions().setOption(LoggingOptionsEnum.ServerModificationLogging, resultSet.getString(9).equalsIgnoreCase("enabled"));
+                guildEntity.getGuildOptions().setOption(GuildOptionsEnum.CustomRoleEnabled, resultSet.getString(9).equalsIgnoreCase("enabled"));
+                guildEntity.getGuildOptions().setOption(GuildOptionsEnum.leaderboardEnabled, resultSet.getString(10).equalsIgnoreCase("enabled"));
+                guildEntity.getGuildOptions().setOption(GuildOptionsEnum.LeaderboardLevelUpNotification, resultSet.getString(11).equalsIgnoreCase("enabled"));
+                guildStorageHandler.writeFile(guildEntity);
             }
-
-            results.put("GuildID", resultSet.getString(1));
-            results.put("TTS", resultSet.getString(2));
-            results.put("CustomSounds", resultSet.getString(3));
-            results.put("LoggingChannel", resultSet.getString(4));
-            results.put("LoggingEnabled", resultSet.getString(5));
-            results.put("TextChannelLogging", resultSet.getString(6));
-            results.put("VoiceChannelLogging", resultSet.getString(7));
-            results.put("MemberActivityLogging", resultSet.getString(8));
-            results.put("ServerModificationLogging", resultSet.getString(9));
-            results.put("CustomRoleEnabled", resultSet.getString(9));
-            results.put("LeaderboardsEnabled", resultSet.getString(10));
-            results.put("LeaderboardLevelUpNotificationsEnabled",resultSet.getString(11));
-
-            return results;
-
         } catch (SQLException e) {
             log.error("Error Code= " + e.getErrorCode());
             log.error(e.toString());
-            return null;
-        } finally {
+        } catch (IOException e){
+            log.error(e.toString());
+        }
+        finally {
             try {
                 resultSet.close();
             } catch (SQLException e) {
@@ -93,51 +54,5 @@ public class SettingsStorage {
                 log.error(e.toString());
             }
         }
-    }
-    public boolean deleteGuild(String GuildID) {
-        log.debug("SQL: Deleting Guild " + GuildID);
-        Connection connection = null;
-        try {
-            connection = DriverManager.getConnection(DatabaseURL);
-            boolean result = connection.createStatement().execute("DELETE FROM " + GuildOptions +
-                    " WHERE GuildID = " + GuildID + ";");
-            connection.close();
-            return result;
-        } catch (SQLException e) {
-            log.error(e.toString());
-        } finally {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                log.error(e.toString());
-            }
-        }
-        return false;
-    }
-    public boolean updateGuild(String GuildID, String Field, String Value) {
-        log.debug("SQL: Setting Field: " + Field + " to the value: " + Value + " for the Guild: " + GuildID);
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        try {
-            connection = DriverManager.getConnection(DatabaseURL);
-            preparedStatement = connection.prepareStatement("UPDATE " + GuildOptions + " SET " + Field + " = ? WHERE GuildID = " + GuildID);
-            preparedStatement.setString(1, Value);
-            boolean result = preparedStatement.execute();
-            return result;
-        } catch (SQLException e) {
-            log.error(e.toString());
-        } finally {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                log.error(e.toString());
-            }
-            try {
-                preparedStatement.close();
-            } catch (SQLException e) {
-                log.error(e.toString());
-            }
-        }
-        return false;
     }
 }
