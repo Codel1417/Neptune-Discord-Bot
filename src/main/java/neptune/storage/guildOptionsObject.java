@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import neptune.storage.Enum.GuildOptionsEnum;
 @JsonAutoDetect(fieldVisibility=JsonAutoDetect.Visibility.ANY)
 public class guildOptionsObject {
-    @JsonProperty("GuildOptions")
+    @JsonProperty("GuildOptionsEntity")
     private Map<GuildOptionsEnum, Boolean> GuildOptions;
 
     public guildOptionsObject(){

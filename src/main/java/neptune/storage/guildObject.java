@@ -7,46 +7,48 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 
 @JsonAutoDetect(fieldVisibility=JsonAutoDetect.Visibility.ANY)
 public class guildObject {
+    @JsonGetter("logOptions")
     public logOptionsObject getLogOptions() {
-        return logOptionsEntity;
+        return logOptions;
     }
-
+    @JsonGetter("customRole")
     public customRoleObject getCustomRole() {
-        return customRoleEntity;
+        return customRole;
     }
-    @JsonGetter("leaderboardEntity")
+    @JsonGetter("leaderboard")
     public leaderboardObject getLeaderboard() {
-        return leaderboardEntity;
+        return leaderboard;
     }
-    @JsonSetter("leaderboardEntity")
+    @JsonSetter("leaderboard")
     public void setLeaderboard(leaderboardObject leaderboardEntity){
-        this.leaderboardEntity = leaderboardEntity;
+        leaderboard = leaderboardEntity;
     }
 
-
+    @JsonGetter("guildOptions")
     public guildOptionsObject getGuildOptions() {
-        return guildOptionsEntity;
+        return guildOptions;
     }
 
-    @JsonSetter("leaderboardEntity")
-    public void getLeaderboard(logOptionsObject logOptionsEntity){
+    @JsonSetter("logOptions")
+    public void setLogOptionsEntity(logOptionsObject logOptionsEntity){
+        logOptions = logOptionsEntity;
     }
-    @JsonProperty("logOptionsEntity")
-    private logOptionsObject logOptionsEntity;
-    @JsonProperty("customRoleEntity")
-    private customRoleObject customRoleEntity;
-    @JsonProperty("leaderboardEntity")
-    private leaderboardObject leaderboardEntity;
-    @JsonProperty("guildOptionsEntity")
-    private guildOptionsObject guildOptionsEntity;
+    @JsonProperty("logOptions")
+    private logOptionsObject logOptions;
+    @JsonProperty("customRole")
+    private customRoleObject customRole;
+    @JsonProperty("leaderboard")
+    private leaderboardObject leaderboard;
+    @JsonProperty("guildOptions")
+    private guildOptionsObject guildOptions;
     private guildObject(){};
     public guildObject(String GuildID){
         guildID = GuildID;
         version = 1;
-        logOptionsEntity = new logOptionsObject();
-        customRoleEntity = new customRoleObject();
-        leaderboardEntity = new leaderboardObject();
-        guildOptionsEntity = new guildOptionsObject();
+        logOptions = new logOptionsObject();
+        customRole = new customRoleObject();
+        leaderboard = new leaderboardObject();
+        guildOptions = new guildOptionsObject();
     }
     @JsonGetter("guildID")
     public String getGuildID() {
