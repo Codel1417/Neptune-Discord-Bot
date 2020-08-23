@@ -22,7 +22,7 @@ public class SettingsStorage {
         GuildStorageHandler guildStorageHandler = new GuildStorageHandler();
         try {
             connection = DriverManager.getConnection(DatabaseURL);
-            resultSet = connection.prepareStatement("SELECT GuildID, CustomSounds, LoggingChannel, LoggingEnabled, TextChannelLogging, VoiceChannelLogging, MemberActivityLogging, ServerModificationLogging, CustomRoleEnabled, LeaderboardsEnabled,LeaderboardLevelUpNotificationsEnabled FROM GuildOptions Where GuildID = %").executeQuery();
+            resultSet = connection.prepareStatement("SELECT GuildID, CustomSounds, LoggingChannel, LoggingEnabled, TextChannelLogging, VoiceChannelLogging, MemberActivityLogging, ServerModificationLogging, CustomRoleEnabled, LeaderboardsEnabled,LeaderboardLevelUpNotificationsEnabled FROM GuildOptions").executeQuery();
 
             while (resultSet.next()){
                 guildObject guildEntity = new guildObject(resultSet.getString(1));
@@ -65,7 +65,7 @@ public class SettingsStorage {
 
         try{
             connection = DriverManager.getConnection(DatabaseURL);
-            resultSet = connection.prepareStatement("SELECT GuildID, ChannelID, AuthorID, MessageID, MessageContent FROM Log Where MessageID = %").executeQuery();
+            resultSet = connection.prepareStatement("SELECT GuildID, ChannelID, AuthorID, MessageID, MessageContent FROM Log").executeQuery();
             
             while (resultSet.next()){
                 logObject logEntity = new logObject();
