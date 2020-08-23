@@ -24,9 +24,7 @@ public class Main extends ListenerAdapter {
     protected static final Logger log = LogManager.getLogger();
 
     public static void main(String[] args) {
-        //Convert old database to new storage system
-        SettingsStorage settingsStorage = new SettingsStorage();
-        settingsStorage.convertToYAML();
+
 
 
         // CLI
@@ -34,6 +32,8 @@ public class Main extends ListenerAdapter {
         Options.addRequiredOption("t", "tenor", true, "Tenor api key");
         Options.addRequiredOption("o", "owner-id", true, "My Discord member id;");
         Options.addOption("m", "media-dir", true, " Directory to look for media"); // not yet used
+        Options.addOption("l","legacy-import", false," Convert between legacy and new storage system");
+
 
         CommandLineParser parser = new DefaultParser();
         CommandLine cmd = null;
@@ -43,6 +43,15 @@ public class Main extends ListenerAdapter {
             e.printStackTrace();
         }
         commandLineOptionsSingleton.getInstance().setOptions(cmd);
+
+        
+        //Convert old database to new storage system
+        if (cmd.hasOption("l")){
+        SettingsStorage settingsStorage = new SettingsStorage();
+        settingsStorage.convertToYAML();
+        settingsStorage.convertLogsToYAML();
+        }
+
 
         startJDA(cmd.getOptionValue("d"));
     }

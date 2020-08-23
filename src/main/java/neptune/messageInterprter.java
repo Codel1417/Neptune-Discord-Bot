@@ -48,7 +48,6 @@ public class messageInterprter {
 
     public void runEvent(GuildMessageReceivedEvent event) {
         boolean multiPrefix;
-        System.out.println("Load Guild");
         // read guild file
         guildObject guildEntity = null;;
         try {

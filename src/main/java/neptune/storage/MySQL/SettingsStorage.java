@@ -2,6 +2,8 @@ package neptune.storage.MySQL;
 
 import neptune.storage.GuildStorageHandler;
 import neptune.storage.guildObject;
+import neptune.storage.logObject;
+import neptune.storage.logsStorageHandler;
 import neptune.storage.Enum.GuildOptionsEnum;
 import neptune.storage.Enum.LoggingOptionsEnum;
 
@@ -40,6 +42,47 @@ public class SettingsStorage {
             log.error("Error Code= " + e.getErrorCode());
             log.error(e.toString());
         } catch (IOException e){
+            log.error(e.toString());
+        }
+        finally {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                log.error(e.toString());
+            }
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                log.error(e.toString());
+            }
+        }
+    }
+    public void convertLogsToYAML(){
+        Connection connection = null;
+        ResultSet resultSet = null;
+        logsStorageHandler logsStorageHandler = new logsStorageHandler();
+
+
+        try{
+            connection = DriverManager.getConnection(DatabaseURL);
+            resultSet = connection.prepareStatement("SELECT GuildID, ChannelID, AuthorID, MessageID, MessageContent FROM Log Where MessageID = *").executeQuery();
+            
+            while (resultSet.next()){
+                logObject logEntity = new logObject();
+                logEntity.setGuildID(resultSet.getString(1));
+                logEntity.setChannelID(resultSet.getString(2));
+                logEntity.setMemberID(resultSet.getString(3));
+                logEntity.setMessageID(resultSet.getString(4));
+                logEntity.setMessageContent(resultSet.getString(5));
+                logsStorageHandler.writeFile(logEntity);
+            }
+
+        }
+        catch (IOException e){
+            log.error(e.toString());
+        }
+        catch (SQLException e){
+            log.error("Error Code= " + e.getErrorCode());
             log.error(e.toString());
         }
         finally {

@@ -67,10 +67,11 @@ public class GreatSleepKing implements CommandInterface {
 
     @Override
     public guildObject run(GuildMessageReceivedEvent event,String messageContent,guildObject guildEntity) {
-        HashMap<String,String> map = previousResults.get(event.getMember().getId());
+        String MemberID = event.getMember().getId();
+        HashMap<String,String> map = previousResults.getOrDefault(MemberID,null);
         int sleep,hours = 0;
         String emotion;
-        if (map == null || Integer.parseInt(map.get("TimeCreatedMS")) > 64800000){
+        if (map == null || (Long.parseLong(map.get("TimeCreatedMS")) - System.currentTimeMillis()) > 64800000){
             Random random = new Random();
             sleep = random.nextInt(24);
             hours = random.nextInt(24-sleep);
@@ -80,7 +81,7 @@ public class GreatSleepKing implements CommandInterface {
             map.put("MoodTime", String.valueOf(hours));
             map.put("Mood",emotion);
             map.put("TimeCreatedMS",String.valueOf(System.currentTimeMillis()));
-            previousResults.put(event.getMember().getId(),map);
+            previousResults.put(MemberID,map);
         }
         else{
             sleep = Integer.parseInt(map.get("SleepTime"));
