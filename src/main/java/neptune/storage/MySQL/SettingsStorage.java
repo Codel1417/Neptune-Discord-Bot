@@ -29,7 +29,12 @@ public class SettingsStorage {
                 guildStorageHandler.writeFile(guildEntity);
                 guildEntity = guildStorageHandler.readFile(resultSet.getString(1));
                 guildEntity.getGuildOptions().setOption(GuildOptionsEnum.customSounds, resultSet.getString(3).equalsIgnoreCase("enabled"));
-                guildEntity.getLogOptions().setChannel(resultSet.getString(4));
+
+                try {
+                    guildEntity.getLogOptions().setChannel(resultSet.getString(4));
+                }
+                catch (NullPointerException ignored){}
+
                 guildEntity.getLogOptions().setOption(LoggingOptionsEnum.GlobalLogging, resultSet.getString(5).equalsIgnoreCase("enabled"));
                 guildEntity.getLogOptions().setOption(LoggingOptionsEnum.TextChannelLogging, resultSet.getString(6).equalsIgnoreCase("enabled"));
                 guildEntity.getLogOptions().setOption(LoggingOptionsEnum.VoiceChannelLogging, resultSet.getString(7).equalsIgnoreCase("enabled"));
