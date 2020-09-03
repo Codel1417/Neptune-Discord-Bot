@@ -22,9 +22,7 @@ public class Main extends ListenerAdapter {
     protected static final Logger log = LogManager.getLogger();
 
     public static void main(String[] args) {
-
-
-
+        
         // CLI
         Options.addRequiredOption("d", "discord-token", true, "The discord bot token");
         Options.addRequiredOption("t", "tenor", true, "Tenor api key");
