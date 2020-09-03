@@ -4,7 +4,6 @@ import neptune.commands.CommandInterface;
 import neptune.commands.CommonMethods;
 import neptune.commands.commandCategories;
 import neptune.storage.guildObject;
-import neptune.webConnection.VRCApiConnection;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
@@ -142,11 +141,10 @@ public class VRC extends CommonMethods implements CommandInterface {
         embedBuilder.addField("User ID Search","!nep " + getCommand() + " user <ID>",false);
         event.getChannel().sendMessage(embedBuilder.build()).queue();
     }
-    VRCApiConnection vrcApiConnection= new VRCApiConnection();
     public Map<String, String> getWorldByID(String worldID){
         HashMap<String,String> result = new HashMap<>();
         JsonParser parser = new JsonParser();
-        String content = vrcApiConnection.httpRequest(vrcApiConnection.urlFormatter("worlds/" + worldID),"GET");
+        String content = httpRequest(urlFormatter("worlds/" + worldID),"GET");
         JsonObject jsonObject =  parser.parse(content).getAsJsonObject();
 
         result.put("name",jsonObject.get("name").getAsString());
@@ -183,7 +181,7 @@ public class VRC extends CommonMethods implements CommandInterface {
     }
     public String getOnlineUsers(){
     String result = "";
-    result = vrcApiConnection.httpRequest(vrcApiConnection.urlFormatter("visits"),"GET");
+    result = httpRequest(urlFormatter("visits"),"GET");
     return result;
     }
     private String apikey = "";
