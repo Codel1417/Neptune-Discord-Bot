@@ -2,9 +2,7 @@ package neptune;
 
 import com.neovisionaries.ws.client.WebSocketFactory;
 import neptune.commands.PassiveCommands.Listener;
-import neptune.commands.PassiveCommands.guildListener;
 import neptune.storage.commandLineOptionsSingleton;
-import neptune.storage.MySQL.SettingsStorage;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
@@ -24,9 +22,7 @@ public class Main extends ListenerAdapter {
     protected static final Logger log = LogManager.getLogger();
 
     public static void main(String[] args) {
-
-
-
+        
         // CLI
         Options.addRequiredOption("d", "discord-token", true, "The discord bot token");
         Options.addRequiredOption("t", "tenor", true, "Tenor api key");
@@ -44,15 +40,6 @@ public class Main extends ListenerAdapter {
         }
         commandLineOptionsSingleton.getInstance().setOptions(cmd);
 
-        
-        //Convert old database to new storage system
-        if (cmd.hasOption("l")){
-        SettingsStorage settingsStorage = new SettingsStorage();
-        settingsStorage.convertToYAML();
-        settingsStorage.convertLogsToYAML();
-        }
-
-
         startJDA(cmd.getOptionValue("d"));
     }
 
@@ -60,7 +47,6 @@ public class Main extends ListenerAdapter {
         log.info("Starting JDA");
         DefaultShardManagerBuilder builder = new DefaultShardManagerBuilder();
         builder.addEventListeners(new Listener());
-        builder.addEventListeners(new guildListener());
         builder.setActivity(Activity.playing("!Nep Help"));
         builder.setToken(token);
 
