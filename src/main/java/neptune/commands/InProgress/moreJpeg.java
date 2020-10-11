@@ -111,7 +111,7 @@ public class moreJpeg implements CommandInterface {
             // from your JPEGImageWriteParam instance
             try {
                 ImageIO.write(img, "jpg", writerOutput);
-                writer.write(null, new IIOImage(img, null, null), jpegParams);
+                //writer.write(null, new IIOImage(img, null, null), jpegParams);
                 event.getChannel().sendMessage("Heree you go").addFile(writerOutput.toByteArray(), "morejpeg.jpg").queue();
             } catch (IOException e) {
                 e.printStackTrace();
