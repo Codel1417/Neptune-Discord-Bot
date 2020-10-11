@@ -10,7 +10,7 @@ import neptune.commands.HelpCommands.Help;
 import neptune.commands.ImageCommands.Imgur;
 import neptune.commands.ImageCommands.Tenor.*;
 import neptune.commands.InProgress.VRC;
-import neptune.commands.InProgress.moreJpeg;
+import neptune.commands.ImageCommands.*;
 import neptune.commands.UtilityCommands.*;
 import neptune.commands.audio.Awoo;
 import neptune.commands.audio.Nya;

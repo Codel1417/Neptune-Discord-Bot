@@ -1,4 +1,4 @@
-package neptune.commands.InProgress;
+package neptune.commands.ImageCommands;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
