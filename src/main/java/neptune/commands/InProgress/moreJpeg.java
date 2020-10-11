@@ -88,7 +88,6 @@ public class moreJpeg implements CommandInterface {
                         if (null == redirectedUrl)
                             break;
                         finalUrl = redirectedUrl;
-                        System.out.println("redirected url: " + finalUrl);
                     } else
                         break;
                 } while (connection.getResponseCode() != HttpURLConnection.HTTP_OK);
@@ -102,9 +101,11 @@ public class moreJpeg implements CommandInterface {
                 return guildEntity;
             }
     
+
             JPEGImageWriteParam jpegParams = new JPEGImageWriteParam(null);
             jpegParams.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-            jpegParams.setCompressionQuality(0.1f);
+            jpegParams.setCompressionQuality(0.001f);
+
             ByteArrayOutputStream writerOutput = new ByteArrayOutputStream();
             MemoryCacheImageOutputStream imageOutputStream = new MemoryCacheImageOutputStream(writerOutput);
             final ImageWriter writer = ImageIO.getImageWritersByFormatName("jpg").next();
