@@ -106,13 +106,13 @@ public class moreJpeg implements CommandInterface {
             final ImageWriter writer = ImageIO.getImageWritersByFormatName("jpg").next();
             ByteArrayOutputStream writerOutput = new ByteArrayOutputStream();
             // specifies where the jpg image has to be written
-            writer.setOutput(writerOutput);
     
             // writes the file with given compression level
             // from your JPEGImageWriteParam instance
             try {
+                ImageIO.write(img, "jpg", writerOutput);
                 writer.write(null, new IIOImage(img, null, null), jpegParams);
-                event.getChannel().sendMessage("Here you go").addFile(writerOutput.toByteArray(), "morejpeg.jpg").queue();
+                event.getChannel().sendMessage("Heree you go").addFile(writerOutput.toByteArray(), "morejpeg.jpg").queue();
             } catch (IOException e) {
                 e.printStackTrace();
             }
