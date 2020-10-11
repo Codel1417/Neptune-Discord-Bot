@@ -3,7 +3,6 @@ package neptune.commands.InProgress;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
@@ -13,9 +12,10 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageWriteParam;
 import javax.imageio.ImageWriter;
 import javax.imageio.plugins.jpeg.JPEGImageWriteParam;
-import javax.imageio.stream.ImageOutputStream;
-import javax.imageio.stream.ImageOutputStreamImpl;
 import javax.imageio.stream.MemoryCacheImageOutputStream;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import neptune.commands.CommandInterface;
 import neptune.commands.commandCategories;
@@ -24,6 +24,7 @@ import net.dv8tion.jda.api.entities.Message.Attachment;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 public class moreJpeg implements CommandInterface {
+    protected static final Logger log = LogManager.getLogger();
 
     @Override
     public String getName() {
@@ -72,6 +73,8 @@ public class moreJpeg implements CommandInterface {
         if (!attachments.isEmpty()){
             Attachment image = attachments.get(0);    
             BufferedImage img;
+
+            //This attempts to get the final image url after redirects
             HttpURLConnection connection;
             String finalUrl = image.getUrl();
             try {
@@ -96,7 +99,7 @@ public class moreJpeg implements CommandInterface {
 
                 img = ImageIO.read(new URL(finalUrl));
             } catch (IOException e1) {
-                e1.printStackTrace();
+                log.error(e1);
                 event.getChannel().sendMessage("Unable to download image").queue();
                 return guildEntity;
             }
@@ -104,7 +107,7 @@ public class moreJpeg implements CommandInterface {
             //set jpeg compression
             JPEGImageWriteParam jpegParams = new JPEGImageWriteParam(null);
             jpegParams.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-            jpegParams.setCompressionQuality(0.001f);
+            jpegParams.setCompressionQuality(0.0001f);
 
 
 
@@ -113,22 +116,18 @@ public class moreJpeg implements CommandInterface {
                 image.getWidth(),
                 image.getHeight(),
                 BufferedImage.TYPE_INT_RGB);
-            result.createGraphics().drawImage(img, 0, 0, Color.WHITE, null);
+            result.createGraphics().drawImage(img, 0, 0, Color.BLACK, null);
 
 
             ByteArrayOutputStream writerOutput = new ByteArrayOutputStream();
             MemoryCacheImageOutputStream imageOutputStream = new MemoryCacheImageOutputStream(writerOutput);
             final ImageWriter writer = ImageIO.getImageWritersByFormatName("jpg").next();
-            // specifies where the jpg image has to be written
             writer.setOutput(imageOutputStream);
-            // writes the file with given compression level
-            // from your JPEGImageWriteParam instance
             try {
                 writer.write(null, new IIOImage(result, null, null), jpegParams);
-                //ImageIO.write(img, "jpg", writerOutput);
-                event.getChannel().sendMessage("Heree you go").addFile(writerOutput.toByteArray(), "morejpeg.jpg").queue();
+                event.getChannel().sendMessage("Here you go").addFile(writerOutput.toByteArray(), "morejpeg.jpg").queue();
             } catch (IOException e) {
-                e.printStackTrace();
+                log.error(e);
             }
         }
 
