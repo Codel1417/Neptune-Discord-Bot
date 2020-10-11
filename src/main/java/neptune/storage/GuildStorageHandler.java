@@ -59,7 +59,7 @@ public class GuildStorageHandler {
     }
 
     public void writeFile(guildObject guildEntity) throws IOException {
-        cache.invalidate(guildEntity.getGuildID())
+        cache.invalidate(guildEntity.getGuildID());
         cache.put(guildEntity.getGuildID(), guildEntity); //write to cache 
 
         File file = new File(guildsDir + File.separator + guildEntity.getGuildID() + ".yaml");
