@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
@@ -67,13 +68,33 @@ public class moreJpeg implements CommandInterface {
     public guildObject run(GuildMessageReceivedEvent event, String messageContent, guildObject guildEntity) {
         List<Attachment> attachments = event.getMessage().getAttachments();
         if (!attachments.isEmpty()){
-            Attachment image = attachments.get(0);
-            URL url = this.getClass().getResource(image.getUrl());
-            InputStream in;
-            BufferedImage img;
+            Attachment image = attachments.get(0);    
+            
+            HttpURLConnection connection;
+            String finalUrl = image.getUrl();
             try {
-                in = url.openStream();
-                img = ImageIO.read(in);
+                do {
+                    connection = (HttpURLConnection) new URL(finalUrl)
+                            .openConnection();
+                    connection.setInstanceFollowRedirects(false);
+                    connection.setUseCaches(false);
+                    connection.setRequestMethod("GET");
+                    connection.connect();
+                    int responseCode = connection.getResponseCode();
+                    if (responseCode >= 300 && responseCode < 400) {
+                        String redirectedUrl = connection.getHeaderField("Location");
+                        if (null == redirectedUrl)
+                            break;
+                        finalUrl = redirectedUrl;
+                        System.out.println("redirected url: " + finalUrl);
+                    } else
+                        break;
+                } while (connection.getResponseCode() != HttpURLConnection.HTTP_OK);
+                connection.disconnect();
+
+                BufferedImage img;
+
+                img = ImageIO.read(new URL(finalUrl));
             } catch (IOException e1) {
                 e1.printStackTrace();
                 event.getChannel().sendMessage("Unable to download image").queue();
