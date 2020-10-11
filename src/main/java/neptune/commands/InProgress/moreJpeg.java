@@ -3,6 +3,7 @@ package neptune.commands.InProgress;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
@@ -12,7 +13,9 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageWriteParam;
 import javax.imageio.ImageWriter;
 import javax.imageio.plugins.jpeg.JPEGImageWriteParam;
-
+import javax.imageio.stream.ImageOutputStream;
+import javax.imageio.stream.ImageOutputStreamImpl;
+import javax.imageio.stream.MemoryCacheImageOutputStream;
 
 import neptune.commands.CommandInterface;
 import neptune.commands.commandCategories;
@@ -102,16 +105,16 @@ public class moreJpeg implements CommandInterface {
             JPEGImageWriteParam jpegParams = new JPEGImageWriteParam(null);
             jpegParams.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
             jpegParams.setCompressionQuality(0.1f);
-    
-            final ImageWriter writer = ImageIO.getImageWritersByFormatName("jpg").next();
             ByteArrayOutputStream writerOutput = new ByteArrayOutputStream();
+            MemoryCacheImageOutputStream imageOutputStream = new MemoryCacheImageOutputStream(writerOutput);
+            final ImageWriter writer = ImageIO.getImageWritersByFormatName("jpg").next();
             // specifies where the jpg image has to be written
-    
+            writer.setOutput(imageOutputStream);
             // writes the file with given compression level
             // from your JPEGImageWriteParam instance
             try {
-                ImageIO.write(img, "jpg", writerOutput);
-                //writer.write(null, new IIOImage(img, null, null), jpegParams);
+                writer.write(null, new IIOImage(img, null, null), jpegParams);
+                //ImageIO.write(img, "jpg", writerOutput);
                 event.getChannel().sendMessage("Heree you go").addFile(writerOutput.toByteArray(), "morejpeg.jpg").queue();
             } catch (IOException e) {
                 e.printStackTrace();
