@@ -44,12 +44,12 @@ public class moreJpeg implements CommandInterface {
     @Override
     public commandCategories getCategory() {
         // TODO Auto-generated method stub
-        return commandCategories.Dev;
+        return commandCategories.Image;
     }
 
     @Override
     public String getHelp() {
-        return null;
+        return "Run this command with an image attached";
     }
 
     @Override
