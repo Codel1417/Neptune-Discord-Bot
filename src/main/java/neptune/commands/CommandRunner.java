@@ -10,6 +10,7 @@ import neptune.commands.HelpCommands.Help;
 import neptune.commands.ImageCommands.Imgur;
 import neptune.commands.ImageCommands.Tenor.*;
 import neptune.commands.InProgress.VRC;
+import neptune.commands.InProgress.moreJpeg;
 import neptune.commands.UtilityCommands.*;
 import neptune.commands.audio.Awoo;
 import neptune.commands.audio.Nya;
@@ -80,6 +81,7 @@ public class CommandRunner extends CommonMethods {
     private final Magic8Ball magic8Ball = new Magic8Ball();
     private final Awoo awoo = new Awoo();
     private final Wan wan = new Wan();
+    private final moreJpeg moreJpeg = new moreJpeg();
     public CommandRunner() {
         VariablesStorage variablesStorage = new VariablesStorage();
         NepSayCommand = new Say(new File(variablesStorage.getMediaFolder() + File.separator + "say"));
@@ -131,6 +133,7 @@ public class CommandRunner extends CommonMethods {
         commands.put(magic8Ball.getCommand(),magic8Ball);
         commands.put(awoo.getCommand(),awoo);
         commands.put(wan.getCommand(),wan);
+        commands.put(moreJpeg.getCommand(), moreJpeg);
     }
     public Map<String, Object> getCommandList(){
         return commands;
