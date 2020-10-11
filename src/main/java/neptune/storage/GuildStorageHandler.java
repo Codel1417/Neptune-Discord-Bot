@@ -44,6 +44,7 @@ public class GuildStorageHandler {
         guildEntity =  cache.getIfPresent(guildID);
         if (guildEntity != null){
             log.debug("Reading From Cache: " + guildEntity.getGuildID());
+            log.debug(cache.stats().toString());
             return guildEntity;
         }
 
@@ -63,7 +64,7 @@ public class GuildStorageHandler {
 
         cache.put(guildID, guildEntity);
         log.debug(cache.stats().toString());
-        
+
         return guildEntity;
     }
 
