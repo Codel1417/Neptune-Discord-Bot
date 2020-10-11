@@ -3,7 +3,6 @@ package neptune.commands.InProgress;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
@@ -69,7 +68,7 @@ public class moreJpeg implements CommandInterface {
         List<Attachment> attachments = event.getMessage().getAttachments();
         if (!attachments.isEmpty()){
             Attachment image = attachments.get(0);    
-            
+            BufferedImage img;
             HttpURLConnection connection;
             String finalUrl = image.getUrl();
             try {
@@ -92,7 +91,6 @@ public class moreJpeg implements CommandInterface {
                 } while (connection.getResponseCode() != HttpURLConnection.HTTP_OK);
                 connection.disconnect();
 
-                BufferedImage img;
 
                 img = ImageIO.read(new URL(finalUrl));
             } catch (IOException e1) {
