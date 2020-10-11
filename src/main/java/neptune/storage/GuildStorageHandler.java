@@ -6,6 +6,9 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.module.paranamer.ParanamerModule;
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
+import com.github.benmanes.caffeine.cache.RemovalCause;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,18 +17,42 @@ import neptune.storage.Enum.GuildOptionsEnum;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 public class GuildStorageHandler {
     protected static final Logger log = LogManager.getLogger();
     String guildsDir = "Guilds";
 
+    Cache<String, guildObject> cache;
+    public GuildStorageHandler(){
+        cache = Caffeine.newBuilder()
+            .initialCapacity(1000)
+            .recordStats()
+            .expireAfterAccess(30, TimeUnit.MINUTES)
+            .removalListener((String guildID, guildObject guildEntity, RemovalCause cause) ->
+            log.debug("Key " + guildID + " was removed from cache: " + cause))
+            .maximumSize(1000)
+            .build();
+
+    }
+
     public guildObject readFile(String guildID) throws IOException {
         File file = new File(guildsDir + File.separator + guildID + ".yaml");
+        guildObject guildEntity;
+
+        //try cache
+        guildEntity =  cache.getIfPresent(guildID);
+        if (guildEntity != null){
+            log.debug("Reading From Cache: " + guildEntity.getGuildID());
+            log.debug(cache.stats().toString());
+            return guildEntity;
+        }
+
         log.debug("Reading File: " + file.getAbsolutePath());
         // Instantiating a new ObjectMapper as a YAMLFactory
         if (!file.exists()) {
             log.info("Adding guild: " + guildID);
-            guildObject guildEntity = new guildObject(guildID);
+            guildEntity = new guildObject(guildID);
             writeFile(guildEntity);
             return guildEntity;
         }
@@ -33,12 +60,17 @@ public class GuildStorageHandler {
         om.registerModule(new ParanamerModule());
         om.setVisibility(PropertyAccessor.ALL, Visibility.ANY);
         om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        guildEntity = om.readValue(file, guildObject.class);
 
-        guildObject guildEntity = om.readValue(file, guildObject.class);
+        cache.put(guildID, guildEntity);
+        log.debug(cache.stats().toString());
+
         return guildEntity;
     }
 
     public void writeFile(guildObject guildEntity) throws IOException {
+        cache.invalidate(guildEntity.getGuildID());
+        cache.put(guildEntity.getGuildID(), guildEntity); //write to cache 
         File file = new File(guildsDir + File.separator + guildEntity.getGuildID() + ".yaml");
         // Instantiating a new ObjectMapper as a YAMLFactory
         file.getParentFile().mkdirs(); // makes required folders
