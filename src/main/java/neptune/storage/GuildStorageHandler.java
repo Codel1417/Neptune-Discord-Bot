@@ -26,13 +26,14 @@ public class GuildStorageHandler {
     Cache<String, guildObject> cache;
     public GuildStorageHandler(){
         cache = Caffeine.newBuilder()
+            .initialCapacity(1000)
+            .recordStats()
             .expireAfterAccess(30, TimeUnit.MINUTES)
             .removalListener((String guildID, guildObject guildEntity, RemovalCause cause) ->
             log.debug("Key " + guildID + " was removed from cache: " + cause))
             .maximumSize(1000)
             .build();
 
-        log.debug(cache.stats().toString());
     }
 
     public guildObject readFile(String guildID) throws IOException {
@@ -58,8 +59,11 @@ public class GuildStorageHandler {
         om.registerModule(new ParanamerModule());
         om.setVisibility(PropertyAccessor.ALL, Visibility.ANY);
         om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-
         guildEntity = om.readValue(file, guildObject.class);
+
+        cache.put(guildID, guildEntity);
+        log.debug(cache.stats().toString());
+        
         return guildEntity;
     }
 
