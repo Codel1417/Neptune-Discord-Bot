@@ -7,7 +7,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
-
+import java.awt.Color;
 import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageWriteParam;
@@ -101,10 +101,20 @@ public class moreJpeg implements CommandInterface {
                 return guildEntity;
             }
     
-
+            //set jpeg compression
             JPEGImageWriteParam jpegParams = new JPEGImageWriteParam(null);
             jpegParams.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
             jpegParams.setCompressionQuality(0.001f);
+
+
+
+            //strip alpha channel
+            BufferedImage result = new BufferedImage(
+                image.getWidth(),
+                image.getHeight(),
+                BufferedImage.TYPE_INT_RGB);
+            result.createGraphics().drawImage(img, 0, 0, Color.WHITE, null);
+
 
             ByteArrayOutputStream writerOutput = new ByteArrayOutputStream();
             MemoryCacheImageOutputStream imageOutputStream = new MemoryCacheImageOutputStream(writerOutput);
@@ -114,7 +124,7 @@ public class moreJpeg implements CommandInterface {
             // writes the file with given compression level
             // from your JPEGImageWriteParam instance
             try {
-                writer.write(null, new IIOImage(img, null, null), jpegParams);
+                writer.write(null, new IIOImage(result, null, null), jpegParams);
                 //ImageIO.write(img, "jpg", writerOutput);
                 event.getChannel().sendMessage("Heree you go").addFile(writerOutput.toByteArray(), "morejpeg.jpg").queue();
             } catch (IOException e) {
