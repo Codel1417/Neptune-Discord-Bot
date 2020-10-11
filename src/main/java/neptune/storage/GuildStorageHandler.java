@@ -23,12 +23,17 @@ public class GuildStorageHandler {
     protected static final Logger log = LogManager.getLogger();
     String guildsDir = "Guilds";
 
-    Cache<String, guildObject> cache = Caffeine.newBuilder()
-    .expireAfterAccess(30, TimeUnit.MINUTES)
-    .removalListener((String guildID, guildObject guildEntity, RemovalCause cause) ->
-    log.debug("Key " + guildID + " was removed from cache: " + cause))
-    .maximumSize(100)
-    .build();
+    Cache<String, guildObject> cache;
+    public GuildStorageHandler(){
+        cache = Caffeine.newBuilder()
+            .expireAfterAccess(30, TimeUnit.MINUTES)
+            .removalListener((String guildID, guildObject guildEntity, RemovalCause cause) ->
+            log.debug("Key " + guildID + " was removed from cache: " + cause))
+            .maximumSize(1000)
+            .build();
+
+        log.debug(cache.stats().toString());
+    }
 
     public guildObject readFile(String guildID) throws IOException {
         File file = new File(guildsDir + File.separator + guildID + ".yaml");
@@ -61,7 +66,6 @@ public class GuildStorageHandler {
     public void writeFile(guildObject guildEntity) throws IOException {
         cache.invalidate(guildEntity.getGuildID());
         cache.put(guildEntity.getGuildID(), guildEntity); //write to cache 
-
         File file = new File(guildsDir + File.separator + guildEntity.getGuildID() + ".yaml");
         // Instantiating a new ObjectMapper as a YAMLFactory
         file.getParentFile().mkdirs(); // makes required folders
