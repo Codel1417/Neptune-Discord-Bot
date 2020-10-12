@@ -63,12 +63,18 @@ public class messageInterprter {
             if (isBotCalled(event.getMessage(), multiPrefix)) {
                 //print the message log in the console if the message was a command
                 printConsoleLog(event);
-                guildEntity = nepCommands.run(event, guildEntity);
-                new GuildStorageHandler().writeFile(guildEntity);
+                nepCommands.run(event, guildEntity);
                 //run command
                 if(multiPrefix){
                     VariablesStorage variablesStorage = new VariablesStorage();
                     randomMediaPicker.sendMedia(new File(variablesStorage.getMediaFolder() + File.separator + "Custom" + File.separator +  event.getMessage().getContentRaw().replace("=","").replace("./","").trim()), event, true, true);
+                }
+            }
+            else {
+                try {
+                    new GuildStorageHandler().writeFile(guildEntity);
+                } catch (IOException e) {
+                    log.error(e);
                 }
             }
             //return if bot was not called

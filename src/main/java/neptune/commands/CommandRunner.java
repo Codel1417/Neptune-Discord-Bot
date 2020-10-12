@@ -18,8 +18,10 @@ import neptune.commands.audio.Nya;
 import neptune.commands.audio.Say;
 import neptune.commands.audio.Wan;
 import neptune.commands.nameGenCommands.Aarakocra;
+import neptune.storage.GuildStorageHandler;
 import neptune.storage.VariablesStorage;
 import neptune.storage.guildObject;
+import neptune.storage.guildOptionsObject;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
@@ -29,13 +31,18 @@ import org.apache.logging.log4j.Logger;
 
 import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 //handles neptune base commands
 public class CommandRunner extends CommonMethods {
     protected static final Logger log = LogManager.getLogger();
-    private HashMap <String, Object> commands = new HashMap<>();
+    private HashMap<String, Object> commands = new HashMap<>();
     private final Nep NepCountCommand = new Nep();
     private final Say NepSayCommand;
     private final Translate translateMessage = new Translate();
@@ -84,14 +91,19 @@ public class CommandRunner extends CommonMethods {
     private final Wan wan = new Wan();
     private final moreJpeg moreJpeg = new moreJpeg();
     private final anime4k anime4k = new anime4k();
+
+    ExecutorService executor = Executors.newCachedThreadPool();
+    ThreadPoolExecutor pool = (ThreadPoolExecutor) executor;
+
     public CommandRunner() {
+
         VariablesStorage variablesStorage = new VariablesStorage();
         NepSayCommand = new Say(new File(variablesStorage.getMediaFolder() + File.separator + "say"));
 
-        //Add all commands to this hashmap;
-        commands.put(NepCountCommand.getCommand(),NepCountCommand);
+        // Add all commands to this hashmap;
+        commands.put(NepCountCommand.getCommand(), NepCountCommand);
         commands.put(NepSayCommand.getCommand(), NepSayCommand);
-        commands.put(translateMessage.getCommand(),translateMessage);
+        commands.put(translateMessage.getCommand(), translateMessage);
         commands.put(screenshare.getCommand(), screenshare);
         commands.put(about.getCommand(), about);
         commands.put(leave.getCommand(), leave);
@@ -101,47 +113,49 @@ public class CommandRunner extends CommonMethods {
         commands.put(coinFlip.getCommand(), coinFlip);
         commands.put(rollDie.getCommand(), rollDie);
         commands.put(imgur.getCommand(), imgur);
-        commands.put(greatSleepKing.getCommand(),greatSleepKing);
-        commands.put(payRespect.getCommand(),payRespect);
-        commands.put(attack.getCommand(),attack);
-        commands.put(ping.getCommand(),ping);
-        commands.put(minecraftServerStatus.getCommand(),minecraftServerStatus);
+        commands.put(greatSleepKing.getCommand(), greatSleepKing);
+        commands.put(payRespect.getCommand(), payRespect);
+        commands.put(attack.getCommand(), attack);
+        commands.put(ping.getCommand(), ping);
+        commands.put(minecraftServerStatus.getCommand(), minecraftServerStatus);
         commands.put(guildInfo.getCommand(), guildInfo);
-        commands.put(help.getCommand(),help);
-        commands.put(logging.getCommand(),logging);
-        commands.put(serverInfo.getCommand(),serverInfo);
+        commands.put(help.getCommand(), help);
+        commands.put(logging.getCommand(), logging);
+        commands.put(serverInfo.getCommand(), serverInfo);
         commands.put(pat.getCommand(), pat);
-        commands.put(hug.getCommand(),hug);
-        commands.put(poke.getCommand(),poke);
-        commands.put(cuddle.getCommand(),cuddle);
-        commands.put(nom.getCommand(),nom);
-        commands.put(confused.getCommand(),confused);
-        commands.put(d10K.getCommand(),d10K);
-        commands.put(guildList.getCommand(),guildList);
-        commands.put(vrChatAPI.getCommand(),vrChatAPI);
-        commands.put(powerLevel.getCommand(),powerLevel);
-        commands.put(pout.getCommand(),pout);
-        commands.put(senko.getCommand(),senko);
-        commands.put(stare.getCommand(),stare);
-        commands.put(neko.getCommand(),neko);
-        commands.put(shocked.getCommand(),shocked);
-        commands.put(nya.getCommand(),nya);
-        commands.put(sleepy.getCommand(),sleepy);
-        commands.put(whyWasIBreached.getCommand(),whyWasIBreached);
+        commands.put(hug.getCommand(), hug);
+        commands.put(poke.getCommand(), poke);
+        commands.put(cuddle.getCommand(), cuddle);
+        commands.put(nom.getCommand(), nom);
+        commands.put(confused.getCommand(), confused);
+        commands.put(d10K.getCommand(), d10K);
+        commands.put(guildList.getCommand(), guildList);
+        commands.put(vrChatAPI.getCommand(), vrChatAPI);
+        commands.put(powerLevel.getCommand(), powerLevel);
+        commands.put(pout.getCommand(), pout);
+        commands.put(senko.getCommand(), senko);
+        commands.put(stare.getCommand(), stare);
+        commands.put(neko.getCommand(), neko);
+        commands.put(shocked.getCommand(), shocked);
+        commands.put(nya.getCommand(), nya);
+        commands.put(sleepy.getCommand(), sleepy);
+        commands.put(whyWasIBreached.getCommand(), whyWasIBreached);
         commands.put(isCaliforniaOnFire.getCommand(), isCaliforniaOnFire);
-        commands.put(aarakocra.getCommand(),aarakocra);
-        commands.put(customRole.getCommand(),customRole);
-        commands.put(leaderboard.getCommand(),leaderboard);
-        commands.put(magic8Ball.getCommand(),magic8Ball);
-        commands.put(awoo.getCommand(),awoo);
-        commands.put(wan.getCommand(),wan);
+        commands.put(aarakocra.getCommand(), aarakocra);
+        commands.put(customRole.getCommand(), customRole);
+        commands.put(leaderboard.getCommand(), leaderboard);
+        commands.put(magic8Ball.getCommand(), magic8Ball);
+        commands.put(awoo.getCommand(), awoo);
+        commands.put(wan.getCommand(), wan);
         commands.put(moreJpeg.getCommand(), moreJpeg);
-        commands.put(anime4k.getCommand(),anime4k);
+        commands.put(anime4k.getCommand(), anime4k);
     }
-    public Map<String, Object> getCommandList(){
+
+    public Map<String, Object> getCommandList() {
         return commands;
     }
-    public guildObject run(GuildMessageReceivedEvent event, guildObject guildEntity){
+
+    public void run(GuildMessageReceivedEvent event, guildObject guildEntity){
         String[] CommandArray = getCommandName(event.getMessage().getContentRaw().trim().toLowerCase().replaceFirst("!nep", "").trim());
         CommandInterface command = null;
 
@@ -155,21 +169,61 @@ public class CommandRunner extends CommonMethods {
             //Permission Check
                 if (command.getRequireManageServer() && !event.getMember().hasPermission(Permission.MANAGE_SERVER)) {
                     permissionException(event);
-                    return guildEntity;
+                    try {
+                        new GuildStorageHandler().writeFile(guildEntity);
+                    } catch (IOException e) {
+                        log.error(e);
+                    }
+                    return;
                 }
 
             //analytics
             log.info("NEPTUNE: Running Command: " + command.getName());
-            return command.run(event, CommandArray[1], guildEntity);
+            pool.setKeepAliveTime(5, TimeUnit.MINUTES);
+            pool.submit(new commandExecutor(command, event, CommandArray[1], guildEntity));
         }
-        return guildEntity;
+        else {
+
+        }
+        try {
+            new GuildStorageHandler().writeFile(guildEntity);
+        } catch (IOException e) {
+
+            log.error(e);
+        }
     }
+
     private void permissionException(GuildMessageReceivedEvent event) {
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setColor(Color.RED);
         embedBuilder.setDescription("You Lack the Required permission to do that!");
         event.getChannel().sendMessage(embedBuilder.build()).queue();
     }
+
+    public class commandExecutor implements Runnable {
+        GuildMessageReceivedEvent event;
+        String messagecontent;
+        guildObject guildEntity;
+        CommandInterface command;
+
+        public commandExecutor(CommandInterface command, GuildMessageReceivedEvent event, String messagecontent, guildObject guildEntity) {
+            event = this.event;
+            messagecontent = this.messagecontent;
+            guildEntity = this.guildEntity;
+            command = this.command;
+        }
+
+        @Override
+        public void run() {
+            guildEntity = command.run(event, messagecontent, guildEntity);
+            try {
+                new GuildStorageHandler().writeFile(guildEntity);
+            } catch (IOException e) {
+                log.error(e);
+            }
+		}
+    }
+
 }
 
 
