@@ -21,7 +21,6 @@ import neptune.commands.nameGenCommands.Aarakocra;
 import neptune.storage.GuildStorageHandler;
 import neptune.storage.VariablesStorage;
 import neptune.storage.guildObject;
-import neptune.storage.guildOptionsObject;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
@@ -36,8 +35,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
 //handles neptune base commands
 public class CommandRunner extends CommonMethods {
@@ -210,15 +207,11 @@ public class CommandRunner extends CommonMethods {
             this.messagecontent = messagecontent;
             this.guildEntity = guildEntity;
             this.command = command;
-            log.debug("Starting Thread");
-            System.out.println(event.toString());
-            System.out.println(messagecontent);
-            System.out.println(guildEntity.toString());
-            System.out.println(command.toString());
         }
 
         @Override
         public void run() {
+            log.debug("Running command in thread: " + Thread.currentThread().getId());
             guildEntity = command.run(event, messagecontent, guildEntity);
             try {
                 new GuildStorageHandler().writeFile(guildEntity);
