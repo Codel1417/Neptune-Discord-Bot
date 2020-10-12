@@ -111,7 +111,7 @@ public class anime4k implements CommandInterface {
                 kernel.updateBufferedImage();
 
 
-                //upload to discord
+                //prepare for discord
                 ByteArrayOutputStream writerOutput = new ByteArrayOutputStream();
                 MemoryCacheImageOutputStream imageOutputStream = new MemoryCacheImageOutputStream(writerOutput);
                 byte[] byteOutput;
