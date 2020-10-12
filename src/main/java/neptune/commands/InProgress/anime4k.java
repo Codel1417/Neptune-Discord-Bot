@@ -139,7 +139,7 @@ public class anime4k implements CommandInterface {
                 return guildEntity;
             }
         }
-        return null;
+        return guildEntity;
     }
     static BufferedImage copyType(BufferedImage bi) {
         BufferedImage newImage = new BufferedImage(bi.getWidth(), bi.getHeight(), BufferedImage.TYPE_INT_ARGB);
