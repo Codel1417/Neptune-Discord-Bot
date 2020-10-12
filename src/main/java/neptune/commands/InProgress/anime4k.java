@@ -21,6 +21,7 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 public class anime4k implements CommandInterface {
     protected static final Logger log = LogManager.getLogger();
+    ImageKernel kernel = new ImageKernel();
 
     @Override
     public String getName() {
@@ -93,7 +94,6 @@ public class anime4k implements CommandInterface {
 
 
                 img = ImageIO.read(new URL(finalUrl));
-                ImageKernel kernel = new ImageKernel();
 
                 float scale = 2f;
                 float pushStrength = scale / 6f;
@@ -109,7 +109,6 @@ public class anime4k implements CommandInterface {
                 kernel.setBufferedImage(img);
                 kernel.process();
                 kernel.updateBufferedImage();
-
 
                 //prepare for discord
                 ByteArrayOutputStream writerOutput = new ByteArrayOutputStream();
