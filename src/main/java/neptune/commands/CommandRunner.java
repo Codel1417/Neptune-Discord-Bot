@@ -93,10 +93,8 @@ public class CommandRunner extends CommonMethods {
     private final anime4k anime4k = new anime4k();
 
     ExecutorService executor = Executors.newCachedThreadPool();
-    ThreadPoolExecutor pool = (ThreadPoolExecutor) executor;
 
     public CommandRunner() {
-
         VariablesStorage variablesStorage = new VariablesStorage();
         NepSayCommand = new Say(new File(variablesStorage.getMediaFolder() + File.separator + "say"));
 
@@ -179,8 +177,7 @@ public class CommandRunner extends CommonMethods {
 
             //analytics
             log.info("NEPTUNE: Running Command: " + command.getName());
-            pool.setKeepAliveTime(5, TimeUnit.MINUTES);
-            pool.submit(new commandExecutor(command, event, CommandArray[1], guildEntity));
+            executor.submit(new commandExecutor(command, event, CommandArray[1], guildEntity));
         }
         else {
 
