@@ -139,6 +139,7 @@ public class anime4k implements CommandInterface {
                 return guildEntity;
             }
         }
+        else {event.getChannel().sendMessage("Please attach an immage with this command.").queue();}
         return guildEntity;
     }
     static BufferedImage copyType(BufferedImage bi) {
