@@ -110,12 +110,23 @@ public class anime4k implements CommandInterface {
                 kernel.process();
                 kernel.updateBufferedImage();
 
+
                 //upload to discord
                 ByteArrayOutputStream writerOutput = new ByteArrayOutputStream();
                 MemoryCacheImageOutputStream imageOutputStream = new MemoryCacheImageOutputStream(writerOutput);
+                byte[] byteOutput;
                 ImageIO.write(img, "png", imageOutputStream);
-                writerOutput.toByteArray();
-                event.getChannel().sendMessage("Here you go").addFile(writerOutput.toByteArray(),"upscaled.png").queue();
+                byteOutput = writerOutput.toByteArray();
+
+                //downscale image until i can upload it
+                while (byteOutput.length > 8388608)  {
+                    log.debug("Downscaling image");
+                    img = scale(img, (int)(img.getWidth() * 0.95), (int)(img.getHeight() * 0.95));
+                    ImageIO.write(img, "png", imageOutputStream);
+                    byteOutput = writerOutput.toByteArray();
+                } 
+
+                event.getChannel().sendMessage("Here you go").addFile(byteOutput,"upscaled.png").queue();
 
 
             } catch (IOException e1) {
