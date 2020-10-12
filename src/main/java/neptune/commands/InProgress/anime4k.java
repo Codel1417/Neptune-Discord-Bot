@@ -24,49 +24,41 @@ public class anime4k implements CommandInterface {
 
     @Override
     public String getName() {
-        // TODO Auto-generated method stub
-        return null;
+        return "anime4k image upscaling";
     }
 
     @Override
     public String getCommand() {
-        // TODO Auto-generated method stub
-        return null;
+        return "anime4k";
     }
 
     @Override
     public String getDescription() {
-        // TODO Auto-generated method stub
-        return null;
+        return "Upscales and enhances an attached 2d image";
     }
 
     @Override
     public commandCategories getCategory() {
-        // TODO Auto-generated method stub
-        return null;
+        return commandCategories.Image;
     }
 
     @Override
     public String getHelp() {
-        // TODO Auto-generated method stub
-        return null;
+        return "Run this command with an image attached";
     }
 
     @Override
     public boolean getRequireManageServer() {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public boolean getHideCommand() {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public boolean getRequireManageUsers() {
-        // TODO Auto-generated method stub
         return false;
     }
 
