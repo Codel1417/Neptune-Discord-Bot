@@ -177,7 +177,7 @@ public class CommandRunner extends CommonMethods {
 
             //analytics
             log.info("NEPTUNE: Running Command: " + command.getName());
-            executor.submit(new commandExecutor(command, event, CommandArray[1], guildEntity));
+            executor.execute(new commandExecutor(command, event, CommandArray[1], guildEntity));
         }
         else {
 
@@ -202,12 +202,14 @@ public class CommandRunner extends CommonMethods {
         String messagecontent;
         guildObject guildEntity;
         CommandInterface command;
+        protected final Logger log = LogManager.getLogger();
 
         public commandExecutor(CommandInterface command, GuildMessageReceivedEvent event, String messagecontent, guildObject guildEntity) {
             event = this.event;
             messagecontent = this.messagecontent;
             guildEntity = this.guildEntity;
             command = this.command;
+            log.debug("Starting Thread");
         }
 
         @Override
