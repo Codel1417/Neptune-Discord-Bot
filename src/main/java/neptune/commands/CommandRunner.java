@@ -10,6 +10,7 @@ import neptune.commands.HelpCommands.Help;
 import neptune.commands.ImageCommands.Imgur;
 import neptune.commands.ImageCommands.Tenor.*;
 import neptune.commands.InProgress.VRC;
+import neptune.commands.InProgress.anime4k;
 import neptune.commands.ImageCommands.*;
 import neptune.commands.UtilityCommands.*;
 import neptune.commands.audio.Awoo;
@@ -82,6 +83,7 @@ public class CommandRunner extends CommonMethods {
     private final Awoo awoo = new Awoo();
     private final Wan wan = new Wan();
     private final moreJpeg moreJpeg = new moreJpeg();
+    private final anime4k anime4k = new anime4k();
     public CommandRunner() {
         VariablesStorage variablesStorage = new VariablesStorage();
         NepSayCommand = new Say(new File(variablesStorage.getMediaFolder() + File.separator + "say"));
@@ -134,6 +136,7 @@ public class CommandRunner extends CommonMethods {
         commands.put(awoo.getCommand(),awoo);
         commands.put(wan.getCommand(),wan);
         commands.put(moreJpeg.getCommand(), moreJpeg);
+        commands.put(anime4k.getCommand(),anime4k);
     }
     public Map<String, Object> getCommandList(){
         return commands;
