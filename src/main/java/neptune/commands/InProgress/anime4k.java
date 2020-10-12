@@ -120,7 +120,7 @@ public class anime4k implements CommandInterface {
 
                 //downscale image until i can upload it
                 while (byteOutput.length > 8388608)  {
-                    log.debug("Downscaling image");
+                    log.warn("Downscaling image");
                     img = scale(img, (int)(img.getWidth() * 0.95), (int)(img.getHeight() * 0.95));
                     ImageIO.write(img, "png", imageOutputStream);
                     byteOutput = writerOutput.toByteArray();

@@ -210,6 +210,10 @@ public class CommandRunner extends CommonMethods {
             guildEntity = this.guildEntity;
             command = this.command;
             log.debug("Starting Thread");
+            System.out.println(event.toString());
+            System.out.println(messagecontent);
+            System.out.println(guildEntity.toString());
+            System.out.println(command.toString());
         }
 
         @Override
