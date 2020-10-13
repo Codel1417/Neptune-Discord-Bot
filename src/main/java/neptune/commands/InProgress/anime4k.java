@@ -20,7 +20,11 @@ import neptune.commands.commandCategories;
 import neptune.storage.guildObject;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.entities.Message.Attachment;
-
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+import javax.imageio.stream.MemoryCacheImageOutputStream;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 public class anime4k implements CommandInterface {   
     protected static final Logger log = LogManager.getLogger();
     File anime4kPath = new File("Anime4KCPP_CLI" + File.separator + "Anime4KCPP_CLI.exe");
@@ -91,7 +95,7 @@ public class anime4k implements CommandInterface {
             ProcessBuilder pb = new ProcessBuilder();
             //https://github.com/TianZerL/Anime4KCPP/wiki/CLI
             //--postprocessing --postFilters 48
-            String command = "\"" + anime4kPath.getAbsolutePath() + "\" -i \"" + originalImage.getAbsolutePath() + "\" -o \"" + outputImage.getAbsolutePath()+ "\" --CNNMode --GPUMode --HDN --HDNLevel 1 --alpha";
+            String command = "\"" + anime4kPath.getAbsolutePath() + "\" -i \"" + originalImage.getAbsolutePath() + "\" -o \"" + outputImage.getAbsolutePath()+ "\" --CNNMode --GPUMode --HDN --HDNLevel 3 --alpha --zoomFactor 4";
             pb.command(command.split(" "));
             Process p = pb.start();
             exitcode = p.waitFor();
@@ -113,9 +117,21 @@ public class anime4k implements CommandInterface {
         Mat destination = Imgcodecs.imread(outputImage.getAbsolutePath());
         Imgproc.GaussianBlur(source, destination, new Size(0,0), 10);
         Core.addWeighted(source, 1.5, destination, -0.5, 0, destination);
-        
         Imgcodecs.imwrite(outputImage.getAbsolutePath(), destination);
-        //todo: Downscale images that exceed 8mb limit
+
+        //downscale pass
+        BufferedImage img;
+        while (outputImage.length() > 8388608)
+        log.warn("Downscaling image");
+        try {
+            img = ImageIO.read(outputImage);
+            img = scale(img, (int)(img.getWidth() * 0.95), (int)(img.getHeight() * 0.95));
+            ImageIO.write(img, "png", outputImage);
+
+        } catch (IOException e1) {
+            log.error(e1);
+        }
+
         if (outputImage.exists() &&  exitcode == 0){
             event.getChannel().sendFile(outputImage).complete();
         }
@@ -125,6 +141,13 @@ public class anime4k implements CommandInterface {
             log.error(e);
         }
         return guildEntity; 
+    }
+    static BufferedImage scale(BufferedImage bi, int width, int height) {
+        BufferedImage newImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2 = (Graphics2D)newImage.getGraphics();
+        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+        g2.drawImage(bi, 0, 0, width, height, null);
+        return newImage;
     }
     
 }
