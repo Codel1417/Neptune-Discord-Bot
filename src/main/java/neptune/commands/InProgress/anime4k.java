@@ -81,7 +81,7 @@ public class anime4k implements CommandInterface {
         int exitcode;
         try {
             ProcessBuilder pb = new ProcessBuilder();
-            String command = "\"" + anime4kPath.getAbsolutePath() + "\" -i \"" + originalImage.getAbsolutePath() + "\" -o \"" + outputImage.getAbsolutePath()+ "\"";
+            String command = "\"" + anime4kPath.getAbsolutePath() + "\" -i \"" + originalImage.getAbsolutePath() + "\" -o \"" + outputImage.getAbsolutePath()+ "\" --CNNMode --GPUMode --HDN --HDNLevel 1 --alpha --postprocessing --postFilters 48";
             pb.command(command.split(" "));
             Process p = pb.start();
             exitcode = p.waitFor();
@@ -89,7 +89,8 @@ public class anime4k implements CommandInterface {
         } catch (Exception e) {
             log.error(e);
             return guildEntity;
-        }  
+        }
+        //todo: Downscale images that exceed 8mb limit
         if (outputImage.exists() &&  exitcode == 0){
             event.getChannel().sendFile(outputImage).complete();
         }
