@@ -100,6 +100,7 @@ public class anime4k implements CommandInterface {
 
         //sharpness pass
         try {
+            originalImage.delete();
             Files.move(outputImage.toPath(), originalImage.toPath());
         } catch (IOException e1) {
             log.error(e1);
