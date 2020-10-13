@@ -78,14 +78,18 @@ public class anime4k implements CommandInterface {
             }
         }
         else return guildEntity;
-
+        int exitcode;
         try {
-            Runtime.getRuntime().exec("\"" + anime4kPath.getAbsolutePath() + "\" -i \"" + originalImage.getAbsolutePath() + "\"      -o \"" + outputImage.getAbsolutePath()+ "\" " );
+            ProcessBuilder pb = new ProcessBuilder();
+            pb.command("\"" + anime4kPath.getAbsolutePath() + "\" -i \"" + originalImage.getAbsolutePath() + "\"      -o \"" + outputImage.getAbsolutePath()+ "\" " );
+            Process p = pb.start();
+            exitcode = p.waitFor();
+
         } catch (Exception e) {
             log.error(e);
             return guildEntity;
         }  
-        if (outputImage.exists()){
+        if (outputImage.exists() &&  exitcode == 0){
             event.getChannel().sendFile(outputImage).complete();
         }
         try {
