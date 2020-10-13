@@ -144,7 +144,7 @@ public class anime4k implements CommandInterface {
             log.warn("Downscaling image");
             try {
                 img = ImageIO.read(outputImage);
-                img = scale(img, (int)(img.getWidth() * 0.95), (int)(img.getHeight() * 0.95));
+                img = scale(img, (int)(img.getWidth() * 0.95), (int)(img.getHeight() * 0.9));
                 baos = new ByteArrayOutputStream();
                 ImageIO.write(img, "png", outputImage);
                 ImageIO.write(img, "png", baos);
