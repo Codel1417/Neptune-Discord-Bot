@@ -3,6 +3,7 @@ package neptune.commands.ImageCommands;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -102,12 +103,25 @@ public class anime4k implements CommandInterface {
                 originalImage.delete();
                 Files.move(outputImage.toPath(), originalImage.toPath());
                 Mat source = Imgcodecs.imread(originalImage.getAbsolutePath());
-                Mat destination = Imgcodecs.imread(outputImage.getAbsolutePath());
-                Imgproc.GaussianBlur(source, destination, new Size(0,0), 10);
-                destination.convertTo(destination, CvType.CV_32SC(3)); //strip alpha from sharpness mat
-                destination.convertTo(destination, source.type());
-
-                Core.addWeighted(source, 1.5, destination, -0.5, 0, destination);
+                Mat destination = new Mat();
+                if (source.channels() == 4){ //preserve alpha if possible
+                    Mat sourceNoAlpha = new Mat();
+                    Mat destinationNoAlpha = new Mat();
+                    List<Mat> colors = new ArrayList<>();
+                    Core.split(source, colors);
+                    Mat alpha = colors.get(3);
+                    colors.remove(3);
+                    Core.merge(colors, sourceNoAlpha);
+                    Imgproc.GaussianBlur(sourceNoAlpha, destinationNoAlpha, new Size(0,0), 10);
+                    Core.addWeighted(sourceNoAlpha, 1.5, destinationNoAlpha, -0.5, 0, destinationNoAlpha);
+                    Core.split(destinationNoAlpha, colors);
+                    colors.add(3, alpha);
+                    Core.merge(colors, destination);
+                }
+                else{
+                    Imgproc.GaussianBlur(source, destination, new Size(0,0), 10);
+                    Core.addWeighted(source, 1.5, destination, -0.5, 0, destination);
+                }
                 log.trace("Starting downscale pass");
                 //downscale pass
                 byte byteImage[] = Mat2byteArray(destination);
