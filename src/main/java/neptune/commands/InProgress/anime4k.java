@@ -64,9 +64,9 @@ public class anime4k implements CommandInterface {
     @Override
     public guildObject run(GuildMessageReceivedEvent event, String messageContent, guildObject guildEntity) {
         File directory = new File("tmp"+ File.separator + event.getMessageId() + File.separator);
-
         File originalImage;
         File outputImage;
+        directory.mkdirs();
         List<Attachment> attachments = event.getMessage().getAttachments();
         if (!attachments.isEmpty()){
             Attachment image = attachments.get(0);
@@ -81,7 +81,7 @@ public class anime4k implements CommandInterface {
         cmdl.addArgument("-i '" + originalImage.getAbsolutePath() + "'");
         cmdl.addArgument("-o '" + outputImage.getAbsolutePath()+ "'");
         cmdl.addArgument("-q"); //use gpu
-        
+
         int exitValue = 1;
         DefaultExecutor executor = new DefaultExecutor();
         try {
