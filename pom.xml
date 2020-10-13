@@ -29,7 +29,7 @@
                 <version>3.8.1</version>
                 <configuration>
 					<release>15</release> 
-					<compilerArgs>--enable-preview</compilerArgs>
+					<compilerArgs></compilerArgs>
 				</configuration>
 				
                 <executions>
