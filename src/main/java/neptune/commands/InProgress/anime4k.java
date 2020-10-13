@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import org.apache.commons.exec.CommandLine;
-import org.apache.commons.exec.DefaultExecutor;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -81,21 +79,13 @@ public class anime4k implements CommandInterface {
         }
         else return guildEntity;
 
-        CommandLine cmdl = new CommandLine(anime4kPath);
-
-        cmdl.addArgument("-i \"" + originalImage.getAbsolutePath() + "\"");
-        cmdl.addArgument("-o \"" + outputImage.getAbsolutePath()+ "\"");
-        cmdl.addArgument("-q"); //use gpu
-        int exitValue = 1;
-        log.debug(cmdl.toString());
-        DefaultExecutor executor = new DefaultExecutor();
         try {
-            exitValue = executor.execute(cmdl);
+            Runtime.getRuntime().exec("\"" + anime4kPath.getAbsolutePath() + "\" -i \"" + originalImage.getAbsolutePath() + "\"      -o \"" + outputImage.getAbsolutePath()+ "\" " );
         } catch (Exception e) {
             log.error(e);
             return guildEntity;
-        }
-        if (exitValue == 0){
+        }  
+        if (outputImage.exists()){
             event.getChannel().sendFile(outputImage).complete();
         }
         try {
