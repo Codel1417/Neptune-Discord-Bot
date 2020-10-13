@@ -98,7 +98,6 @@ public class anime4k implements CommandInterface {
                 Process p = pb.start();
                 p.waitFor();
                 log.trace("Starting sharpness pass");
-                event.getChannel().sendMessage("Upscale Pass").addFile(outputImage, "output.png").queue();
 
                 //sharpness pass
                 originalImage.delete();
