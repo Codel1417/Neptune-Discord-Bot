@@ -1,4 +1,4 @@
-package neptune.commands.InProgress;
+package neptune.commands.ImageCommands;
 
 import java.io.File;
 import java.io.IOException;
