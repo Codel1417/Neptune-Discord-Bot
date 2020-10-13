@@ -10,6 +10,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.opencv.core.Core;
+import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
 import org.opencv.core.Size;
@@ -92,7 +93,6 @@ public class anime4k implements CommandInterface {
                 //upscale pass
                 ProcessBuilder pb = new ProcessBuilder();            
                 //https://github.com/TianZerL/Anime4KCPP/wiki/CLI
-                // --HDN --HDNLevel 3
                 String command = "\"" + anime4kPath.getAbsolutePath() + "\" -i \"" + originalImage.getAbsolutePath() + "\" -o \"" + outputImage.getAbsolutePath()+ "\" --CNNMode --GPUMode --alpha --zoomFactor 2  --HDN --HDNLevel 2";
                 pb.command(command.split(" "));
                 Process p = pb.start();
@@ -103,11 +103,11 @@ public class anime4k implements CommandInterface {
                 //sharpness pass
                 originalImage.delete();
                 Files.move(outputImage.toPath(), originalImage.toPath());
-                Mat source = Imgcodecs.imread(originalImage.getAbsolutePath());
-                Mat destination = new Mat();
+                Mat source = Imgcodecs.imread(originalImage.getAbsolutePath(),CvType.CV_16SC4);
+                Mat destination = new Mat(CvType.CV_16SC4);
                 if (source.channels() > 3 ){ //preserve alpha if possible
-                    Mat sourceNoAlpha = new Mat();
-                    Mat destinationNoAlpha = new Mat();
+                    Mat sourceNoAlpha = new Mat(CvType.CV_16SC3);
+                    Mat destinationNoAlpha = new Mat(CvType.CV_16SC3);
                     List<Mat> colors = new ArrayList<>();
                     Core.split(source, colors);
                     Mat alpha = colors.get(3);
