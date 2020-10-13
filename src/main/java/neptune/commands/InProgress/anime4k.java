@@ -78,11 +78,11 @@ public class anime4k implements CommandInterface {
 
         CommandLine cmdl = new CommandLine(anime4kPath);
 
-        cmdl.addArgument("-i '" + originalImage.getAbsolutePath() + "'");
-        cmdl.addArgument("-o '" + outputImage.getAbsolutePath()+ "'");
+        cmdl.addArgument("-i \"" + originalImage.getAbsolutePath() + "\"");
+        cmdl.addArgument("-o \"" + outputImage.getAbsolutePath()+ "\"");
         cmdl.addArgument("-q"); //use gpu
-
         int exitValue = 1;
+        log.debug(cmdl.toString());
         DefaultExecutor executor = new DefaultExecutor();
         try {
             exitValue = executor.execute(cmdl);
