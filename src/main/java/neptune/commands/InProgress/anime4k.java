@@ -1,5 +1,6 @@
 package neptune.commands.InProgress;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -22,13 +23,20 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.entities.Message.Attachment;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
-import javax.imageio.stream.MemoryCacheImageOutputStream;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 public class anime4k implements CommandInterface {   
     protected static final Logger log = LogManager.getLogger();
     File anime4kPath = new File("Anime4KCPP_CLI" + File.separator + "Anime4KCPP_CLI.exe");
 
+
+    public anime4k(){
+        try {
+            FileUtils.deleteDirectory(new File("tmp"));
+        } catch (IOException e) {
+            log.error(e);
+        }
+    }
     @Override
     public String getName() {
         return "anime4k image upscaling";
@@ -122,15 +130,28 @@ public class anime4k implements CommandInterface {
 
         //downscale pass
         BufferedImage img;
-        while (outputImage.length() > 8388608)
-        log.warn("Downscaling image");
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
         try {
             img = ImageIO.read(outputImage);
-            img = scale(img, (int)(img.getWidth() * 0.95), (int)(img.getHeight() * 0.95));
-            ImageIO.write(img, "png", outputImage);
+            ImageIO.write(img, "png", baos);
+        } catch (IOException e2) {
+            log.error(e2);
+            return guildEntity;
+        }
 
-        } catch (IOException e1) {
-            log.error(e1);
+
+        while (baos.size() > 8388608){
+            log.warn("Downscaling image");
+            try {
+                img = ImageIO.read(outputImage);
+                img = scale(img, (int)(img.getWidth() * 0.95), (int)(img.getHeight() * 0.95));
+                baos = new ByteArrayOutputStream();
+                ImageIO.write(img, "png", outputImage);
+                ImageIO.write(img, "png", baos);
+            } catch (IOException e1) {
+                log.error(e1);
+                return guildEntity;
+            }
         }
 
         if (outputImage.exists() &&  exitcode == 0){
