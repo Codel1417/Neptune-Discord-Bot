@@ -12,7 +12,6 @@ import org.apache.logging.log4j.Logger;
 import org.opencv.core.Mat;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
-import org.opencv.highgui.Highgui;
 import org.opencv.imgcodecs.Imgcodecs;
 
 import neptune.commands.CommandInterface;
