@@ -1,10 +1,7 @@
 package neptune.commands.InProgress;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.util.List;
 
@@ -95,7 +92,6 @@ public class anime4k implements CommandInterface {
                 //upscale pass
                 ProcessBuilder pb = new ProcessBuilder();            
                 //https://github.com/TianZerL/Anime4KCPP/wiki/CLI
-                //--postprocessing --postFilters 48
                 // --HDN --HDNLevel 3
                 String command = "\"" + anime4kPath.getAbsolutePath() + "\" -i \"" + originalImage.getAbsolutePath() + "\" -o \"" + outputImage.getAbsolutePath()+ "\" --CNNMode --GPUMode --alpha --zoomFactor 2  --HDN --HDNLevel 2";
                 pb.command(command.split(" "));
@@ -144,13 +140,6 @@ public class anime4k implements CommandInterface {
         //Encoding the image
         MatOfByte matOfByte = new MatOfByte();
         Imgcodecs.imencode(".png", mat, matOfByte);
-        //Storing the encoded Mat in a byte array
-        //byte[] byteArray = matOfByte.toArray();
-        //Preparing the Buffered Image
-        //InputStream in = new ByteArrayInputStream(byteArray);
-        //BufferedImage bufImage = ImageIO.read(in);
-        //ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        //ImageIO.write(bufImage, "png", baos);
         return matOfByte.toArray();
     }
 }
