@@ -83,18 +83,14 @@ public class anime4k implements CommandInterface {
         File directory = new File("tmp" + File.separator + event.getMessageId() + File.separator);
         File originalImage;
         File outputImage;
-        directory.mkdirs();
-
-
-        int exitcode;
         try {
+            directory.mkdirs();
             List<Attachment> attachments = event.getMessage().getAttachments();
             if (!attachments.isEmpty()) {
                 Attachment image = attachments.get(0);
                 originalImage = new File(directory, "original." + image.getFileExtension());
                 outputImage = new File(directory, "output." + image.getFileExtension());
                 image.downloadToFile(originalImage).get();
-
                 //upscale pass
                 ProcessBuilder pb = new ProcessBuilder();            
                 //https://github.com/TianZerL/Anime4KCPP/wiki/CLI
@@ -103,7 +99,7 @@ public class anime4k implements CommandInterface {
                 String command = "\"" + anime4kPath.getAbsolutePath() + "\" -i \"" + originalImage.getAbsolutePath() + "\" -o \"" + outputImage.getAbsolutePath()+ "\" --CNNMode --GPUMode --alpha --zoomFactor 2  --HDN --HDNLevel 2";
                 pb.command(command.split(" "));
                 Process p = pb.start();
-                exitcode = p.waitFor();
+                p.waitFor();
 
                 //sharpness pass
                 originalImage.delete();
@@ -111,7 +107,9 @@ public class anime4k implements CommandInterface {
                 Mat source = Imgcodecs.imread(originalImage.getAbsolutePath());
                 Mat destination = Imgcodecs.imread(outputImage.getAbsolutePath());
                 Imgproc.GaussianBlur(source, destination, new Size(0,0), 10);
-                destination.convertTo(destination, CvType.CV_16SC(3)); //strip alpha from sharpness mat
+                destination.convertTo(destination, CvType.CV_32SC(3)); //strip alpha from sharpness mat
+                destination.convertTo(destination, source.type());
+
                 Core.addWeighted(source, 1.5, destination, -0.5, 0, destination);
 
                 //downscale pass
@@ -122,7 +120,7 @@ public class anime4k implements CommandInterface {
                     byteImage = Mat2byteArray(destination);
                 }
                 //upload to discord
-                if (outputImage.exists() &&  exitcode == 0){
+                if (outputImage.exists()){
                     event.getChannel().sendMessage("Here you go").addFile(byteImage, "output.png").queue();
                 }
             }
