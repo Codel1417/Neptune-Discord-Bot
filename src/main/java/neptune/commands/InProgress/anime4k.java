@@ -1,17 +1,20 @@
 package neptune.commands.InProgress;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.opencv.core.Core;
+import org.opencv.core.CvType;
 import org.opencv.core.Mat;
+import org.opencv.core.MatOfByte;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.imgcodecs.Imgcodecs;
@@ -21,10 +24,6 @@ import neptune.commands.commandCategories;
 import neptune.storage.guildObject;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.entities.Message.Attachment;
-import java.awt.image.BufferedImage;
-import javax.imageio.ImageIO;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 public class anime4k implements CommandInterface {   
     protected static final Logger log = LogManager.getLogger();
     File anime4kPath = new File("Anime4KCPP_CLI" + File.separator + "Anime4KCPP_CLI.exe");
@@ -79,97 +78,81 @@ public class anime4k implements CommandInterface {
 
     @Override
     public guildObject run(GuildMessageReceivedEvent event, String messageContent, guildObject guildEntity) {
-        nu.pattern.OpenCV.loadLocally();
+        nu.pattern.OpenCV.loadLocally(); //load opencv library natives
 
         File directory = new File("tmp" + File.separator + event.getMessageId() + File.separator);
         File originalImage;
         File outputImage;
         directory.mkdirs();
-        List<Attachment> attachments = event.getMessage().getAttachments();
-        if (!attachments.isEmpty()) {
-            Attachment image = attachments.get(0);
-            originalImage = new File(directory, "original." + image.getFileExtension());
-            outputImage = new File(directory, "output." + image.getFileExtension());
-            try {
-                image.downloadToFile(originalImage).get();
-            } catch (InterruptedException | ExecutionException e) {
-                log.error(e);
-                return guildEntity;
-            }
-        }
-        else return guildEntity;
+
+
         int exitcode;
         try {
-            ProcessBuilder pb = new ProcessBuilder();
-            //https://github.com/TianZerL/Anime4KCPP/wiki/CLI
-            //--postprocessing --postFilters 48
-            // --HDN --HDNLevel 3
-            String command = "\"" + anime4kPath.getAbsolutePath() + "\" -i \"" + originalImage.getAbsolutePath() + "\" -o \"" + outputImage.getAbsolutePath()+ "\" --CNNMode --GPUMode --alpha --zoomFactor 2";
-            pb.command(command.split(" "));
-            Process p = pb.start();
-            exitcode = p.waitFor();
+            List<Attachment> attachments = event.getMessage().getAttachments();
+            if (!attachments.isEmpty()) {
+                Attachment image = attachments.get(0);
+                originalImage = new File(directory, "original." + image.getFileExtension());
+                outputImage = new File(directory, "output." + image.getFileExtension());
+                image.downloadToFile(originalImage).get();
 
+                //upscale pass
+                ProcessBuilder pb = new ProcessBuilder();            
+                //https://github.com/TianZerL/Anime4KCPP/wiki/CLI
+                //--postprocessing --postFilters 48
+                // --HDN --HDNLevel 3
+                String command = "\"" + anime4kPath.getAbsolutePath() + "\" -i \"" + originalImage.getAbsolutePath() + "\" -o \"" + outputImage.getAbsolutePath()+ "\" --CNNMode --GPUMode --alpha --zoomFactor 2  --HDN --HDNLevel 2";
+                pb.command(command.split(" "));
+                Process p = pb.start();
+                exitcode = p.waitFor();
+
+                //sharpness pass
+                originalImage.delete();
+                Files.move(outputImage.toPath(), originalImage.toPath());
+                Mat source = Imgcodecs.imread(originalImage.getAbsolutePath());
+                Mat destination = Imgcodecs.imread(outputImage.getAbsolutePath());
+                Imgproc.GaussianBlur(source, destination, new Size(0,0), 10);
+                destination.convertTo(destination, CvType.CV_16SC(3)); //strip alpha from sharpness mat
+                Core.addWeighted(source, 1.5, destination, -0.5, 0, destination);
+
+                //downscale pass
+                byte byteImage[] = Mat2byteArray(destination);
+                while (byteImage.length > 8388608) {
+                    source = destination;
+                    Imgproc.resize(source, destination, new Size(0,0), 0.9,0.9,Imgproc.INTER_LINEAR);
+                    byteImage = Mat2byteArray(destination);
+                }
+                //upload to discord
+                if (outputImage.exists() &&  exitcode == 0){
+                    event.getChannel().sendMessage("Here you go").addFile(byteImage, "output.png").queue();
+                }
+            }
         } catch (Exception e) {
             log.error(e);
-            return guildEntity;
         }
-
-        //sharpness pass
-        try {
-            originalImage.delete();
-            Files.move(outputImage.toPath(), originalImage.toPath());
-        } catch (IOException e1) {
-            log.error(e1);
-            return guildEntity;
-        }
-        Mat source = Imgcodecs.imread(originalImage.getAbsolutePath());
-        Mat destination = Imgcodecs.imread(outputImage.getAbsolutePath());
-        Imgproc.GaussianBlur(source, destination, new Size(0,0), 10);
-        Core.addWeighted(source, 1.5, destination, -0.5, 0, destination);
-        Imgcodecs.imwrite(outputImage.getAbsolutePath(), destination);
-
-        //downscale pass
-        BufferedImage img;
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        try {
-            img = ImageIO.read(outputImage);
-            ImageIO.write(img, "png", baos);
-        } catch (IOException e2) {
-            log.error(e2);
-            return guildEntity;
-        }
-
-
-        while (baos.size() > 8388608){
-            log.warn("Downscaling image");
+        finally {
+            //clean up directory
             try {
-                img = ImageIO.read(outputImage);
-                img = scale(img, (int)(img.getWidth() * 0.9), (int)(img.getHeight() * 0.9));
-                baos = new ByteArrayOutputStream();
-                ImageIO.write(img, "png", outputImage);
-                ImageIO.write(img, "png", baos);
-            } catch (IOException e1) {
-                log.error(e1);
-                return guildEntity;
+                FileUtils.deleteDirectory(directory);
+            } catch (Exception e) {
+                log.error(e);
             }
         }
 
-        if (outputImage.exists() &&  exitcode == 0){
-            event.getChannel().sendFile(outputImage).complete();
-        }
-        try {
-            FileUtils.deleteDirectory(directory);
-        } catch (IOException e) {
-            log.error(e);
-        }
         return guildEntity; 
     }
-    static BufferedImage scale(BufferedImage bi, int width, int height) {
-        BufferedImage newImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g2 = (Graphics2D)newImage.getGraphics();
-        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-        g2.drawImage(bi, 0, 0, width, height, null);
-        return newImage;
+
+    //https://www.tutorialspoint.com/how-to-convert-opencv-mat-object-to-bufferedimage-object-using-java
+    public static byte[] Mat2byteArray(Mat mat) throws IOException{
+        //Encoding the image
+        MatOfByte matOfByte = new MatOfByte();
+        Imgcodecs.imencode(".png", mat, matOfByte);
+        //Storing the encoded Mat in a byte array
+        //byte[] byteArray = matOfByte.toArray();
+        //Preparing the Buffered Image
+        //InputStream in = new ByteArrayInputStream(byteArray);
+        //BufferedImage bufImage = ImageIO.read(in);
+        //ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        //ImageIO.write(bufImage, "png", baos);
+        return matOfByte.toArray();
     }
-    
 }
