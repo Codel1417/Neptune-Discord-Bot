@@ -88,7 +88,7 @@ public class anime4k implements CommandInterface {
                 originalImage = new File(directory, "original." + image.getFileExtension());
                 outputImage = new File(directory, "output." + image.getFileExtension());
                 image.downloadToFile(originalImage).get();
-                log.debug("Starting upscale pass");
+                log.trace("Starting upscale pass");
                 //upscale pass
                 ProcessBuilder pb = new ProcessBuilder();            
                 //https://github.com/TianZerL/Anime4KCPP/wiki/CLI
@@ -97,7 +97,7 @@ public class anime4k implements CommandInterface {
                 pb.command(command.split(" "));
                 Process p = pb.start();
                 p.waitFor();
-                log.debug("Starting sharpness pass");
+                log.trace("Starting sharpness pass");
                 //sharpness pass
                 originalImage.delete();
                 Files.move(outputImage.toPath(), originalImage.toPath());
@@ -108,11 +108,11 @@ public class anime4k implements CommandInterface {
                 destination.convertTo(destination, source.type());
 
                 Core.addWeighted(source, 1.5, destination, -0.5, 0, destination);
-                log.debug("Starting downscale pass");
+                log.trace("Starting downscale pass");
                 //downscale pass
                 byte byteImage[] = Mat2byteArray(destination);
                 while (byteImage.length > 8388608) {
-                    log.warn("Downscaling image");
+                    log.trace("Downscaling image");
                     source = destination;
                     Imgproc.resize(source, destination, new Size(0,0), 0.9,0.9,Imgproc.INTER_LINEAR);
                     byteImage = Mat2byteArray(destination);
