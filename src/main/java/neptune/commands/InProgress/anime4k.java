@@ -125,7 +125,7 @@ public class anime4k implements CommandInterface {
         Mat source = Imgcodecs.imread(originalImage.getAbsolutePath());
         Mat destination = Imgcodecs.imread(outputImage.getAbsolutePath());
         Imgproc.GaussianBlur(source, destination, new Size(0,0), 10);
-        Core.addWeighted(source, 1.7, destination, -0.3, 0, destination);
+        Core.addWeighted(source, 1.5, destination, -0.5, 0, destination);
         Imgcodecs.imwrite(outputImage.getAbsolutePath(), destination);
 
         //downscale pass
@@ -168,9 +168,6 @@ public class anime4k implements CommandInterface {
         BufferedImage newImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2 = (Graphics2D)newImage.getGraphics();
         g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
-        g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
-        g2.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
         g2.drawImage(bi, 0, 0, width, height, null);
         return newImage;
     }
