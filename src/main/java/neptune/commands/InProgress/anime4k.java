@@ -21,6 +21,9 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.entities.Message.Attachment;
 
 public class anime4k implements CommandInterface {
+    static {
+        System.loadLibrary(org.opencv.core.Core.NATIVE_LIBRARY_NAME);
+    }    
     protected static final Logger log = LogManager.getLogger();
     File anime4kPath = new File("Anime4KCPP_CLI" + File.separator + "Anime4KCPP_CLI.exe");
 
@@ -66,6 +69,7 @@ public class anime4k implements CommandInterface {
 
     @Override
     public guildObject run(GuildMessageReceivedEvent event, String messageContent, guildObject guildEntity) {
+        nu.pattern.OpenCV.loadShared();
         File directory = new File("tmp" + File.separator + event.getMessageId() + File.separator);
         File originalImage;
         File outputImage;
