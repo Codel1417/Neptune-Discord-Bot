@@ -3,6 +3,7 @@ package neptune.commands.InProgress;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.DefaultExecutor;
@@ -15,7 +16,6 @@ import neptune.commands.commandCategories;
 import neptune.storage.guildObject;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.entities.Message.Attachment;
-
 
 public class anime4k implements CommandInterface {
     protected static final Logger log = LogManager.getLogger();
@@ -63,16 +63,21 @@ public class anime4k implements CommandInterface {
 
     @Override
     public guildObject run(GuildMessageReceivedEvent event, String messageContent, guildObject guildEntity) {
-        File directory = new File("tmp"+ File.separator + event.getMessageId() + File.separator);
+        File directory = new File("tmp" + File.separator + event.getMessageId() + File.separator);
         File originalImage;
         File outputImage;
         directory.mkdirs();
         List<Attachment> attachments = event.getMessage().getAttachments();
-        if (!attachments.isEmpty()){
+        if (!attachments.isEmpty()) {
             Attachment image = attachments.get(0);
             originalImage = new File(directory, "original." + image.getFileExtension());
             outputImage = new File(directory, "output." + image.getFileExtension());
-            image.downloadToFile(originalImage).complete(originalImage);
+            try {
+                image.downloadToFile(originalImage).get();
+            } catch (InterruptedException | ExecutionException e) {
+                log.error(e);
+                return guildEntity;
+            }
         }
         else return guildEntity;
 
@@ -86,7 +91,7 @@ public class anime4k implements CommandInterface {
         DefaultExecutor executor = new DefaultExecutor();
         try {
             exitValue = executor.execute(cmdl);
-        } catch (IOException e) {
+        } catch (Exception e) {
             log.error(e);
             return guildEntity;
         }
