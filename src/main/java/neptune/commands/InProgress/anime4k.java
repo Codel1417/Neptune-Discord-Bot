@@ -104,7 +104,7 @@ public class anime4k implements CommandInterface {
             //https://github.com/TianZerL/Anime4KCPP/wiki/CLI
             //--postprocessing --postFilters 48
             // --HDN --HDNLevel 3
-            String command = "\"" + anime4kPath.getAbsolutePath() + "\" -i \"" + originalImage.getAbsolutePath() + "\" -o \"" + outputImage.getAbsolutePath()+ "\" --CNNMode --GPUMode --alpha --zoomFactor 4";
+            String command = "\"" + anime4kPath.getAbsolutePath() + "\" -i \"" + originalImage.getAbsolutePath() + "\" -o \"" + outputImage.getAbsolutePath()+ "\" --CNNMode --GPUMode --alpha --zoomFactor 2";
             pb.command(command.split(" "));
             Process p = pb.start();
             exitcode = p.waitFor();
@@ -125,7 +125,7 @@ public class anime4k implements CommandInterface {
         Mat source = Imgcodecs.imread(originalImage.getAbsolutePath());
         Mat destination = Imgcodecs.imread(outputImage.getAbsolutePath());
         Imgproc.GaussianBlur(source, destination, new Size(0,0), 10);
-        Core.addWeighted(source, 1.5, destination, -0.5, 0, destination);
+        Core.addWeighted(source, 1.7, destination, -0.3, 0, destination);
         Imgcodecs.imwrite(outputImage.getAbsolutePath(), destination);
 
         //downscale pass
@@ -167,7 +167,10 @@ public class anime4k implements CommandInterface {
     static BufferedImage scale(BufferedImage bi, int width, int height) {
         BufferedImage newImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2 = (Graphics2D)newImage.getGraphics();
-        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+        g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         g2.drawImage(bi, 0, 0, width, height, null);
         return newImage;
     }
