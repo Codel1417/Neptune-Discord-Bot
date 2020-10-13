@@ -10,7 +10,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.opencv.core.Core;
-import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
 import org.opencv.core.Size;
@@ -99,12 +98,14 @@ public class anime4k implements CommandInterface {
                 Process p = pb.start();
                 p.waitFor();
                 log.trace("Starting sharpness pass");
+                event.getChannel().sendMessage("Upscale Pass").addFile(outputImage, "output.png").queue();
+
                 //sharpness pass
                 originalImage.delete();
                 Files.move(outputImage.toPath(), originalImage.toPath());
                 Mat source = Imgcodecs.imread(originalImage.getAbsolutePath());
                 Mat destination = new Mat();
-                if (source.channels() == 4){ //preserve alpha if possible
+                if (source.channels() > 3 ){ //preserve alpha if possible
                     Mat sourceNoAlpha = new Mat();
                     Mat destinationNoAlpha = new Mat();
                     List<Mat> colors = new ArrayList<>();
