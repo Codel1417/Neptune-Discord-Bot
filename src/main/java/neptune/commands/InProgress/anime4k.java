@@ -66,7 +66,7 @@ public class anime4k implements CommandInterface {
 
     @Override
     public guildObject run(GuildMessageReceivedEvent event, String messageContent, guildObject guildEntity) {
-        nu.pattern.OpenCV.loadShared();
+        nu.pattern.OpenCV.loadLocally();
 
         File directory = new File("tmp" + File.separator + event.getMessageId() + File.separator);
         File originalImage;
