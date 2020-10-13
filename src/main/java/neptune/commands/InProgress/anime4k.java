@@ -2,12 +2,18 @@ package neptune.commands.InProgress;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.opencv.core.Mat;
+import org.opencv.core.Size;
+import org.opencv.imgproc.Imgproc;
+import org.opencv.highgui.Highgui;
+import org.opencv.imgcodecs.Imgcodecs;
 
 import neptune.commands.CommandInterface;
 import neptune.commands.commandCategories;
@@ -81,7 +87,9 @@ public class anime4k implements CommandInterface {
         int exitcode;
         try {
             ProcessBuilder pb = new ProcessBuilder();
-            String command = "\"" + anime4kPath.getAbsolutePath() + "\" -i \"" + originalImage.getAbsolutePath() + "\" -o \"" + outputImage.getAbsolutePath()+ "\" --CNNMode --GPUMode --HDN --HDNLevel 1 --alpha --postprocessing --postFilters 48";
+            //https://github.com/TianZerL/Anime4KCPP/wiki/CLI
+            //--postprocessing --postFilters 48
+            String command = "\"" + anime4kPath.getAbsolutePath() + "\" -i \"" + originalImage.getAbsolutePath() + "\" -o \"" + outputImage.getAbsolutePath()+ "\" --CNNMode --GPUMode --HDN --HDNLevel 1 --alpha";
             pb.command(command.split(" "));
             Process p = pb.start();
             exitcode = p.waitFor();
@@ -90,6 +98,18 @@ public class anime4k implements CommandInterface {
             log.error(e);
             return guildEntity;
         }
+
+        //sharpness pass
+        try {
+            Files.move(outputImage.toPath(), originalImage.toPath());
+        } catch (IOException e1) {
+            log.error(e1);
+            return guildEntity;
+        }
+        Mat source = Imgcodecs.imread(originalImage.getAbsolutePath());
+        Mat destination = Imgcodecs.imread(outputImage.getAbsolutePath());
+        Imgproc.GaussianBlur(source, destination, new Size(0,0), 10);
+        Imgcodecs.imwrite(outputImage.getAbsolutePath(), destination);
         //todo: Downscale images that exceed 8mb limit
         if (outputImage.exists() &&  exitcode == 0){
             event.getChannel().sendFile(outputImage).complete();
