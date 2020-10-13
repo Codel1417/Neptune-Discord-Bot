@@ -105,24 +105,22 @@ public class anime4k implements CommandInterface {
                 Files.move(outputImage.toPath(), originalImage.toPath());
                 Mat source = Imgcodecs.imread(originalImage.getAbsolutePath(),CvType.CV_16SC4);
                 Mat destination = new Mat(CvType.CV_16SC4);
-                if (source.channels() > 3 ){ //preserve alpha if possible
-                    Mat sourceNoAlpha = new Mat(CvType.CV_16SC3);
-                    Mat destinationNoAlpha = new Mat(CvType.CV_16SC3);
-                    List<Mat> colors = new ArrayList<>();
-                    Core.split(source, colors);
-                    Mat alpha = colors.get(3);
-                    colors.remove(3);
-                    Core.merge(colors, sourceNoAlpha);
-                    Imgproc.GaussianBlur(sourceNoAlpha, destinationNoAlpha, new Size(0,0), 10);
-                    Core.addWeighted(sourceNoAlpha, 1.5, destinationNoAlpha, -0.5, 0, destinationNoAlpha);
-                    Core.split(destinationNoAlpha, colors);
-                    colors.add(3, alpha);
-                    Core.merge(colors, destination);
-                }
-                else{
-                    Imgproc.GaussianBlur(source, destination, new Size(0,0), 10);
-                    Core.addWeighted(source, 1.5, destination, -0.5, 0, destination);
-                }
+
+                //preserve alpha?
+                Mat sourceNoAlpha = new Mat(CvType.CV_16SC3);
+                Mat destinationNoAlpha = new Mat(CvType.CV_16SC3);
+                List<Mat> colors = new ArrayList<>();
+                Core.split(source, colors);
+                Mat alpha = colors.get(3);
+                colors.remove(3);
+                Core.merge(colors, sourceNoAlpha);
+                Imgproc.GaussianBlur(sourceNoAlpha, destinationNoAlpha, new Size(0,0), 10);
+                Core.addWeighted(sourceNoAlpha, 1.5, destinationNoAlpha, -0.5, 0, destinationNoAlpha);
+                Core.split(destinationNoAlpha, colors);
+                colors.add(3, alpha);
+                Core.merge(colors, destination);
+
+
                 log.trace("Starting downscale pass");
                 //downscale pass
                 byte byteImage[] = Mat2byteArray(destination);
