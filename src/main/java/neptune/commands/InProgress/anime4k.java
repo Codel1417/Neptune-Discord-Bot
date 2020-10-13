@@ -9,6 +9,7 @@ import java.util.concurrent.ExecutionException;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
@@ -111,6 +112,8 @@ public class anime4k implements CommandInterface {
         Mat source = Imgcodecs.imread(originalImage.getAbsolutePath());
         Mat destination = Imgcodecs.imread(outputImage.getAbsolutePath());
         Imgproc.GaussianBlur(source, destination, new Size(0,0), 10);
+        Core.addWeighted(source, 1.5, destination, -0.5, 0, destination);
+        
         Imgcodecs.imwrite(outputImage.getAbsolutePath(), destination);
         //todo: Downscale images that exceed 8mb limit
         if (outputImage.exists() &&  exitcode == 0){
