@@ -81,7 +81,8 @@ public class anime4k implements CommandInterface {
         int exitcode;
         try {
             ProcessBuilder pb = new ProcessBuilder();
-            pb.command("\"" + anime4kPath.getAbsolutePath() + "\" -i \"" + originalImage.getAbsolutePath() + "\"      -o \"" + outputImage.getAbsolutePath()+ "\" " );
+            String command = "\"" + anime4kPath.getAbsolutePath() + "\" -i \"" + originalImage.getAbsolutePath() + "\" -o \"" + outputImage.getAbsolutePath()+ "\"";
+            pb.command(command.split(" "));
             Process p = pb.start();
             exitcode = p.waitFor();
 
