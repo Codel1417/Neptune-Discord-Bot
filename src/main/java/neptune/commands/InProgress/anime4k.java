@@ -70,8 +70,8 @@ public class anime4k implements CommandInterface {
         List<Attachment> attachments = event.getMessage().getAttachments();
         if (!attachments.isEmpty()){
             Attachment image = attachments.get(0);
-            originalImage = new File(directory, "original" + image.getFileExtension());
-            outputImage = new File(directory, "output" + image.getFileExtension());
+            originalImage = new File(directory, "original." + image.getFileExtension());
+            outputImage = new File(directory, "output." + image.getFileExtension());
             image.downloadToFile(originalImage).complete(originalImage);
         }
         else return guildEntity;
