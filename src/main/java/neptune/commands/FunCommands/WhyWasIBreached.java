@@ -21,11 +21,11 @@ public class WhyWasIBreached implements CommandInterface {
   @Override
   public String getDescription() {
     return "Did you just lose 100m customer SSNs because your root password was \"password\", you"
-               + " set an S3 bucket to public or you didn't patch a well known vulnerability for 8"
-               + " months? Is the media and government chewing you out because of it? Worry not!"
-               + " Our free excuse generator will help you develop an air-tight breach statement"
-               + " in no time!\n"
-               + " Inspired by https://whythefuckwasibreached.com/";
+        + " set an S3 bucket to public or you didn't patch a well known vulnerability for 8"
+        + " months? Is the media and government chewing you out because of it? Worry not!"
+        + " Our free excuse generator will help you develop an air-tight breach statement"
+        + " in no time!\n"
+        + " Inspired by https://whythefuckwasibreached.com/";
   }
 
   @Override
