@@ -143,7 +143,8 @@ public class anime4k implements CommandInterface {
                     byteImage = Mat2byteArray(destination);
                 }
                 //upload to discord
-                event.getChannel().sendMessage("Here you go").addFile(byteImage, "output.png").queue();
+                event.getChannel().sendMessage("Upscale Pass").addFile(originalImage, "output.png").complete();
+                event.getChannel().sendMessage("Here you go").addFile(byteImage, "output.png").complete();
             }
         } catch (Exception e) {
             log.error(e);
