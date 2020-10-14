@@ -107,7 +107,7 @@ public class anime4k implements CommandInterface {
 
                 log.warn("Starting sharpness pass");
                 //sharpness pass
-                Mat source = Imgcodecs.imread(outputImage.getAbsolutePath(),CvType.CV_32SC4);
+                Mat source = Imgcodecs.imread(outputImage.getAbsolutePath(),CvType.CV_32FC4);
                 Mat destination = new Mat();
 
                 Mat sourceNoAlpha = new Mat();
@@ -118,8 +118,8 @@ public class anime4k implements CommandInterface {
                 Mat alpha = colors.get(3);
                 colors.remove(3);
                 Core.merge(colors, sourceNoAlpha);
-                alpha.convertTo(alpha, CvType.CV_32SC1);
-                sourceNoAlpha.convertTo(sourceNoAlpha, CvType.CV_32SC3);
+                alpha.convertTo(alpha, CvType.CV_32FC1);
+                sourceNoAlpha.convertTo(sourceNoAlpha, CvType.CV_32FC3);
 
                 Imgproc.GaussianBlur(sourceNoAlpha, destinationNoAlpha, new Size(0,0), 10);
                 Core.addWeighted(sourceNoAlpha, 1.5, destinationNoAlpha, -0.5, 0, destinationNoAlpha);
