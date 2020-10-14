@@ -1,10 +1,12 @@
 package neptune.commands.ImageCommands;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
@@ -96,9 +98,13 @@ public class anime4k implements CommandInterface {
                 String command = "\"" + anime4kPath.getAbsolutePath() + "\" -i \"" + originalImage.getAbsolutePath() + "\" -o \"" + outputImage.getAbsolutePath()+ "\" --CNNMode --GPUMode --alpha --zoomFactor 2  --HDN --HDNLevel 2";
                 pb.command(command.split(" "));
                 Process p = pb.start();
-                p.waitFor();
-                log.trace("Starting sharpness pass");
+                int exitcode = p.waitFor();
+                if (exitcode != 0){
+                    throw new FileNotFoundException("Upscaling Process Failed");
+                }
 
+
+                log.trace("Starting sharpness pass");
                 //sharpness pass
                 originalImage.delete();
                 Files.move(outputImage.toPath(), originalImage.toPath());
