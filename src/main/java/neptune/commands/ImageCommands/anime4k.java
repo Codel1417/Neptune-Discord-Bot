@@ -108,7 +108,7 @@ public class anime4k implements CommandInterface {
 
                 log.warn("Starting sharpness pass");
                 //sharpness pass
-                Mat source = Imgcodecs.imread(outputImage.getAbsolutePath(),CvType.CV_16SC4);
+                Mat source = Imgcodecs.imread(outputImage.getAbsolutePath(),CvType.CV_32FC4);
                 Mat destination = new Mat();
 
                 Mat sourceNoAlpha = new Mat();
@@ -119,8 +119,8 @@ public class anime4k implements CommandInterface {
                 Mat alpha = colors.get(3);
                 colors.remove(3);
                 Core.merge(colors, sourceNoAlpha);
-                alpha.convertTo(alpha, CvType.CV_16SC1);
-                sourceNoAlpha.convertTo(sourceNoAlpha, CvType.CV_16SC3);
+                alpha.convertTo(alpha, CvType.CV_32SC1);
+                sourceNoAlpha.convertTo(sourceNoAlpha, CvType.CV_32SC3);
 
                 Imgproc.GaussianBlur(sourceNoAlpha, destinationNoAlpha, new Size(0,0), 10);
                 Core.addWeighted(sourceNoAlpha, 1.5, destinationNoAlpha, -0.5, 0, destinationNoAlpha);
@@ -128,8 +128,7 @@ public class anime4k implements CommandInterface {
                 Core.split(destinationNoAlpha, colors);
                 colors.add(3, alpha);
                 Core.merge(colors, destination);
-                destination.convertTo(destination, CvType.CV_16SC4);
-
+                destination.convertTo(destination, CvType.CV_32SC4);
 
                 log.warn("Starting downscale pass");
                 //downscale pass
@@ -141,7 +140,7 @@ public class anime4k implements CommandInterface {
                     byteImage = Mat2byteArray(destination);
                 }
                 //upload to discord
-                event.getChannel().sendMessage("Upscale Pass").addFile(outputImage, "output.png").complete();
+                //event.getChannel().sendMessage("Upscale Pass").addFile(outputImage, "output.png").complete();
                 event.getChannel().sendMessage("Here you go").addFile(byteImage, "output.png").complete();
             }
         } catch (Exception e) {
