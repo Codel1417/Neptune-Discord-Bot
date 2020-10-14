@@ -103,7 +103,7 @@ public class anime4k implements CommandInterface {
                 originalImage.delete();
                 Files.move(outputImage.toPath(), originalImage.toPath());
                 Mat source = Imgcodecs.imread(originalImage.getAbsolutePath(),CvType.CV_16SC4);
-                Mat destination = new Mat(CvType.CV_16SC4);
+                Mat destination = new Mat();
 
                 //preserve alpha?
                 Mat sourceNoAlpha = new Mat();
