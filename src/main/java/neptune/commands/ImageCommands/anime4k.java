@@ -90,7 +90,7 @@ public class anime4k implements CommandInterface {
                 originalImage = new File(directory, "original." + image.getFileExtension());
                 outputImage = new File(directory, "output." + image.getFileExtension());
                 image.downloadToFile(originalImage).get();
-                log.warn("Starting upscale pass");
+                log.trace("Starting upscale pass");
                 
                 //upscale pass
                 ProcessBuilder pb = new ProcessBuilder();            
@@ -98,7 +98,6 @@ public class anime4k implements CommandInterface {
                 String command = "\"" + anime4kPath.getAbsolutePath() + "\" -i \"" + originalImage.getAbsolutePath() + "\" -o \"" + outputImage.getAbsolutePath()+ "\" --CNNMode --GPUMode --alpha --zoomFactor 4  --HDN --HDNLevel 2";
                 pb.command(command.split(" "));
 
-                pb.inheritIO();
                 Process p = pb.start();
                 int exitcode = p.waitFor();
                 if (exitcode != 0){
