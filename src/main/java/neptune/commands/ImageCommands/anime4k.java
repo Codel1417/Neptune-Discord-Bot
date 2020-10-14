@@ -3,8 +3,8 @@ package neptune.commands.ImageCommands;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
@@ -91,6 +91,7 @@ public class anime4k implements CommandInterface {
                 outputImage = new File(directory, "output." + image.getFileExtension());
                 image.downloadToFile(originalImage).get();
                 log.warn("Starting upscale pass");
+                
                 //upscale pass
                 ProcessBuilder pb = new ProcessBuilder();            
                 //https://github.com/TianZerL/Anime4KCPP/wiki/CLI
@@ -107,7 +108,7 @@ public class anime4k implements CommandInterface {
 
                 log.warn("Starting sharpness pass");
                 //sharpness pass
-                Mat source = Imgcodecs.imread(outputImage.getAbsolutePath(),CvType.CV_32FC4);
+                Mat source = Imgcodecs.imread(outputImage.getAbsolutePath());
                 Mat destination = new Mat();
 
                 Mat sourceNoAlpha = new Mat();
@@ -116,23 +117,23 @@ public class anime4k implements CommandInterface {
                 destination.copySize(source);
                 sourceNoAlpha.copySize(source);
                 destinationNoAlpha.copySize(source);
-
-                List<Mat> colors = new ArrayList<>();
+                source.convertTo(source, CvType.makeType(source.depth(), 4));
+                Vector<Mat> colors = new Vector<>(4);
                 Core.split(source, colors);
                 Mat alpha = colors.get(3);
                 colors.remove(3);
                 Core.merge(colors, sourceNoAlpha);
-                alpha.convertTo(alpha, CvType.CV_32FC1);
-                sourceNoAlpha.convertTo(sourceNoAlpha, CvType.CV_32FC3);
+                alpha.convertTo(alpha, CvType.makeType(source.depth(), 4));
+                sourceNoAlpha.convertTo(sourceNoAlpha, CvType.makeType(source.depth(), 4));
 
 
                 Imgproc.GaussianBlur(sourceNoAlpha, destinationNoAlpha, new Size(0,0), 10);
                 Core.addWeighted(sourceNoAlpha, 1.5, destinationNoAlpha, -0.5, 0, destinationNoAlpha);
-                colors = new ArrayList<>();
+                colors = new Vector<>(4);
                 Core.split(destinationNoAlpha, colors);
                 colors.add(3, alpha);
                 Core.merge(colors, destination);
-                destination.convertTo(destination, CvType.CV_32SC4);
+                destination.convertTo(destination, CvType.makeType(source.depth(), 4));
 
                 log.warn("Starting downscale pass");
                 //downscale pass
@@ -162,10 +163,10 @@ public class anime4k implements CommandInterface {
 }
 
   // https://www.tutorialspoint.com/how-to-convert-opencv-mat-object-to-bufferedimage-object-using-java
-  public static byte[] Mat2byteArray(Mat mat) throws IOException {
-    // Encoding the image
-    MatOfByte matOfByte = new MatOfByte();
-    Imgcodecs.imencode(".png", mat, matOfByte);
-    return matOfByte.toArray();
-  }
+    public static byte[] Mat2byteArray(Mat mat) throws IOException {
+        // Encoding the image
+        MatOfByte matOfByte = new MatOfByte();
+        Imgcodecs.imencode(".png", mat, matOfByte);
+        return matOfByte.toArray();
+    }
 }
