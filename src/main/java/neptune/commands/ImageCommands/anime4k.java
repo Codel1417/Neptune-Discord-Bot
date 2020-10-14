@@ -111,9 +111,9 @@ public class anime4k implements CommandInterface {
                 Mat source = Imgcodecs.imread(originalImage.getAbsolutePath(),CvType.CV_16SC4);
                 Mat destination = new Mat();
 
-                //preserve alpha?
                 Mat sourceNoAlpha = new Mat();
                 Mat destinationNoAlpha = new Mat();
+
                 List<Mat> colors = new ArrayList<>();
                 Core.split(source, colors);
                 Mat alpha = colors.get(3);
@@ -124,6 +124,7 @@ public class anime4k implements CommandInterface {
 
                 Imgproc.GaussianBlur(sourceNoAlpha, destinationNoAlpha, new Size(0,0), 10);
                 Core.addWeighted(sourceNoAlpha, 1.5, destinationNoAlpha, -0.5, 0, destinationNoAlpha);
+                colors = new ArrayList<>();
                 Core.split(destinationNoAlpha, colors);
                 colors.add(3, alpha);
                 Core.merge(colors, destination);
