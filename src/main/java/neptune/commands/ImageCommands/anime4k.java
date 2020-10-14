@@ -97,8 +97,8 @@ public class anime4k implements CommandInterface {
                 //https://github.com/TianZerL/Anime4KCPP/wiki/CLI
                 String command = "\"" + anime4kPath.getAbsolutePath() + "\" -i \"" + originalImage.getAbsolutePath() + "\" -o \"" + outputImage.getAbsolutePath()+ "\" --CNNMode --GPUMode --alpha --zoomFactor 2  --HDN --HDNLevel 2";
                 pb.command(command.split(" "));
-                pb.redirectError();
-                pb.redirectOutput();
+
+                pb.inheritIO();
                 Process p = pb.start();
                 int exitcode = p.waitFor();
                 if (exitcode != 0){
@@ -137,7 +137,7 @@ public class anime4k implements CommandInterface {
                 //downscale pass
                 byte byteImage[] = Mat2byteArray(destination);
                 while (byteImage.length > 8388608) {
-                    log.trace("Downscaling image");
+                    log.warn("Downscaling image");
                     source = destination;
                     Imgproc.resize(source, destination, new Size(0,0), 0.9,0.9,Imgproc.INTER_LINEAR);
                     byteImage = Mat2byteArray(destination);
