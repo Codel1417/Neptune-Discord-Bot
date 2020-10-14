@@ -115,9 +115,10 @@ public class anime4k implements CommandInterface {
                 Mat destinationNoAlpha = new Mat();
 
                 source.convertTo(source, CvType.makeType(source.depth(), 4));
+                log.warn("Channels: " + source.channels() + " Depth: " + source.depth());
                 ArrayList<Mat> colors = new ArrayList<>();
                 Core.split(source, colors);
-                Mat alpha = colors.get(3);
+                Mat alpha = colors.get(colors.size()-1);
                 colors.remove(alpha);
                 Core.merge(colors, sourceNoAlpha);
                 alpha.convertTo(alpha, CvType.makeType(source.depth(), 1));
@@ -145,7 +146,7 @@ public class anime4k implements CommandInterface {
                 event.getChannel().sendMessage("Here you go").addFile(byteImage, "output.png").complete();
             }
         } catch (Exception e) {
-            log.error(e);
+            log.error(e.toString());
         }
         finally {
             //clean up directory
