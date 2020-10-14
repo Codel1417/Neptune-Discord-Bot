@@ -13,108 +13,111 @@ import java.util.*;
 
 public class Help extends CommonMethods implements CommandInterface {
 
-    private EmbedBuilder sortedCommandList = null;
-    @Override
-    public String getName() {
-        return "Help";
-    }
+  private EmbedBuilder sortedCommandList = null;
 
-    @Override
-    public String getCommand() {
-        return "help";
-    }
+  @Override
+  public String getName() {
+    return "Help";
+  }
 
-    @Override
-    public String getDescription() {
-        return "Displays help";
-    }
+  @Override
+  public String getCommand() {
+    return "help";
+  }
 
-    @Override
-    public commandCategories getCategory() {
-        return commandCategories.Help;
-    }
+  @Override
+  public String getDescription() {
+    return "Displays help";
+  }
 
-    @Override
-    public String getHelp() {
-        return getCommand() + "<Command> for more info";
-    }
+  @Override
+  public commandCategories getCategory() {
+    return commandCategories.Help;
+  }
 
-    @Override
-    public boolean getRequireManageServer() {
-        return false;
-    }
+  @Override
+  public String getHelp() {
+    return getCommand() + "<Command> for more info";
+  }
 
-    @Override
-    public boolean getHideCommand() {
-        return true;
-    }
+  @Override
+  public boolean getRequireManageServer() {
+    return false;
+  }
 
-    @Override
-    public boolean getRequireManageUsers() {
-        return false;
-    }
+  @Override
+  public boolean getHideCommand() {
+    return true;
+  }
 
-    @Override
-    public guildObject run(GuildMessageReceivedEvent event,String messageContent, guildObject guildEntity) {
-        EmbedBuilder embedBuilder = new EmbedBuilder();
-        embedBuilder.setColor(Color.MAGENTA);
-        embedBuilder.setAuthor("Help",event.getGuild().getSelfMember().getUser().getEffectiveAvatarUrl());
-        embedBuilder.setDescription("Use !nep <Command>");
+  @Override
+  public boolean getRequireManageUsers() {
+    return false;
+  }
 
-        //sort list
-        Map<String, Object> commands = new TreeMap<>(new CommandRunner().getCommandList());
+  @Override
+  public guildObject run(
+      GuildMessageReceivedEvent event, String messageContent, guildObject guildEntity) {
+    EmbedBuilder embedBuilder = new EmbedBuilder();
+    embedBuilder.setColor(Color.MAGENTA);
+    embedBuilder.setAuthor(
+        "Help", event.getGuild().getSelfMember().getUser().getEffectiveAvatarUrl());
+    embedBuilder.setDescription("Use !nep <Command>");
 
-        String[] commandArray = getCommandName(messageContent);
+    // sort list
+    Map<String, Object> commands = new TreeMap<>(new CommandRunner().getCommandList());
 
-        //per command check
-        if (commands.containsKey(commandArray[0])){
-            CommandInterface command = (CommandInterface) commands.get(commandArray[0]);
-            if (!command.getHideCommand()) {
-                embedBuilder.setTitle(command.getName());
-                embedBuilder.setDescription(command.getDescription());
-                embedBuilder.addField("Command",command.getCommand(),true);
-                embedBuilder.addField("Category", command.getCategory().name(),true);
-                if (!command.getHelp().equals("")){
-                    embedBuilder.addField("Usage", command.getHelp(),true);
-                }
-            }
+    String[] commandArray = getCommandName(messageContent);
+
+    // per command check
+    if (commands.containsKey(commandArray[0])) {
+      CommandInterface command = (CommandInterface) commands.get(commandArray[0]);
+      if (!command.getHideCommand()) {
+        embedBuilder.setTitle(command.getName());
+        embedBuilder.setDescription(command.getDescription());
+        embedBuilder.addField("Command", command.getCommand(), true);
+        embedBuilder.addField("Category", command.getCategory().name(), true);
+        if (!command.getHelp().equals("")) {
+          embedBuilder.addField("Usage", command.getHelp(), true);
         }
-        else {
-            //only generate help list once
-            if (sortedCommandList == null){
-                sortedCommandList = CreateSortedCommandList(commands,embedBuilder);
-            }
-            embedBuilder = sortedCommandList;
-        }
-
-        //send message
-        event.getChannel().sendMessage(embedBuilder.build()).queue();
-        return guildEntity;
+      }
+    } else {
+      // only generate help list once
+      if (sortedCommandList == null) {
+        sortedCommandList = CreateSortedCommandList(commands, embedBuilder);
+      }
+      embedBuilder = sortedCommandList;
     }
 
-    private EmbedBuilder CreateSortedCommandList(Map<String, Object> Commands, EmbedBuilder embedBuilder){
-        Map<String, StringBuilder> CommandsSortedCategory = new HashMap<>();
-        for (Object commandObject : Commands.values()) {
-            CommandInterface command = (CommandInterface) commandObject;
+    // send message
+    event.getChannel().sendMessage(embedBuilder.build()).queue();
+    return guildEntity;
+  }
 
-            if (!command.getHideCommand()) { //exclude hidden commands
-                if (!CommandsSortedCategory.containsKey(command.getCategory().name())) {
-                    CommandsSortedCategory.put(command.getCategory().name(), new StringBuilder());
-                }
-                StringBuilder stringBuilder = CommandsSortedCategory.get(command.getCategory().name());
-                stringBuilder.append("`").append(command.getCommand()).append("` ");
-                CommandsSortedCategory.put(command.getCategory().name(), stringBuilder);
-            }
-        }
-        //sort list
-        CommandsSortedCategory = new TreeMap<>(CommandsSortedCategory);
+  private EmbedBuilder CreateSortedCommandList(
+      Map<String, Object> Commands, EmbedBuilder embedBuilder) {
+    Map<String, StringBuilder> CommandsSortedCategory = new HashMap<>();
+    for (Object commandObject : Commands.values()) {
+      CommandInterface command = (CommandInterface) commandObject;
 
-        //creates the embed
-        for(Map.Entry<String, StringBuilder> entry : CommandsSortedCategory.entrySet()){
-            String Category = entry.getKey();
-            StringBuilder stringBuilder = entry.getValue();
-            embedBuilder.addField(Category, stringBuilder.toString(),false);
+      if (!command.getHideCommand()) { // exclude hidden commands
+        if (!CommandsSortedCategory.containsKey(command.getCategory().name())) {
+          CommandsSortedCategory.put(command.getCategory().name(), new StringBuilder());
         }
-        return embedBuilder;
+        StringBuilder stringBuilder = CommandsSortedCategory.get(command.getCategory().name());
+        stringBuilder.append("`").append(command.getCommand()).append("` ");
+        CommandsSortedCategory.put(command.getCategory().name(), stringBuilder);
+      }
     }
+    // sort list
+    CommandsSortedCategory = new TreeMap<>(CommandsSortedCategory);
+
+    // creates the embed
+    for (Map.Entry<String, StringBuilder> entry : CommandsSortedCategory.entrySet()) {
+      String Category = entry.getKey();
+      StringBuilder stringBuilder = entry.getValue();
+      embedBuilder.addField(Category, stringBuilder.toString(), false);
+    }
+    return embedBuilder;
+  }
 }
