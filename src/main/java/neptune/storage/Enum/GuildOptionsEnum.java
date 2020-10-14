@@ -1,9 +1,5 @@
 package neptune.storage.Enum;
 
 public enum GuildOptionsEnum {
-  CustomRoleEnabled,
-  LoggingEnabled,
-  LeaderboardLevelUpNotification,
-  leaderboardEnabled,
-  customSounds
+    CustomRoleEnabled,LoggingEnabled,LeaderboardLevelUpNotification, leaderboardEnabled, customSounds
 }

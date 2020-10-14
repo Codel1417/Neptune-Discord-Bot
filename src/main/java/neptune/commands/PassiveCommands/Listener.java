@@ -30,113 +30,100 @@ import javax.annotation.Nonnull;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-// intercepts discord messages
+
+//intercepts discord messages
 public class Listener implements EventListener {
-  private final neptune.messageInterprter messageInterprter;
-  protected static final Logger log = LogManager.getLogger();
-  private final GuildLogging guildLogging = new GuildLogging();
-  logsStorageHandler logStorage = new logsStorageHandler();
-  private Runnable CycleActivity;
-  private boolean ActivityThread;
+    private final neptune.messageInterprter messageInterprter;
+    protected static final Logger log = LogManager.getLogger();
+    private final GuildLogging guildLogging = new GuildLogging();
+    logsStorageHandler logStorage = new logsStorageHandler();
+    private Runnable CycleActivity;
+    private boolean ActivityThread;
 
-  GuildStorageHandler guildStorageHandler = new GuildStorageHandler();
+    GuildStorageHandler guildStorageHandler = new GuildStorageHandler();
 
-  public Listener() {
-    messageInterprter = new messageInterprter();
-  }
-
-  @Override
-  public void onEvent(@Nonnull GenericEvent event) {
-    // Cycle Activity Status Thread
-    if (event instanceof ReadyEvent && !ActivityThread) {
-      CycleActivity = new CycleGameStatus((ReadyEvent) event);
-      Thread CycleActivityThread = new Thread(CycleActivity);
-      CycleActivityThread.setName("CycleActivityThread");
-      CycleActivityThread.start();
-      ActivityThread = true;
+    public Listener() {
+        messageInterprter = new messageInterprter();
     }
 
-    // Commands
-    if (event instanceof GuildMessageReceivedEvent) {
-      if (((GuildMessageReceivedEvent) event).getAuthor().isBot()) return;
-      messageInterprter.runEvent((GuildMessageReceivedEvent) event);
-    }
-    // Clear stored logs when text channel is deleted
-    if (event instanceof TextChannelDeleteEvent) {
-      logStorage.deleteChannel(
-          ((TextChannelDeleteEvent) event).getGuild().getId(),
-          ((TextChannelDeleteEvent) event).getChannel().getId());
-    }
-    // detete all data when server removes neptune
-    else if (event instanceof GuildLeaveEvent) {
-      logStorage.deleteGuild(((GuildLeaveEvent) event).getGuild().getId());
-    }
-    // disconnect from voice chat if neptune is the only one left
-    else if (event instanceof GuildVoiceUpdateEvent) {
-      try {
-        if (((GuildVoiceUpdateEvent) event).getChannelLeft().getMembers().size() == 1
-            && ((GuildVoiceUpdateEvent) event)
-                .getChannelLeft()
-                .getGuild()
-                .getAudioManager()
-                .isConnected()) {
-          ((GuildVoiceUpdateEvent) event)
-              .getChannelLeft()
-              .getGuild()
-              .getAudioManager()
-              .setSendingHandler(null);
-          ((GuildVoiceUpdateEvent) event)
-              .getChannelLeft()
-              .getGuild()
-              .getAudioManager()
-              .closeAudioConnection();
-          log.info("VOICE: Channel Empty, Disconnecting from VC");
+    @Override
+    public void onEvent(@Nonnull GenericEvent event) {
+        // Cycle Activity Status Thread
+        if (event instanceof ReadyEvent && !ActivityThread) {
+            CycleActivity = new CycleGameStatus((ReadyEvent) event);
+            Thread CycleActivityThread = new Thread(CycleActivity);
+            CycleActivityThread.setName("CycleActivityThread");
+            CycleActivityThread.start();
+            ActivityThread = true;
         }
-      } catch (Exception ignored) {
-      }
-    }
-    if (event instanceof GuildJoinEvent) {
-      event
-          .getJDA()
-          .getUserById(new VariablesStorage().getOwnerID())
-          .openPrivateChannel()
-          .queue(
-              (channel) ->
-                  channel
-                      .sendMessage(
-                          "GUILD: New Server Added: "
-                              + ((GuildJoinEvent) event).getGuild().getName())
-                      .queue());
-    }
-    // logging
-    if (event instanceof GenericGuildEvent) {
-      String GuildID = ((GenericGuildEvent) event).getGuild().getId();
 
-      if (GuildID == null) return;
-      guildObject guildEntity = null;
-      try {
-        guildEntity = guildStorageHandler.readFile(GuildID);
-      } catch (Exception e) {
-        e.printStackTrace();
-        return;
-      }
-      logOptionsObject logOptionsEntity = guildEntity.getLogOptions();
-      if (logOptionsEntity.getChannel() == null) return;
-      if (!logOptionsEntity.getOption(LoggingOptionsEnum.GlobalLogging)) return;
+        //Commands
+        if (event instanceof GuildMessageReceivedEvent){
+            if (((GuildMessageReceivedEvent) event).getAuthor().isBot()) return;
+            messageInterprter.runEvent((GuildMessageReceivedEvent) event);
 
-      if (event instanceof GenericGuildVoiceEvent) {
-        guildLogging.GuildVoice((GenericGuildVoiceEvent) event, logOptionsEntity);
-      } else if (event instanceof GenericGuildMessageEvent) {
-        guildLogging.GuildText((GenericGuildMessageEvent) event, logOptionsEntity);
-      } else if (event instanceof GenericGuildMemberEvent) {
-        guildLogging.GuildMember((GenericGuildMemberEvent) event, logOptionsEntity);
-      } else if (event instanceof GenericGuildUpdateEvent) {
-        guildLogging.GuildSettings((GenericGuildUpdateEvent) event, logOptionsEntity);
-      } else if (event instanceof GenericTextChannelEvent) {
-        guildLogging.GuildTextChannel((GenericTextChannelEvent) event, logOptionsEntity);
-      } else if (event instanceof GenericVoiceChannelEvent) {
-        guildLogging.GuildVoiceChannel((GenericVoiceChannelEvent) event, logOptionsEntity);
-      }
+        }
+        //Clear stored logs when text channel is deleted
+        if (event instanceof TextChannelDeleteEvent){
+            logStorage.deleteChannel(((TextChannelDeleteEvent) event).getGuild().getId(),((TextChannelDeleteEvent) event).getChannel().getId());
+        }
+        //detete all data when server removes neptune
+        else if (event instanceof GuildLeaveEvent){
+            logStorage.deleteGuild(((GuildLeaveEvent) event).getGuild().getId());
+        }
+        //disconnect from voice chat if neptune is the only one left
+        else if (event instanceof GuildVoiceUpdateEvent){
+            try {
+                if (((GuildVoiceUpdateEvent) event).getChannelLeft().getMembers().size() == 1 && ((GuildVoiceUpdateEvent) event).getChannelLeft().getGuild().getAudioManager().isConnected()) {
+                    ((GuildVoiceUpdateEvent) event).getChannelLeft().getGuild().getAudioManager().setSendingHandler(null);
+                    ((GuildVoiceUpdateEvent) event).getChannelLeft().getGuild().getAudioManager().closeAudioConnection();
+                    log.info("VOICE: Channel Empty, Disconnecting from VC");
+                }
+            } catch (Exception ignored) {
+            }        
+        }
+        if (event instanceof GuildJoinEvent){
+            event.getJDA().getUserById(new VariablesStorage().getOwnerID()).openPrivateChannel().queue((channel) ->
+            channel.sendMessage("GUILD: New Server Added: " + ((GuildJoinEvent) event).getGuild()
+                    .getName()).queue());
+        }
+        //logging
+        if (event instanceof GenericGuildEvent){
+            String GuildID = ((GenericGuildEvent) event).getGuild().getId();
+
+            if (GuildID == null) return;
+            guildObject guildEntity = null;
+            try {
+                guildEntity = guildStorageHandler.readFile(GuildID);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return;
+            }
+            logOptionsObject logOptionsEntity = guildEntity.getLogOptions();
+            if (logOptionsEntity.getChannel() == null) return;
+            if(!logOptionsEntity.getOption(LoggingOptionsEnum.GlobalLogging)) return;
+
+            if(event instanceof GenericGuildVoiceEvent){
+                guildLogging.GuildVoice((GenericGuildVoiceEvent) event,logOptionsEntity);
+            }
+            else if(event instanceof GenericGuildMessageEvent){
+                guildLogging.GuildText((GenericGuildMessageEvent) event,logOptionsEntity);
+            }
+            else if(event instanceof GenericGuildMemberEvent){
+                guildLogging.GuildMember((GenericGuildMemberEvent) event,logOptionsEntity);
+            }
+            else if (event instanceof GenericGuildUpdateEvent){
+                guildLogging.GuildSettings((GenericGuildUpdateEvent) event,logOptionsEntity);
+            }
+            else if (event instanceof GenericTextChannelEvent){
+                guildLogging.GuildTextChannel((GenericTextChannelEvent) event,logOptionsEntity);
+            }
+            else if (event instanceof GenericVoiceChannelEvent){
+                guildLogging.GuildVoiceChannel((GenericVoiceChannelEvent) event,logOptionsEntity);
+            }
+        }
     }
-  }
 }
+
+
+

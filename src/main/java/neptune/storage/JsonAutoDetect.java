@@ -1,3 +1,5 @@
 package neptune.storage;
 
-public class JsonAutoDetect {}
+public class JsonAutoDetect {
+
+}
