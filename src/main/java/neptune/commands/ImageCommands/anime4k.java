@@ -106,18 +106,22 @@ public class anime4k implements CommandInterface {
                 Mat destination = new Mat(CvType.CV_16SC4);
 
                 //preserve alpha?
-                Mat sourceNoAlpha = new Mat(CvType.CV_16SC3);
-                Mat destinationNoAlpha = new Mat(CvType.CV_16SC3);
+                Mat sourceNoAlpha = new Mat();
+                Mat destinationNoAlpha = new Mat();
                 List<Mat> colors = new ArrayList<>();
                 Core.split(source, colors);
                 Mat alpha = colors.get(3);
                 colors.remove(3);
                 Core.merge(colors, sourceNoAlpha);
+                alpha.convertTo(alpha, CvType.CV_16SC1);
+                sourceNoAlpha.convertTo(sourceNoAlpha, CvType.CV_16SC3);
+
                 Imgproc.GaussianBlur(sourceNoAlpha, destinationNoAlpha, new Size(0,0), 10);
                 Core.addWeighted(sourceNoAlpha, 1.5, destinationNoAlpha, -0.5, 0, destinationNoAlpha);
                 Core.split(destinationNoAlpha, colors);
                 colors.add(3, alpha);
                 Core.merge(colors, destination);
+                destination.convertTo(destination, CvType.CV_16SC4);
 
 
                 log.trace("Starting downscale pass");
