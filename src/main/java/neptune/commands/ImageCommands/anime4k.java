@@ -3,10 +3,8 @@ package neptune.commands.ImageCommands;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
@@ -26,14 +24,30 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.entities.Message.Attachment;
 
 public class anime4k implements CommandInterface {
-  protected static final Logger log = LogManager.getLogger();
-  File anime4kPath = new File("Anime4KCPP_CLI" + File.separator + "Anime4KCPP_CLI.exe");
+    protected static final Logger log = LogManager.getLogger();
+    File anime4kPath = new File("Anime4KCPP_CLI" + File.separator + "Anime4KCPP_CLI.exe");
 
-  public anime4k() {
-    try {
-      FileUtils.deleteDirectory(new File("tmp"));
-    } catch (IOException e) {
-      log.error(e);
+    public anime4k() {
+        try {
+                FileUtils.deleteDirectory(new File("tmp")); 
+            } 
+                catch (IOException e) {
+                log.error(e);
+            }
+    }
+    @Override
+    public String getName() {
+        return "Anime4k Image Upscaling";
+    }
+    
+    @Override
+    public String getCommand() {
+        return "anime4k";
+    }
+    
+    @Override
+    public String getDescription() {
+        return "Upscales images using anime4k, then sharpens them";
     }
 
     @Override
@@ -138,23 +152,9 @@ public class anime4k implements CommandInterface {
             } catch (Exception e) {
                 log.error(e);
             }
-        }
-        // upload to discord
-        event.getChannel().sendMessage("Here you go").addFile(byteImage, "output.png").queue();
-      }
-    } catch (Exception e) {
-      log.error(e);
-    } finally {
-      // clean up directory
-      try {
-        FileUtils.deleteDirectory(directory);
-      } catch (Exception e) {
-        log.error(e);
-      }
     }
-
     return guildEntity;
-  }
+}
 
   // https://www.tutorialspoint.com/how-to-convert-opencv-mat-object-to-bufferedimage-object-using-java
   public static byte[] Mat2byteArray(Mat mat) throws IOException {
