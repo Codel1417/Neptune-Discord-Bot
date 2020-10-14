@@ -111,33 +111,33 @@ public class anime4k implements CommandInterface {
                 Mat source = Imgcodecs.imread(outputImage.getAbsolutePath(),Imgcodecs.IMREAD_UNCHANGED);
                 Mat destination = new Mat();
 
-                Mat sourceNoAlpha = new Mat();
-                Mat destinationNoAlpha = new Mat();
-                log.warn("Channels: " + source.channels() + " Depth: " + source.depth());
-                source.convertTo(source, CvType.makeType(source.depth(), 5));
-                log.warn("Channels: " + source.channels() + " Depth: " + source.depth());
-                ArrayList<Mat> colors = new ArrayList<>();
-                Core.split(source, colors);
-                Mat alpha = colors.get(colors.size()-1);
-                colors.remove(alpha);
-                Core.merge(colors, sourceNoAlpha);
-                alpha.convertTo(alpha, CvType.makeType(source.depth(), 1));
-                sourceNoAlpha.convertTo(sourceNoAlpha, CvType.makeType(source.depth(), 3));
-
-                Imgproc.GaussianBlur(sourceNoAlpha, destinationNoAlpha, new Size(0,0), 10);
-                Core.addWeighted(sourceNoAlpha, 1.5, destinationNoAlpha, -0.5, 0, destinationNoAlpha);
-                colors.clear();
-                Core.split(destinationNoAlpha, colors);
-                colors.add(alpha);
-                Core.merge(colors, destination);
-                destination.convertTo(destination, CvType.makeType(source.depth(), 4));
+                if (source.channels() > 3){
+                    Mat sourceNoAlpha = new Mat();
+                    Mat destinationNoAlpha = new Mat();
+                    ArrayList<Mat> colors = new ArrayList<>();
+                    Core.split(source, colors);
+                    Mat alpha = colors.get(colors.size()-1); //assumed last channel is alpha
+                    colors.remove(alpha);
+                    Core.merge(colors, sourceNoAlpha);
+    
+                    Imgproc.GaussianBlur(sourceNoAlpha, destinationNoAlpha, new Size(0,0), 10);
+                    Core.addWeighted(sourceNoAlpha, 1.5, destinationNoAlpha, -0.5, 0, destinationNoAlpha);
+                    colors.clear();
+                    Core.split(destinationNoAlpha, colors);
+                    colors.add(alpha);
+                    Core.merge(colors, destination);
+                }
+                else {
+                    Imgproc.GaussianBlur(source, destination, new Size(0,0), 10);
+                    Core.addWeighted(source, 1.5, destination, -0.5, 0, destination);
+                }
 
                 log.warn("Starting downscale pass");
                 //downscale pass
                 byte byteImage[] = Mat2byteArray(destination);
                 while (byteImage.length > 8388608) {
                     log.warn("Downscaling image");
-                    source = destination;
+                    destination.copyTo(source);
                     Imgproc.resize(source, destination, new Size(0,0), 0.9,0.9,Imgproc.INTER_LINEAR);
                     byteImage = Mat2byteArray(destination);
                 }
