@@ -95,7 +95,7 @@ public class anime4k implements CommandInterface {
                 //upscale pass
                 ProcessBuilder pb = new ProcessBuilder();            
                 //https://github.com/TianZerL/Anime4KCPP/wiki/CLI
-                String command = "\"" + anime4kPath.getAbsolutePath() + "\" -i \"" + originalImage.getAbsolutePath() + "\" -o \"" + outputImage.getAbsolutePath()+ "\" --CNNMode --GPUMode --alpha --zoomFactor 4  --HDN --HDNLevel 3";
+                String command = "\"" + anime4kPath.getAbsolutePath() + "\" -i \"" + originalImage.getAbsolutePath() + "\" -o \"" + outputImage.getAbsolutePath()+ "\" --CNNMode --GPUMode --alpha --zoomFactor 4  --HDN --HDNLevel 2";
                 pb.command(command.split(" "));
 
                 pb.inheritIO();
@@ -106,7 +106,7 @@ public class anime4k implements CommandInterface {
                 }
 
 
-                log.warn("Starting sharpness pass");
+                log.trace("Starting sharpness pass");
                 //sharpness pass
                 Mat source = Imgcodecs.imread(outputImage.getAbsolutePath(),Imgcodecs.IMREAD_UNCHANGED);
                 Mat destination = new Mat();
@@ -132,11 +132,11 @@ public class anime4k implements CommandInterface {
                     Core.addWeighted(source, 1.5, destination, -0.5, 0, destination);
                 }
 
-                log.warn("Starting downscale pass");
+                log.trace("Starting downscale pass");
                 //downscale pass
                 byte byteImage[] = Mat2byteArray(destination);
                 while (byteImage.length > 8388608) {
-                    log.warn("Downscaling image");
+                    log.trace("Downscaling image");
                     destination.copyTo(source);
                     Imgproc.resize(source, destination, new Size(0,0), 0.9,0.9,Imgproc.INTER_LINEAR);
                     byteImage = Mat2byteArray(destination);
@@ -161,6 +161,7 @@ public class anime4k implements CommandInterface {
 
   // https://www.tutorialspoint.com/how-to-convert-opencv-mat-object-to-bufferedimage-object-using-java
     public static byte[] Mat2byteArray(Mat mat) throws IOException {
+        mat.convertTo(mat, CvType.CV_16UC(mat.channels())); //compress color to reduce size
         // Encoding the image
         MatOfByte matOfByte = new MatOfByte();
         Imgcodecs.imencode(".png", mat, matOfByte);
