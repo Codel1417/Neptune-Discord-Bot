@@ -94,7 +94,7 @@ public class anime4k implements CommandInterface {
                 //upscale pass
                 ProcessBuilder pb = new ProcessBuilder();            
                 //https://github.com/TianZerL/Anime4KCPP/wiki/CLI
-                String command = "\"" + anime4kPath.getAbsolutePath() + "\" -i \"" + originalImage.getAbsolutePath() + "\" -o \"" + outputImage.getAbsolutePath()+ "\" --CNNMode --GPUMode --alpha --zoomFactor 2  --HDN --HDNLevel 2";
+                String command = "\"" + anime4kPath.getAbsolutePath() + "\" -i \"" + originalImage.getAbsolutePath() + "\" -o \"" + outputImage.getAbsolutePath()+ "\" --CNNMode --GPUMode --alpha --zoomFactor 4  --HDN --HDNLevel 3";
                 pb.command(command.split(" "));
 
                 pb.inheritIO();
