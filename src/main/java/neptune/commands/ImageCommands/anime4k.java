@@ -3,6 +3,7 @@ package neptune.commands.ImageCommands;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -118,7 +119,7 @@ public class anime4k implements CommandInterface {
                 sourceNoAlpha.copySize(source);
                 destinationNoAlpha.copySize(source);
                 source.convertTo(source, CvType.makeType(source.depth(), 4));
-                Vector<Mat> colors = new Vector<>(4);
+                List<Mat> colors = new ArrayList<>(4);
                 Core.split(source, colors);
                 Mat alpha = colors.get(3);
                 colors.remove(3);
@@ -129,7 +130,7 @@ public class anime4k implements CommandInterface {
 
                 Imgproc.GaussianBlur(sourceNoAlpha, destinationNoAlpha, new Size(0,0), 10);
                 Core.addWeighted(sourceNoAlpha, 1.5, destinationNoAlpha, -0.5, 0, destinationNoAlpha);
-                colors = new Vector<>(4);
+                colors = new ArrayList<>(4);
                 Core.split(destinationNoAlpha, colors);
                 colors.add(3, alpha);
                 Core.merge(colors, destination);
