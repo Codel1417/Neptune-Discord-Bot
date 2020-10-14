@@ -24,31 +24,16 @@ import neptune.commands.commandCategories;
 import neptune.storage.guildObject;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.entities.Message.Attachment;
-public class anime4k implements CommandInterface {   
-    protected static final Logger log = LogManager.getLogger();
-    File anime4kPath = new File("Anime4KCPP_CLI" + File.separator + "Anime4KCPP_CLI.exe");
 
+public class anime4k implements CommandInterface {
+  protected static final Logger log = LogManager.getLogger();
+  File anime4kPath = new File("Anime4KCPP_CLI" + File.separator + "Anime4KCPP_CLI.exe");
 
-    public anime4k(){
-        try {
-            FileUtils.deleteDirectory(new File("tmp"));
-        } catch (IOException e) {
-            log.error(e);
-        }
-    }
-    @Override
-    public String getName() {
-        return "anime4k image upscaling";
-    }
-
-    @Override
-    public String getCommand() {
-        return "anime4k";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Upscales and enhances an attached 2d image";
+  public anime4k() {
+    try {
+      FileUtils.deleteDirectory(new File("tmp"));
+    } catch (IOException e) {
+      log.error(e);
     }
 
     @Override
@@ -154,15 +139,28 @@ public class anime4k implements CommandInterface {
                 log.error(e);
             }
         }
-
-        return guildEntity; 
+        // upload to discord
+        event.getChannel().sendMessage("Here you go").addFile(byteImage, "output.png").queue();
+      }
+    } catch (Exception e) {
+      log.error(e);
+    } finally {
+      // clean up directory
+      try {
+        FileUtils.deleteDirectory(directory);
+      } catch (Exception e) {
+        log.error(e);
+      }
     }
 
-    //https://www.tutorialspoint.com/how-to-convert-opencv-mat-object-to-bufferedimage-object-using-java
-    public static byte[] Mat2byteArray(Mat mat) throws IOException{
-        //Encoding the image
-        MatOfByte matOfByte = new MatOfByte();
-        Imgcodecs.imencode(".png", mat, matOfByte);
-        return matOfByte.toArray();
-    }
+    return guildEntity;
+  }
+
+  // https://www.tutorialspoint.com/how-to-convert-opencv-mat-object-to-bufferedimage-object-using-java
+  public static byte[] Mat2byteArray(Mat mat) throws IOException {
+    // Encoding the image
+    MatOfByte matOfByte = new MatOfByte();
+    Imgcodecs.imencode(".png", mat, matOfByte);
+    return matOfByte.toArray();
+  }
 }

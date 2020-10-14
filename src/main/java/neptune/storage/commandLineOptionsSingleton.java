@@ -3,23 +3,26 @@ package neptune.storage;
 import org.apache.commons.cli.CommandLine;
 
 public class commandLineOptionsSingleton {
-    private static volatile commandLineOptionsSingleton _instance;
-    private commandLineOptionsSingleton(){}
-    public synchronized static commandLineOptionsSingleton getInstance(){
-        if (_instance == null) {
-            synchronized (commandLineOptionsSingleton.class) {
-                if (_instance == null)
-                    _instance = new commandLineOptionsSingleton();
-            }
-        }
-        return _instance;
-    }
-    private CommandLine options;
+  private static volatile commandLineOptionsSingleton _instance;
 
-    public void setOptions(CommandLine options){
-        this.options = options;
+  private commandLineOptionsSingleton() {}
+
+  public static synchronized commandLineOptionsSingleton getInstance() {
+    if (_instance == null) {
+      synchronized (commandLineOptionsSingleton.class) {
+        if (_instance == null) _instance = new commandLineOptionsSingleton();
+      }
     }
-    public CommandLine getOptions(){
-        return options;
-    }
+    return _instance;
+  }
+
+  private CommandLine options;
+
+  public void setOptions(CommandLine options) {
+    this.options = options;
+  }
+
+  public CommandLine getOptions() {
+    return options;
+  }
 }

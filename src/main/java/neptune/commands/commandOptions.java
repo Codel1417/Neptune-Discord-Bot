@@ -1,5 +1,7 @@
 package neptune.commands;
 
 public enum commandOptions {
-    RequireManageServer, RequireManageMessages, HiddenCommand
+  RequireManageServer,
+  RequireManageMessages,
+  HiddenCommand
 }
