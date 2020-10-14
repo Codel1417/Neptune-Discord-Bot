@@ -36,7 +36,7 @@ public class Say implements CommandInterface {
   @Override
   public String getDescription() {
     return "Neptune speaks! She can join the current voice channel and say one of her quotes from"
-               + " the games";
+        + " the games";
   }
 
   @Override

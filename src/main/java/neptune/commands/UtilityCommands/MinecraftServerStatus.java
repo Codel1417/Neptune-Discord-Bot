@@ -23,7 +23,7 @@ public class MinecraftServerStatus implements CommandInterface {
   @Override
   public String getDescription() {
     return "Gets the status of a Minecraft server. Supports IP and URL's. DynamicDNS domains are"
-               + " unsupported";
+        + " unsupported";
   }
 
   @Override
