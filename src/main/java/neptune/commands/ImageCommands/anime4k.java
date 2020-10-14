@@ -97,6 +97,8 @@ public class anime4k implements CommandInterface {
                 //https://github.com/TianZerL/Anime4KCPP/wiki/CLI
                 String command = "\"" + anime4kPath.getAbsolutePath() + "\" -i \"" + originalImage.getAbsolutePath() + "\" -o \"" + outputImage.getAbsolutePath()+ "\" --CNNMode --GPUMode --alpha --zoomFactor 2  --HDN --HDNLevel 2";
                 pb.command(command.split(" "));
+                pb.redirectError();
+                pb.redirectOutput();
                 Process p = pb.start();
                 int exitcode = p.waitFor();
                 if (exitcode != 0){
