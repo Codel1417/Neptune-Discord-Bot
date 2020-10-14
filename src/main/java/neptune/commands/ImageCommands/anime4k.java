@@ -108,7 +108,7 @@ public class anime4k implements CommandInterface {
 
                 log.warn("Starting sharpness pass");
                 //sharpness pass
-                Mat source = Imgcodecs.imread(outputImage.getAbsolutePath(),CvType.CV_32FC4);
+                Mat source = Imgcodecs.imread(outputImage.getAbsolutePath(),CvType.CV_32SC4);
                 Mat destination = new Mat();
 
                 Mat sourceNoAlpha = new Mat();
