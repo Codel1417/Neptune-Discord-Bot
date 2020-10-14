@@ -10,7 +10,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.opencv.core.Core;
-import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
 import org.opencv.core.Size;
@@ -141,7 +140,6 @@ public class anime4k implements CommandInterface {
                     byteImage = Mat2byteArray(destination);
                 }
                 //upload to discord
-                //event.getChannel().sendMessage("Upscale Pass").addFile(outputImage, "output.png").complete();
                 event.getChannel().sendMessage("Here you go").addFile(byteImage, "output.png").complete();
             }
         } catch (Exception e) {
