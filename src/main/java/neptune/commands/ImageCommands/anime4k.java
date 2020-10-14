@@ -161,7 +161,7 @@ public class anime4k implements CommandInterface {
 
   // https://www.tutorialspoint.com/how-to-convert-opencv-mat-object-to-bufferedimage-object-using-java
     public static byte[] Mat2byteArray(Mat mat) throws IOException {
-        mat.convertTo(mat, CvType.CV_16UC(mat.channels())); //compress color to reduce size
+        //mat.convertTo(mat, CvType.CV_(mat.channels())); //compress color to reduce size
         // Encoding the image
         MatOfByte matOfByte = new MatOfByte();
         Imgcodecs.imencode(".png", mat, matOfByte);
