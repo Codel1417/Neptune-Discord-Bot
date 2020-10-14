@@ -108,9 +108,7 @@ public class anime4k implements CommandInterface {
 
                 log.warn("Starting sharpness pass");
                 //sharpness pass
-                originalImage.delete();
-                Files.move(outputImage.toPath(), originalImage.toPath());
-                Mat source = Imgcodecs.imread(originalImage.getAbsolutePath(),CvType.CV_16SC4);
+                Mat source = Imgcodecs.imread(outputImage.getAbsolutePath(),CvType.CV_16SC4);
                 Mat destination = new Mat();
 
                 Mat sourceNoAlpha = new Mat();
@@ -143,7 +141,7 @@ public class anime4k implements CommandInterface {
                     byteImage = Mat2byteArray(destination);
                 }
                 //upload to discord
-                event.getChannel().sendMessage("Upscale Pass").addFile(originalImage, "output.png").complete();
+                event.getChannel().sendMessage("Upscale Pass").addFile(outputImage, "output.png").complete();
                 event.getChannel().sendMessage("Here you go").addFile(byteImage, "output.png").complete();
             }
         } catch (Exception e) {
