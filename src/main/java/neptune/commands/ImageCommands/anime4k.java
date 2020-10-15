@@ -28,6 +28,8 @@ import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageWriteParam;
 import javax.imageio.ImageWriter;
+import javax.imageio.stream.ImageOutputStream;
+import javax.imageio.stream.MemoryCacheImageOutputStream;
 
 import com.luciad.imageio.webp.WebPWriteParam;
 
@@ -191,7 +193,7 @@ public class anime4k implements CommandInterface {
         writeParam.setCompressionType(writeParam.getCompressionTypes()[WebPWriteParam.LOSSY_COMPRESSION]);
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        writer.setOutput(byteArrayOutputStream);
+        writer.setOutput(new MemoryCacheImageOutputStream(byteArrayOutputStream));
         writer.write(null, new IIOImage(image, null, null), writeParam);
 
         //ImageIO.write(image, "webp", byteArrayOutputStream);
