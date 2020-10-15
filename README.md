@@ -24,7 +24,7 @@ Errors are handled silently in the background as to not spam the chat with usele
 
 ## Commands
 
-![Commands](https://github.com/Codel1417/Neptune-Discord-Bot/master/IMAGES/10-14-2020-Commands.png?raw=true)
+![Commands](https://github.com/Codel1417/Neptune-Discord-Bot/blob/master/IMAGES/10-14-2020-Commands.png?raw=true)
 
 
 "!Nep help" can bring up the complete list of commands.
