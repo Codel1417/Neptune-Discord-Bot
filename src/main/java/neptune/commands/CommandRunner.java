@@ -88,6 +88,7 @@ public class CommandRunner extends CommonMethods {
     private final Wan wan = new Wan();
     private final moreJpeg moreJpeg = new moreJpeg();
     private final anime4k anime4k = new anime4k();
+    private final unixTime unixTime = new unixTime();
 
     ExecutorService executor = Executors.newCachedThreadPool();
 
@@ -145,6 +146,7 @@ public class CommandRunner extends CommonMethods {
         commands.put(wan.getCommand(), wan);
         commands.put(moreJpeg.getCommand(), moreJpeg);
         commands.put(anime4k.getCommand(), anime4k);
+        commands.put(unixTime.getCommand(), unixTime);
     }
 
     public Map<String, Object> getCommandList() {
