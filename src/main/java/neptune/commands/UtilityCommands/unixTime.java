@@ -1,13 +1,14 @@
 package neptune.commands.UtilityCommands;
 
-import java.awt.Color;
-import java.time.Instant;
-
 import neptune.commands.CommandInterface;
 import neptune.commands.commandCategories;
 import neptune.storage.guildObject;
+
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+
+import java.awt.Color;
+import java.time.Instant;
 
 public class unixTime implements CommandInterface {
 
@@ -53,17 +54,17 @@ public class unixTime implements CommandInterface {
     }
 
     @Override
-    public guildObject run(GuildMessageReceivedEvent event, String messageContent, guildObject guildEntity) {
+    public guildObject run(
+            GuildMessageReceivedEvent event, String messageContent, guildObject guildEntity) {
         Instant instant = Instant.now();
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setTitle(getName());
         embedBuilder.setColor(Color.MAGENTA);
-        embedBuilder.addField("Unix Time",String.valueOf(instant.getEpochSecond()),true);
-        embedBuilder.addField("UTC Time",instant.toString(),true);
-        
+        embedBuilder.addField("Unix Time", String.valueOf(instant.getEpochSecond()), true);
+        embedBuilder.addField("UTC Time", instant.toString(), true);
+
         event.getChannel().sendMessage(embedBuilder.build()).queue();
 
         return guildEntity;
     }
-    
 }

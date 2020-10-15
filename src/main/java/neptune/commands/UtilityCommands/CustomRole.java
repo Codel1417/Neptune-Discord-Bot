@@ -30,7 +30,7 @@ public class CustomRole extends CommonMethods implements CommandInterface {
     @Override
     public String getDescription() {
         return "Allows you to set a personal role and color. This role does not grant any"
-                   + " permissions and is disabled by default";
+                + " permissions and is disabled by default";
     }
 
     @Override

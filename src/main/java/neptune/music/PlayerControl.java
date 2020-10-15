@@ -160,7 +160,7 @@ public class PlayerControl extends ListenerAdapter {
                     event.getChannel()
                             .sendMessage(
                                     "The current audio queue is empty! Add something to the queue"
-                                        + " first!")
+                                            + " first!")
                             .queue();
                 }
             } else // Commands has 2 parts, .play and url.
@@ -177,7 +177,7 @@ public class PlayerControl extends ListenerAdapter {
                 event.getChannel()
                         .sendMessage(
                                 "Cannot pause or resume player because no track is loaded for"
-                                    + " playing.")
+                                        + " playing.")
                         .queue();
                 return;
             }
@@ -231,7 +231,7 @@ public class PlayerControl extends ListenerAdapter {
                 event.getChannel()
                         .sendMessage(
                                 "No track has been previously started, so the player cannot replay"
-                                    + " a track!")
+                                        + " a track!")
                         .queue();
             }
         } else if (".repeat".equals(command[0])) {
