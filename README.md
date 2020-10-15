@@ -8,7 +8,7 @@ A Discord Bot based on the character neptune from HyperDimension Neptunia
 
 ## Sources
 
-Built using the [Discord JDA Library by DV8FromTheWorld]https://github.com/DV8FromTheWorld/JDA
+Built using the [Discord JDA Library by DV8FromTheWorld](https://github.com/DV8FromTheWorld/JDA)
 Music folder is from the YUI bot's Lavaplayer implimentation.
 
 Errors are handled silently in the background as to not spam the chat with useless errors.
@@ -25,6 +25,5 @@ Errors are handled silently in the background as to not spam the chat with usele
 ## Commands
 
 ![Commands](https://github.com/Codel1417/Neptune-Discord-Bot/blob/master/IMAGES/10-14-2020-Commands.png?raw=true)
-
 
 "!Nep help" can bring up the complete list of commands.
