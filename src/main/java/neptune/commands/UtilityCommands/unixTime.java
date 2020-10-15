@@ -1,4 +1,4 @@
-package neptune.commands.InProgress;
+package neptune.commands.UtilityCommands;
 
 import java.awt.Color;
 import java.time.Instant;
