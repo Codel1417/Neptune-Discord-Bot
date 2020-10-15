@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
+import org.opencv.core.MatOfInt;
 import org.opencv.core.Size;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
@@ -153,7 +154,7 @@ public class anime4k implements CommandInterface {
                 // upload to discord
                 event.getChannel()
                         .sendMessage("Here you go")
-                        .addFile(byteImage, "output.jpeg")
+                        .addFile(byteImage, "output.webp")
                         .complete();
             }
         } catch (Exception e) {
@@ -174,7 +175,7 @@ public class anime4k implements CommandInterface {
         // mat.convertTo(mat, CvType.CV_(mat.channels())); //compress color to reduce size
         // Encoding the image
         MatOfByte matOfByte = new MatOfByte();
-        Imgcodecs.imencode(".jpeg", mat, matOfByte);
+        Imgcodecs.imencode(".webp", mat, matOfByte);
         return matOfByte.toArray();
     }
 }
