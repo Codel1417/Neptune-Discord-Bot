@@ -191,6 +191,7 @@ public class anime4k implements CommandInterface {
         WebPWriteParam writeParam = new WebPWriteParam(writer.getLocale());
         writeParam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
         writeParam.setCompressionType(writeParam.getCompressionTypes()[WebPWriteParam.LOSSY_COMPRESSION]);
+        writeParam.setCompressionQuality(0.8f);
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         writer.setOutput(new MemoryCacheImageOutputStream(byteArrayOutputStream));
