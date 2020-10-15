@@ -6,23 +6,30 @@ import neptune.storage.guildObject;
 
 import net.dv8tion.jda.api.entities.Message.Attachment;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
-import org.opencv.core.MatOfInt;
 import org.opencv.core.Size;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
-
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.imageio.IIOImage;
+import javax.imageio.ImageIO;
+import javax.imageio.ImageWriteParam;
+import javax.imageio.ImageWriter;
+
+import com.luciad.imageio.webp.WebPWriteParam;
 
 public class anime4k implements CommandInterface {
     protected static final Logger log = LogManager.getLogger();
@@ -176,6 +183,19 @@ public class anime4k implements CommandInterface {
         // Encoding the image
         MatOfByte matOfByte = new MatOfByte();
         Imgcodecs.imencode(".webp", mat, matOfByte);
-        return matOfByte.toArray();
+        BufferedImage image = ImageIO.read(new ByteArrayInputStream(matOfByte.toArray()));
+        
+        ImageWriter writer = ImageIO.getImageWritersByMIMEType("image/webp").next();
+        WebPWriteParam writeParam = new WebPWriteParam(writer.getLocale());
+        writeParam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+        writeParam.setCompressionType(writeParam.getCompressionTypes()[WebPWriteParam.LOSSY_COMPRESSION]);
+
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        writer.setOutput(byteArrayOutputStream);
+        writer.write(null, new IIOImage(image, null, null), writeParam);
+
+        //ImageIO.write(image, "webp", byteArrayOutputStream);
+        return byteArrayOutputStream.toByteArray();
+
     }
 }
