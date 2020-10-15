@@ -153,7 +153,7 @@ public class anime4k implements CommandInterface {
                 // upload to discord
                 event.getChannel()
                         .sendMessage("Here you go")
-                        .addFile(byteImage, "output.png")
+                        .addFile(byteImage, "output.jpeg")
                         .complete();
             }
         } catch (Exception e) {
@@ -174,7 +174,7 @@ public class anime4k implements CommandInterface {
         // mat.convertTo(mat, CvType.CV_(mat.channels())); //compress color to reduce size
         // Encoding the image
         MatOfByte matOfByte = new MatOfByte();
-        Imgcodecs.imencode(".png", mat, matOfByte);
+        Imgcodecs.imencode(".jpeg", mat, matOfByte);
         return matOfByte.toArray();
     }
 }
