@@ -184,7 +184,7 @@ public class anime4k implements CommandInterface {
         // mat.convertTo(mat, CvType.CV_(mat.channels())); //compress color to reduce size
         // Encoding the image
         MatOfByte matOfByte = new MatOfByte();
-        Imgcodecs.imencode(".webp", mat, matOfByte);
+        Imgcodecs.imencode(".png", mat, matOfByte);
         BufferedImage image = ImageIO.read(new ByteArrayInputStream(matOfByte.toArray()));
         
         ImageWriter writer = ImageIO.getImageWritersByMIMEType("image/webp").next();
