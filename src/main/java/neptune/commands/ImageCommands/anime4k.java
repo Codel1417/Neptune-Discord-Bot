@@ -26,10 +26,9 @@ import java.util.List;
 
 import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
-import javax.imageio.ImageTypeSpecifier;
 import javax.imageio.ImageWriteParam;
 import javax.imageio.ImageWriter;
-import javax.imageio.stream.ImageOutputStream;
+import javax.imageio.plugins.jpeg.JPEGImageWriteParam;
 import javax.imageio.stream.MemoryCacheImageOutputStream;
 
 import com.luciad.imageio.webp.WebPWriteParam;
@@ -138,7 +137,6 @@ public class anime4k implements CommandInterface {
                     Mat alpha = colors.get(colors.size() - 1); // assumed last channel is alpha
                     colors.remove(alpha);
                     Core.merge(colors, sourceNoAlpha);
-
                     Imgproc.GaussianBlur(sourceNoAlpha, destinationNoAlpha, new Size(0, 0), 10);
                     Core.addWeighted(
                             sourceNoAlpha, 1.5, destinationNoAlpha, -0.5, 0, destinationNoAlpha);
@@ -185,20 +183,33 @@ public class anime4k implements CommandInterface {
         // mat.convertTo(mat, CvType.CV_(mat.channels())); //compress color to reduce size
         // Encoding the image
         MatOfByte matOfByte = new MatOfByte();
-        Imgcodecs.imencode(".png", mat, matOfByte);
-        BufferedImage image = ImageIO.read(new ByteArrayInputStream(matOfByte.toArray()));
-        
-        ImageWriter writer = ImageIO.getImageWritersByMIMEType("image/webp").next();
-        WebPWriteParam writeParam = new WebPWriteParam(writer.getLocale());
-        writeParam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-        writeParam.setCompressionType(writeParam.getCompressionTypes()[WebPWriteParam.LOSSY_COMPRESSION]);
-        writeParam.setCompressionQuality(0.8f);
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(16777216); //16mb buffer to reduce array copying
-        writer.setOutput(new MemoryCacheImageOutputStream(byteArrayOutputStream));
-        //writer.write(null, new IIOImage(image, null, null), writeParam);
-
-        ImageIO.write(image, "webp", byteArrayOutputStream);
-        return byteArrayOutputStream.toByteArray();
-
+        if (mat.channels() > 3){
+            Imgcodecs.imencode(".png", mat, matOfByte);
+            BufferedImage image = ImageIO.read(new ByteArrayInputStream(matOfByte.toArray()));
+            ImageWriter writer = ImageIO.getImageWritersByMIMEType("image/webp").next();
+            WebPWriteParam writeParam = new WebPWriteParam(writer.getLocale());
+            writeParam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+            writeParam.setCompressionType(writeParam.getCompressionTypes()[WebPWriteParam.LOSSY_COMPRESSION]);
+            writeParam.setCompressionQuality(0.8f);
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(16777216); //16mb buffer to reduce array copying
+            writer.setOutput(new MemoryCacheImageOutputStream(byteArrayOutputStream));
+            writer.write(null, new IIOImage(image, null, null), writeParam);
+            //ImageIO.write(image, "webp", byteArrayOutputStream);
+            return byteArrayOutputStream.toByteArray();
+        }
+        else {
+            Imgcodecs.imencode(".jpg", mat, matOfByte);
+            BufferedImage result = ImageIO.read(new ByteArrayInputStream(matOfByte.toArray()));
+            JPEGImageWriteParam jpegParams = new JPEGImageWriteParam(null);
+            jpegParams.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+            jpegParams.setCompressionQuality(0.8f);
+            ByteArrayOutputStream writerOutput = new ByteArrayOutputStream(16777216);
+            MemoryCacheImageOutputStream imageOutputStream =
+                    new MemoryCacheImageOutputStream(writerOutput);
+            final ImageWriter writer = ImageIO.getImageWritersByFormatName("jpg").next();
+            writer.setOutput(imageOutputStream);
+            writer.write(null, new IIOImage(result, null, null), jpegParams);
+            return writerOutput.toByteArray();
+        }
     }
 }
