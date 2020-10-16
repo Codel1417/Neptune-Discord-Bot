@@ -89,7 +89,7 @@ public class CommandRunner extends CommonMethods {
     private final moreJpeg moreJpeg = new moreJpeg();
     private final anime4k anime4k = new anime4k();
     private final unixTime unixTime = new unixTime();
-
+    private final ocr ocr = new ocr();
     ExecutorService executor = Executors.newCachedThreadPool();
 
     public CommandRunner() {
@@ -147,6 +147,7 @@ public class CommandRunner extends CommonMethods {
         commands.put(moreJpeg.getCommand(), moreJpeg);
         commands.put(anime4k.getCommand(), anime4k);
         commands.put(unixTime.getCommand(), unixTime);
+        commands.put(ocr.getCommand(),ocr);
     }
 
     public Map<String, Object> getCommandList() {
