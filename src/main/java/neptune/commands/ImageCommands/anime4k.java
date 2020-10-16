@@ -6,7 +6,6 @@ import neptune.storage.guildObject;
 
 import net.dv8tion.jda.api.entities.Message.Attachment;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,7 +15,6 @@ import org.opencv.core.MatOfByte;
 import org.opencv.core.Size;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -127,7 +125,6 @@ public class anime4k implements CommandInterface {
                     Mat alpha = colors.get(colors.size() - 1); // assumed last channel is alpha
                     colors.remove(alpha);
                     Core.merge(colors, sourceNoAlpha);
-
                     Imgproc.GaussianBlur(sourceNoAlpha, destinationNoAlpha, new Size(0, 0), 10);
                     Core.addWeighted(
                             sourceNoAlpha, 1.5, destinationNoAlpha, -0.5, 0, destinationNoAlpha);
@@ -153,7 +150,7 @@ public class anime4k implements CommandInterface {
                 // upload to discord
                 event.getChannel()
                         .sendMessage("Here you go")
-                        .addFile(byteImage, "output.png")
+                        .addFile(byteImage, "output.webp")
                         .complete();
             }
         } catch (Exception e) {
@@ -171,10 +168,10 @@ public class anime4k implements CommandInterface {
 
     // https://www.tutorialspoint.com/how-to-convert-opencv-mat-object-to-bufferedimage-object-using-java
     public static byte[] Mat2byteArray(Mat mat) throws IOException {
-        // mat.convertTo(mat, CvType.CV_(mat.channels())); //compress color to reduce size
         // Encoding the image
         MatOfByte matOfByte = new MatOfByte();
-        Imgcodecs.imencode(".png", mat, matOfByte);
+        Imgcodecs.imencode(".webp", mat, matOfByte);
+
         return matOfByte.toArray();
     }
 }
