@@ -15,23 +15,11 @@ import org.opencv.core.MatOfByte;
 import org.opencv.core.Size;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.imageio.IIOImage;
-import javax.imageio.ImageIO;
-import javax.imageio.ImageWriteParam;
-import javax.imageio.ImageWriter;
-import javax.imageio.plugins.jpeg.JPEGImageWriteParam;
-import javax.imageio.stream.MemoryCacheImageOutputStream;
-
-import com.luciad.imageio.webp.WebPWriteParam;
 
 public class anime4k implements CommandInterface {
     protected static final Logger log = LogManager.getLogger();
@@ -180,20 +168,10 @@ public class anime4k implements CommandInterface {
 
     // https://www.tutorialspoint.com/how-to-convert-opencv-mat-object-to-bufferedimage-object-using-java
     public static byte[] Mat2byteArray(Mat mat) throws IOException {
-        // mat.convertTo(mat, CvType.CV_(mat.channels())); //compress color to reduce size
         // Encoding the image
         MatOfByte matOfByte = new MatOfByte();
         Imgcodecs.imencode(".webp", mat, matOfByte);
-        //BufferedImage image = ImageIO.read(new ByteArrayInputStream(matOfByte.toArray()));
-        //ImageWriter writer = ImageIO.getImageWritersByMIMEType("image/webp").next();
-        //WebPWriteParam writeParam = new WebPWriteParam(writer.getLocale());
-        //writeParam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-        //writeParam.setCompressionType(writeParam.getCompressionTypes()[WebPWriteParam.LOSSY_COMPRESSION]);
-        //writeParam.setCompressionQuality(0.8f);
-        //ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(16777216); //16mb buffer to reduce array copying
-        //writer.setOutput(new MemoryCacheImageOutputStream(byteArrayOutputStream));
-        //writer.write(null, new IIOImage(image, null, null), writeParam);
-        //ImageIO.write(image, "webp", byteArrayOutputStream);
+
         return matOfByte.toArray();
     }
 }
