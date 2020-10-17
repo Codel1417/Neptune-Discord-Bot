@@ -147,7 +147,7 @@ public class CommandRunner extends CommonMethods {
         commands.put(moreJpeg.getCommand(), moreJpeg);
         commands.put(anime4k.getCommand(), anime4k);
         commands.put(unixTime.getCommand(), unixTime);
-        commands.put(ocr.getCommand(),ocr);
+        commands.put(ocr.getCommand(), ocr);
     }
 
     public Map<String, Object> getCommandList() {

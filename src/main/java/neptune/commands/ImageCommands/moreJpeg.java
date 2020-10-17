@@ -69,9 +69,9 @@ public class moreJpeg implements CommandInterface {
     @Override
     public guildObject run(
             GuildMessageReceivedEvent event, String messageContent, guildObject guildEntity) {
-        try{
+        try {
             String finalUrl = helpers.getImageUrl(event);
-            if (finalUrl != null){
+            if (finalUrl != null) {
                 BufferedImage img = ImageIO.read(new URL(finalUrl));
 
                 // set jpeg compression

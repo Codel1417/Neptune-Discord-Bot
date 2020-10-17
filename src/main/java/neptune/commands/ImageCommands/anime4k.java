@@ -30,6 +30,7 @@ public class anime4k implements CommandInterface {
     protected static final Logger log = LogManager.getLogger();
     File anime4kPath = new File("Anime4KCPP_CLI" + File.separator + "Anime4KCPP_CLI.exe");
     CommonMethods helper = new CommonMethods();
+
     public anime4k() {
         try {
             FileUtils.deleteDirectory(new File("tmp"));
@@ -95,7 +96,7 @@ public class anime4k implements CommandInterface {
                 outputImage = new File(directory, "output.png");
                 URL urls = new URL(url);
                 BufferedImage image = ImageIO.read(urls);
-                ImageIO.write(image, "png",originalImage);
+                ImageIO.write(image, "png", originalImage);
 
                 log.trace("Starting upscale pass");
 

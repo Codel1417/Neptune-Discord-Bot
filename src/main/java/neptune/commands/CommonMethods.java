@@ -1,20 +1,21 @@
 package neptune.commands;
 
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.Message.Attachment;
+import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageEmbed;
-import net.dv8tion.jda.api.entities.Message.Attachment;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
-
 public class CommonMethods {
     protected static final Logger log = LogManager.getLogger();
+
     protected String[] getCommandName(String MessageContent) {
         String[] splitStr = MessageContent.trim().split("\\s+");
         String[] returnText = new String[2];
@@ -34,8 +35,7 @@ public class CommonMethods {
 
         if (value) {
             return enabled;
-        } else
-            return disabled;
+        } else return disabled;
     }
 
     protected String getEnabledDisabledIconText(Boolean value) {
@@ -44,8 +44,7 @@ public class CommonMethods {
 
         if (value) {
             return enabled;
-        } else
-            return disabled;
+        } else return disabled;
     }
 
     public String getImageUrl(GuildMessageReceivedEvent event) throws IOException {
@@ -57,17 +56,16 @@ public class CommonMethods {
             }
         }
         List<MessageEmbed> embeds = event.getMessage().getEmbeds();
-        if (!embeds.isEmpty()){
-            if (embeds.get(0).getImage() != null){
+        if (!embeds.isEmpty()) {
+            if (embeds.get(0).getImage() != null) {
                 return getFinalURl(embeds.get(0).getImage().getProxyUrl());
-            }
-            else if (embeds.get(0).getThumbnail() != null){
+            } else if (embeds.get(0).getThumbnail() != null) {
                 return getFinalURl(embeds.get(0).getThumbnail().getProxyUrl());
             }
         }
-        //if current message has no media try previous message
+        // if current message has no media try previous message
         List<Message> messages = event.getChannel().getHistory().retrievePast(2).complete();
-        if (messages.size() == 2){
+        if (messages.size() == 2) {
             Message message = messages.get(1);
             // attachment pass
             attachments = message.getAttachments();
@@ -77,11 +75,10 @@ public class CommonMethods {
                 }
             }
             embeds = message.getEmbeds();
-            if (!embeds.isEmpty()){
-                if (embeds.get(0).getImage() != null){
+            if (!embeds.isEmpty()) {
+                if (embeds.get(0).getImage() != null) {
                     return getFinalURl(embeds.get(0).getImage().getProxyUrl());
-                }
-                else if (embeds.get(0).getThumbnail() != null){
+                } else if (embeds.get(0).getThumbnail() != null) {
                     return getFinalURl(embeds.get(0).getThumbnail().getProxyUrl());
                 }
             }
