@@ -35,8 +35,8 @@ public class CustomConfigurationFactory extends ConfigurationFactory {
                         .addAttribute(
                                 "pattern",
                                 "%highlight{[%d][%location] - %msg%n}{FATAL=red blink, ERROR=red,"
-                                    + " WARN=yellow bold, INFO=white, DEBUG=green bold,"
-                                    + " TRACE=blue}"));
+                                        + " WARN=yellow bold, INFO=white, DEBUG=green bold,"
+                                        + " TRACE=blue}"));
         appenderBuilder.add(
                 builder.newFilter("MarkerFilter", Filter.Result.DENY, Filter.Result.NEUTRAL)
                         .addAttribute("marker", "FLOW"));
