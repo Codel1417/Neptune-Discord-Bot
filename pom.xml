@@ -171,13 +171,18 @@
             <artifactId>opencv</artifactId>
             <version>4.3.0-2</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.sejda.imageio/webp-imageio -->
+        <!-- https://mvnrepository.com/artifact/net.sourceforge.tess4j/tess4j -->
         <dependency>
-            <groupId>org.sejda.imageio</groupId>
-            <artifactId>webp-imageio</artifactId>
-            <version>0.1.6</version>
+            <groupId>net.sourceforge.tess4j</groupId>
+            <artifactId>tess4j</artifactId>
+            <version>4.5.3</version>
         </dependency>
-
+        <!-- https://mvnrepository.com/artifact/org.eclipse.jgit/org.eclipse.jgit -->
+        <dependency>
+            <groupId>org.eclipse.jgit</groupId>
+            <artifactId>org.eclipse.jgit</artifactId>
+            <version>4.8.0.201706111038-r</version>
+        </dependency>
     </dependencies>
     <repositories>
         <repository>

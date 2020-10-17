@@ -26,7 +26,7 @@ public class CustomConfigurationFactory extends ConfigurationFactory {
         builder.setStatusLevel(Level.WARN);
         builder.add(
                 builder.newFilter("ThresholdFilter", Filter.Result.ACCEPT, Filter.Result.NEUTRAL)
-                        .addAttribute("level", Level.DEBUG));
+                        .addAttribute("level", Level.TRACE));
         AppenderComponentBuilder appenderBuilder =
                 builder.newAppender("Stdout", "CONSOLE")
                         .addAttribute("target", ConsoleAppender.Target.SYSTEM_OUT);
@@ -34,17 +34,18 @@ public class CustomConfigurationFactory extends ConfigurationFactory {
                 builder.newLayout("PatternLayout")
                         .addAttribute(
                                 "pattern",
-                                "%highlight{[%d] - %msg%n}{FATAL=red blink, ERROR=red, WARN=yellow"
-                                        + " bold, INFO=white, DEBUG=green bold, TRACE=blue}"));
+                                "%highlight{[%d][%location] - %msg%n}{FATAL=red blink, ERROR=red,"
+                                    + " WARN=yellow bold, INFO=white, DEBUG=green bold,"
+                                    + " TRACE=blue}"));
         appenderBuilder.add(
                 builder.newFilter("MarkerFilter", Filter.Result.DENY, Filter.Result.NEUTRAL)
                         .addAttribute("marker", "FLOW"));
         builder.add(appenderBuilder);
         builder.add(
-                builder.newLogger("org.apache.logging.log4j", Level.DEBUG)
+                builder.newLogger("org.apache.logging.log4j", Level.TRACE)
                         .add(builder.newAppenderRef("Stdout"))
                         .addAttribute("additivity", false));
-        builder.add(builder.newRootLogger(Level.DEBUG).add(builder.newAppenderRef("Stdout")));
+        builder.add(builder.newRootLogger(Level.TRACE).add(builder.newAppenderRef("Stdout")));
         return builder.build();
     }
 
