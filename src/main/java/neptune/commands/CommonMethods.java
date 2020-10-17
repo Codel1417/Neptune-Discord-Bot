@@ -5,7 +5,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.Message.Attachment;
@@ -47,7 +46,6 @@ public class CommonMethods {
     }
 
     public String getImageUrl(GuildMessageReceivedEvent event) throws IOException {
-        String url;
         // attachment pass
         List<Attachment> attachments = event.getMessage().getAttachments();
         if (!attachments.isEmpty()) {
@@ -66,7 +64,7 @@ public class CommonMethods {
         }
         //if current message has no media try previous message
         List<Message> messages = event.getChannel().getHistory().retrievePast(1).complete();
-        if (!{messages.isEmpty()){
+        if (!messages.isEmpty()){
                 // attachment pass
             attachments = event.getMessage().getAttachments();
             if (!attachments.isEmpty()) {

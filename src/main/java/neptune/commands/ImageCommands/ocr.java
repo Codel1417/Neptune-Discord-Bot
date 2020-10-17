@@ -6,7 +6,6 @@ import neptune.commands.commandCategories;
 import neptune.storage.guildObject;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.sourceforge.tess4j.Tesseract;
-import net.dv8tion.jda.api.entities.Message.Attachment;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.eclipse.jgit.api.Git;
