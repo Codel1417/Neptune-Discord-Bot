@@ -1,6 +1,7 @@
 package neptune.commands.ImageCommands;
 
 import neptune.commands.CommandInterface;
+import neptune.commands.CommonMethods;
 import neptune.commands.commandCategories;
 import neptune.storage.guildObject;
 
@@ -17,16 +18,20 @@ import org.opencv.core.Size;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 public class anime4k implements CommandInterface {
     protected static final Logger log = LogManager.getLogger();
     File anime4kPath = new File("Anime4KCPP_CLI" + File.separator + "Anime4KCPP_CLI.exe");
-
+    CommonMethods helper = new CommonMethods();
     public anime4k() {
         try {
             FileUtils.deleteDirectory(new File("tmp"));
@@ -85,12 +90,15 @@ public class anime4k implements CommandInterface {
         File outputImage;
         try {
             directory.mkdirs();
-            List<Attachment> attachments = event.getMessage().getAttachments();
-            if (!attachments.isEmpty()) {
-                Attachment image = attachments.get(0);
-                originalImage = new File(directory, "original." + image.getFileExtension());
-                outputImage = new File(directory, "output." + image.getFileExtension());
-                image.downloadToFile(originalImage).get();
+            String url = helper.getImageUrl(event);
+
+            if (url != null) {
+                originalImage = new File(directory, "original.png");
+                outputImage = new File(directory, "output.png");
+                URL urls = new URL(url);
+                BufferedImage image = ImageIO.read(urls);
+                ImageIO.write(image, "png",originalImage);
+
                 log.trace("Starting upscale pass");
 
                 // upscale pass
