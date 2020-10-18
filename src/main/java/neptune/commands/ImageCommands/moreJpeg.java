@@ -14,6 +14,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.awt.Color;
 
 import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
@@ -78,13 +79,19 @@ public class moreJpeg implements CommandInterface {
                 JPEGImageWriteParam jpegParams = new JPEGImageWriteParam(null);
                 jpegParams.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
                 jpegParams.setCompressionQuality(0.0001f);
-
+                //strip alpha channel
+                BufferedImage result = new BufferedImage(
+                    img.getWidth(),
+                    img.getHeight(),
+                    BufferedImage.TYPE_INT_RGB);
+                result.createGraphics().drawImage(img, 0, 0, Color.BLACK, null);
+                
                 ByteArrayOutputStream writerOutput = new ByteArrayOutputStream();
                 MemoryCacheImageOutputStream imageOutputStream =
                         new MemoryCacheImageOutputStream(writerOutput);
                 final ImageWriter writer = ImageIO.getImageWritersByFormatName("jpg").next();
                 writer.setOutput(imageOutputStream);
-                writer.write(null, new IIOImage(img, null, null), jpegParams);
+                writer.write(null, new IIOImage(result, null, null), jpegParams);
                 event.getChannel()
                         .sendMessage("Here you go")
                         .addFile(writerOutput.toByteArray(), "morejpeg.jpg")
