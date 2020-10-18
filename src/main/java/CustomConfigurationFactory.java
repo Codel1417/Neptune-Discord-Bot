@@ -45,7 +45,9 @@ public class CustomConfigurationFactory extends ConfigurationFactory {
                 builder.newLogger("org.apache.logging.log4j", Level.WARN)
                         .add(builder.newAppenderRef("Stdout"))
                         .addAttribute("additivity", false));
-        builder.add(builder.newRootLogger(Level.INFO).add(builder.newAppenderRef("Stdout"))); //controls overall log level
+        builder.add(
+                builder.newRootLogger(Level.INFO)
+                        .add(builder.newAppenderRef("Stdout"))); // controls overall log level
         return builder.build();
     }
 
