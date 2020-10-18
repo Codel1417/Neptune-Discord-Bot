@@ -13,6 +13,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
+import javax.imageio.ImageIO;
+
 public class CommonMethods {
     protected static final Logger log = LogManager.getLogger();
 
@@ -49,10 +51,12 @@ public class CommonMethods {
 
     public String getImageUrl(GuildMessageReceivedEvent event) throws IOException {
         // attachment pass
+        Attachment current;
         List<Attachment> attachments = event.getMessage().getAttachments();
         if (!attachments.isEmpty()) {
-            if (attachments.get(0).isImage()) {
-                return getFinalURl(attachments.get(0).getProxyUrl());
+            current = attachments.get(0);
+            if (isImage(current.getFileExtension())) {
+                return getFinalURl(current.getProxyUrl());
             }
         }
         List<MessageEmbed> embeds = event.getMessage().getEmbeds();
@@ -70,8 +74,9 @@ public class CommonMethods {
             // attachment pass
             attachments = message.getAttachments();
             if (!attachments.isEmpty()) {
-                if (attachments.get(0).isImage()) {
-                    return getFinalURl(attachments.get(0).getProxyUrl());
+                current = attachments.get(0);
+                if (isImage(current.getFileExtension())) {
+                    return getFinalURl(current.getProxyUrl());
                 }
             }
             embeds = message.getEmbeds();
@@ -106,5 +111,14 @@ public class CommonMethods {
         connection.disconnect();
         log.trace("Final Url: " + FinalURl);
         return FinalURl;
+    }
+    public boolean isImage(String ext){
+        String names[] = ImageIO.getReaderFormatNames();
+        for(String name: names){
+            if (name.equalsIgnoreCase(ext)){
+                return true;
+            }
+        }
+        return false;
     }
 }
