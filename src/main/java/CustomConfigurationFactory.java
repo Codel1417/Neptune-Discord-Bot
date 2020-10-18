@@ -26,7 +26,7 @@ public class CustomConfigurationFactory extends ConfigurationFactory {
         builder.setStatusLevel(Level.WARN);
         builder.add(
                 builder.newFilter("ThresholdFilter", Filter.Result.ACCEPT, Filter.Result.NEUTRAL)
-                        .addAttribute("level", Level.TRACE));
+                        .addAttribute("level", Level.WARN));
         AppenderComponentBuilder appenderBuilder =
                 builder.newAppender("Stdout", "CONSOLE")
                         .addAttribute("target", ConsoleAppender.Target.SYSTEM_OUT);
@@ -42,10 +42,10 @@ public class CustomConfigurationFactory extends ConfigurationFactory {
                         .addAttribute("marker", "FLOW"));
         builder.add(appenderBuilder);
         builder.add(
-                builder.newLogger("org.apache.logging.log4j", Level.TRACE)
+                builder.newLogger("org.apache.logging.log4j", Level.WARN)
                         .add(builder.newAppenderRef("Stdout"))
                         .addAttribute("additivity", false));
-        builder.add(builder.newRootLogger(Level.TRACE).add(builder.newAppenderRef("Stdout")));
+        builder.add(builder.newRootLogger(Level.INFO).add(builder.newAppenderRef("Stdout"))); //controls overall log level
         return builder.build();
     }
 
