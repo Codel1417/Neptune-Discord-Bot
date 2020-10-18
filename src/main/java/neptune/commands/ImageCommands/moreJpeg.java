@@ -10,11 +10,11 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.awt.Color;
 
 import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
@@ -79,13 +79,12 @@ public class moreJpeg implements CommandInterface {
                 JPEGImageWriteParam jpegParams = new JPEGImageWriteParam(null);
                 jpegParams.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
                 jpegParams.setCompressionQuality(0.0001f);
-                //strip alpha channel
-                BufferedImage result = new BufferedImage(
-                    img.getWidth(),
-                    img.getHeight(),
-                    BufferedImage.TYPE_INT_RGB);
+                // strip alpha channel
+                BufferedImage result =
+                        new BufferedImage(
+                                img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_RGB);
                 result.createGraphics().drawImage(img, 0, 0, Color.BLACK, null);
-                
+
                 ByteArrayOutputStream writerOutput = new ByteArrayOutputStream();
                 MemoryCacheImageOutputStream imageOutputStream =
                         new MemoryCacheImageOutputStream(writerOutput);
