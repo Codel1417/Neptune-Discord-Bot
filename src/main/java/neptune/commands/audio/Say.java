@@ -3,7 +3,7 @@ package neptune.commands.audio;
 import neptune.commands.CommandInterface;
 import neptune.commands.commandCategories;
 import neptune.music.AudioController;
-import neptune.storage.guildObject;
+import neptune.storage.Guild.guildObject;
 
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.Permission;

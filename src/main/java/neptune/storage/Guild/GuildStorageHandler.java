@@ -1,14 +1,8 @@
-package neptune.storage;
+package neptune.storage.Guild;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import com.fasterxml.jackson.module.paranamer.ParanamerModule;
-import com.github.benmanes.caffeine.cache.Cache;
-import com.github.benmanes.caffeine.cache.Caffeine;
-import com.github.benmanes.caffeine.cache.RemovalCause;
 
 import neptune.storage.Enum.GuildOptionsEnum;
 
@@ -17,45 +11,23 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 public class GuildStorageHandler {
     protected static final Logger log = LogManager.getLogger();
     String guildsDir = "Guilds";
 
-    Cache<String, guildObject> cache;
-
-    public GuildStorageHandler() {
-        cache =
-                Caffeine.newBuilder()
-                        .initialCapacity(1000)
-                        .recordStats()
-                        .expireAfterAccess(30, TimeUnit.MINUTES)
-                        .removalListener(
-                                (String guildID, guildObject guildEntity, RemovalCause cause) ->
-                                        log.debug(
-                                                "Key "
-                                                        + guildID
-                                                        + " was removed from cache: "
-                                                        + cause))
-                        .maximumSize(1000)
-                        .build();
-    }
 
     public guildObject readFile(String guildID) throws IOException {
+
+        /*
+            Currently when an item from Jackson is cached. the entire file is not read. only the part that is accessed.
+            While this is great for initial read performance this prevents caching the entire object
+
+        */
         File file = new File(guildsDir + File.separator + guildID + ".yaml");
         guildObject guildEntity;
 
-        // try cache
-        guildEntity = cache.getIfPresent(guildID);
-        if (guildEntity != null) {
-            log.debug("Reading From Cache: " + guildEntity.getGuildID());
-            log.debug(cache.stats().toString());
-            return guildEntity;
-        }
-
         log.debug("Reading File: " + file.getAbsolutePath());
-        // Instantiating a new ObjectMapper as a YAMLFactory
         if (!file.exists()) {
             log.info("Adding guild: " + guildID);
             guildEntity = new guildObject(guildID);
@@ -63,25 +35,19 @@ public class GuildStorageHandler {
             return guildEntity;
         }
         ObjectMapper om = new ObjectMapper(new YAMLFactory());
-        om.registerModule(new ParanamerModule());
-        om.setVisibility(PropertyAccessor.ALL, Visibility.ANY);
         om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        om.findAndRegisterModules();
         guildEntity = om.readValue(file, guildObject.class);
-
-        cache.put(guildID, guildEntity);
-        log.debug(cache.stats().toString());
 
         return guildEntity;
     }
 
     public void writeFile(guildObject guildEntity) throws IOException {
-        cache.invalidate(guildEntity.getGuildID());
-        cache.put(guildEntity.getGuildID(), guildEntity); // write to cache
+
         File file = new File(guildsDir + File.separator + guildEntity.getGuildID() + ".yaml");
-        // Instantiating a new ObjectMapper as a YAMLFactory
         file.getParentFile().mkdirs(); // makes required folders
         ObjectMapper om = new ObjectMapper(new YAMLFactory());
-        om.setVisibility(PropertyAccessor.ALL, Visibility.ANY);
+        om.findAndRegisterModules();
         log.debug("Writing File: " + file.getAbsolutePath());
         om.writeValue(file, guildEntity);
     }

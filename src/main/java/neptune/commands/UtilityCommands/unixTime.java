@@ -2,7 +2,7 @@ package neptune.commands.UtilityCommands;
 
 import neptune.commands.CommandInterface;
 import neptune.commands.commandCategories;
-import neptune.storage.guildObject;
+import neptune.storage.Guild.guildObject;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
@@ -19,7 +19,6 @@ public class unixTime implements CommandInterface {
 
     @Override
     public String getCommand() {
-        // TODO Auto-generated method stub
         return "time";
     }
 

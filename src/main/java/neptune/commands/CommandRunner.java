@@ -17,9 +17,9 @@ import neptune.commands.audio.Nya;
 import neptune.commands.audio.Say;
 import neptune.commands.audio.Wan;
 import neptune.commands.nameGenCommands.Aarakocra;
-import neptune.storage.GuildStorageHandler;
+import neptune.storage.Guild.GuildStorageHandler;
 import neptune.storage.VariablesStorage;
-import neptune.storage.guildObject;
+import neptune.storage.Guild.guildObject;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;

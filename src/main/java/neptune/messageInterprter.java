@@ -3,9 +3,9 @@ package neptune;
 import neptune.commands.CommandRunner;
 import neptune.commands.RandomMediaPicker;
 import neptune.storage.Enum.GuildOptionsEnum;
-import neptune.storage.GuildStorageHandler;
+import neptune.storage.Guild.GuildStorageHandler;
 import neptune.storage.VariablesStorage;
-import neptune.storage.guildObject;
+import neptune.storage.Guild.guildObject;
 
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;

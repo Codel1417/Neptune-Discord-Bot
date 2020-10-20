@@ -3,7 +3,7 @@ package neptune.commands.DevCommands;
 import neptune.commands.CommandInterface;
 import neptune.commands.commandCategories;
 import neptune.music.AudioController;
-import neptune.storage.guildObject;
+import neptune.storage.Guild.guildObject;
 
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
@@ -32,7 +32,7 @@ public class music implements CommandInterface {
 
     @Override
     public String getHelp() {
-        return "";
+        return null;
     }
 
     @Override
