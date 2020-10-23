@@ -8,17 +8,21 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.imageio.ImageIO;
 
 public class CommonMethods {
-    protected static final Logger log = LogManager.getLogger();
+    private static final Logger log = LogManager.getLogger();
 
-    protected String[] getCommandName(String MessageContent) {
+    public String[] getCommandName(String MessageContent) {
         String[] splitStr = MessageContent.trim().split("\\s+");
         String[] returnText = new String[2];
         if (splitStr.length == 1) {
@@ -31,7 +35,7 @@ public class CommonMethods {
         return returnText;
     }
 
-    protected String getEnabledDisabledIcon(Boolean value) {
+    public String getEnabledDisabledIcon(Boolean value) {
         String enabled = "\u2705";
         String disabled = "\u274C";
 
@@ -40,7 +44,7 @@ public class CommonMethods {
         } else return disabled;
     }
 
-    protected String getEnabledDisabledIconText(Boolean value) {
+    public String getEnabledDisabledIconText(Boolean value) {
         String enabled = "\u2705 Enabled";
         String disabled = "\u274C Disabled";
 
@@ -120,5 +124,11 @@ public class CommonMethods {
             }
         }
         return false;
+    }
+    public static void deleteDirectory(File directoryToBeDeleted) throws IOException {
+            Files.walk(directoryToBeDeleted.toPath())
+            .sorted(Comparator.reverseOrder())
+            .map(Path::toFile)
+            .forEach(File::delete);
     }
 }
