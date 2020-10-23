@@ -88,6 +88,7 @@ public class CommandRunner extends CommonMethods {
     private final anime4k anime4k = new anime4k();
     private final unixTime unixTime = new unixTime();
     private final ocr ocr = new ocr();
+    private final profile profile = new profile();
     ExecutorService executor = Executors.newCachedThreadPool();
 
     public CommandRunner() {
@@ -145,6 +146,7 @@ public class CommandRunner extends CommonMethods {
         commands.put(anime4k.getCommand(), anime4k);
         commands.put(unixTime.getCommand(), unixTime);
         commands.put(ocr.getCommand(), ocr);
+        commands.put(profile.getCommand(),profile);
     }
 
     public Map<String, Object> getCommandList() {

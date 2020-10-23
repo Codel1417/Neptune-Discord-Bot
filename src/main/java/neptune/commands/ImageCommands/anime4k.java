@@ -125,6 +125,7 @@ public class anime4k implements CommandInterface {
                         Imgcodecs.imread(outputImage.getAbsolutePath(), Imgcodecs.IMREAD_UNCHANGED);
                 Mat destination = new Mat();
 
+                //GaussianBlur does not work with alpha channel. So we remove the alpha channel, apply GaussianBlur, then reassemble the image.
                 if (source.channels() > 3) {
                     Mat sourceNoAlpha = new Mat();
                     Mat destinationNoAlpha = new Mat();

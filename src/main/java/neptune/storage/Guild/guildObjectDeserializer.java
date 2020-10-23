@@ -28,8 +28,9 @@ public class guildObjectDeserializer extends JsonDeserializer<guildObject> {
     = new TypeReference<HashMap<String, String>>() {};
     TypeReference<HashMap<String,HashMap<ProfileOptionsEnum, String>>> typeRefProfileOptions
     = new TypeReference<HashMap<String,HashMap<ProfileOptionsEnum, String>>>() {};
-    TypeReference<HashMap<String, Byte[]>> typeRefIcons
-    = new TypeReference<HashMap<String, Byte[]>>() {};
+
+    TypeReference<HashMap<String, String>> typeRefIcons
+    = new TypeReference<HashMap<String, String>>() {};
 
     @Override
     public guildObject deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
@@ -51,19 +52,20 @@ public class guildObjectDeserializer extends JsonDeserializer<guildObject> {
         Map<String,Integer> leaderboard;
         Map<String,String> customRole;
         Map<String,HashMap<ProfileOptionsEnum, String>> ProfileOptions;
-        Map<String, Byte[]> IconMap;
+        Map<String, String> IconMap;
         String channel;
 
         guildOptions = GuildOptionsReader.readValue(node.get("guildOptions"));
         logOptions = LoggingOptionsReader.readValue(node.get("logOptions"));
         leaderboard = LeaderboardReader.readValue(node.get("leaderboard"));
         customRole = CustomRoleReader.readValue(node.get("customRole"));
-        if (node.has("profiles")){
+        if (!node.get("profiles").isNull()){
             ProfileOptions = ProfileOptionsReader.readValue(node.get("profiles"));
         }
         else ProfileOptions = new HashMap<>();
-        if (node.has("icons")){
-            IconMap = IconsReader.readValue("icons");
+
+        if (!node.get("icons").isNull()){
+            IconMap = IconsReader.readValue(node.get("icons"));
         }
         else IconMap = new HashMap<>();
         channel = node.get("Channel").asText();

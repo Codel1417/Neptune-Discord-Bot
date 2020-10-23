@@ -1,6 +1,6 @@
 package neptune.storage.Guild;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
@@ -35,10 +35,7 @@ public class GuildStorageHandler {
             return guildEntity;
         }
         ObjectMapper om = new ObjectMapper(new YAMLFactory());
-        om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        om.findAndRegisterModules();
         guildEntity = om.readValue(file, guildObject.class);
-
         return guildEntity;
     }
 
@@ -47,7 +44,6 @@ public class GuildStorageHandler {
         File file = new File(guildsDir + File.separator + guildEntity.getGuildID() + ".yaml");
         file.getParentFile().mkdirs(); // makes required folders
         ObjectMapper om = new ObjectMapper(new YAMLFactory());
-        om.findAndRegisterModules();
         log.debug("Writing File: " + file.getAbsolutePath());
         om.writeValue(file, guildEntity);
     }
