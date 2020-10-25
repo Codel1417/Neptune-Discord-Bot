@@ -88,15 +88,13 @@ public class Imgur extends CommonMethods implements CommandInterface {
             in.close();
             httpsURLConnection.disconnect();
 
-
             JsonNode jsonNode = new ObjectMapper().readTree(content.toString());
             jsonNode = jsonNode.get("data");
 
-            TypeReference<ArrayList<JsonNode>> typeRefImageArray
-            = new TypeReference<ArrayList<JsonNode>>() {};
+            TypeReference<ArrayList<JsonNode>> typeRefImageArray =
+                    new TypeReference<ArrayList<JsonNode>>() {};
             ObjectMapper mapper = new ObjectMapper();
             ObjectReader ImageListReader = mapper.readerFor(typeRefImageArray);
-
 
             ArrayList<JsonNode> ImageSearchList = ImageListReader.readValue(jsonNode);
             ArrayList<JsonNode> Images = new ArrayList<>();

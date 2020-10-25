@@ -5,9 +5,9 @@ import neptune.messageInterprter;
 import neptune.serverLogging.GuildLogging;
 import neptune.storage.Enum.LoggingOptionsEnum;
 import neptune.storage.Guild.GuildStorageHandler;
-import neptune.storage.VariablesStorage;
 import neptune.storage.Guild.guildObject;
 import neptune.storage.Guild.guildObject.logOptionsObject;
+import neptune.storage.VariablesStorage;
 import neptune.storage.logsStorageHandler;
 
 import net.dv8tion.jda.api.events.GenericEvent;

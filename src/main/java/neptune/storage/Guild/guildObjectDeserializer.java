@@ -1,9 +1,5 @@
 package neptune.storage.Guild;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -17,23 +13,28 @@ import neptune.storage.Enum.GuildOptionsEnum;
 import neptune.storage.Enum.LoggingOptionsEnum;
 import neptune.storage.Enum.ProfileOptionsEnum;
 
-public class guildObjectDeserializer extends JsonDeserializer<guildObject> {
-    TypeReference<HashMap<GuildOptionsEnum, Boolean>> typeRefGuildOptions
-    = new TypeReference<HashMap<GuildOptionsEnum, Boolean>>() {};
-    TypeReference<HashMap<LoggingOptionsEnum, Boolean>> typeRefLogOptions
-    = new TypeReference<HashMap<LoggingOptionsEnum, Boolean>>() {};
-    TypeReference<HashMap<String, Integer>> typeRefLeaderboard
-    = new TypeReference<HashMap<String, Integer>>() {};
-    TypeReference<HashMap<String, String>> typeRefCustomRole
-    = new TypeReference<HashMap<String, String>>() {};
-    TypeReference<HashMap<String,HashMap<ProfileOptionsEnum, String>>> typeRefProfileOptions
-    = new TypeReference<HashMap<String,HashMap<ProfileOptionsEnum, String>>>() {};
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
-    TypeReference<HashMap<String, String>> typeRefIcons
-    = new TypeReference<HashMap<String, String>>() {};
+public class guildObjectDeserializer extends JsonDeserializer<guildObject> {
+    TypeReference<HashMap<GuildOptionsEnum, Boolean>> typeRefGuildOptions =
+            new TypeReference<HashMap<GuildOptionsEnum, Boolean>>() {};
+    TypeReference<HashMap<LoggingOptionsEnum, Boolean>> typeRefLogOptions =
+            new TypeReference<HashMap<LoggingOptionsEnum, Boolean>>() {};
+    TypeReference<HashMap<String, Integer>> typeRefLeaderboard =
+            new TypeReference<HashMap<String, Integer>>() {};
+    TypeReference<HashMap<String, String>> typeRefCustomRole =
+            new TypeReference<HashMap<String, String>>() {};
+    TypeReference<HashMap<String, HashMap<ProfileOptionsEnum, String>>> typeRefProfileOptions =
+            new TypeReference<HashMap<String, HashMap<ProfileOptionsEnum, String>>>() {};
+
+    TypeReference<HashMap<String, String>> typeRefIcons =
+            new TypeReference<HashMap<String, String>>() {};
 
     @Override
-    public guildObject deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+    public guildObject deserialize(JsonParser p, DeserializationContext ctxt)
+            throws IOException, JsonProcessingException {
 
         JsonNode node = p.getCodec().readTree(p);
         ObjectMapper mapper = new ObjectMapper();
@@ -47,11 +48,11 @@ public class guildObjectDeserializer extends JsonDeserializer<guildObject> {
         String guildID = node.get("guildID").asText();
         int version = node.get("version").asInt();
 
-        Map<GuildOptionsEnum,Boolean> guildOptions;
-        Map<LoggingOptionsEnum,Boolean> logOptions;
-        Map<String,Integer> leaderboard;
-        Map<String,String> customRole;
-        Map<String,HashMap<ProfileOptionsEnum, String>> ProfileOptions;
+        Map<GuildOptionsEnum, Boolean> guildOptions;
+        Map<LoggingOptionsEnum, Boolean> logOptions;
+        Map<String, Integer> leaderboard;
+        Map<String, String> customRole;
+        Map<String, HashMap<ProfileOptionsEnum, String>> ProfileOptions;
         Map<String, String> IconMap;
         String channel;
 
@@ -59,20 +60,27 @@ public class guildObjectDeserializer extends JsonDeserializer<guildObject> {
         logOptions = LoggingOptionsReader.readValue(node.get("logOptions"));
         leaderboard = LeaderboardReader.readValue(node.get("leaderboard"));
         customRole = CustomRoleReader.readValue(node.get("customRole"));
-        try{
+        try {
             ProfileOptions = ProfileOptionsReader.readValue(node.get("profiles"));
-        }
-        catch(IllegalArgumentException | NullPointerException e){
+        } catch (IllegalArgumentException | NullPointerException e) {
             ProfileOptions = new HashMap<>();
         }
         try {
             IconMap = IconsReader.readValue(node.get("icons"));
-        }
-        catch(IllegalArgumentException | NullPointerException e){
+        } catch (IllegalArgumentException | NullPointerException e) {
             IconMap = new HashMap<>();
         }
         channel = node.get("Channel").asText();
 
-        return new guildObject(guildID,guildOptions,logOptions,leaderboard, customRole, channel,version,ProfileOptions,IconMap);
+        return new guildObject(
+                guildID,
+                guildOptions,
+                logOptions,
+                leaderboard,
+                customRole,
+                channel,
+                version,
+                ProfileOptions,
+                IconMap);
     }
 }

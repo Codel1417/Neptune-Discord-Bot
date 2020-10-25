@@ -18,8 +18,8 @@ import neptune.commands.audio.Wan;
 import neptune.commands.audio.a;
 import neptune.commands.nameGenCommands.Aarakocra;
 import neptune.storage.Guild.GuildStorageHandler;
-import neptune.storage.VariablesStorage;
 import neptune.storage.Guild.guildObject;
+import neptune.storage.VariablesStorage;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
@@ -148,8 +148,8 @@ public class CommandRunner extends CommonMethods {
         commands.put(anime4k.getCommand(), anime4k);
         commands.put(unixTime.getCommand(), unixTime);
         commands.put(ocr.getCommand(), ocr);
-        commands.put(profile.getCommand(),profile);
-        commands.put(a.getCommand(),a);
+        commands.put(profile.getCommand(), profile);
+        commands.put(a.getCommand(), a);
     }
 
     public Map<String, Object> getCommandList() {

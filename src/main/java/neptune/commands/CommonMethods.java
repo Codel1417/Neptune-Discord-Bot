@@ -126,10 +126,11 @@ public class CommonMethods {
         }
         return false;
     }
+
     public static void deleteDirectory(File directoryToBeDeleted) throws IOException {
-            Files.walk(directoryToBeDeleted.toPath())
-            .sorted(Comparator.reverseOrder())
-            .map(Path::toFile)
-            .forEach(File::delete);
+        Files.walk(directoryToBeDeleted.toPath())
+                .sorted(Comparator.reverseOrder())
+                .map(Path::toFile)
+                .forEach(File::delete);
     }
 }

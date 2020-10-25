@@ -63,10 +63,7 @@ public class Leaderboard implements CommandInterface {
         int count = 1;
         Map<String, Integer> results;
         try {
-            results =
-                            guildEntity
-                            .getLeaderboard()
-                            .getTopUsers();
+            results = guildEntity.getLeaderboard().getTopUsers();
         } catch (Exception e1) {
             e1.printStackTrace();
             return guildEntity;

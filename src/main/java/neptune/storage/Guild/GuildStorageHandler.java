@@ -15,7 +15,6 @@ public class GuildStorageHandler {
     protected static final Logger log = LogManager.getLogger();
     String guildsDir = "Guilds";
 
-
     public guildObject readFile(String guildID) throws IOException {
 
         /*
