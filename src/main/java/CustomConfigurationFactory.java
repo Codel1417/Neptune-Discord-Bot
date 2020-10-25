@@ -46,6 +46,7 @@ public class CustomConfigurationFactory extends ConfigurationFactory {
                         .add(builder.newAppenderRef("Stdout"))
                         .addAttribute("additivity", false));
         builder.add(builder.newRootLogger(Level.DEBUG).add(builder.newAppenderRef("Stdout"))); //controls overall log level
+
         return builder.build();
     }
 

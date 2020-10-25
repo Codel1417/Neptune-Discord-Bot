@@ -116,10 +116,11 @@ public class CommonMethods {
         log.trace("Final Url: " + FinalURl);
         return FinalURl;
     }
-    public boolean isImage(String ext){
+
+    public boolean isImage(String ext) {
         String names[] = ImageIO.getReaderFormatNames();
-        for(String name: names){
-            if (name.equalsIgnoreCase(ext)){
+        for (String name : names) {
+            if (name.equalsIgnoreCase(ext)) {
                 return true;
             }
         }
