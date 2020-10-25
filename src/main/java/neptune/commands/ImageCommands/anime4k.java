@@ -3,11 +3,10 @@ package neptune.commands.ImageCommands;
 import neptune.commands.CommandInterface;
 import neptune.commands.CommonMethods;
 import neptune.commands.commandCategories;
-import neptune.storage.guildObject;
+import neptune.storage.Guild.guildObject;
 
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.opencv.core.Core;
@@ -33,7 +32,7 @@ public class anime4k implements CommandInterface {
 
     public anime4k() {
         try {
-            FileUtils.deleteDirectory(new File("tmp"));
+            CommonMethods.deleteDirectory(new File("tmp"));
         } catch (IOException e) {
             log.error(e);
         }
@@ -126,6 +125,7 @@ public class anime4k implements CommandInterface {
                         Imgcodecs.imread(outputImage.getAbsolutePath(), Imgcodecs.IMREAD_UNCHANGED);
                 Mat destination = new Mat();
 
+                //GaussianBlur does not work with alpha channel. So we remove the alpha channel, apply GaussianBlur, then reassemble the image.
                 if (source.channels() > 3) {
                     Mat sourceNoAlpha = new Mat();
                     Mat destinationNoAlpha = new Mat();
@@ -167,7 +167,7 @@ public class anime4k implements CommandInterface {
         } finally {
             // clean up directory
             try {
-                FileUtils.deleteDirectory(directory);
+                CommonMethods.deleteDirectory(directory);
             } catch (Exception e) {
                 log.error(e);
             }

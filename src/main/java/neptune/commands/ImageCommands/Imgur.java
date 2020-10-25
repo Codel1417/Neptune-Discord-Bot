@@ -1,14 +1,14 @@
 package neptune.commands.ImageCommands;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.internal.LinkedTreeMap;
-import com.google.gson.reflect.TypeToken;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectReader;
 
 import neptune.commands.CommandInterface;
 import neptune.commands.CommonMethods;
 import neptune.commands.commandCategories;
-import neptune.storage.guildObject;
+import neptune.storage.Guild.guildObject;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
@@ -16,10 +16,8 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.lang.reflect.Type;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Random;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -71,9 +69,6 @@ public class Imgur extends CommonMethods implements CommandInterface {
     public guildObject run(
             GuildMessageReceivedEvent event, String messageContent, guildObject guildEntity) {
         String search = getCommandName(messageContent)[0]; // get first entry for now
-        // TODO: handle whitespace
-
-        // errors are handled by breaking the rest of the command
 
         // get content from imgur
         try {
@@ -82,7 +77,6 @@ public class Imgur extends CommonMethods implements CommandInterface {
             httpsURLConnection.setRequestMethod("GET");
             httpsURLConnection.setRequestProperty("Content-Type", "application/json");
             httpsURLConnection.setRequestProperty("Authorization", " Client-ID b1a9974a8f499db");
-            System.out.println("Response Code = " + httpsURLConnection.getResponseCode());
 
             BufferedReader in =
                     new BufferedReader(new InputStreamReader(httpsURLConnection.getInputStream()));
@@ -94,37 +88,26 @@ public class Imgur extends CommonMethods implements CommandInterface {
             in.close();
             httpsURLConnection.disconnect();
 
-            // Convert json into readable format
-            Gson gson = new GsonBuilder().create();
-            Type typeOfHashMap = new TypeToken<LinkedTreeMap>() {}.getType();
-            LinkedTreeMap json = gson.fromJson(content.toString(), typeOfHashMap);
 
-            // move through data
-            ArrayList<LinkedTreeMap> results = (ArrayList<LinkedTreeMap>) json.get("data");
+            JsonNode jsonNode = new ObjectMapper().readTree(content.toString());
+            jsonNode = jsonNode.get("data");
 
-            // remove unwanted entries
-            ArrayList<LinkedTreeMap> temp = (ArrayList<LinkedTreeMap>) results.clone(); // clone
-            // list
-            // to
-            // skip
-            // error.
-            ArrayList<LinkedTreeMap> ImageList = new ArrayList<>();
+            TypeReference<ArrayList<JsonNode>> typeRefImageArray
+            = new TypeReference<ArrayList<JsonNode>>() {};
+            ObjectMapper mapper = new ObjectMapper();
+            ObjectReader ImageListReader = mapper.readerFor(typeRefImageArray);
 
-            for (LinkedTreeMap map : temp) {
-                if (map.get("nsfw").toString().equalsIgnoreCase("true")) {
-                    results.remove(map);
-                } else {
-                    if (map.get("is_album").toString().equalsIgnoreCase("true")) {
-                        ArrayList<LinkedTreeMap> list =
-                                (ArrayList<LinkedTreeMap>) map.get("images");
-                        ImageList.addAll((Collection<? extends LinkedTreeMap>) list);
-                    } else {
-                        ImageList.add(map);
-                    }
+
+            ArrayList<JsonNode> ImageSearchList = ImageListReader.readValue(jsonNode);
+            ArrayList<JsonNode> Images = new ArrayList<>();
+
+            for (JsonNode jsonNode2 : ImageSearchList) {
+                if (!jsonNode2.get("nsfw").asBoolean()) {
+                    Images.add(jsonNode2.get("images"));
                 }
             }
 
-            if (ImageList.size() == 0) {
+            if (Images.size() == 0) {
                 EmbedBuilder embedBuilder = new EmbedBuilder();
                 embedBuilder.setTitle("Imgur");
                 embedBuilder.setColor(Color.RED);
@@ -132,9 +115,8 @@ public class Imgur extends CommonMethods implements CommandInterface {
                 event.getChannel().sendMessage(embedBuilder.build()).queue();
                 return guildEntity;
             }
-            LinkedTreeMap image =
-                    ImageList.get(random.nextInt(ImageList.size())); // the image details
-            String ImageURL = (String) image.get("link");
+            JsonNode image = Images.get(random.nextInt(Images.size())).get(0); // the image details
+            String ImageURL = image.get("link").asText();
 
             // prepare message
             EmbedBuilder embedBuilder = new EmbedBuilder();

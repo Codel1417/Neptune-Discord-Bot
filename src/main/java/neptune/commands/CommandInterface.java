@@ -1,6 +1,6 @@
 package neptune.commands;
 
-import neptune.storage.guildObject;
+import neptune.storage.Guild.guildObject;
 
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 

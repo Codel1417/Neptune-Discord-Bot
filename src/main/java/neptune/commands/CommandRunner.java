@@ -9,17 +9,17 @@ import neptune.commands.HelpCommands.Help;
 import neptune.commands.ImageCommands.*;
 import neptune.commands.ImageCommands.Imgur;
 import neptune.commands.ImageCommands.Tenor.*;
-import neptune.commands.InProgress.VRC;
 import neptune.commands.UtilityCommands.*;
 import neptune.commands.UtilityCommands.GuildInfo;
 import neptune.commands.audio.Awoo;
 import neptune.commands.audio.Nya;
 import neptune.commands.audio.Say;
 import neptune.commands.audio.Wan;
+import neptune.commands.audio.a;
 import neptune.commands.nameGenCommands.Aarakocra;
-import neptune.storage.GuildStorageHandler;
+import neptune.storage.Guild.GuildStorageHandler;
 import neptune.storage.VariablesStorage;
-import neptune.storage.guildObject;
+import neptune.storage.Guild.guildObject;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
@@ -53,7 +53,6 @@ public class CommandRunner extends CommonMethods {
     private final CoinFlip coinFlip = new CoinFlip();
     private final RollDie rollDie = new RollDie();
     private final Imgur imgur = new Imgur();
-    private final VRC vrChatAPI = new VRC();
     private final GreatSleepKing greatSleepKing = new GreatSleepKing();
     private final PayRespect payRespect = new PayRespect();
     private final Attack attack = new Attack();
@@ -90,6 +89,8 @@ public class CommandRunner extends CommonMethods {
     private final anime4k anime4k = new anime4k();
     private final unixTime unixTime = new unixTime();
     private final ocr ocr = new ocr();
+    private final profile profile = new profile();
+    private final a a = new a();
     ExecutorService executor = Executors.newCachedThreadPool();
 
     public CommandRunner() {
@@ -127,7 +128,6 @@ public class CommandRunner extends CommonMethods {
         commands.put(confused.getCommand(), confused);
         commands.put(d10K.getCommand(), d10K);
         commands.put(guildList.getCommand(), guildList);
-        commands.put(vrChatAPI.getCommand(), vrChatAPI);
         commands.put(powerLevel.getCommand(), powerLevel);
         commands.put(pout.getCommand(), pout);
         commands.put(senko.getCommand(), senko);
@@ -148,6 +148,8 @@ public class CommandRunner extends CommonMethods {
         commands.put(anime4k.getCommand(), anime4k);
         commands.put(unixTime.getCommand(), unixTime);
         commands.put(ocr.getCommand(), ocr);
+        commands.put(profile.getCommand(),profile);
+        commands.put(a.getCommand(),a);
     }
 
     public Map<String, Object> getCommandList() {

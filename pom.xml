@@ -96,34 +96,20 @@
         </plugins>
     </build>
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/net.dv8tion/JDA -->
         <dependency>
             <groupId>net.dv8tion</groupId>
             <artifactId>JDA</artifactId>
             <version>4.2.0_209</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.sedmelluq/lavaplayer -->
         <dependency>
             <groupId>com.sedmelluq</groupId>
             <artifactId>lavaplayer</artifactId>
             <version>1.3.50</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.neovisionaries/nv-websocket-client -->
         <dependency>
             <groupId>com.neovisionaries</groupId>
             <artifactId>nv-websocket-client</artifactId>
             <version>2.10</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>2.8.6</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-api</artifactId>
-            <version>2.13.3</version>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
@@ -135,7 +121,6 @@
             <artifactId>log4j-slf4j-impl</artifactId>
             <version>2.13.3</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.fusesource.jansi/jansi -->
         <dependency>
             <groupId>org.fusesource.jansi</groupId>
             <artifactId>jansi</artifactId>
@@ -152,152 +137,29 @@
             <version>2.11.3</version>
         </dependency>
         <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.8.0</version>
-            </dependency>
-        <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
             <version>2.11.3</version>
         </dependency>
         <dependency>
-            <groupId>com.fasterxml.jackson.module</groupId>
-            <artifactId>jackson-module-paranamer</artifactId>
-            <version>2.11.3</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/commons-cli/commons-cli -->
-        <dependency>
             <groupId>commons-cli</groupId>
             <artifactId>commons-cli</artifactId>
             <version>1.4</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/jcs/jcs -->
-        <dependency>
-            <groupId>com.github.ben-manes.caffeine</groupId>
-            <artifactId>caffeine</artifactId>
-            <version>2.8.6</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.openpnp/opencv -->
         <dependency>
             <groupId>org.openpnp</groupId>
             <artifactId>opencv</artifactId>
             <version>4.3.0-2</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/net.sourceforge.tess4j/tess4j -->
         <dependency>
             <groupId>net.sourceforge.tess4j</groupId>
             <artifactId>tess4j</artifactId>
             <version>4.5.3</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.eclipse.jgit/org.eclipse.jgit -->
         <dependency>
             <groupId>org.eclipse.jgit</groupId>
             <artifactId>org.eclipse.jgit</artifactId>
             <version>5.9.0.202009080501-r</version>
-        </dependency>
-        <!-- Common dependencies-->
-        <dependency>
-            <groupId>com.twelvemonkeys.common</groupId>
-            <artifactId>common-lang</artifactId>
-            <version>3.6</version>
-        </dependency>
-        <dependency>
-            <groupId>com.twelvemonkeys.common</groupId>
-            <artifactId>common-io</artifactId>
-            <version>3.6</version>
-        </dependency>
-        <dependency>
-            <groupId>com.twelvemonkeys.common</groupId>
-            <artifactId>common-image</artifactId>
-            <version>3.6</version>
-        </dependency>
-        <!-- ImageIO common dependencies -->
-        <dependency>
-            <groupId>com.twelvemonkeys.imageio</groupId>
-            <artifactId>imageio-core</artifactId>
-            <version>3.6</version>
-        </dependency>
-        <dependency>
-            <groupId>com.twelvemonkeys.imageio</groupId>
-            <artifactId>imageio-metadata</artifactId>
-            <version>3.6</version>
-        </dependency>
-        <dependency>
-            <groupId>com.twelvemonkeys.imageio</groupId>
-            <artifactId>imageio-clippath</artifactId>
-            <version>3.6</version>
-        </dependency>
-        <!-- ImageIO plugins -->
-        <dependency>
-            <groupId>com.twelvemonkeys.imageio</groupId>
-            <artifactId>imageio-bmp</artifactId>
-            <version>3.6</version>
-        </dependency>
-        <dependency>
-            <groupId>com.twelvemonkeys.imageio</groupId>
-            <artifactId>imageio-hdr</artifactId>
-            <version>3.6</version>
-        </dependency>
-        <dependency>
-            <groupId>com.twelvemonkeys.imageio</groupId>
-            <artifactId>imageio-icns</artifactId>
-            <version>3.6</version>
-        </dependency>
-        <dependency>
-            <groupId>com.twelvemonkeys.imageio</groupId>
-            <artifactId>imageio-iff</artifactId>
-            <version>3.6</version>
-        </dependency>
-        <dependency>
-            <groupId>com.twelvemonkeys.imageio</groupId>
-            <artifactId>imageio-jpeg</artifactId>
-            <version>3.6</version>
-        </dependency>
-        <dependency>
-            <groupId>com.twelvemonkeys.imageio</groupId>
-            <artifactId>imageio-pcx</artifactId>
-            <version>3.6</version>
-        </dependency>
-        <dependency>
-            <groupId>com.twelvemonkeys.imageio</groupId>
-            <artifactId>imageio-pdf</artifactId>
-            <version>3.6</version>
-        </dependency>
-        <dependency>
-            <groupId>com.twelvemonkeys.imageio</groupId>
-            <artifactId>imageio-pict</artifactId>
-            <version>3.6</version>
-        </dependency>
-        <dependency>
-            <groupId>com.twelvemonkeys.imageio</groupId>
-            <artifactId>imageio-pnm</artifactId>
-            <version>3.6</version>
-        </dependency>
-        <dependency>
-            <groupId>com.twelvemonkeys.imageio</groupId>
-            <artifactId>imageio-psd</artifactId>
-            <version>3.6</version>
-        </dependency>
-        <dependency>
-            <groupId>com.twelvemonkeys.imageio</groupId>
-            <artifactId>imageio-sgi</artifactId>
-            <version>3.6</version>
-        </dependency>
-        <dependency>
-            <groupId>com.twelvemonkeys.imageio</groupId>
-            <artifactId>imageio-tga</artifactId>
-            <version>3.6</version>
-        </dependency>
-        <dependency>
-            <groupId>com.twelvemonkeys.imageio</groupId>
-            <artifactId>imageio-thumbsdb</artifactId>
-            <version>3.6</version>
-        </dependency>
-        <dependency>
-            <groupId>com.twelvemonkeys.imageio</groupId>
-            <artifactId>imageio-tiff</artifactId>
-            <version>3.6</version>
         </dependency>
         <dependency>
             <groupId>org.sejda.imageio</groupId>

@@ -2,14 +2,12 @@ package neptune.commands.UtilityCommands;
 
 import neptune.commands.CommandInterface;
 import neptune.commands.commandCategories;
-import neptune.storage.GuildStorageHandler;
-import neptune.storage.guildObject;
+import neptune.storage.Guild.guildObject;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 import java.awt.*;
-import java.io.IOException;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -63,15 +61,13 @@ public class Leaderboard implements CommandInterface {
         embedBuilder.setColor(Color.MAGENTA);
         embedBuilder.setTitle(getName());
         int count = 1;
-        GuildStorageHandler guildStorageHandler = new GuildStorageHandler();
         Map<String, Integer> results;
         try {
             results =
-                    guildStorageHandler
-                            .readFile(event.getGuild().getId())
+                            guildEntity
                             .getLeaderboard()
                             .getTopUsers();
-        } catch (IOException e1) {
+        } catch (Exception e1) {
             e1.printStackTrace();
             return guildEntity;
         }

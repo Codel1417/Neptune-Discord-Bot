@@ -1,8 +1,10 @@
 package neptune.commands;
 
-import com.google.gson.internal.LinkedTreeMap;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectReader;
 
-import neptune.storage.ConvertJSON;
 import neptune.storage.commandLineOptionsSingleton;
 
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -22,8 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public abstract class TenorGif extends ConvertJSON {
-    // GetAuthToken getAuthToken = new GetAuthToken();
+public abstract class TenorGif {
 
     protected EmbedBuilder getImageDefaultEmbed(
             GuildMessageReceivedEvent event, String Search, boolean MentionMessage) {
@@ -99,18 +100,17 @@ public abstract class TenorGif extends ConvertJSON {
             in.close();
             connection.disconnect();
 
-            LinkedTreeMap JSON = fromJSON(content.toString());
-            ArrayList<LinkedTreeMap> imageArray = (ArrayList<LinkedTreeMap>) JSON.get("results");
+            JsonNode jsonNode = new ObjectMapper().readTree(content.toString());
+            TypeReference<ArrayList<JsonNode>> typeRefImageArray
+            = new TypeReference<ArrayList<JsonNode>>() {};
+            ObjectMapper mapper = new ObjectMapper();
+            ObjectReader ImageListReader = mapper.readerFor(typeRefImageArray);
+            ArrayList<JsonNode> imageArray = ImageListReader.readValue(jsonNode.get("results"));
             Random random = new Random();
-            LinkedTreeMap<String, Object> imageEntry =
-                    imageArray.get(random.nextInt(imageArray.size()));
-
-            ArrayList<LinkedTreeMap> mediaList = (ArrayList<LinkedTreeMap>) imageEntry.get("media");
-            LinkedTreeMap media = mediaList.get(0);
-            LinkedTreeMap gif = (LinkedTreeMap) media.get("gif");
-            return (String) gif.get("url");
+            JsonNode imageEntry = imageArray.get(random.nextInt(imageArray.size()));
+            return imageEntry.get("media").get(0).get("gif").get("url").asText();
         } catch (IOException e) {
-            log.error(e.toString());
+            log.error(e);
         }
         returnURL = "";
         return returnURL;

@@ -1,29 +1,29 @@
 package neptune.commands.audio;
 
+import java.io.File;
+
 import neptune.commands.CommandInterface;
 import neptune.commands.RandomMediaPicker;
 import neptune.commands.commandCategories;
 import neptune.storage.VariablesStorage;
 import neptune.storage.Guild.guildObject;
-
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
-import java.io.File;
+public class a implements CommandInterface {
 
-public class Wan implements CommandInterface {
     @Override
     public String getName() {
-        return "Wan";
+        return "a";
     }
 
     @Override
     public String getCommand() {
-        return "wan";
+        return "a";
     }
 
     @Override
     public String getDescription() {
-        return "WanWan sounds";
+        return "Best Shark Sound";
     }
 
     @Override
@@ -52,10 +52,9 @@ public class Wan implements CommandInterface {
     }
 
     @Override
-    public guildObject run(
-            GuildMessageReceivedEvent event, String messageContent, guildObject guildEntity) {
-        VariablesStorage variablesStorage = new VariablesStorage();
+    public guildObject run(GuildMessageReceivedEvent event, String messageContent, guildObject guildEntity) {
         RandomMediaPicker randomMediaPicker = new RandomMediaPicker();
+        VariablesStorage variablesStorage = new VariablesStorage();
         randomMediaPicker.sendMedia(
                 new File(
                         variablesStorage.getMediaFolder()
@@ -65,7 +64,8 @@ public class Wan implements CommandInterface {
                                 + getCommand()),
                 event,
                 false,
-                true);
+                true);      
         return guildEntity;
     }
+    
 }
