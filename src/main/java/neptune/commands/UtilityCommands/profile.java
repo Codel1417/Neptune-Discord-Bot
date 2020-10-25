@@ -1,8 +1,5 @@
 package neptune.commands.UtilityCommands;
 
-import java.awt.Color;
-import java.util.TimeZone;
-
 import neptune.commands.CommandInterface;
 import neptune.commands.CommonMethods;
 import neptune.commands.commandCategories;
@@ -11,8 +8,12 @@ import neptune.storage.Guild.guildObject;
 import neptune.storage.Guild.guildObject.guildOptionsObject;
 import neptune.storage.Guild.guildObject.leaderboardObject;
 import neptune.storage.Guild.guildObject.profileObject;
+
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+
+import java.awt.Color;
+import java.util.TimeZone;
 
 public class profile implements CommandInterface {
     CommonMethods helpers = new CommonMethods();
@@ -58,37 +59,43 @@ public class profile implements CommandInterface {
     }
 
     @Override
-    public guildObject run(GuildMessageReceivedEvent event, String messageContent, guildObject guildEntity) {
+    public guildObject run(
+            GuildMessageReceivedEvent event, String messageContent, guildObject guildEntity) {
         String[] command = helpers.getCommandName(messageContent);
-        if (command[1].length() == 0){
+        if (command[1].length() == 0) {
             displayProfile(event, event.getAuthor().getId(), guildEntity);
             return guildEntity;
         }
-        switch (command[0].toLowerCase()){
-            case "language":{
-                guildEntity = updateLanguage(event, command[1], guildEntity);
-                break;
-            }
-            case "bio": {
-                guildEntity = updateBio(event, command[1], guildEntity);
-                break;
-            }
-            case "timezone": {
-                guildEntity = updateTimezone(event, command[1], guildEntity);
-                break;
-            }
-            case "help": {
-                displayHelp(event);
-                break;
-            }
-            default: {
-                displayHelp(event);
-            }
+        switch (command[0].toLowerCase()) {
+            case "language":
+                {
+                    guildEntity = updateLanguage(event, command[1], guildEntity);
+                    break;
+                }
+            case "bio":
+                {
+                    guildEntity = updateBio(event, command[1], guildEntity);
+                    break;
+                }
+            case "timezone":
+                {
+                    guildEntity = updateTimezone(event, command[1], guildEntity);
+                    break;
+                }
+            case "help":
+                {
+                    displayHelp(event);
+                    break;
+                }
+            default:
+                {
+                    displayHelp(event);
+                }
         }
         return guildEntity;
     }
 
-    public void displayHelp(GuildMessageReceivedEvent event){
+    public void displayHelp(GuildMessageReceivedEvent event) {
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setColor(Color.MAGENTA);
         embedBuilder.setTitle("Profile Management Help");
@@ -98,9 +105,10 @@ public class profile implements CommandInterface {
         commandsString.append("!nep profile bio (Some Text) <Limit 700 Characters>\n");
         embedBuilder.addField("Commands", commandsString.toString(), false);
         event.getChannel().sendMessage(embedBuilder.build()).queue();
-
     }
-    public void displayProfile(GuildMessageReceivedEvent event, String MemberID,guildObject guildEntity){
+
+    public void displayProfile(
+            GuildMessageReceivedEvent event, String MemberID, guildObject guildEntity) {
         profileObject profileEntity = guildEntity.getProfiles();
         leaderboardObject leaderboard = guildEntity.getLeaderboard();
         guildOptionsObject guildOptions = guildEntity.getGuildOptions();
@@ -111,44 +119,54 @@ public class profile implements CommandInterface {
         TimeZone Timezone = profileEntity.getTimeZone(MemberID);
 
         embedBuilder.setDescription(profileEntity.getBio(MemberID));
-        embedBuilder.addField("Language",profileEntity.getLanguage(MemberID), true);
-        if (Timezone != null){
-            embedBuilder.addField("TimeZone",Timezone.getID(), true);
+        embedBuilder.addField("Language", profileEntity.getLanguage(MemberID), true);
+        if (Timezone != null) {
+            embedBuilder.addField("TimeZone", Timezone.getID(), true);
         }
-        if (guildOptions.getOption(GuildOptionsEnum.leaderboardEnabled)){
-            embedBuilder.addField("Points",String.valueOf(points), true);
+        if (guildOptions.getOption(GuildOptionsEnum.leaderboardEnabled)) {
+            embedBuilder.addField("Points", String.valueOf(points), true);
         }
         embedBuilder.setFooter("Use '!nep profile help' to get a list of profile commands.");
         event.getChannel().sendMessage(embedBuilder.build()).queue();
     }
-    public guildObject updateBio(GuildMessageReceivedEvent event, String Bio,guildObject guildEntity){
+
+    public guildObject updateBio(
+            GuildMessageReceivedEvent event, String Bio, guildObject guildEntity) {
         profileObject profileEntity = guildEntity.getProfiles();
         boolean result = profileEntity.setBio(event.getAuthor().getId(), Bio);
-        if (result){
+        if (result) {
             displayProfile(event, event.getAuthor().getId(), guildEntity);
         } else {
-            event.getChannel().sendMessage("Your bio can not be longer than 700 characters").queue();
+            event.getChannel()
+                    .sendMessage("Your bio can not be longer than 700 characters")
+                    .queue();
             displayHelp(event);
         }
         guildEntity.setProfiles(profileEntity);
         return guildEntity;
     }
-    public guildObject updateTimezone(GuildMessageReceivedEvent event, String TimeZone ,guildObject guildEntity){
+
+    public guildObject updateTimezone(
+            GuildMessageReceivedEvent event, String TimeZone, guildObject guildEntity) {
         profileObject profileEntity = guildEntity.getProfiles();
         boolean result = profileEntity.setTimeZone(event.getAuthor().getId(), TimeZone);
-        if (result){
+        if (result) {
             displayProfile(event, event.getAuthor().getId(), guildEntity);
         } else {
-            event.getChannel().sendMessage("Invalid Format. Timezones must either be UTC or Country/Region").queue();
+            event.getChannel()
+                    .sendMessage("Invalid Format. Timezones must either be UTC or Country/Region")
+                    .queue();
             displayHelp(event);
         }
         guildEntity.setProfiles(profileEntity);
         return guildEntity;
     }
-    public guildObject updateLanguage(GuildMessageReceivedEvent event, String Language ,guildObject guildEntity){
+
+    public guildObject updateLanguage(
+            GuildMessageReceivedEvent event, String Language, guildObject guildEntity) {
         profileObject profileEntity = guildEntity.getProfiles();
         boolean result = profileEntity.setLanguage(event.getAuthor().getId(), Language);
-        if (result){
+        if (result) {
             displayProfile(event, event.getAuthor().getId(), guildEntity);
         } else {
             event.getChannel().sendMessage("Invalid Language").queue();
@@ -157,5 +175,4 @@ public class profile implements CommandInterface {
         guildEntity.setProfiles(profileEntity);
         return guildEntity;
     }
-    
 }

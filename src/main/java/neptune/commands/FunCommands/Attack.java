@@ -3,8 +3,8 @@ package neptune.commands.FunCommands;
 import neptune.commands.CommandInterface;
 import neptune.commands.RandomMediaPicker;
 import neptune.commands.commandCategories;
-import neptune.storage.VariablesStorage;
 import neptune.storage.Guild.guildObject;
+import neptune.storage.VariablesStorage;
 
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;

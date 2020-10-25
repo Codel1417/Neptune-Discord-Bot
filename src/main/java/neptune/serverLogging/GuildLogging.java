@@ -1,8 +1,8 @@
 package neptune.serverLogging;
 
 import neptune.storage.Enum.LoggingOptionsEnum;
-import neptune.storage.logObject;
 import neptune.storage.Guild.guildObject.logOptionsObject;
+import neptune.storage.logObject;
 import neptune.storage.logsStorageHandler;
 
 import net.dv8tion.jda.api.EmbedBuilder;

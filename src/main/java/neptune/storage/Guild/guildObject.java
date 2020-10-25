@@ -1,5 +1,14 @@
 package neptune.storage.Guild;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.lowagie.text.pdf.codec.Base64;
+
+import neptune.storage.Enum.GuildOptionsEnum;
+import neptune.storage.Enum.LoggingOptionsEnum;
+import neptune.storage.Enum.ProfileOptionsEnum;
+
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -12,18 +21,8 @@ import java.util.TimeZone;
 
 import javax.imageio.ImageIO;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.lowagie.text.pdf.codec.Base64;
-
-import neptune.storage.Enum.GuildOptionsEnum;
-import neptune.storage.Enum.LoggingOptionsEnum;
-import neptune.storage.Enum.ProfileOptionsEnum;
-
 @JsonSerialize(using = guildObjectSerializer.class)
 @JsonDeserialize(using = guildObjectDeserializer.class)
-
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.NONE)
 public class guildObject {
     public logOptionsObject getLogOptions() {
@@ -74,10 +73,16 @@ public class guildObject {
         profiles = new profileObject();
     }
 
-    public guildObject(String GuildID, Map<GuildOptionsEnum, Boolean> guildOptionsMap,
-            Map<LoggingOptionsEnum, Boolean> logOptionsMap, Map<String, Integer> leaderboardMap,
-            Map<String, String> customRoleMap, String loggingChannel, int version,
-            Map<String, HashMap<ProfileOptionsEnum, String>> profileMap, Map<String, String> IconMap) {
+    public guildObject(
+            String GuildID,
+            Map<GuildOptionsEnum, Boolean> guildOptionsMap,
+            Map<LoggingOptionsEnum, Boolean> logOptionsMap,
+            Map<String, Integer> leaderboardMap,
+            Map<String, String> customRoleMap,
+            String loggingChannel,
+            int version,
+            Map<String, HashMap<ProfileOptionsEnum, String>> profileMap,
+            Map<String, String> IconMap) {
         guildID = GuildID;
         version = this.version;
         logOptions = new logOptionsObject(loggingChannel, logOptionsMap);
@@ -127,7 +132,8 @@ public class guildObject {
 
         protected Map<GuildOptionsEnum, Boolean> getGuildOptions() {
             return GuildOptionsHashMap;
-        };
+        }
+        ;
     }
 
     public class logOptionsObject {
@@ -140,7 +146,8 @@ public class guildObject {
             Channel = null;
         }
 
-        protected logOptionsObject(String channel, Map<LoggingOptionsEnum, Boolean> loggingOptionsMap) {
+        protected logOptionsObject(
+                String channel, Map<LoggingOptionsEnum, Boolean> loggingOptionsMap) {
             loggingOptions = loggingOptionsMap;
             Channel = channel;
         }
@@ -193,7 +200,8 @@ public class guildObject {
 
         public LinkedHashMap<String, Integer> getTopUsers() throws CloneNotSupportedException {
             LinkedHashMap<String, Integer> reverseSortedMap = new LinkedHashMap<>();
-            leaderboards.entrySet().stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+            leaderboards.entrySet().stream()
+                    .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                     .forEachOrdered(x -> reverseSortedMap.put(x.getKey(), x.getValue()));
             int resultSize = reverseSortedMap.size();
             if (resultSize > 10) {
@@ -209,7 +217,6 @@ public class guildObject {
                 } else {
                     break;
                 }
-
             }
             return finalSortedMap;
         }
@@ -257,7 +264,8 @@ public class guildObject {
             icons = new HashMap<>();
         }
 
-        protected profileObject(Map<String, HashMap<ProfileOptionsEnum, String>> profilesMap,
+        protected profileObject(
+                Map<String, HashMap<ProfileOptionsEnum, String>> profilesMap,
                 Map<String, String> iconsMap) {
             profiles = profilesMap;
             icons = iconsMap;
@@ -273,36 +281,33 @@ public class guildObject {
 
         public boolean setBio(String MemberID, String Bio) {
             if (Bio.length() <= 700) { // leaves 300 characters for other profile options
-                HashMap<ProfileOptionsEnum, String> profile = profiles.getOrDefault(MemberID,
-                        new HashMap<ProfileOptionsEnum, String>());
+                HashMap<ProfileOptionsEnum, String> profile =
+                        profiles.getOrDefault(MemberID, new HashMap<ProfileOptionsEnum, String>());
                 profile.put(ProfileOptionsEnum.Bio, Bio);
                 profiles.put(MemberID, profile);
                 return true;
-            } else
-                return false;
+            } else return false;
         }
 
         public String getBio(String MemberID) {
-            HashMap<ProfileOptionsEnum, String> profile = profiles.getOrDefault(MemberID,
-                    new HashMap<ProfileOptionsEnum, String>());
+            HashMap<ProfileOptionsEnum, String> profile =
+                    profiles.getOrDefault(MemberID, new HashMap<ProfileOptionsEnum, String>());
             if (profile.containsKey(ProfileOptionsEnum.Bio)) {
                 return profile.get(ProfileOptionsEnum.Bio);
-            } else
-                return "Not Set";
+            } else return "Not Set";
         }
 
         public String getLanguage(String MemberID) {
-            HashMap<ProfileOptionsEnum, String> profile = profiles.getOrDefault(MemberID,
-                    new HashMap<ProfileOptionsEnum, String>());
+            HashMap<ProfileOptionsEnum, String> profile =
+                    profiles.getOrDefault(MemberID, new HashMap<ProfileOptionsEnum, String>());
             if (profile.containsKey(ProfileOptionsEnum.Language)) {
                 return profile.get(ProfileOptionsEnum.Language);
-            } else
-                return "Not Set";
+            } else return "Not Set";
         }
 
         public boolean setLanguage(String MemberID, String Language) {
-            HashMap<ProfileOptionsEnum, String> profile = profiles.getOrDefault(MemberID,
-                    new HashMap<ProfileOptionsEnum, String>());
+            HashMap<ProfileOptionsEnum, String> profile =
+                    profiles.getOrDefault(MemberID, new HashMap<ProfileOptionsEnum, String>());
             profile.put(ProfileOptionsEnum.Language, Language);
             profiles.put(MemberID, profile);
             return true;
@@ -310,8 +315,8 @@ public class guildObject {
         }
 
         public TimeZone getTimeZone(String MemberID) {
-            HashMap<ProfileOptionsEnum, String> profile = profiles.getOrDefault(MemberID,
-                    new HashMap<ProfileOptionsEnum, String>());
+            HashMap<ProfileOptionsEnum, String> profile =
+                    profiles.getOrDefault(MemberID, new HashMap<ProfileOptionsEnum, String>());
             if (profile.containsKey(ProfileOptionsEnum.Timezone)) {
                 return TimeZone.getTimeZone(profile.get(ProfileOptionsEnum.Timezone));
             }
@@ -319,21 +324,20 @@ public class guildObject {
         }
 
         public boolean setTimeZone(String MemberID, String Timezone) {
-            HashMap<ProfileOptionsEnum, String> profile = profiles.getOrDefault(MemberID,
-                    new HashMap<ProfileOptionsEnum, String>());
+            HashMap<ProfileOptionsEnum, String> profile =
+                    profiles.getOrDefault(MemberID, new HashMap<ProfileOptionsEnum, String>());
             TimeZone zone = TimeZone.getTimeZone(Timezone);
             if (zone != null) {
                 profile.put(ProfileOptionsEnum.Timezone, Timezone);
                 profiles.put(MemberID, profile);
                 return true;
-            } else
-                return false;
+            } else return false;
         }
 
         public BufferedImage getIcon(String MemberID) throws IOException {
             String encoded = icons.getOrDefault(MemberID, null);
 
-            if (encoded != null){
+            if (encoded != null) {
                 byte[] imageArray = Base64.decode(encoded);
                 ByteArrayInputStream bais = new ByteArrayInputStream(imageArray);
                 BufferedImage image = ImageIO.read(bais);

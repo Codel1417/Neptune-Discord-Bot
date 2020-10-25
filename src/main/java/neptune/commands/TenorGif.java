@@ -101,8 +101,8 @@ public abstract class TenorGif {
             connection.disconnect();
 
             JsonNode jsonNode = new ObjectMapper().readTree(content.toString());
-            TypeReference<ArrayList<JsonNode>> typeRefImageArray
-            = new TypeReference<ArrayList<JsonNode>>() {};
+            TypeReference<ArrayList<JsonNode>> typeRefImageArray =
+                    new TypeReference<ArrayList<JsonNode>>() {};
             ObjectMapper mapper = new ObjectMapper();
             ObjectReader ImageListReader = mapper.readerFor(typeRefImageArray);
             ArrayList<JsonNode> imageArray = ImageListReader.readValue(jsonNode.get("results"));
