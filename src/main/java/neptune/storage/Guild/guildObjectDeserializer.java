@@ -71,6 +71,9 @@ public class guildObjectDeserializer extends JsonDeserializer<guildObject> {
             IconMap = new HashMap<>();
         }
         channel = node.get("Channel").asText();
+        if (channel.equalsIgnoreCase("null")){
+                channel = null;
+        }
 
         return new guildObject(
                 guildID,

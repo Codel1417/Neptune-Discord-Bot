@@ -21,7 +21,7 @@ public class guildObjectSerializer extends JsonSerializer<guildObject> {
             gen.writeObjectField("guildOptions", value.getGuildOptions().getGuildOptions());
             gen.writeObjectField("logOptions", value.getLogOptions().getloggingOptionsMap());
             gen.writeObjectField("leaderboard", value.getLeaderboard().getLeaderboards());
-            gen.writeNumberField("version", value.getVersion());
+            gen.writeNumberField("version", 2);
             gen.writeStringField("Channel", value.getLogOptions().getChannel());
             gen.writeObjectField("customRole", value.getCustomRole().getCustomRoles());
             gen.writeObjectField("profiles", value.getProfiles().getProfilesMap());

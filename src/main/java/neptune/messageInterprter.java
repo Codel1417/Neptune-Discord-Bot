@@ -3,7 +3,6 @@ package neptune;
 import neptune.commands.CommandRunner;
 import neptune.commands.RandomMediaPicker;
 import neptune.storage.Enum.GuildOptionsEnum;
-import neptune.storage.Guild.GuildStorageHandler;
 import neptune.storage.Guild.guildObject;
 import neptune.storage.VariablesStorage;
 
@@ -14,7 +13,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Arrays;
 
 public class messageInterprter {
@@ -47,16 +45,8 @@ public class messageInterprter {
         return false;
     }
 
-    public void runEvent(GuildMessageReceivedEvent event) {
+    public guildObject runEvent(GuildMessageReceivedEvent event, guildObject guildEntity) {
         boolean multiPrefix;
-        // read guild file
-        guildObject guildEntity = null;
-        ;
-        try {
-            guildEntity = new GuildStorageHandler().readFile(event.getGuild().getId());
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
         // leaderboard
         guildEntity.getLeaderboard().incrimentPoint(event.getMember().getId());
         // check if the bot was called in chat
@@ -86,17 +76,12 @@ public class messageInterprter {
                             true,
                             true);
                 }
-            } else {
-                try {
-                    new GuildStorageHandler().writeFile(guildEntity);
-                } catch (IOException e) {
-                    log.error(e);
-                }
             }
             // return if bot was not called
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return guildEntity;
     }
 
     private void printConsoleLog(GuildMessageReceivedEvent event) {
