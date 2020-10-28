@@ -16,6 +16,7 @@ import neptune.commands.audio.Nya;
 import neptune.commands.audio.Say;
 import neptune.commands.audio.Wan;
 import neptune.commands.audio.a;
+import neptune.commands.audio.bonk;
 import neptune.commands.nameGenCommands.Aarakocra;
 import neptune.storage.Guild.GuildStorageHandler;
 import neptune.storage.Guild.guildObject;
@@ -91,6 +92,7 @@ public class CommandRunner extends CommonMethods {
     private final ocr ocr = new ocr();
     private final profile profile = new profile();
     private final a a = new a();
+    private final bonk bonk = new bonk();
     ExecutorService executor = Executors.newCachedThreadPool();
 
     public CommandRunner() {
@@ -150,6 +152,7 @@ public class CommandRunner extends CommonMethods {
         commands.put(ocr.getCommand(), ocr);
         commands.put(profile.getCommand(), profile);
         commands.put(a.getCommand(), a);
+        commands.put(bonk.getCommand(),bonk);
     }
 
     public Map<String, Object> getCommandList() {
