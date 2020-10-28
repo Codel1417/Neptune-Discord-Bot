@@ -1,13 +1,14 @@
 package neptune.commands.audio;
 
-import java.io.File;
-
 import neptune.commands.CommandInterface;
 import neptune.commands.RandomMediaPicker;
 import neptune.commands.commandCategories;
-import neptune.storage.VariablesStorage;
 import neptune.storage.Guild.guildObject;
+import neptune.storage.VariablesStorage;
+
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+
+import java.io.File;
 
 public class bonk implements CommandInterface {
 
@@ -52,7 +53,8 @@ public class bonk implements CommandInterface {
     }
 
     @Override
-    public guildObject run(GuildMessageReceivedEvent event, String messageContent, guildObject guildEntity) {
+    public guildObject run(
+            GuildMessageReceivedEvent event, String messageContent, guildObject guildEntity) {
         RandomMediaPicker randomMediaPicker = new RandomMediaPicker();
         VariablesStorage variablesStorage = new VariablesStorage();
         randomMediaPicker.sendMedia(

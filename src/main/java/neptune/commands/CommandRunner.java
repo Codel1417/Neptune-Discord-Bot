@@ -152,7 +152,7 @@ public class CommandRunner extends CommonMethods {
         commands.put(ocr.getCommand(), ocr);
         commands.put(profile.getCommand(), profile);
         commands.put(a.getCommand(), a);
-        commands.put(bonk.getCommand(),bonk);
+        commands.put(bonk.getCommand(), bonk);
     }
 
     public Map<String, Object> getCommandList() {
