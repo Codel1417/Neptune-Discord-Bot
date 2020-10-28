@@ -25,7 +25,7 @@ public class CycleGameStatus implements Runnable {
             try {
                 for (Activity activity : MessageLoop) {
                     Thread.sleep(1000 * 15); // wait 15 seconds to avoid ratelimit
-                    jda.getShardManager().setActivity(activity);
+                    jda.getPresence().setActivity(activity);
                 }
             } catch (Exception e) {
                 e.printStackTrace();

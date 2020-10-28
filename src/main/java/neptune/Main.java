@@ -4,10 +4,11 @@ import com.neovisionaries.ws.client.WebSocketFactory;
 
 import neptune.commands.PassiveCommands.Listener;
 import neptune.storage.commandLineOptionsSingleton;
-
+import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
+import net.dv8tion.jda.api.requests.GatewayIntent;
+import net.dv8tion.jda.api.utils.MemberCachePolicy;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -47,14 +48,14 @@ public class Main extends ListenerAdapter {
 
     private static void startJDA(String token) {
         log.info("Starting JDA");
-        DefaultShardManagerBuilder builder = new DefaultShardManagerBuilder();
-        builder.addEventListeners(new Listener());
-        builder.setActivity(Activity.playing("!Nep Help"));
-        builder.setToken(token);
-
-        builder.setWebsocketFactory(new WebSocketFactory().setVerifyHostname(false));
         try {
-            builder.build();
+            JDABuilder.create(token, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_VOICE_STATES,GatewayIntent.DIRECT_MESSAGES)
+            .addEventListeners(new Listener())
+            .setWebsocketFactory(new WebSocketFactory()
+            .setVerifyHostname(false))
+            .setActivity(Activity.listening("Nep Nep Nep Nep Nep"))
+            .setMemberCachePolicy(MemberCachePolicy.NONE)
+            .build();
         } catch (LoginException e) {
             log.error(e.toString());
         }
