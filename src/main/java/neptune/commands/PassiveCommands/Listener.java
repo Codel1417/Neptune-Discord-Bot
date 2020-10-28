@@ -57,7 +57,6 @@ public class Listener implements EventListener {
             ActivityThread = true;
         }
 
-
         if (event instanceof GenericGuildEvent) {
             String GuildID = ((GenericGuildEvent) event).getGuild().getId();
             if (GuildID == null) return;
@@ -68,11 +67,12 @@ public class Listener implements EventListener {
                 log.error(e);
                 return;
             }
-        
+
             // Commands
             if (event instanceof GuildMessageReceivedEvent) {
                 if (((GuildMessageReceivedEvent) event).getAuthor().isBot()) return;
-                guildEntity = messageInterprter.runEvent((GuildMessageReceivedEvent) event,guildEntity);
+                guildEntity =
+                        messageInterprter.runEvent((GuildMessageReceivedEvent) event, guildEntity);
             }
             // Clear stored logs when text channel is deleted
             if (event instanceof TextChannelDeleteEvent) {
