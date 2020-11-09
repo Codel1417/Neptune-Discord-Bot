@@ -21,17 +21,25 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.2.0</version>
-                <!-- nothing here -->
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-					<release>11</release> 
-					<compilerArgs></compilerArgs>
+					<release>maven.compiler.target</release> 
+					<compilerArgs>
+                        <arg>-XDcompilePolicy=simple</arg>
+                        <arg>-Xplugin:ErrorProne</arg>
+                    </compilerArgs>
 				</configuration>
-				
+			<annotationProcessorPaths>
+                <path>
+                    <groupId>com.google.errorprone</groupId>
+                    <artifactId>error_prone_core</artifactId>
+                    <version>2.4.0</version>
+                </path>
+            </annotationProcessorPaths>
                 <executions>
                     <execution>
                         <id>log4j-plugin-processor</id>
