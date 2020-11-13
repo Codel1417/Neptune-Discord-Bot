@@ -55,11 +55,12 @@ public class Main extends ListenerAdapter {
                             token,
                             GatewayIntent.GUILD_MESSAGES,
                             GatewayIntent.GUILD_VOICE_STATES,
-                            GatewayIntent.DIRECT_MESSAGES)
+                            GatewayIntent.DIRECT_MESSAGES,
+                            GatewayIntent.GUILD_MEMBERS)
                     .addEventListeners(new Listener())
                     .setWebsocketFactory(new WebSocketFactory().setVerifyHostname(false))
                     .setActivity(Activity.listening("Nep Nep Nep Nep Nep"))
-                    .setMemberCachePolicy(MemberCachePolicy.VOICE)
+                    .setMemberCachePolicy(MemberCachePolicy.ALL)
                     .build();
         } catch (LoginException e) {
             log.error(e.toString());
