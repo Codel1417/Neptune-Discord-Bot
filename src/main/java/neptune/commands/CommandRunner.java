@@ -1,22 +1,13 @@
 package neptune.commands;
 
-import neptune.commands.AdminCommands.AdminOptions;
-import neptune.commands.AdminCommands.Logging;
-import neptune.commands.DevCommands.GuildList;
-import neptune.commands.DevCommands.ServerInfo;
+import neptune.commands.AdminCommands.*;
+import neptune.commands.DevCommands.*;
 import neptune.commands.FunCommands.*;
 import neptune.commands.HelpCommands.Help;
 import neptune.commands.ImageCommands.*;
-import neptune.commands.ImageCommands.Imgur;
 import neptune.commands.ImageCommands.Tenor.*;
 import neptune.commands.UtilityCommands.*;
-import neptune.commands.UtilityCommands.GuildInfo;
-import neptune.commands.audio.Awoo;
-import neptune.commands.audio.Nya;
-import neptune.commands.audio.Say;
-import neptune.commands.audio.Wan;
-import neptune.commands.audio.a;
-import neptune.commands.audio.bonk;
+import neptune.commands.audio.*;
 import neptune.storage.Guild.GuildStorageHandler;
 import neptune.storage.Guild.guildObject;
 import neptune.storage.VariablesStorage;
@@ -186,7 +177,6 @@ public class CommandRunner extends CommonMethods {
                 return;
             }
 
-            // analytics
             log.info("NEPTUNE: Running Command: " + command.getName());
             commandExecutor exec =
                     new commandExecutor(command, event, CommandArray[1], guildEntity);

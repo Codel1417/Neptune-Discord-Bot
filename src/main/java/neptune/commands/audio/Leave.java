@@ -1,4 +1,4 @@
-package neptune.commands.UtilityCommands;
+package neptune.commands.audio;
 
 import neptune.commands.CommandInterface;
 import neptune.commands.commandCategories;
@@ -24,7 +24,7 @@ public class Leave implements CommandInterface {
 
     @Override
     public commandCategories getCategory() {
-        return commandCategories.Utility;
+        return commandCategories.Audio;
     }
 
     @Override
