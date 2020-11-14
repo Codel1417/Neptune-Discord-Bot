@@ -3,6 +3,7 @@ package neptune.commands;
 import neptune.commands.AdminCommands.*;
 import neptune.commands.DevCommands.*;
 import neptune.commands.FunCommands.*;
+import neptune.commands.GeneralCommands.*;
 import neptune.commands.HelpCommands.Help;
 import neptune.commands.ImageCommands.*;
 import neptune.commands.ImageCommands.Tenor.*;

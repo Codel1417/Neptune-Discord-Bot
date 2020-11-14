@@ -1,4 +1,4 @@
-package neptune.commands.UtilityCommands;
+package neptune.commands.GeneralCommands;
 
 import neptune.commands.CommandInterface;
 import neptune.commands.commandCategories;
@@ -27,7 +27,7 @@ public class About implements CommandInterface {
 
     @Override
     public commandCategories getCategory() {
-        return commandCategories.Utility;
+        return commandCategories.General;
     }
 
     @Override
