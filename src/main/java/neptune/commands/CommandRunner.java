@@ -17,7 +17,6 @@ import neptune.commands.audio.Say;
 import neptune.commands.audio.Wan;
 import neptune.commands.audio.a;
 import neptune.commands.audio.bonk;
-import neptune.commands.nameGenCommands.Aarakocra;
 import neptune.storage.Guild.GuildStorageHandler;
 import neptune.storage.Guild.guildObject;
 import neptune.storage.VariablesStorage;
@@ -80,7 +79,6 @@ public class CommandRunner extends CommonMethods {
     private final Sleepy sleepy = new Sleepy();
     private final WhyWasIBreached whyWasIBreached = new WhyWasIBreached();
     private final IsCaliforniaOnFire isCaliforniaOnFire = new IsCaliforniaOnFire();
-    private final Aarakocra aarakocra = new Aarakocra();
     private final CustomRole customRole = new CustomRole();
     private final Leaderboard leaderboard = new Leaderboard();
     private final Magic8Ball magic8Ball = new Magic8Ball();
@@ -140,7 +138,6 @@ public class CommandRunner extends CommonMethods {
         commands.put(sleepy.getCommand(), sleepy);
         commands.put(whyWasIBreached.getCommand(), whyWasIBreached);
         commands.put(isCaliforniaOnFire.getCommand(), isCaliforniaOnFire);
-        commands.put(aarakocra.getCommand(), aarakocra);
         commands.put(customRole.getCommand(), customRole);
         commands.put(leaderboard.getCommand(), leaderboard);
         commands.put(magic8Ball.getCommand(), magic8Ball);
