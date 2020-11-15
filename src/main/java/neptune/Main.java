@@ -60,7 +60,6 @@ public class Main extends ListenerAdapter {
                             GatewayIntent.DIRECT_MESSAGES,
                             GatewayIntent.GUILD_MEMBERS)
                     .addEventListeners(new Listener())
-                    .setWebsocketFactory(new WebSocketFactory().setVerifyHostname(false))
                     .setActivity(Activity.listening("Nep Nep Nep Nep Nep"))
                     .setMemberCachePolicy(MemberCachePolicy.ALL)
                     .build();
