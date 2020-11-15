@@ -11,6 +11,7 @@ import neptune.storage.Guild.guildObject;
 import neptune.storage.Guild.guildObject.logOptionsObject;
 import neptune.storage.VariablesStorage;
 import neptune.storage.logsStorageHandler;
+
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.GenericEvent;
 import net.dv8tion.jda.api.events.ReadyEvent;
@@ -45,9 +46,8 @@ public class Listener implements EventListener {
     private boolean ActivityThread;
     private final CommandRunner nepCommands = new CommandRunner();
     private final RandomMediaPicker randomMediaPicker = new RandomMediaPicker();
-    
-    GuildStorageHandler guildStorageHandler = new GuildStorageHandler();
 
+    GuildStorageHandler guildStorageHandler = new GuildStorageHandler();
 
     @Override
     public void onEvent(@Nonnull GenericEvent event) {
@@ -58,13 +58,15 @@ public class Listener implements EventListener {
             Thread CycleActivityThread = new Thread(CycleActivity);
             CycleActivityThread.setName("CycleActivityThread");
             CycleActivityThread.start();
-            ActivityThread = true; //prevent duplicate threads from discord reconnect
+            ActivityThread = true; // prevent duplicate threads from discord reconnect
         }
 
         if (event instanceof GenericGuildEvent) {
             guildObject guildEntity = null;
             try {
-                guildEntity = guildStorageHandler.readFile(((GenericGuildEvent) event).getGuild().getId());
+                guildEntity =
+                        guildStorageHandler.readFile(
+                                ((GenericGuildEvent) event).getGuild().getId());
             } catch (Exception e) {
                 log.error(e);
                 return;
@@ -72,9 +74,9 @@ public class Listener implements EventListener {
 
             // Commands
             if (event instanceof GuildMessageReceivedEvent) {
-                if (((GuildMessageReceivedEvent) event).getAuthor().isBot()) return; //blocks responses to other bots
-                guildEntity =
-                        runEvent((GuildMessageReceivedEvent) event, guildEntity);
+                if (((GuildMessageReceivedEvent) event).getAuthor().isBot())
+                    return; // blocks responses to other bots
+                guildEntity = runEvent((GuildMessageReceivedEvent) event, guildEntity);
             }
             // Clear stored logs when text channel is deleted
             if (event instanceof TextChannelDeleteEvent) {
@@ -126,7 +128,7 @@ public class Listener implements EventListener {
 
             logOptionsObject logOptionsEntity = guildEntity.getLogOptions();
 
-            //check if logging is set up first
+            // check if logging is set up first
             if (logOptionsEntity.getChannel() == null) return;
             if (!logOptionsEntity.getOption(LoggingOptionsEnum.GlobalLogging)) return;
 
@@ -171,7 +173,8 @@ public class Listener implements EventListener {
         // check if the bot was called in chat
         try {
 
-            boolean multiPrefix = guildEntity.getGuildOptions().getOption(GuildOptionsEnum.customSounds);
+            boolean multiPrefix =
+                    guildEntity.getGuildOptions().getOption(GuildOptionsEnum.customSounds);
             if (isBotCalled(event.getMessage(), multiPrefix)) {
                 nepCommands.run(event, guildEntity);
                 // run command

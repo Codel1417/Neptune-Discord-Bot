@@ -1,6 +1,5 @@
 package neptune;
 
-
 import neptune.commands.PassiveCommands.Listener;
 import neptune.storage.commandLineOptionsSingleton;
 
