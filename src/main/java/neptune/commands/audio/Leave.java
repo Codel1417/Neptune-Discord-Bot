@@ -53,7 +53,7 @@ public class Leave implements CommandInterface {
         if (event.getGuild() != null && event.getGuild().getAudioManager().isConnected()) {
             event.getGuild().getAudioManager().setSendingHandler(null);
             event.getGuild().getAudioManager().closeAudioConnection();
-            //event.getChannel().sendMessage("Neptune has left the Chat!").queue();
+            // event.getChannel().sendMessage("Neptune has left the Chat!").queue();
             return guildEntity;
         } else {
             event.getChannel().sendMessage("Neptune is not connected to a voice channel").queue();
