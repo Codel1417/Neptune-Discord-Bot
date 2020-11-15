@@ -33,6 +33,7 @@ public class Main extends ListenerAdapter {
         Options.addRequiredOption("t", "tenor", true, "Tenor api key");
         Options.addRequiredOption("o", "owner-id", true, "My Discord member id;");
         Options.addOption("m", "media-dir", true, " Directory to look for media"); // not yet used
+        Options.addOption("s", "storage-dir", true, " Directory to look for persistent data"); // not yet used
         Options.addOption(
                 "l", "legacy-import", false, " Convert between legacy and new storage system");
 

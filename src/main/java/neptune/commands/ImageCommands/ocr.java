@@ -10,31 +10,18 @@ import net.sourceforge.tess4j.Tesseract;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.eclipse.jgit.api.Git;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.URL;
-import java.nio.file.Paths;
 
 import javax.imageio.ImageIO;
 
 public class ocr implements CommandInterface {
     protected static final Logger log = LogManager.getLogger();
-    String tessdata = "dependentcies" + File.separator + "tessdata";
+    String tessdata = "dependentcies" + File.separator + "tessdata_best";
     CommonMethods helpers = new CommonMethods();
-
-    public ocr() {
-        String repoUrl = "https://github.com/tesseract-ocr/tessdata_best.git";
-        try {
-            // FileUtils.deleteDirectory(new File(tessdata));
-            Git.cloneRepository().setURI(repoUrl).setDirectory(Paths.get(tessdata).toFile()).call();
-        } catch (Exception e) {
-            log.error(e);
-            // log.fatal("Unable to Download tessdata");
-        }
-    }
 
     @Override
     public String getName() {
