@@ -1,6 +1,5 @@
 package neptune;
 
-import com.neovisionaries.ws.client.WebSocketFactory;
 
 import neptune.commands.PassiveCommands.Listener;
 import neptune.storage.commandLineOptionsSingleton;
