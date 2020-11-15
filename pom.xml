@@ -62,7 +62,7 @@
                         <filters>
                         <filter>
                             <artifact>*:*</artifact>
-                                <excludes>
+                                <excludes> <!--Fixes security exception on signed deps-->
                                     <exclude>META-INF/*.SF</exclude>
                                     <exclude>META-INF/*.DSA</exclude>
                                     <exclude>META-INF/*.RSA</exclude>
@@ -76,7 +76,7 @@
                                         <Multi-Release>true</Multi-Release> <!--Fixes log4j2 reflection error-->
                                     </manifestEntries>
                                 </transformer>
-                                <transformer implementation="com.github.edwgiz.maven_shade_plugin.log4j2_cache_transformer.PluginsCacheFileTransformer">
+                                <transformer implementation="com.github.edwgiz.maven_shade_plugin.log4j2_cache_transformer.PluginsCacheFileTransformer"> <!--Fixes log4j2 error with shade plugin-->
                                 </transformer>
                             </transformers>
                         </configuration>
