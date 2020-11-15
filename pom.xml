@@ -32,14 +32,14 @@
                         <arg>-XDcompilePolicy=simple</arg>
                         <arg>-Xplugin:ErrorProne</arg>
                     </compilerArgs>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>com.google.errorprone</groupId>
+                            <artifactId>error_prone_core</artifactId>
+                            <version>2.4.0</version>
+                        </path>
+                    </annotationProcessorPaths>
 				</configuration>
-			<annotationProcessorPaths>
-                <path>
-                    <groupId>com.google.errorprone</groupId>
-                    <artifactId>error_prone_core</artifactId>
-                    <version>2.4.0</version>
-                </path>
-            </annotationProcessorPaths>
                 <executions>
                     <execution>
                         <id>log4j-plugin-processor</id>
