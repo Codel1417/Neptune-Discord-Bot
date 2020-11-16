@@ -42,9 +42,7 @@ COPY --from=Anime4KCPP /nep/Neptune-Discord-Bot/dependentcies/Anime4KCPP/build/b
 COPY --from=GIT /nep/Neptune-Discord-Bot/dependentcies/tessdata_best/ /nep/Neptune-Discord-Bot/dependentcies/tessdata_best/
 
 #install runtime dependencies
-RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories && \
-    apk add --no-cache tesseract-ocr
-
+RUN apt update && apt install tesseract-ocr
 
 VOLUME /nep/Guilds
 VOLUME /nep/Logs
