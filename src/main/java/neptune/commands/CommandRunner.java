@@ -150,10 +150,7 @@ public class CommandRunner extends CommonMethods {
 
     public boolean run(GuildMessageReceivedEvent event, guildObject guildEntity) {
         String[] CommandArray =
-                getCommandName(
-                        event.getMessage()
-                                .getContentRaw()
-                                .replaceFirst("!nep", ""));
+                getCommandName(event.getMessage().getContentRaw().replaceFirst("!nep", ""));
         CommandInterface command = null;
 
         /*
@@ -162,7 +159,7 @@ public class CommandRunner extends CommonMethods {
             commands.get(key) is case sensitive
 
         */
-        
+
         for (Map.Entry<String, Object> set : commands.entrySet()) {
             if (CommandArray[0].equalsIgnoreCase(set.getKey())) {
                 command = (CommandInterface) set.getValue();
@@ -175,8 +172,7 @@ public class CommandRunner extends CommonMethods {
                     && !event.getMember().hasPermission(Permission.MANAGE_SERVER)) {
                 permissionException(event);
                 return false;
-            }
-            else {
+            } else {
                 log.info("NEPTUNE: Running Command: " + command.getName());
                 commandExecutor exec =
                         new commandExecutor(command, event, CommandArray[1], guildEntity);
@@ -193,7 +189,6 @@ public class CommandRunner extends CommonMethods {
         embedBuilder.setDescription("You Lack the Required permission to do that!");
         event.getChannel().sendMessage(embedBuilder.build()).queue();
     }
-
 
     /*
         Due to some commands taking more longer to run, commands are now run in their own thread

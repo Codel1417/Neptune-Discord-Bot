@@ -9,5 +9,4 @@ public class VariablesStorage {
     public File getMediaFolder() {
         return MediaFolder;
     }
-
 }

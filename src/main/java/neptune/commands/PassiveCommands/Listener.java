@@ -64,7 +64,9 @@ public class Listener implements EventListener {
         if (event instanceof GenericGuildEvent) {
             guildObject guildEntity = null;
             try {
-                guildEntity = guildStorageHandler.readFile(((GenericGuildEvent) event).getGuild().getId());
+                guildEntity =
+                        guildStorageHandler.readFile(
+                                ((GenericGuildEvent) event).getGuild().getId());
             } catch (Exception e) {
                 log.error(e);
                 return;
@@ -146,9 +148,8 @@ public class Listener implements EventListener {
 
     private boolean isBotCalled(Message message, boolean multiplePrefix) {
         // check for Normal Commands
-        if (Arrays.asList(message.getContentRaw().split(" "))
-                .get(0)
-                .equalsIgnoreCase("!nep")) return true;
+        if (Arrays.asList(message.getContentRaw().split(" ")).get(0).equalsIgnoreCase("!nep"))
+            return true;
 
         // additional hidden media features for private use
         if (multiplePrefix) {
@@ -170,7 +171,7 @@ public class Listener implements EventListener {
             boolean multiPrefix =
                     guildEntity.getGuildOptions().getOption(GuildOptionsEnum.customSounds);
             if (isBotCalled(event.getMessage(), multiPrefix)) {
-                result =  nepCommands.run(event, guildEntity);
+                result = nepCommands.run(event, guildEntity);
                 // run command
                 if (multiPrefix) {
                     VariablesStorage variablesStorage = new VariablesStorage();

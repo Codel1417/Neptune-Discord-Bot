@@ -59,7 +59,7 @@ public class GuildInfo implements CommandInterface {
     public guildObject run(
             GuildMessageReceivedEvent event, String messageContent, guildObject guildentity) {
         Guild guild = event.getGuild();
-        
+
         EmbedBuilder embedBuilder = new EmbedBuilder();
         StringBuilder TextChannelList = new StringBuilder();
         StringBuilder VoiceChannelList = new StringBuilder();
