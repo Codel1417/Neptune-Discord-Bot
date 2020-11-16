@@ -3,6 +3,9 @@ FROM alpine:latest as GIT
 WORKDIR /nep/
 RUN apk add --no-cache git
 RUN git clone --recursive https://github.com/Codel1417/Neptune-Discord-Bot.git
+WORKDIR /nep/Neptune-Discord-Bot/dependentcies/Anime4KCPP/
+#Release 2.4
+RUN git checkout -B 0f36eb56027a22502694d3050a0935abb0abdc08
 
 
 FROM maven:3.6.3-openjdk-11 AS buildNep
@@ -14,35 +17,27 @@ RUN mvn package
 
 FROM ubuntu:latest AS Anime4KCPP
 WORKDIR /nep/
-
-COPY --from=GIT /nep/Neptune-Discord-Bot/dependentcies/opencv/ /nep/Neptune-Discord-Bot/dependentcies/opencv/
-WORKDIR /nep/Neptune-Discord-Bot/dependentcies/opencv/
-RUN mkdir build
-RUN \
-    apt update && \
-    apt install -y \
-        libavcodec-dev \
-        libavformat-dev \
-        libswscale-dev \
-        build-essential \
-        cmake
-WORKDIR /nep/Neptune-Discord-Bot/dependentcies/opencv/build/
-RUN cmake -D CMAKE_BUILD_TYPE=RELEASE \
-        -D CMAKE_INSTALL_PREFIX=/usr/local \
-        -D INSTALL_PYTHON_EXAMPLES=ON \
-        -D INSTALL_C_EXAMPLES=ON .. && \
-        make -j$(nproc) && \
-        make install
-
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN \
     apt update && \
     apt install -y \
+        libopencv-dev \
         ocl-icd-opencl-dev \
-        cmake
+        cmake \
+        gcc \
+        g++ \
+        clang \
+        build-essential \
+        lld \
+        llvm \
+        clang-tools \
+        xz-utils \
+        libboost-all-dev
+
 COPY --from=GIT /nep/Neptune-Discord-Bot/dependentcies/Anime4KCPP/ /nep/Neptune-Discord-Bot/dependentcies/Anime4KCPP/
 WORKDIR /nep/Neptune-Discord-Bot/dependentcies/Anime4KCPP/
-RUN mkdir build && cd build && cmake && make 
+RUN mkdir build && cd build && cmake .. && make 
 
 
 FROM openjdk:11-alpine as FINAL
