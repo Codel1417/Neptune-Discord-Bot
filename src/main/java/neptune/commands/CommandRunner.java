@@ -148,21 +148,25 @@ public class CommandRunner extends CommonMethods {
         return commands;
     }
 
-    public void run(GuildMessageReceivedEvent event, guildObject guildEntity) {
+    public boolean run(GuildMessageReceivedEvent event, guildObject guildEntity) {
         String[] CommandArray =
                 getCommandName(
                         event.getMessage()
                                 .getContentRaw()
-                                .trim()
-                                .toLowerCase()
-                                .replaceFirst("!nep", "")
-                                .trim());
+                                .replaceFirst("!nep", ""));
         CommandInterface command = null;
 
-        // check for command
+        /*
+            Check for Command
+            This allows me to check for the command regardless of case
+            commands.get(key) is case sensitive
+
+        */
+        
         for (Map.Entry<String, Object> set : commands.entrySet()) {
             if (CommandArray[0].equalsIgnoreCase(set.getKey())) {
                 command = (CommandInterface) set.getValue();
+                break;
             }
         }
         if (command != null) {
@@ -170,27 +174,17 @@ public class CommandRunner extends CommonMethods {
             if (command.getRequireManageServer()
                     && !event.getMember().hasPermission(Permission.MANAGE_SERVER)) {
                 permissionException(event);
-                try {
-                    new GuildStorageHandler().writeFile(guildEntity);
-                } catch (IOException e) {
-                    log.error(e);
-                }
-                return;
+                return false;
             }
-
-            log.info("NEPTUNE: Running Command: " + command.getName());
-            commandExecutor exec =
-                    new commandExecutor(command, event, CommandArray[1], guildEntity);
-            executor.execute(exec);
-        } else {
-
+            else {
+                log.info("NEPTUNE: Running Command: " + command.getName());
+                commandExecutor exec =
+                        new commandExecutor(command, event, CommandArray[1], guildEntity);
+                executor.execute(exec);
+                return true;
+            }
         }
-        try {
-            new GuildStorageHandler().writeFile(guildEntity);
-        } catch (IOException e) {
-
-            log.error(e);
-        }
+        return false;
     }
 
     private void permissionException(GuildMessageReceivedEvent event) {
@@ -200,6 +194,10 @@ public class CommandRunner extends CommonMethods {
         event.getChannel().sendMessage(embedBuilder.build()).queue();
     }
 
+
+    /*
+        Due to some commands taking more longer to run, commands are now run in their own thread
+    */
     public class commandExecutor implements Runnable {
         GuildMessageReceivedEvent event;
         String messagecontent;
@@ -220,7 +218,6 @@ public class CommandRunner extends CommonMethods {
 
         @Override
         public void run() {
-            log.debug("Running command in thread: " + Thread.currentThread().getId());
             guildEntity = command.run(event, messagecontent, guildEntity);
             try {
                 new GuildStorageHandler().writeFile(guildEntity);

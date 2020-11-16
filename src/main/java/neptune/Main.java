@@ -29,19 +29,16 @@ public class Main extends ListenerAdapter {
         // CLI
         Options.addRequiredOption("d", "discord-token", true, "The discord bot token");
         Options.addRequiredOption("t", "tenor", true, "Tenor api key");
-        Options.addRequiredOption("o", "owner-id", true, "My Discord member id;");
         Options.addOption("m", "media-dir", true, " Directory to look for media"); // not yet used
         Options.addOption(
                 "s", "storage-dir", true, " Directory to look for persistent data"); // not yet used
-        Options.addOption(
-                "l", "legacy-import", false, " Convert between legacy and new storage system");
 
         CommandLineParser parser = new DefaultParser();
         CommandLine cmd = null;
         try {
             cmd = parser.parse(Options, args);
         } catch (ParseException e) {
-            e.printStackTrace();
+            log.error(e);
         }
         commandLineOptionsSingleton.getInstance().setOptions(cmd);
 
@@ -62,7 +59,7 @@ public class Main extends ListenerAdapter {
                     .setMemberCachePolicy(MemberCachePolicy.ALL)
                     .build();
         } catch (LoginException e) {
-            log.error(e.toString());
+            log.error(e);
         }
     }
 }

@@ -19,7 +19,6 @@ import net.dv8tion.jda.api.events.channel.text.GenericTextChannelEvent;
 import net.dv8tion.jda.api.events.channel.text.TextChannelDeleteEvent;
 import net.dv8tion.jda.api.events.channel.voice.GenericVoiceChannelEvent;
 import net.dv8tion.jda.api.events.guild.GenericGuildEvent;
-import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.api.events.guild.GuildLeaveEvent;
 import net.dv8tion.jda.api.events.guild.member.GenericGuildMemberEvent;
 import net.dv8tion.jda.api.events.guild.update.GenericGuildUpdateEvent;
@@ -33,6 +32,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 
 import javax.annotation.Nonnull;
@@ -64,20 +64,30 @@ public class Listener implements EventListener {
         if (event instanceof GenericGuildEvent) {
             guildObject guildEntity = null;
             try {
-                guildEntity =
-                        guildStorageHandler.readFile(
-                                ((GenericGuildEvent) event).getGuild().getId());
+                guildEntity = guildStorageHandler.readFile(((GenericGuildEvent) event).getGuild().getId());
             } catch (Exception e) {
                 log.error(e);
                 return;
             }
-
+            boolean result = false;
             // Commands
             if (event instanceof GuildMessageReceivedEvent) {
                 if (((GuildMessageReceivedEvent) event).getAuthor().isBot())
                     return; // blocks responses to other bots
-                guildEntity = runEvent((GuildMessageReceivedEvent) event, guildEntity);
+                result = runEvent((GuildMessageReceivedEvent) event, guildEntity);
             }
+
+            /*
+             * This checks if a command is run to reduce duplicate writes
+             */
+            if (result) {
+                try {
+                    guildStorageHandler.writeFile(guildEntity);
+                } catch (IOException e) {
+                    log.error(e);
+                }
+            }
+
             // Clear stored logs when text channel is deleted
             if (event instanceof TextChannelDeleteEvent) {
                 logStorage.deleteChannel(
@@ -112,20 +122,6 @@ public class Listener implements EventListener {
                 } catch (Exception ignored) {
                 }
             }
-            if (event instanceof GuildJoinEvent) {
-                event.getJDA()
-                        .getUserById(new VariablesStorage().getOwnerID())
-                        .openPrivateChannel()
-                        .queue(
-                                (channel) ->
-                                        channel.sendMessage(
-                                                        "GUILD: New Server Added: "
-                                                                + ((GuildJoinEvent) event)
-                                                                        .getGuild()
-                                                                        .getName())
-                                                .queue());
-            }
-
             logOptionsObject logOptionsEntity = guildEntity.getLogOptions();
 
             // check if logging is set up first
@@ -152,7 +148,6 @@ public class Listener implements EventListener {
         // check for Normal Commands
         if (Arrays.asList(message.getContentRaw().split(" "))
                 .get(0)
-                .trim()
                 .equalsIgnoreCase("!nep")) return true;
 
         // additional hidden media features for private use
@@ -166,17 +161,16 @@ public class Listener implements EventListener {
         return false;
     }
 
-    public guildObject runEvent(GuildMessageReceivedEvent event, guildObject guildEntity) {
+    public boolean runEvent(GuildMessageReceivedEvent event, guildObject guildEntity) {
         // leaderboard
         guildEntity.getLeaderboard().incrimentPoint(event.getMember().getId());
-
+        boolean result = false;
         // check if the bot was called in chat
         try {
-
             boolean multiPrefix =
                     guildEntity.getGuildOptions().getOption(GuildOptionsEnum.customSounds);
             if (isBotCalled(event.getMessage(), multiPrefix)) {
-                nepCommands.run(event, guildEntity);
+                result =  nepCommands.run(event, guildEntity);
                 // run command
                 if (multiPrefix) {
                     VariablesStorage variablesStorage = new VariablesStorage();
@@ -189,8 +183,7 @@ public class Listener implements EventListener {
                                             + event.getMessage()
                                                     .getContentRaw()
                                                     .replace("=", "")
-                                                    .replace("./", "")
-                                                    .trim()),
+                                                    .replace("./", "")),
                             event,
                             true,
                             true);
@@ -200,6 +193,6 @@ public class Listener implements EventListener {
         } catch (Exception e) {
             log.error(e);
         }
-        return guildEntity;
+        return result;
     }
 }
