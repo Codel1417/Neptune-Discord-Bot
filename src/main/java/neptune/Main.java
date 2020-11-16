@@ -29,9 +29,6 @@ public class Main extends ListenerAdapter {
         // CLI
         Options.addRequiredOption("d", "discord-token", true, "The discord bot token");
         Options.addRequiredOption("t", "tenor", true, "Tenor api key");
-        Options.addOption("m", "media-dir", true, " Directory to look for media"); // not yet used
-        Options.addOption(
-                "s", "storage-dir", true, " Directory to look for persistent data"); // not yet used
 
         CommandLineParser parser = new DefaultParser();
         CommandLine cmd = null;
