@@ -15,10 +15,31 @@ RUN mvn package
 FROM ubuntu:latest AS Anime4KCPP
 WORKDIR /nep/
 
-#install dependencies
+COPY --from=GIT /nep/Neptune-Discord-Bot/dependentcies/opencv/ /nep/Neptune-Discord-Bot/dependentcies/opencv/
+WORKDIR /nep/Neptune-Discord-Bot/dependentcies/opencv/
+RUN mkdir build
 RUN \
     apt update && \
-    apt install -y libopencv-dev ocl-icd-opencl-dev cmake
+    apt install -y \
+        libavcodec-dev \
+        libavformat-dev \
+        libswscale-dev \
+        build-essential \
+        cmake
+WORKDIR /nep/Neptune-Discord-Bot/dependentcies/opencv/build/
+RUN cmake -D CMAKE_BUILD_TYPE=RELEASE \
+        -D CMAKE_INSTALL_PREFIX=/usr/local \
+        -D INSTALL_PYTHON_EXAMPLES=ON \
+        -D INSTALL_C_EXAMPLES=ON .. && \
+        make -j$(nproc) && \
+        make install
+
+
+RUN \
+    apt update && \
+    apt install -y \
+        ocl-icd-opencl-dev \
+        cmake
 COPY --from=GIT /nep/Neptune-Discord-Bot/dependentcies/Anime4KCPP/ /nep/Neptune-Discord-Bot/dependentcies/Anime4KCPP/
 WORKDIR /nep/Neptune-Discord-Bot/dependentcies/Anime4KCPP/
 RUN mkdir build && cd build && cmake && make 
