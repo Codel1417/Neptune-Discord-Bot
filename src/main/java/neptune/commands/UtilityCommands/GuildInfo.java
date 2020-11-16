@@ -59,9 +59,6 @@ public class GuildInfo implements CommandInterface {
     public guildObject run(
             GuildMessageReceivedEvent event, String messageContent, guildObject guildentity) {
         Guild guild = event.getGuild();
-        if (!messageContent.equals("")) {
-            guild = event.getJDA().getGuildById(messageContent.trim());
-        }
 
         EmbedBuilder embedBuilder = new EmbedBuilder();
         StringBuilder TextChannelList = new StringBuilder();

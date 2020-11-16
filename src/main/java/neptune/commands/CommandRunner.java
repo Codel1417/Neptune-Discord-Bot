@@ -1,22 +1,14 @@
 package neptune.commands;
 
-import neptune.commands.AdminCommands.AdminOptions;
-import neptune.commands.AdminCommands.Logging;
-import neptune.commands.DevCommands.GuildList;
-import neptune.commands.DevCommands.ServerInfo;
+import neptune.commands.AdminCommands.*;
+import neptune.commands.DevCommands.*;
 import neptune.commands.FunCommands.*;
+import neptune.commands.GeneralCommands.*;
 import neptune.commands.HelpCommands.Help;
 import neptune.commands.ImageCommands.*;
-import neptune.commands.ImageCommands.Imgur;
 import neptune.commands.ImageCommands.Tenor.*;
 import neptune.commands.UtilityCommands.*;
-import neptune.commands.UtilityCommands.GuildInfo;
-import neptune.commands.audio.Awoo;
-import neptune.commands.audio.Nya;
-import neptune.commands.audio.Say;
-import neptune.commands.audio.Wan;
-import neptune.commands.audio.a;
-import neptune.commands.nameGenCommands.Aarakocra;
+import neptune.commands.audio.*;
 import neptune.storage.Guild.GuildStorageHandler;
 import neptune.storage.Guild.guildObject;
 import neptune.storage.VariablesStorage;
@@ -79,7 +71,6 @@ public class CommandRunner extends CommonMethods {
     private final Sleepy sleepy = new Sleepy();
     private final WhyWasIBreached whyWasIBreached = new WhyWasIBreached();
     private final IsCaliforniaOnFire isCaliforniaOnFire = new IsCaliforniaOnFire();
-    private final Aarakocra aarakocra = new Aarakocra();
     private final CustomRole customRole = new CustomRole();
     private final Leaderboard leaderboard = new Leaderboard();
     private final Magic8Ball magic8Ball = new Magic8Ball();
@@ -91,6 +82,7 @@ public class CommandRunner extends CommonMethods {
     private final ocr ocr = new ocr();
     private final profile profile = new profile();
     private final a a = new a();
+    private final bonk bonk = new bonk();
     ExecutorService executor = Executors.newCachedThreadPool();
 
     public CommandRunner() {
@@ -138,7 +130,6 @@ public class CommandRunner extends CommonMethods {
         commands.put(sleepy.getCommand(), sleepy);
         commands.put(whyWasIBreached.getCommand(), whyWasIBreached);
         commands.put(isCaliforniaOnFire.getCommand(), isCaliforniaOnFire);
-        commands.put(aarakocra.getCommand(), aarakocra);
         commands.put(customRole.getCommand(), customRole);
         commands.put(leaderboard.getCommand(), leaderboard);
         commands.put(magic8Ball.getCommand(), magic8Ball);
@@ -150,27 +141,29 @@ public class CommandRunner extends CommonMethods {
         commands.put(ocr.getCommand(), ocr);
         commands.put(profile.getCommand(), profile);
         commands.put(a.getCommand(), a);
+        commands.put(bonk.getCommand(), bonk);
     }
 
     public Map<String, Object> getCommandList() {
         return commands;
     }
 
-    public void run(GuildMessageReceivedEvent event, guildObject guildEntity) {
+    public boolean run(GuildMessageReceivedEvent event, guildObject guildEntity) {
         String[] CommandArray =
-                getCommandName(
-                        event.getMessage()
-                                .getContentRaw()
-                                .trim()
-                                .toLowerCase()
-                                .replaceFirst("!nep", "")
-                                .trim());
+                getCommandName(event.getMessage().getContentRaw().replaceFirst("!nep", ""));
         CommandInterface command = null;
 
-        // check for command
+        /*
+            Check for Command
+            This allows me to check for the command regardless of case
+            commands.get(key) is case sensitive
+
+        */
+
         for (Map.Entry<String, Object> set : commands.entrySet()) {
             if (CommandArray[0].equalsIgnoreCase(set.getKey())) {
                 command = (CommandInterface) set.getValue();
+                break;
             }
         }
         if (command != null) {
@@ -178,28 +171,16 @@ public class CommandRunner extends CommonMethods {
             if (command.getRequireManageServer()
                     && !event.getMember().hasPermission(Permission.MANAGE_SERVER)) {
                 permissionException(event);
-                try {
-                    new GuildStorageHandler().writeFile(guildEntity);
-                } catch (IOException e) {
-                    log.error(e);
-                }
-                return;
+                return false;
+            } else {
+                log.info("NEPTUNE: Running Command: " + command.getName());
+                commandExecutor exec =
+                        new commandExecutor(command, event, CommandArray[1], guildEntity);
+                executor.execute(exec);
+                return true;
             }
-
-            // analytics
-            log.info("NEPTUNE: Running Command: " + command.getName());
-            commandExecutor exec =
-                    new commandExecutor(command, event, CommandArray[1], guildEntity);
-            executor.execute(exec);
-        } else {
-
         }
-        try {
-            new GuildStorageHandler().writeFile(guildEntity);
-        } catch (IOException e) {
-
-            log.error(e);
-        }
+        return false;
     }
 
     private void permissionException(GuildMessageReceivedEvent event) {
@@ -209,6 +190,9 @@ public class CommandRunner extends CommonMethods {
         event.getChannel().sendMessage(embedBuilder.build()).queue();
     }
 
+    /*
+        Due to some commands taking more longer to run, commands are now run in their own thread
+    */
     public class commandExecutor implements Runnable {
         GuildMessageReceivedEvent event;
         String messagecontent;
@@ -229,7 +213,6 @@ public class CommandRunner extends CommonMethods {
 
         @Override
         public void run() {
-            log.debug("Running command in thread: " + Thread.currentThread().getId());
             guildEntity = command.run(event, messagecontent, guildEntity);
             try {
                 new GuildStorageHandler().writeFile(guildEntity);

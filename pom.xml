@@ -21,17 +21,14 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.2.0</version>
-                <!-- nothing here -->
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-					<release>11</release> 
-					<compilerArgs></compilerArgs>
+					<release>${maven.compiler.target}</release> 
 				</configuration>
-				
                 <executions>
                     <execution>
                         <id>log4j-plugin-processor</id>
@@ -65,7 +62,7 @@
                         <filters>
                         <filter>
                             <artifact>*:*</artifact>
-                                <excludes>
+                                <excludes> <!--Fixes security exception on signed deps-->
                                     <exclude>META-INF/*.SF</exclude>
                                     <exclude>META-INF/*.DSA</exclude>
                                     <exclude>META-INF/*.RSA</exclude>
@@ -79,7 +76,7 @@
                                         <Multi-Release>true</Multi-Release> <!--Fixes log4j2 reflection error-->
                                     </manifestEntries>
                                 </transformer>
-                                <transformer implementation="com.github.edwgiz.maven_shade_plugin.log4j2_cache_transformer.PluginsCacheFileTransformer">
+                                <transformer implementation="com.github.edwgiz.maven_shade_plugin.log4j2_cache_transformer.PluginsCacheFileTransformer"> <!--Fixes log4j2 error with shade plugin-->
                                 </transformer>
                             </transformers>
                         </configuration>
@@ -105,11 +102,6 @@
             <groupId>com.sedmelluq</groupId>
             <artifactId>lavaplayer</artifactId>
             <version>1.3.60</version>
-        </dependency>
-        <dependency>
-            <groupId>com.neovisionaries</groupId>
-            <artifactId>nv-websocket-client</artifactId>
-            <version>2.10</version>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
@@ -155,11 +147,6 @@
             <groupId>net.sourceforge.tess4j</groupId>
             <artifactId>tess4j</artifactId>
             <version>4.5.3</version>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.jgit</groupId>
-            <artifactId>org.eclipse.jgit</artifactId>
-            <version>5.9.0.202009080501-r</version>
         </dependency>
         <dependency>
             <groupId>org.sejda.imageio</groupId>

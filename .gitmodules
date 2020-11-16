@@ -1,0 +1,6 @@
+[submodule "dependentcies/tessdata_best"]
+	path = dependentcies/tessdata_best
+	url = https://github.com/tesseract-ocr/tessdata_best.git
+[submodule "dependentcies/Anime4KCPP"]
+	path = dependentcies/Anime4KCPP
+	url = https://github.com/TianZerL/Anime4KCPP.git

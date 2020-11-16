@@ -60,14 +60,20 @@ public class guildObjectDeserializer extends JsonDeserializer<guildObject> {
         logOptions = LoggingOptionsReader.readValue(node.get("logOptions"));
         leaderboard = LeaderboardReader.readValue(node.get("leaderboard"));
         customRole = CustomRoleReader.readValue(node.get("customRole"));
-        if (!node.get("profiles").isNull()) {
+        try {
             ProfileOptions = ProfileOptionsReader.readValue(node.get("profiles"));
-        } else ProfileOptions = new HashMap<>();
-
-        if (!node.get("icons").isNull()) {
+        } catch (IllegalArgumentException | NullPointerException e) {
+            ProfileOptions = new HashMap<>();
+        }
+        try {
             IconMap = IconsReader.readValue(node.get("icons"));
-        } else IconMap = new HashMap<>();
+        } catch (IllegalArgumentException | NullPointerException e) {
+            IconMap = new HashMap<>();
+        }
         channel = node.get("Channel").asText();
+        if (channel.equalsIgnoreCase("null")) {
+            channel = null;
+        }
 
         return new guildObject(
                 guildID,
