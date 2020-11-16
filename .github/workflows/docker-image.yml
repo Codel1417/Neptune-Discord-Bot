@@ -13,6 +13,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Build the Docker image
-      run: $ DOCKER_BUILDKIT=1 docker build . --file Dockerfile --tag Neptune:$(date +%s)
+     - name: set-env
+       # You may pin to the exact commit or the version.
+       # uses: allenevans/set-env@b68e0a75c99b96b43963b54bc2be13e2f103ad87
+       uses: allenevans/set-env@v2.0.0
+       with:
+          DOCKER_BUILDKIT: '1'
+     - uses: actions/checkout@v2
+     - name: Build the Docker image
+       run: export DOCKER_BUILDKIT=1 docker build . --file Dockerfile --tag Neptune:$(date +%s)
