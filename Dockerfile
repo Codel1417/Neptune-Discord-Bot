@@ -42,7 +42,7 @@ COPY --from=Anime4KCPP /nep/Neptune-Discord-Bot/dependentcies/Anime4KCPP/build/b
 COPY --from=GIT /nep/Neptune-Discord-Bot/dependentcies/tessdata_best/ /nep/Neptune-Discord-Bot/dependentcies/tessdata_best/
 
 #install runtime dependencies
-RUN apt update && apt install tesseract-ocr
+RUN apt update && apt install -y tesseract-ocr
 
 VOLUME /nep/Guilds
 VOLUME /nep/Logs
