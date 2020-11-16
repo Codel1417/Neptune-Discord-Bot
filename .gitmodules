@@ -4,6 +4,3 @@
 [submodule "dependentcies/Anime4KCPP"]
 	path = dependentcies/Anime4KCPP
 	url = https://github.com/TianZerL/Anime4KCPP.git
-[submodule "dependentcies/opencv"]
-	path = dependentcies/opencv
-	url = https://github.com/opencv/opencv.git
