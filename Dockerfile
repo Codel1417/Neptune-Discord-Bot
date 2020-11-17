@@ -1,31 +1,51 @@
-# Store an unmodified git folder
-FROM alpine:latest as GIT
+# syntax=docker/dockerfile:experimental
+FROM  maven:3.6.1-jdk-11 AS buildNep
 WORKDIR /nep/
-RUN apk add --no-cache git
-RUN git clone --recursive https://github.com/Codel1417/Neptune-Discord-Bot.git
-
-FROM maven:3.6.3-openjdk-11 AS buildNep
-WORKDIR /nep/
-COPY --from=GIT /nep/Neptune-Discord-Bot/ /nep/Neptune-Discord-Bot/
+RUN git clone https://github.com/Codel1417/Neptune-Discord-Bot.git
 WORKDIR /nep/Neptune-Discord-Bot
-RUN mvn package
+# cache maven repo
+RUN --mount=type=cache,target=/root/.m2 \
+    mvn clean package
 
-FROM openjdk:11.0.9.1-jre as FINAL
+FROM debian:bullseye-slim AS Anime4KCPP
+WORKDIR /nep/Neptune-Discord-Bot/dependentcies/
+ENV DEBIAN_FRONTEND=noninteractive
+# caches the apt repo locally
+RUN rm -f /etc/apt/apt.conf.d/docker-clean; echo 'Binary::apt::APT::Keep-Downloaded-Packages "true";' > /etc/apt/apt.conf.d/keep-cache
+RUN --mount=type=cache,target=/var/cache/apt --mount=type=cache,target=/var/lib/apt \
+    apt update && \
+	apt install -y --no-install-recommends \
+		git \
+		ca-certificates \
+        libopencv-dev \
+        ocl-icd-opencl-dev \
+        cmake \
+		build-essential
+RUN git clone https://github.com/TianZerL/Anime4KCPP.git
+WORKDIR /nep/Neptune-Discord-Bot/dependentcies/Anime4KCPP/
+# Switch to a stable build
+RUN git checkout 0f36eb56027a22502694d3050a0935abb0abdc08 
+WORKDIR /nep/Neptune-Discord-Bot/dependentcies/Anime4KCPP/build/
+RUN cmake .. && make 
+LABEL binary="/nep/Neptune-Discord-Bot/dependentcies/Anime4KCPP/build/bin/Anime4KCPP_CLI"
+
+
+FROM openjdk:11-slim as FINAL
+WORKDIR /nep/dependentcies/
+RUN  \
+    apt update \
+    && apt install -y --no-install-recommends \
+        tesseract-ocr \
+        git \
+        ca-certificates
+RUN git clone https://github.com/tesseract-ocr/tessdata_best
 WORKDIR /nep/
-
 # Copy build binaries
+COPY --from=Anime4KCPP /nep/Neptune-Discord-Bot/dependentcies/Anime4KCPP/build/bin/Anime4KCPP_CLI /nep/dependentcies/Anime4KCPP/build/bin/Anime4KCPP_CLI
 COPY --from=buildNep /nep/Neptune-Discord-Bot/target/Neptune_Discord_Bot-1.0-SNAPSHOT.jar .
-COPY --from=codel1417/anime4kccp-builder:latest /nep/Neptune-Discord-Bot/dependentcies/Anime4KCPP/build/bin/Anime4KCPP_CLI /nep/Neptune-Discord-Bot/dependentcies/Anime4KCPP/build/bin/Anime4KCPP_CLI
-COPY --from=GIT /nep/Neptune-Discord-Bot/dependentcies/tessdata_best/ /nep/Neptune-Discord-Bot/dependentcies/tessdata_best/
-
-#install runtime dependencies
-RUN apt update && apt install -y tesseract-ocr
-
 VOLUME /nep/Guilds
 VOLUME /nep/Logs
 VOLUME /nep/Media
-
 ENV botToken=null
 ENV tenorToken=null
-
 ENTRYPOINT java -jar Neptune_Discord_Bot-1.0-SNAPSHOT.jar -d $botToken -t $tenorToken
