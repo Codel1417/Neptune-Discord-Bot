@@ -10,35 +10,12 @@ COPY --from=GIT /nep/Neptune-Discord-Bot/ /nep/Neptune-Discord-Bot/
 WORKDIR /nep/Neptune-Discord-Bot
 RUN mvn package
 
-
-FROM ubuntu:latest AS Anime4KCPP
-WORKDIR /nep/
-ENV DEBIAN_FRONTEND=noninteractive
-
-RUN \
-    apt update && \
-    apt install -y \
-        libopencv-dev \
-        ocl-icd-opencl-dev \
-        cmake \
-        gcc \
-        g++ \
-        clang \
-        build-essential \
-        clang-tools \
-        libboost-all-dev
-
-COPY --from=GIT /nep/Neptune-Discord-Bot/dependentcies/Anime4KCPP/ /nep/Neptune-Discord-Bot/dependentcies/Anime4KCPP/
-WORKDIR /nep/Neptune-Discord-Bot/dependentcies/Anime4KCPP/
-RUN mkdir build && cd build && cmake .. && make 
-
-
 FROM openjdk:11.0.9.1-jre as FINAL
 WORKDIR /nep/
 
 # Copy build binaries
 COPY --from=buildNep /nep/Neptune-Discord-Bot/target/Neptune_Discord_Bot-1.0-SNAPSHOT.jar .
-COPY --from=Anime4KCPP /nep/Neptune-Discord-Bot/dependentcies/Anime4KCPP/build/bin/Anime4KCPP_CLI /nep/Neptune-Discord-Bot/dependentcies/Anime4KCPP/build/bin/Anime4KCPP_CLI
+COPY --from=codel1417/anime4kccp-builder:latest /nep/Neptune-Discord-Bot/dependentcies/Anime4KCPP/build/bin/Anime4KCPP_CLI /nep/Neptune-Discord-Bot/dependentcies/Anime4KCPP/build/bin/Anime4KCPP_CLI
 COPY --from=GIT /nep/Neptune-Discord-Bot/dependentcies/tessdata_best/ /nep/Neptune-Discord-Bot/dependentcies/tessdata_best/
 
 #install runtime dependencies

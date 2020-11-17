@@ -1,0 +1,21 @@
+FROM ubuntu:latest AS Anime4KCPP
+WORKDIR /nep/Neptune-Discord-Bot/dependentcies/
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN \
+    apt update && \
+    apt install -y \
+        libopencv-dev \
+        ocl-icd-opencl-dev \
+        cmake \
+        gcc \
+        g++ \
+        clang \
+        build-essential \
+        clang-tools \
+        libboost-all-dev \
+        git
+
+RUN git clone 0f36eb56027a22502694d3050a0935abb0abdc08
+WORKDIR /nep/Neptune-Discord-Bot/dependentcies/Anime4KCPP/
+RUN mkdir build && cd build && cmake .. && make 
