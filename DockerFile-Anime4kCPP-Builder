@@ -1,22 +1,26 @@
-FROM ubuntu:latest AS Anime4KCPP
+FROM debian:bullseye-slim AS Anime4KCPP
 WORKDIR /nep/Neptune-Discord-Bot/dependentcies/
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN \
     apt update && \
-    apt install -y \
+	apt install -y --no-install-recommends git ca-certificates && \
+	apt clean
+
+RUN git clone https://github.com/TianZerL/Anime4KCPP.git
+WORKDIR /nep/Neptune-Discord-Bot/dependentcies/Anime4KCPP/
+
+# Switch to a stable build
+RUN git checkout 0f36eb56027a22502694d3050a0935abb0abdc08 
+WORKDIR /nep/Neptune-Discord-Bot/dependentcies/Anime4KCPP/build/
+
+#install build dependentcies
+RUN\
+	apt install -y --no-install-recommends \
         libopencv-dev \
         ocl-icd-opencl-dev \
         cmake \
-        gcc \
-        g++ \
-        clang \
-        build-essential \
-        clang-tools \
-        libboost-all-dev \
-        git
-
-RUN git clone -n https://github.com/TianZerL/Anime4KCPP && git checkout 0f36eb56027a22502694d3050a0935abb0abdc08
-WORKDIR /nep/Neptune-Discord-Bot/dependentcies/Anime4KCPP/build/
+		build-essential && \
+	apt clean
 RUN cmake .. && make 
 LABEL binary="/nep/Neptune-Discord-Bot/dependentcies/Anime4KCPP/build/bin/Anime4KCPP_CLI"
