@@ -16,6 +16,7 @@ RUN \
         libboost-all-dev \
         git
 
-RUN git clone 0f36eb56027a22502694d3050a0935abb0abdc08
-WORKDIR /nep/Neptune-Discord-Bot/dependentcies/Anime4KCPP/
-RUN mkdir build && cd build && cmake .. && make 
+RUN git clone -n https://github.com/TianZerL/Anime4KCPP && git checkout 0f36eb56027a22502694d3050a0935abb0abdc08
+WORKDIR /nep/Neptune-Discord-Bot/dependentcies/Anime4KCPP/build/
+RUN cmake .. && make 
+LABEL binary="/nep/Neptune-Discord-Bot/dependentcies/Anime4KCPP/build/bin/Anime4KCPP_CLI"
