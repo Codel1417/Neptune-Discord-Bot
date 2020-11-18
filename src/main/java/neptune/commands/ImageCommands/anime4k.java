@@ -27,7 +27,7 @@ import javax.imageio.ImageIO;
 
 public class anime4k implements CommandInterface {
     protected static final Logger log = LogManager.getLogger();
-    File anime4kPath = new File("Anime4KCPP_CLI" + File.separator + "Anime4KCPP_CLI.exe");
+    File anime4kPath = new File("dependentcies" + File.separator + "Anime4KCPP" + File.separator + "Anime4KCPP_CLI");
     CommonMethods helper = new CommonMethods();
 
     public anime4k() {
@@ -109,7 +109,7 @@ public class anime4k implements CommandInterface {
                                 + originalImage.getAbsolutePath()
                                 + "\" -o \""
                                 + outputImage.getAbsolutePath()
-                                + "\" --CNNMode --GPUMode --alpha --zoomFactor 4  --HDN --HDNLevel"
+                                + "\" --CNNMode --alpha --zoomFactor 4  --HDN --HDNLevel"
                                 + " 2";
                 pb.command(command.split(" "));
 
@@ -164,7 +164,7 @@ public class anime4k implements CommandInterface {
                         .complete();
             }
         } catch (Exception e) {
-            log.error(e.toString());
+            log.error(e);
         } finally {
             // clean up directory
             try {
