@@ -27,7 +27,13 @@ import javax.imageio.ImageIO;
 
 public class anime4k implements CommandInterface {
     protected static final Logger log = LogManager.getLogger();
-    File anime4kPath = new File("dependentcies" + File.separator + "Anime4KCPP" + File.separator + "Anime4KCPP_CLI");
+    File anime4kPath =
+            new File(
+                    "dependentcies"
+                            + File.separator
+                            + "Anime4KCPP"
+                            + File.separator
+                            + "Anime4KCPP_CLI");
     CommonMethods helper = new CommonMethods();
 
     public anime4k() {
