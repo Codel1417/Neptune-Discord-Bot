@@ -55,10 +55,7 @@ public class Main extends ListenerAdapter {
                     .addEventListeners(new Listener())
                     .setActivity(Activity.listening("Nep Nep Nep Nep Nep"))
                     .setMemberCachePolicy(MemberCachePolicy.ALL)
-                    .disableCache(
-                            CacheFlag.ACTIVITY,
-                            CacheFlag.EMOTE,
-                            CacheFlag.CLIENT_STATUS)
+                    .disableCache(CacheFlag.ACTIVITY, CacheFlag.EMOTE, CacheFlag.CLIENT_STATUS)
                     .build();
         } catch (LoginException e) {
             log.error(e);
