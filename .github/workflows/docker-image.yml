@@ -37,7 +37,7 @@ jobs:
         uses: docker/build-push-action@v2.1.0
         with:
           context: .
-          file: ./Dockerfile
+          file: ./Dockerfile.build
           # List of tags
           tags: codel1417/bot:latest
           cache-from: type=local,src=/tmp/.buildx-cache
