@@ -16,7 +16,7 @@ RUN  \
 RUN git clone https://github.com/tesseract-ocr/tessdata_fast tessdata
 WORKDIR /nep/
 # Copy build binaries
-COPY --from=codel1417/anime4kccp-builder:latest /nep/Neptune-Discord-Bot/dependentcies/Anime4KCPP/build/bin/Anime4KCPP_CLI /nep/dependentcies/Anime4KCPP/Anime4KCPP_CLI
+COPY --from=codel1417/anime4kccp-builder:latest /nep/Neptune-Discord-Bot/dependentcies/Anime4KCPP/build/bin/ /nep/dependentcies/Anime4KCPP/
 COPY --from=buildNep /nep/Neptune-Discord-Bot/target/Neptune_Discord_Bot-1.0-SNAPSHOT.jar .
 VOLUME /nep/Guilds
 VOLUME /nep/Logs
