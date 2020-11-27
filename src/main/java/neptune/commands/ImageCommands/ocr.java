@@ -67,6 +67,7 @@ public class ocr implements CommandInterface {
     public guildObject run(
             GuildMessageReceivedEvent event, String messageContent, guildObject guildEntity) {
         Tesseract tesseract = new Tesseract();
+        tesseract.setOcrEngineMode(1);
         try {
             String ImageUrl = helpers.getImageUrl(event);
             if (ImageUrl != null) {
