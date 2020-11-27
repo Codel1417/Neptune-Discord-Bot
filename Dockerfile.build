@@ -18,7 +18,7 @@ FROM openjdk:11-sid as FINAL
 # https://packages.debian.org/sid/tesseract-ocr-all
 RUN echo "deb http://http.us.debian.org/debian unstable main non-free contrib" > /etc/apt/sources.list \
     && apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get -y --no-install-recommends install tesseract-ocr-all -o APT::Immediate-Configure=0
+    && apt-get -y --no-install-recommends install tesseract-ocr -o APT::Immediate-Configure=0
 
 WORKDIR /nep/
 
@@ -26,8 +26,10 @@ RUN chown -R 1000:1000 .
 # For Security
 USER 1000:1000
 
-RUN git clone --depth 1 https://github.com/tesseract-ocr/tessdata_fast tessdata
+WORKDIR /nep/dependentcies
+RUN git clone --depth 1 https://github.com/tesseract-ocr/tessdata_best tessdata
 
+WORKDIR /nep/
 # Copy build binaries
 COPY --chown=1000:1000 --from=codel1417/anime4kccp-builder:latest /nep/Neptune-Discord-Bot/dependentcies/Anime4KCPP/build/bin/ /nep/dependentcies/Anime4KCPP/
 COPY --chown=1000:1000 --from=buildNep /nep/Neptune-Discord-Bot/target/Neptune_Discord_Bot-1.0-SNAPSHOT.jar .
