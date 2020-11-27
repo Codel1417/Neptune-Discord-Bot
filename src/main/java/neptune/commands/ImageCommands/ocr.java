@@ -20,7 +20,7 @@ import javax.imageio.ImageIO;
 
 public class ocr implements CommandInterface {
     protected static final Logger log = LogManager.getLogger();
-    String tessdata = "dependentcies" + File.separator + "tessdata";
+    String tessdata = "dependencies" + File.separator + "tessdata";
     CommonMethods helpers = new CommonMethods();
 
     @Override

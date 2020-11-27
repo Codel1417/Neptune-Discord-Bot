@@ -29,7 +29,7 @@ public class anime4k implements CommandInterface {
     protected static final Logger log = LogManager.getLogger();
     File anime4kPath =
             new File(
-                    "dependentcies"
+                    "dependencies"
                             + File.separator
                             + "Anime4KCPP"
                             + File.separator

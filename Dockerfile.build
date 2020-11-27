@@ -21,17 +21,21 @@ RUN echo "deb http://http.us.debian.org/debian unstable main non-free contrib" >
     && apt-get -y --no-install-recommends install tesseract-ocr -o APT::Immediate-Configure=0
 
 WORKDIR /nep/
-
 RUN chown -R 1000:1000 .
 # For Security
 USER 1000:1000
 
-WORKDIR /nep/dependentcies
+WORKDIR /nep/dependencies
 RUN git clone --depth 1 https://github.com/tesseract-ocr/tessdata_fast tessdata
 
 WORKDIR /nep/
 # Copy build binaries
-COPY --chown=1000:1000 --from=codel1417/anime4kccp-builder:latest /nep/Neptune-Discord-Bot/dependentcies/Anime4KCPP/build/bin/ /nep/dependentcies/Anime4KCPP/
+COPY --chown=1000:1000 --from=codel1417/anime4kccp-builder:latest /nep/Neptune-Discord-Bot/dependencies/Anime4KCPP/build/bin/ /nep/dependencies/Anime4KCPP/
+# Make executable
+WORKDIR /nep/dependencies/Anime4KCPP/
+RUN chmod +x Anime4KCPP_CLI
+
+WORKDIR /nep/
 COPY --chown=1000:1000 --from=buildNep /nep/Neptune-Discord-Bot/target/Neptune_Discord_Bot-1.0-SNAPSHOT.jar .
 VOLUME /nep/Guilds
 VOLUME /nep/Logs
