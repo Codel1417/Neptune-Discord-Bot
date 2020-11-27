@@ -27,7 +27,7 @@ RUN chown -R 1000:1000 .
 USER 1000:1000
 
 WORKDIR /nep/dependentcies
-RUN git clone --depth 1 https://github.com/tesseract-ocr/tessdata_best tessdata
+RUN git clone --depth 1 https://github.com/tesseract-ocr/tessdata_fast tessdata
 
 WORKDIR /nep/
 # Copy build binaries
