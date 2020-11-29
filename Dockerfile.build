@@ -40,7 +40,7 @@ RUN cmake .. && make
 # Debian Sid is a requirement as I need Tesseract version 4.1 or newer.
 FROM openjdk:11-sid as FINAL
 
-# https://packages.debian.org/sid/tesseract-ocr-all
+# https://packages.debian.org/sid/tesseract-ocr
 RUN echo "deb http://http.us.debian.org/debian unstable main non-free contrib" > /etc/apt/sources.list \
     && apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y --no-install-recommends install tesseract-ocr -o APT::Immediate-Configure=0
@@ -67,4 +67,4 @@ VOLUME /nep/Logs
 VOLUME /nep/Media
 ENV botToken=null
 ENV tenorToken=null
-CMD ["bash", "-c", "java", "-jar", "Neptune_Discord_Bot-1.0-SNAPSHOT.jar", "-d $botToken", "-t $tenorToken"]
+CMD ["bash", "-c", "java", "-jar", "Neptune_Discord_Bot-1.0-SNAPSHOT.jar", "-d", "$botToken", "-t", "$tenorToken"]
