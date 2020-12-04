@@ -35,6 +35,9 @@ public class UWU_Translater implements CommandInterface {
         indirectTranslations.put("The", "De");
         indirectTranslations.put("One", "Wan");
         indirectTranslations.put("one", "wan");
+        indirectTranslations.put("th", "f");
+        indirectTranslations.put("Th", "f");
+        
     }
 
     @Override
