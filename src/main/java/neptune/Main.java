@@ -17,7 +17,6 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.fusesource.jansi.AnsiConsole;
 
 import javax.security.auth.login.LoginException;
 
@@ -26,7 +25,6 @@ public class Main extends ListenerAdapter {
     protected static final Logger log = LogManager.getLogger();
 
     public static void main(String[] args) {
-        AnsiConsole.systemInstall();
         // CLI
         Options.addRequiredOption("d", "discord-token", true, "The discord bot token");
         Options.addRequiredOption("t", "tenor", true, "Tenor api key");
