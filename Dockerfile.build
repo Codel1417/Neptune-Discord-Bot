@@ -55,4 +55,4 @@ VOLUME /nep/Logs
 VOLUME /nep/Media
 ENV botToken=null
 ENV tenorToken=null
-CMD ["bash", "-c", "java", "-jar", "Neptune_Discord_Bot-1.0-SNAPSHOT.jar", "-d", "$botToken", "-t", "$tenorToken"]
+CMD java -jar Neptune_Discord_Bot-1.0-SNAPSHOT.jar -d $botToken -t $tenorToken
