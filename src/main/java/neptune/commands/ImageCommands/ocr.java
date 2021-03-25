@@ -1,71 +1,25 @@
 package neptune.commands.ImageCommands;
 
-import neptune.commands.CommandInterface;
-import neptune.commands.CommonMethods;
-import neptune.commands.commandCategories;
-import neptune.storage.Guild.guildObject;
-
+import neptune.commands.ICommand;
+import neptune.commands.CommandHelpers;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.sourceforge.tess4j.Tesseract;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.URL;
-
 import javax.imageio.ImageIO;
 
-public class ocr implements CommandInterface {
+public class ocr implements ICommand {
     protected static final Logger log = LogManager.getLogger();
     String tessdata = "dependencies" + File.separator + "tessdata";
-    CommonMethods helpers = new CommonMethods();
+    CommandHelpers helpers = new CommandHelpers();
 
     @Override
-    public String getName() {
-        return "Optical Character Recognition";
-    }
-
-    @Override
-    public String getCommand() {
-        return "ocr";
-    }
-
-    @Override
-    public String getDescription() {
-        return null;
-    }
-
-    @Override
-    public commandCategories getCategory() {
-        return commandCategories.Image;
-    }
-
-    @Override
-    public String getHelp() {
-        return null;
-    }
-
-    @Override
-    public boolean getRequireManageServer() {
-        return false;
-    }
-
-    @Override
-    public boolean getHideCommand() {
-        return false;
-    }
-
-    @Override
-    public boolean getRequireManageUsers() {
-        return false;
-    }
-
-    @Override
-    public guildObject run(
-            GuildMessageReceivedEvent event, String messageContent, guildObject guildEntity) {
+    public void run(
+            GuildMessageReceivedEvent event, String messageContent) {
         Tesseract tesseract = new Tesseract();
         tesseract.setOcrEngineMode(1);
         try {
@@ -86,6 +40,5 @@ public class ocr implements CommandInterface {
         } catch (Exception e) {
             log.error(e);
         }
-        return guildEntity;
     }
 }

@@ -19,7 +19,7 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
-public class CommonMethods {
+public class CommandHelpers {
     private static final Logger log = LogManager.getLogger();
 
     public String[] getCommandName(String MessageContent) {
@@ -57,12 +57,25 @@ public class CommonMethods {
         // attachment pass
         Attachment current;
         List<Attachment> attachments = event.getMessage().getAttachments();
+
         if (!attachments.isEmpty()) {
             current = attachments.get(0);
             if (isImage(current.getFileExtension())) {
                 return getFinalURl(current.getProxyUrl());
             }
         }
+
+        Message replyMessage = event.getMessage().getReferencedMessage();
+        if (replyMessage != null){
+            attachments = replyMessage.getAttachments();
+            if (!attachments.isEmpty()) {
+                current = attachments.get(0);
+                if (isImage(current.getFileExtension())) {
+                    return getFinalURl(current.getProxyUrl());
+                }
+            }
+        }
+
         List<MessageEmbed> embeds = event.getMessage().getEmbeds();
         if (!embeds.isEmpty()) {
             if (embeds.get(0).getImage() != null) {
@@ -71,6 +84,7 @@ public class CommonMethods {
                 return getFinalURl(embeds.get(0).getThumbnail().getProxyUrl());
             }
         }
+        event.getMessage().getReferencedMessage().getAttachments();
         // if current message has no media try previous message
         List<Message> messages = event.getChannel().getHistory().retrievePast(2).complete();
         if (messages.size() == 2) {
@@ -118,8 +132,7 @@ public class CommonMethods {
     }
 
     public boolean isImage(String ext) {
-        String names[] = ImageIO.getReaderFormatNames();
-        for (String name : names) {
+        for (String name : ImageIO.getReaderFormatNames()) {
             if (name.equalsIgnoreCase(ext)) {
                 return true;
             }

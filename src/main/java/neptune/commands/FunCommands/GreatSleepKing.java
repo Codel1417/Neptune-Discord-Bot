@@ -1,16 +1,12 @@
 package neptune.commands.FunCommands;
 
-import neptune.commands.CommandInterface;
-import neptune.commands.commandCategories;
-import neptune.storage.Guild.guildObject;
-
+import neptune.commands.ICommand;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
-public class GreatSleepKing implements CommandInterface {
+public class GreatSleepKing implements ICommand {
     HashMap<String, HashMap<String, String>> previousResults = new HashMap<>();
     ArrayList<String> emotions = new ArrayList<>();
 
@@ -27,50 +23,9 @@ public class GreatSleepKing implements CommandInterface {
         emotions.add("pity");
         emotions.add("anxiety");
     }
-
     @Override
-    public String getName() {
-        return "The Great Sleep King";
-    }
-
-    @Override
-    public String getCommand() {
-        return "gsk";
-    }
-
-    @Override
-    public String getDescription() {
-        return "How much sleep will the Great Sleep King grant you tonight?";
-    }
-
-    @Override
-    public commandCategories getCategory() {
-        return commandCategories.Fun;
-    }
-
-    @Override
-    public String getHelp() {
-        return "";
-    }
-
-    @Override
-    public boolean getRequireManageServer() {
-        return false;
-    }
-
-    @Override
-    public boolean getHideCommand() {
-        return false;
-    }
-
-    @Override
-    public boolean getRequireManageUsers() {
-        return false;
-    }
-
-    @Override
-    public guildObject run(
-            GuildMessageReceivedEvent event, String messageContent, guildObject guildEntity) {
+    public void run(
+            GuildMessageReceivedEvent event, String messageContent) {
         String MemberID = event.getMember().getId();
         HashMap<String, String> map = previousResults.getOrDefault(MemberID, null);
         int sleep, hours = 0;
@@ -101,7 +56,5 @@ public class GreatSleepKing implements CommandInterface {
         }
 
         event.getChannel().sendMessage(stringBuilder).queue();
-
-        return guildEntity;
     }
 }

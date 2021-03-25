@@ -1,58 +1,13 @@
 package neptune.commands.FunCommands;
 
-import neptune.commands.CommandInterface;
-import neptune.commands.commandCategories;
-import neptune.storage.Guild.guildObject;
-
+import neptune.commands.ICommand;
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
-public class Nep implements CommandInterface {
-    // nep nep
-    // only counts neps
+public class Nep implements ICommand {
     @Override
-    public String getName() {
-        return "Nep";
-    }
-
-    @Override
-    public String getCommand() {
-        return "nep";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Takes the number of neps in a message and adds one more";
-    }
-
-    @Override
-    public commandCategories getCategory() {
-        return commandCategories.Fun;
-    }
-
-    @Override
-    public String getHelp() {
-        return "";
-    }
-
-    @Override
-    public boolean getRequireManageServer() {
-        return false;
-    }
-
-    @Override
-    public boolean getHideCommand() {
-        return false;
-    }
-
-    @Override
-    public boolean getRequireManageUsers() {
-        return false;
-    }
-
-    @Override
-    public guildObject run(
-            GuildMessageReceivedEvent event, String messageContent, guildObject guildEntity) {
+    public void run(
+            GuildMessageReceivedEvent event, String messageContent) {
         String[] nepArray = messageContent.split(" ");
         String reply = "nep ";
         // search for pattern in a
@@ -71,6 +26,5 @@ public class Nep implements CommandInterface {
         builder.append(responseLine.toString());
         event.getChannel().sendMessage(builder.build()).queue();
         // event.getChannel().sendMessage(responseLine.toString()).queue();
-        return guildEntity;
     }
 }

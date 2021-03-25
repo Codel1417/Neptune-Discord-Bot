@@ -37,24 +37,27 @@ public class guildObject {
         return leaderboard;
     }
 
-    public void setLeaderboard(leaderboardObject leaderboardEntity) {
+    public guildObject setLeaderboard(leaderboardObject leaderboardEntity) {
         leaderboard = leaderboardEntity;
+        return this;
     }
 
     public guildOptionsObject getGuildOptions() {
         return guildOptions;
     }
 
-    public void setLogOptionsEntity(logOptionsObject logOptionsEntity) {
+    public guildObject setLogOptionsEntity(logOptionsObject logOptionsEntity) {
         logOptions = logOptionsEntity;
+        return this;
     }
 
     public profileObject getProfiles() {
         return profiles;
     }
 
-    public void setProfiles(profileObject profilesEntity) {
+    public guildObject setProfiles(profileObject profilesEntity) {
         profiles = profilesEntity;
+        return this;
     }
 
     private logOptionsObject logOptions;
@@ -96,16 +99,18 @@ public class guildObject {
         return guildID;
     }
 
-    protected void setGuildID(String guildID) {
+    protected guildObject setGuildID(String guildID) {
         this.guildID = guildID;
+        return this;
     }
 
     public int getVersion() {
         return version;
     }
 
-    protected void setVersion(int version) {
+    protected guildObject setVersion(int version) {
         this.version = version;
+        return this;
     }
 
     private String guildID;

@@ -1,9 +1,7 @@
 package neptune.commands.FunCommands;
 
-import neptune.commands.CommandInterface;
+import neptune.commands.ICommand;
 import neptune.commands.RandomMediaPicker;
-import neptune.commands.commandCategories;
-import neptune.storage.Guild.guildObject;
 import neptune.storage.VariablesStorage;
 
 import net.dv8tion.jda.api.entities.Member;
@@ -13,50 +11,10 @@ import java.io.File;
 import java.util.List;
 import java.util.Random;
 
-public class Attack implements CommandInterface {
+public class Attack implements ICommand {
     @Override
-    public String getName() {
-        return "Attack";
-    }
-
-    @Override
-    public String getCommand() {
-        return "attack";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Attack your ~~Friends~~ Enemies";
-    }
-
-    @Override
-    public commandCategories getCategory() {
-        return commandCategories.Fun;
-    }
-
-    @Override
-    public String getHelp() {
-        return "";
-    }
-
-    @Override
-    public boolean getRequireManageServer() {
-        return false;
-    }
-
-    @Override
-    public boolean getHideCommand() {
-        return false;
-    }
-
-    @Override
-    public boolean getRequireManageUsers() {
-        return false;
-    }
-
-    @Override
-    public guildObject run(
-            GuildMessageReceivedEvent event, String messageContent, guildObject guildEntity) {
+    public void run(
+            GuildMessageReceivedEvent event, String messageContent) {
         VariablesStorage variablesStorage = new VariablesStorage();
         Random random = new Random();
         StringBuilder stringBuilder = new StringBuilder();
@@ -76,6 +34,5 @@ public class Attack implements CommandInterface {
                 event,
                 false,
                 true);
-        return guildEntity;
     }
 }

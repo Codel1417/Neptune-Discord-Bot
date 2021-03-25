@@ -1,9 +1,7 @@
 package neptune.commands.audio;
 
-import neptune.commands.CommandInterface;
-import neptune.commands.commandCategories;
+import neptune.commands.ICommand;
 import neptune.music.AudioController;
-import neptune.storage.Guild.guildObject;
 
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.Permission;
@@ -14,7 +12,7 @@ import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 import java.io.File;
 import java.util.*;
 
-public class Say implements CommandInterface {
+public class Say implements ICommand {
     File folder;
     private AudioController AudioOut;
     private File[] listOfFiles;
@@ -23,53 +21,11 @@ public class Say implements CommandInterface {
     public Say(File folder) {
         this.folder = folder;
     }
-
     @Override
-    public String getName() {
-        return "Say";
-    }
-
-    @Override
-    public String getCommand() {
-        return "say";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Neptune speaks! She can join the current voice channel and say one of her quotes"
-                + " from the games";
-    }
-
-    @Override
-    public commandCategories getCategory() {
-        return commandCategories.Audio;
-    }
-
-    @Override
-    public String getHelp() {
-        return getCommand() + " <Quote> | Leave blank for a list of quotes";
-    }
-
-    @Override
-    public boolean getRequireManageServer() {
-        return false;
-    }
-
-    @Override
-    public boolean getHideCommand() {
-        return false;
-    }
-
-    @Override
-    public boolean getRequireManageUsers() {
-        return false;
-    }
-
-    @Override
-    public guildObject run(
-            GuildMessageReceivedEvent event, String messageContent, guildObject guildEntity) {
+    public void run(
+            GuildMessageReceivedEvent event, String messageContent) {
         // rate limiting
-        if (isRateLimited(event.getMember().getUser())) return guildEntity;
+        if (isRateLimited(event.getMember().getUser())) return;
 
         // open audio channel
         if (event.getGuild() != null && AudioOut == null) {
@@ -86,7 +42,6 @@ public class Say implements CommandInterface {
             Thread thread = new Thread(runnable);
             thread.start();
         }
-        return guildEntity;
     }
 
     private void saySingleMatch(File quote, GuildMessageReceivedEvent event) {

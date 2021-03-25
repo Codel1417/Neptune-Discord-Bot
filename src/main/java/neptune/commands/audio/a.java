@@ -1,60 +1,17 @@
 package neptune.commands.audio;
 
-import neptune.commands.CommandInterface;
+import neptune.commands.ICommand;
 import neptune.commands.RandomMediaPicker;
-import neptune.commands.commandCategories;
-import neptune.storage.Guild.guildObject;
 import neptune.storage.VariablesStorage;
 
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 import java.io.File;
 
-public class a implements CommandInterface {
-
+public class a implements ICommand {
     @Override
-    public String getName() {
-        return "a";
-    }
-
-    @Override
-    public String getCommand() {
-        return "a";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Best Shark Sound";
-    }
-
-    @Override
-    public commandCategories getCategory() {
-        return commandCategories.Audio;
-    }
-
-    @Override
-    public String getHelp() {
-        return null;
-    }
-
-    @Override
-    public boolean getRequireManageServer() {
-        return false;
-    }
-
-    @Override
-    public boolean getHideCommand() {
-        return false;
-    }
-
-    @Override
-    public boolean getRequireManageUsers() {
-        return false;
-    }
-
-    @Override
-    public guildObject run(
-            GuildMessageReceivedEvent event, String messageContent, guildObject guildEntity) {
+    public void run(
+            GuildMessageReceivedEvent event, String messageContent) {
         RandomMediaPicker randomMediaPicker = new RandomMediaPicker();
         VariablesStorage variablesStorage = new VariablesStorage();
         randomMediaPicker.sendMedia(
@@ -63,10 +20,9 @@ public class a implements CommandInterface {
                                 + File.separator
                                 + "Custom"
                                 + File.separator
-                                + getCommand()),
+                                + "a"),
                 event,
                 false,
                 true);
-        return guildEntity;
     }
 }

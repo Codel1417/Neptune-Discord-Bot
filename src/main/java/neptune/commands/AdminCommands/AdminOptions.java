@@ -1,92 +1,52 @@
 package neptune.commands.AdminCommands;
 
-import neptune.commands.CommandInterface;
-import neptune.commands.CommonMethods;
-import neptune.commands.commandCategories;
+import neptune.commands.ICommand;
+import neptune.commands.CommandHelpers;
 import neptune.storage.Enum.GuildOptionsEnum;
+import neptune.storage.Guild.GuildStorageHandler;
 import neptune.storage.Guild.guildObject;
 import neptune.storage.Guild.guildObject.guildOptionsObject;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 import java.awt.*;
+import java.io.IOException;
 
-public class AdminOptions extends CommonMethods implements CommandInterface {
-    @Override
-    public String getName() {
-        return "Admin Menu";
-    }
+public class AdminOptions extends CommandHelpers implements ICommand {
+	protected static final Logger log = LogManager.getLogger();
 
     @Override
-    public String getCommand() {
-        return "options";
-    }
+    public void run(GuildMessageReceivedEvent event, String messageContent) {
+		try{
+			String[] CommandArray = getCommandName(messageContent);
 
-    @Override
-    public String getDescription() {
-        return "Shows server admin options menu";
-    }
 
-    @Override
-    public commandCategories getCategory() {
-        return commandCategories.Admin;
-    }
-
-    @Override
-    public String getHelp() {
-        return "";
-    }
-
-    @Override
-    public boolean getRequireManageServer() {
-        return true;
-    }
-
-    @Override
-    public boolean getHideCommand() {
-        return false;
-    }
-
-    @Override
-    public boolean getRequireManageUsers() {
-        return false;
-    }
-
-    @Override
-    public guildObject run(
-            GuildMessageReceivedEvent event, String messageContent, guildObject guildEntity) {
-        String[] CommandArray = getCommandName(messageContent);
-        guildOptionsObject guildoptionsEntity;
-
-        guildoptionsEntity = guildEntity.getGuildOptions();
-
-        boolean enabledOption = false;
-        if (CommandArray[1].equalsIgnoreCase("enabled")) {
-            enabledOption = true;
-        }
-        switch (CommandArray[0].toLowerCase()) {
-            case "customrole":
-                {
-                    guildoptionsEntity.setOption(GuildOptionsEnum.CustomRoleEnabled, enabledOption);
-                    break;
-                }
-            case "levelUp":
-                {
-                    guildoptionsEntity.setOption(
-                            GuildOptionsEnum.LeaderboardLevelUpNotification, enabledOption);
-                    break;
-                }
-            case "leaderboards":
-                {
-                    guildoptionsEntity.setOption(
-                            GuildOptionsEnum.leaderboardEnabled, enabledOption);
-                    break;
-                }
-        }
-        displayMenu(event, guildoptionsEntity);
-
-        return guildEntity;
+			boolean enabledOption = false;
+			if (CommandArray[1].equalsIgnoreCase("enabled")) {
+			enabledOption = true;
+			}
+			guildObject guildentity = GuildStorageHandler.getInstance().readFile(event.getGuild().getId());
+			switch (CommandArray[0].toLowerCase()) {
+				case "customrole":
+					guildentity.getGuildOptions().setOption(GuildOptionsEnum.CustomRoleEnabled, enabledOption);
+					GuildStorageHandler.getInstance().writeFile(guildentity);
+					break;
+				case "levelUp":
+					guildentity.getGuildOptions().setOption(GuildOptionsEnum.LeaderboardLevelUpNotification, enabledOption);
+					GuildStorageHandler.getInstance().writeFile(guildentity);
+					break;
+				case "leaderboards":
+					guildentity.getGuildOptions().setOption(GuildOptionsEnum.leaderboardEnabled, enabledOption);
+					GuildStorageHandler.getInstance().writeFile(guildentity);
+					break;
+			}
+			displayMenu(event, guildentity.getGuildOptions());
+		}
+		catch (IOException e){
+			log.error(e);
+		}
     }
 
     private void displayMenu(
@@ -119,7 +79,7 @@ public class AdminOptions extends CommonMethods implements CommandInterface {
 
         embedBuilder.addField("Logging Options", logOptionsMessage.toString(), false);
 
-        String prefix = "!nep " + getCommand();
+        String prefix = "!nep " + "options";
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder
                 .append("Enable Custom Roles:")

@@ -2,19 +2,27 @@ package neptune.storage.Guild;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-
 import neptune.storage.Enum.GuildOptionsEnum;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import java.io.File;
 import java.io.IOException;
 
 public class GuildStorageHandler {
     protected static final Logger log = LogManager.getLogger();
     String guildsDir = "Guilds";
+    private static volatile GuildStorageHandler _instance;
 
+    private GuildStorageHandler() {}
+
+    public static synchronized GuildStorageHandler getInstance() {
+        if (_instance == null) {
+            synchronized (GuildStorageHandler.class) {
+                if (_instance == null) _instance = new GuildStorageHandler();
+            }
+        }
+        return _instance;
+    }
     public guildObject readFile(String guildID) throws IOException {
 
         /*

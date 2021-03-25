@@ -1,16 +1,12 @@
 package neptune.commands.FunCommands;
 
-import neptune.commands.CommandInterface;
-import neptune.commands.commandCategories;
-import neptune.storage.Guild.guildObject;
-
+import neptune.commands.ICommand;
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
-
 import java.util.HashMap;
 import java.util.Map;
 
-public class UWU_Translater implements CommandInterface {
+public class UWU_Translater implements ICommand {
     private HashMap<String, String> directTranslations = new HashMap<>();
     private HashMap<String, String> indirectTranslations = new HashMap<>();
 
@@ -40,48 +36,8 @@ public class UWU_Translater implements CommandInterface {
     }
 
     @Override
-    public String getName() {
-        return "UwU Translator";
-    }
-
-    @Override
-    public String getCommand() {
-        return "uwu";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Translates the previous message from english to UwU";
-    }
-
-    @Override
-    public commandCategories getCategory() {
-        return commandCategories.Fun;
-    }
-
-    @Override
-    public String getHelp() {
-        return "";
-    }
-
-    @Override
-    public boolean getRequireManageServer() {
-        return false;
-    }
-
-    @Override
-    public boolean getHideCommand() {
-        return false;
-    }
-
-    @Override
-    public boolean getRequireManageUsers() {
-        return false;
-    }
-
-    @Override
-    public guildObject run(
-            GuildMessageReceivedEvent event, String messageContent, guildObject guildEntity) {
+    public void run(
+            GuildMessageReceivedEvent event, String messageContent) {
         String message;
         if (messageContent.equalsIgnoreCase("")) {
             message =
@@ -116,6 +72,5 @@ public class UWU_Translater implements CommandInterface {
             builder.append(result.toString());
             event.getChannel().sendMessage(builder.build()).queue();
         }
-        return guildEntity;
     }
 }

@@ -1,113 +1,59 @@
 package neptune.commands.AdminCommands;
 
-import neptune.commands.CommandInterface;
-import neptune.commands.CommonMethods;
-import neptune.commands.commandCategories;
+import neptune.commands.ICommand;
+import neptune.commands.CommandHelpers;
 import neptune.storage.Enum.LoggingOptionsEnum;
+import neptune.storage.Guild.GuildStorageHandler;
 import neptune.storage.Guild.guildObject;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
-
 import java.awt.*;
+import java.io.IOException;
 
-public class Logging extends CommonMethods implements CommandInterface {
+public class Logging extends CommandHelpers implements ICommand {
+	protected static final Logger log = LogManager.getLogger();
     @Override
-    public String getName() {
-        return "Logging Options";
-    }
-
-    @Override
-    public String getCommand() {
-        return "log";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Control logging and set channel";
-    }
-
-    @Override
-    public commandCategories getCategory() {
-        return commandCategories.Admin;
-    }
-
-    @Override
-    public String getHelp() {
-        return "";
-    }
-
-    @Override
-    public boolean getRequireManageServer() {
-        return true;
-    }
-
-    @Override
-    public boolean getHideCommand() {
-        return false;
-    }
-
-    @Override
-    public boolean getRequireManageUsers() {
-        return false;
-    }
-
-    @Override
-    public guildObject run(
-            GuildMessageReceivedEvent event, String messageContent, guildObject guildEntity) {
-        String[] command = getCommandName(messageContent);
-        boolean enabledOption = false;
-        if (command[1].equalsIgnoreCase("enabled")) {
-            enabledOption = true;
-        }
-        switch (command[0]) {
-            case "global":
-                {
-                    if (enabledOption) {
-                        guildEntity.getLogOptions().setChannel(event.getChannel().getId());
-                        guildEntity
-                                .getLogOptions()
-                                .setOption(LoggingOptionsEnum.GlobalLogging, enabledOption);
-                    } else {
-                        guildEntity
-                                .getLogOptions()
-                                .setOption(LoggingOptionsEnum.GlobalLogging, enabledOption);
-                    }
-                    break;
-                }
-            case "text":
-                {
-                    guildEntity
-                            .getLogOptions()
-                            .setOption(LoggingOptionsEnum.TextChannelLogging, enabledOption);
-                    break;
-                }
-            case "voice":
-                {
-                    guildEntity
-                            .getLogOptions()
-                            .setOption(LoggingOptionsEnum.VoiceChannelLogging, enabledOption);
-                    break;
-                }
-            case "member":
-                {
-                    guildEntity
-                            .getLogOptions()
-                            .setOption(LoggingOptionsEnum.MemberActivityLogging, enabledOption);
-                    break;
-                }
-            case "server":
-                {
-                    guildEntity
-                            .getLogOptions()
-                            .setOption(LoggingOptionsEnum.ServerModificationLogging, enabledOption);
-                    break;
-                }
-        }
-
-        displayMenu(event, guildEntity);
-
-        return guildEntity;
+    public void run(GuildMessageReceivedEvent event, String messageContent) {
+		try{
+			String[] command = getCommandName(messageContent);
+			boolean enabledOption = false;
+			if (command[1].equalsIgnoreCase("enabled")) {
+				enabledOption = true;
+			}
+			guildObject guildEntity = GuildStorageHandler.getInstance().readFile(event.getGuild().getId());
+			switch (command[0]) {
+				case "global":
+					if (enabledOption) {
+						guildEntity.getLogOptions().setChannel(event.getChannel().getId());
+						guildEntity.getLogOptions().setOption(LoggingOptionsEnum.GlobalLogging, enabledOption);
+					} else {
+						guildEntity.getLogOptions().setOption(LoggingOptionsEnum.GlobalLogging, enabledOption);
+					}
+					GuildStorageHandler.getInstance().writeFile(guildEntity);
+					break;
+				case "text":
+					guildEntity.getLogOptions().setOption(LoggingOptionsEnum.TextChannelLogging, enabledOption);
+					GuildStorageHandler.getInstance().writeFile(guildEntity);
+					break;
+				case "voice":
+					guildEntity.getLogOptions().setOption(LoggingOptionsEnum.VoiceChannelLogging, enabledOption);
+					GuildStorageHandler.getInstance().writeFile(guildEntity);
+					break;
+				case "member":
+					guildEntity.getLogOptions().setOption(LoggingOptionsEnum.MemberActivityLogging, enabledOption);
+					GuildStorageHandler.getInstance().writeFile(guildEntity);                    break;
+				case "server":
+					guildEntity.getLogOptions().setOption(LoggingOptionsEnum.ServerModificationLogging, enabledOption);
+					GuildStorageHandler.getInstance().writeFile(guildEntity);
+					break;
+			}
+			displayMenu(event, guildEntity);	
+		}
+		catch (IOException e){
+			log.error(e);
+		}
     }
 
     private void displayMenu(GuildMessageReceivedEvent event, guildObject guildEntity) {
@@ -170,7 +116,7 @@ public class Logging extends CommonMethods implements CommandInterface {
 
         embedBuilder.addField("Logging Options", logOptionsMessage.toString(), false);
 
-        String prefix = "!nep " + getCommand();
+        String prefix = "!nep " + "log";
         embedBuilder.addField("Logging Commands", "", false);
         embedBuilder.addField("Enable Logging", prefix + " global <enabled/disabled>", true);
         embedBuilder.addField("Text Activity Logging", prefix + " text <enabled/disabled>", true);

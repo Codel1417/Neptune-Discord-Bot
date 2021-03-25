@@ -1,21 +1,15 @@
 package neptune.commands.ImageCommands;
 
-import neptune.commands.CommandInterface;
-import neptune.commands.CommonMethods;
-import neptune.commands.commandCategories;
-import neptune.storage.Guild.guildObject;
-
+import neptune.commands.ICommand;
+import neptune.commands.CommandHelpers;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
-
 import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageWriteParam;
@@ -23,53 +17,13 @@ import javax.imageio.ImageWriter;
 import javax.imageio.plugins.jpeg.JPEGImageWriteParam;
 import javax.imageio.stream.MemoryCacheImageOutputStream;
 
-public class moreJpeg implements CommandInterface {
+public class moreJpeg implements ICommand {
     protected static final Logger log = LogManager.getLogger();
-    CommonMethods helpers = new CommonMethods();
+    CommandHelpers helpers = new CommandHelpers();
 
     @Override
-    public String getName() {
-        return "jpeg";
-    }
-
-    @Override
-    public String getCommand() {
-        return "jpeg";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Adds more jpeg to an attached image";
-    }
-
-    @Override
-    public commandCategories getCategory() {
-        return commandCategories.Image;
-    }
-
-    @Override
-    public String getHelp() {
-        return "Run this command with an image attached";
-    }
-
-    @Override
-    public boolean getRequireManageServer() {
-        return false;
-    }
-
-    @Override
-    public boolean getHideCommand() {
-        return false;
-    }
-
-    @Override
-    public boolean getRequireManageUsers() {
-        return false;
-    }
-
-    @Override
-    public guildObject run(
-            GuildMessageReceivedEvent event, String messageContent, guildObject guildEntity) {
+    public void run(
+            GuildMessageReceivedEvent event, String messageContent) {
         try {
             String finalUrl = helpers.getImageUrl(event);
             if (finalUrl != null) {
@@ -78,6 +32,7 @@ public class moreJpeg implements CommandInterface {
                 // set jpeg compression
                 JPEGImageWriteParam jpegParams = new JPEGImageWriteParam(null);
                 jpegParams.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+                //TODO? - allow user to set compression quality? How bad can we make this?
                 jpegParams.setCompressionQuality(0.0001f);
                 // strip alpha channel
                 BufferedImage result =
@@ -99,6 +54,5 @@ public class moreJpeg implements CommandInterface {
         } catch (IOException e) {
             log.error(e);
         }
-        return guildEntity;
     }
 }

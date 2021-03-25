@@ -2,60 +2,17 @@ package neptune.commands.UtilityCommands;
 
 import me.dilley.MineStat;
 
-import neptune.commands.CommandInterface;
-import neptune.commands.commandCategories;
-import neptune.storage.Guild.guildObject;
-
+import neptune.commands.ICommand;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 import java.awt.*;
 
-public class MinecraftServerStatus implements CommandInterface {
-    @Override
-    public String getName() {
-        return "Minecraft Server Status";
-    }
+public class MinecraftServerStatus implements ICommand {
 
     @Override
-    public String getCommand() {
-        return "mc";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Gets the status of a Minecraft server. Supports IP and URL's. DynamicDNS domains"
-                + " are unsupported";
-    }
-
-    @Override
-    public commandCategories getCategory() {
-        return commandCategories.Utility;
-    }
-
-    @Override
-    public String getHelp() {
-        return "server.com:port";
-    }
-
-    @Override
-    public boolean getRequireManageServer() {
-        return false;
-    }
-
-    @Override
-    public boolean getHideCommand() {
-        return false;
-    }
-
-    @Override
-    public boolean getRequireManageUsers() {
-        return false;
-    }
-
-    @Override
-    public guildObject run(
-            GuildMessageReceivedEvent event, String messageContent, guildObject guildEntity) {
+    public void run(
+            GuildMessageReceivedEvent event, String messageContent) {
         String serverDomain;
         int port = 25565;
         String[] mcServer = messageContent.split(":");
@@ -91,6 +48,5 @@ public class MinecraftServerStatus implements CommandInterface {
         }
 
         event.getChannel().sendMessage(embedBuilder.build()).queue();
-        return guildEntity;
     }
 }

@@ -1,64 +1,21 @@
 package neptune.commands.HelpCommands;
 
-import neptune.commands.CommandInterface;
-import neptune.commands.CommandRunner;
-import neptune.commands.CommonMethods;
-import neptune.commands.commandCategories;
-import neptune.storage.Guild.guildObject;
-
+import neptune.commands.ICommand;
+import neptune.commands.Command;
+import neptune.commands.CommandHandler;
+import neptune.commands.CommandHelpers;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 import java.awt.*;
 import java.util.*;
 
-public class Help extends CommonMethods implements CommandInterface {
+public class Help extends CommandHelpers implements ICommand {
 
     private EmbedBuilder sortedCommandList = null;
 
     @Override
-    public String getName() {
-        return "Help";
-    }
-
-    @Override
-    public String getCommand() {
-        return "help";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Displays help";
-    }
-
-    @Override
-    public commandCategories getCategory() {
-        return commandCategories.Help;
-    }
-
-    @Override
-    public String getHelp() {
-        return getCommand() + "<Command> for more info";
-    }
-
-    @Override
-    public boolean getRequireManageServer() {
-        return false;
-    }
-
-    @Override
-    public boolean getHideCommand() {
-        return true;
-    }
-
-    @Override
-    public boolean getRequireManageUsers() {
-        return false;
-    }
-
-    @Override
-    public guildObject run(
-            GuildMessageReceivedEvent event, String messageContent, guildObject guildEntity) {
+    public void run(GuildMessageReceivedEvent event, String messageContent) {
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setColor(Color.MAGENTA);
         embedBuilder.setAuthor(
@@ -66,14 +23,13 @@ public class Help extends CommonMethods implements CommandInterface {
         embedBuilder.setDescription("Use !nep <Command>");
 
         // sort list
-        Map<String, Object> commands = new TreeMap<>(new CommandRunner().getCommandList());
+        ArrayList<Command> commands = new ArrayList<>(new CommandHandler().getCommandList());
 
         String[] commandArray = getCommandName(messageContent);
 
-        // per command check
-        if (commands.containsKey(commandArray[0])) {
-            CommandInterface command = (CommandInterface) commands.get(commandArray[0]);
-            if (!command.getHideCommand()) {
+        // When user specifies !nep help command, if additional help is availible (and is not hidden), build and display embed. 
+/*        if (commands.containsKey(commandArray[0])) {
+            Command command = commands.get(commandArray[0]);
                 embedBuilder.setTitle(command.getName());
                 embedBuilder.setDescription(command.getDescription());
                 embedBuilder.addField("Command", command.getCommand(), true);
@@ -81,27 +37,26 @@ public class Help extends CommonMethods implements CommandInterface {
                 if (!command.getHelp().equals("")) {
                     embedBuilder.addField("Usage", command.getHelp(), true);
                 }
-            }
+
         } else {
-            // only generate help list once
+            // If sortedCommandList hasn't been generated yet this run, Generate it. 
             if (sortedCommandList == null) {
                 sortedCommandList = CreateSortedCommandList(commands, embedBuilder);
             }
             embedBuilder = sortedCommandList;
         }
-
+*/
+        if (sortedCommandList == null) {
+            sortedCommandList = CreateSortedCommandList(commands, embedBuilder);
+        }
         // send message
         event.getChannel().sendMessage(embedBuilder.build()).queue();
-        return guildEntity;
     }
 
-    private EmbedBuilder CreateSortedCommandList(
-            Map<String, Object> Commands, EmbedBuilder embedBuilder) {
+    // Create an embed programmatically to display a list of all availible commands. 
+    private EmbedBuilder CreateSortedCommandList(ArrayList<Command> Commands, EmbedBuilder embedBuilder) {
         Map<String, StringBuilder> CommandsSortedCategory = new HashMap<>();
-        for (Object commandObject : Commands.values()) {
-            CommandInterface command = (CommandInterface) commandObject;
-
-            if (!command.getHideCommand()) { // exclude hidden commands
+        for (Command command : Commands) {
                 if (!CommandsSortedCategory.containsKey(command.getCategory().name())) {
                     CommandsSortedCategory.put(command.getCategory().name(), new StringBuilder());
                 }
@@ -109,11 +64,9 @@ public class Help extends CommonMethods implements CommandInterface {
                         CommandsSortedCategory.get(command.getCategory().name());
                 stringBuilder.append("`").append(command.getCommand()).append("` ");
                 CommandsSortedCategory.put(command.getCategory().name(), stringBuilder);
-            }
         }
         // sort list
         CommandsSortedCategory = new TreeMap<>(CommandsSortedCategory);
-
         // creates the embed
         for (Map.Entry<String, StringBuilder> entry : CommandsSortedCategory.entrySet()) {
             String Category = entry.getKey();

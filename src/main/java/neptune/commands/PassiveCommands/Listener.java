@@ -1,7 +1,7 @@
 package neptune.commands.PassiveCommands;
 
 import neptune.CycleGameStatus;
-import neptune.commands.CommandRunner;
+import neptune.commands.CommandHandler;
 import neptune.commands.RandomMediaPicker;
 import neptune.serverLogging.GuildLogging;
 import neptune.storage.Enum.GuildOptionsEnum;
@@ -44,10 +44,9 @@ public class Listener implements EventListener {
     logsStorageHandler logStorage = new logsStorageHandler();
     private Runnable CycleActivity;
     private boolean ActivityThread;
-    private final CommandRunner nepCommands = new CommandRunner();
+    private final CommandHandler nepCommands = new CommandHandler();
     private final RandomMediaPicker randomMediaPicker = new RandomMediaPicker();
 
-    GuildStorageHandler guildStorageHandler = new GuildStorageHandler();
 
     @Override
     public void onEvent(@Nonnull GenericEvent event) {
@@ -65,29 +64,26 @@ public class Listener implements EventListener {
             guildObject guildEntity = null;
             try {
                 guildEntity =
-                        guildStorageHandler.readFile(
+                        GuildStorageHandler.getInstance().readFile(
                                 ((GenericGuildEvent) event).getGuild().getId());
             } catch (Exception e) {
                 log.error(e);
                 return;
             }
-            boolean result = false;
             // Commands
             if (event instanceof GuildMessageReceivedEvent) {
                 if (((GuildMessageReceivedEvent) event).getAuthor().isBot())
                     return; // blocks responses to other bots
-                result = runEvent((GuildMessageReceivedEvent) event, guildEntity);
+                runEvent((GuildMessageReceivedEvent) event, guildEntity);
             }
 
             /*
              * This checks if a command is run to reduce duplicate writes
              */
-            if (result) {
-                try {
-                    guildStorageHandler.writeFile(guildEntity);
-                } catch (IOException e) {
-                    log.error(e);
-                }
+            try {
+                GuildStorageHandler.getInstance().writeFile(guildEntity);
+            } catch (IOException e) {
+                log.error(e);
             }
 
             // Clear stored logs when text channel is deleted
