@@ -2,19 +2,34 @@ package neptune.storage.Guild;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
+import com.github.benmanes.caffeine.cache.LoadingCache;
+
 import neptune.storage.Enum.GuildOptionsEnum;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import io.prometheus.client.cache.caffeine.CacheMetricsCollector;
+
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 public class GuildStorageHandler {
     protected static final Logger log = LogManager.getLogger();
     String guildsDir = "Guilds";
     private static volatile GuildStorageHandler _instance;
 
-    private GuildStorageHandler() {}
-
+    private GuildStorageHandler() {
+        cacheMetrics.addCache("GuildFilesCache", cache);
+    }
+    CacheMetricsCollector cacheMetrics = new CacheMetricsCollector().register();
+    Cache<String, guildObject> cache = Caffeine.newBuilder()
+        .expireAfterWrite(10, TimeUnit.MINUTES)
+        .maximumSize(10_000)
+        .recordStats()
+        .build();
     public static synchronized GuildStorageHandler getInstance() {
         if (_instance == null) {
             synchronized (GuildStorageHandler.class) {
@@ -25,14 +40,12 @@ public class GuildStorageHandler {
     }
     public guildObject readFile(String guildID) throws IOException {
 
-        /*
-            Currently when an item from Jackson is cached. the entire file is not read. only the part that is accessed.
-            While this is great for initial read performance this prevents caching the entire object
-
-        */
         File file = new File(guildsDir + File.separator + guildID + ".yaml");
-        guildObject guildEntity;
+        guildObject guildEntity = cache.getIfPresent(guildID);
 
+        if (guildEntity != null) {
+            return guildEntity;
+        }
         log.debug("Reading File: " + file.getAbsolutePath());
         if (!file.exists()) {
             log.info("Adding guild: " + guildID);
@@ -42,6 +55,7 @@ public class GuildStorageHandler {
         }
         ObjectMapper om = new ObjectMapper(new YAMLFactory());
         guildEntity = om.readValue(file, guildObject.class);
+        cache.put(guildID, guildEntity);
         return guildEntity;
     }
 
@@ -52,6 +66,7 @@ public class GuildStorageHandler {
         ObjectMapper om = new ObjectMapper(new YAMLFactory());
         log.debug("Writing File: " + file.getAbsolutePath());
         om.writeValue(file, guildEntity);
+        cache.put(guildEntity.getGuildID(), guildEntity);
     }
 
     public void deserializationTest() {

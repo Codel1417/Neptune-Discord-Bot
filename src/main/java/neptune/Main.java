@@ -18,13 +18,36 @@ import org.apache.commons.cli.ParseException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import club.minnced.discord.webhook.WebhookClient;
+import club.minnced.discord.webhook.WebhookClientBuilder;
+import io.prometheus.client.exporter.HTTPServer;
+import io.prometheus.client.hotspot.DefaultExports;
+
+import java.io.IOException;
+
 import javax.security.auth.login.LoginException;
 
 public class Main extends ListenerAdapter {
     static Options Options = new Options();
+    private static HTTPServer server;
     protected static final Logger log = LogManager.getLogger();
 
     public static void main(String[] args) {
+        DefaultExports.initialize();
+        try {
+            server = new HTTPServer(1234);
+        } catch (IOException e1) {
+                log.error(e1);
+        }
+        WebhookClientBuilder builder = new WebhookClientBuilder("https://discord.com/api/webhooks/824934905137987604/ENvcx0LdZrAqIafi306vVfFG9T8rE5djOH07ouKZcOZ1zbiXS3mj78S2734KihP2SGCA");
+        builder.setThreadFactory((job) -> {
+            Thread thread = new Thread(job);
+            thread.setName("Neptune Status");
+            thread.setDaemon(true);
+            return thread;
+        });
+        builder.setWait(true);
+        WebhookClient client = builder.build();
         // CLI
         Options.addRequiredOption("d", "discord-token", true, "The discord bot token");
         Options.addRequiredOption("t", "tenor", true, "Tenor api key");
@@ -39,6 +62,7 @@ public class Main extends ListenerAdapter {
         commandLineOptionsSingleton.getInstance().setOptions(cmd);
 
         startJDA(cmd.getOptionValue("d"));
+        client.send("Starting Neptune");
     }
 
     private static void startJDA(String token) {
@@ -57,6 +81,7 @@ public class Main extends ListenerAdapter {
                     .build();
         } catch (LoginException e) {
             log.error(e);
+            System.exit(1);
         }
     }
 }

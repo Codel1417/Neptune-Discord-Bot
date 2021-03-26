@@ -31,6 +31,8 @@ import net.dv8tion.jda.api.hooks.EventListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import io.prometheus.client.Counter;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
@@ -46,11 +48,12 @@ public class Listener implements EventListener {
     private boolean ActivityThread;
     private final CommandHandler nepCommands = new CommandHandler();
     private final RandomMediaPicker randomMediaPicker = new RandomMediaPicker();
-
+    static final Counter requests = Counter.build()
+    .name("events_total").help("Total JDA Listener Events.").register();
 
     @Override
     public void onEvent(@Nonnull GenericEvent event) {
-
+        requests.inc();
         // Startup tasks
         if (event instanceof ReadyEvent && !ActivityThread) {
             CycleActivity = new CycleGameStatus((ReadyEvent) event);
