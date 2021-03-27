@@ -19,13 +19,8 @@ RUN chown -R 1000:1000 .
 USER 1000:1000
 
 #switch with wget/curl and download a release?
-RUN git clone --depth 1 --no-checkout https://github.com/tesseract-ocr/tessdata_fast /nep/dependencies/tessdata
+RUN git clone --depth 1 --no-checkout https://github.com/tesseract-ocr/tessdata_fast dependencies/tessdata
 
-# Copy build binary
-COPY --chown=1000:1000 --from=Anime4KCPP /nep/Neptune-Discord-Bot/dependencies/Anime4KCPP/build/bin/ /nep/dependencies/Anime4KCPP/
-
-# Make executable
-RUN chmod +x /nep/dependencies/Anime4KCPP/Anime4KCPP_CLI
 
 COPY --chown=1000:1000 --from=buildNep /nep/Neptune-Discord-Bot/target/Neptune_Discord_Bot-1.0-SNAPSHOT.jar .
 VOLUME /nep/Guilds

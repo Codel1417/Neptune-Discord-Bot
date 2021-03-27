@@ -111,6 +111,11 @@
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.14.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j-impl</artifactId>
             <version>2.14.0</version>
         </dependency>
@@ -149,31 +154,31 @@
             <artifactId>webp-imageio</artifactId>
             <version>0.1.6</version>
         </dependency>
-        <!-- The client -->
         <dependency>
             <groupId>io.prometheus</groupId>
             <artifactId>simpleclient</artifactId>
             <version>0.10.0</version>
         </dependency>
-        <!-- Hotspot JVM metrics-->
         <dependency>
             <groupId>io.prometheus</groupId>
             <artifactId>simpleclient_hotspot</artifactId>
             <version>0.10.0</version>
         </dependency>
-        <!-- Exposition HTTPServer-->
+        <dependency>
+            <groupId>io.prometheus</groupId>
+            <artifactId>simpleclient_log4j2</artifactId>
+            <version>0.10.0</version>
+        </dependency>
         <dependency>
             <groupId>io.prometheus</groupId>
             <artifactId>simpleclient_httpserver</artifactId>
             <version>0.10.0</version>
         </dependency>
-        <!-- Pushgateway exposition-->
         <dependency>
             <groupId>io.prometheus</groupId>
             <artifactId>simpleclient_pushgateway</artifactId>
             <version>0.10.0</version>
         </dependency>
-        <!-- Common dependencies-->
         <dependency>
             <groupId>com.twelvemonkeys.common</groupId>
             <artifactId>common-lang</artifactId>
@@ -189,7 +194,6 @@
             <artifactId>common-image</artifactId>
             <version>3.6.4</version>
         </dependency>
-        <!-- ImageIO common dependencies -->
         <dependency>
             <groupId>com.twelvemonkeys.imageio</groupId>
             <artifactId>imageio-core</artifactId>
@@ -205,7 +209,6 @@
             <artifactId>imageio-clippath</artifactId>
             <version>3.6.4</version>
         </dependency>
-        <!-- ImageIO plugins -->
         <dependency>
             <groupId>com.twelvemonkeys.imageio</groupId>
             <artifactId>imageio-bmp</artifactId>
@@ -274,11 +277,6 @@
         <dependency>
             <groupId>com.twelvemonkeys.imageio</groupId>
             <artifactId>imageio-tiff</artifactId>
-            <version>3.6.4</version>
-        </dependency>
-        <dependency>
-            <groupId>com.twelvemonkeys.imageio</groupId>
-            <artifactId>imageio-batik</artifactId>
             <version>3.6.4</version>
         </dependency>
         <dependency>

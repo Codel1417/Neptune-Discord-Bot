@@ -17,6 +17,12 @@ public class ocr implements ICommand {
     String tessdata = "dependencies" + File.separator + "tessdata";
     CommandHelpers helpers = new CommandHelpers();
 
+    public ocr(){
+        File tessCheck = new File(tessdata);
+        if (!tessCheck.exists()){
+            log.fatal("Tessdata not found");
+        }
+    }
     @Override
     public void run(
             GuildMessageReceivedEvent event, String messageContent) {
@@ -33,6 +39,7 @@ public class ocr implements ICommand {
                 g.drawImage(img, 0, 0, null);
                 g.dispose();
 
+                // if this file does not exist java will crash
                 tesseract.setDatapath(tessdata);
                 String text = tesseract.doOCR(greyImage);
                 event.getChannel().sendMessage(text).queue();

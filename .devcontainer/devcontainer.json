@@ -22,5 +22,9 @@
 		"redhat.vscode-xml",
 		"eamodio.gitlens"
 	],
-	}
+	},
+	"extensions": [
+		"vscjava.vscode-java-debug",
+		"vscjava.vscode-java-pack"
+	]
 }
