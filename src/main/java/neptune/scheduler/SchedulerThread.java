@@ -1,43 +1,43 @@
 package neptune.scheduler;
 
-import java.util.ArrayList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.events.ReadyEvent;
+import neptune.scheduler.entry.AbstractEntry;
+import neptune.scheduler.entry.IAction;
 
 public class SchedulerThread implements Runnable {
     JDA jda;
-    ArrayList<entry> entries = new ArrayList<entry>();
     protected static final Logger log = LogManager.getLogger();
 
-    public SchedulerThread(JDA jda) {
-        this.jda = jda;
+    protected SchedulerThread(ReadyEvent event) {
+        this.jda = event.getJDA();
     }
 
     @Override
     public void run() {
-        Long nextRunTime = System.currentTimeMillis();
-
         while (true){
             long currenttime = System.currentTimeMillis();
-            if (currenttime >= nextRunTime){
-                for(entry currentEntry: entries){
-                    if (currenttime > currentEntry.taskRunTimeMS){
-                        log.debug("Running Task: " + currentEntry.taskType.toString());
-                        currentEntry.runTask();
-                        currentEntry.runTimes--;
-                        if (currentEntry.runTimes < 1){
-                            entries.remove(currentEntry);
-                        }
-                        else{
-                            //calculate next runtime
-                        }
+            for(IAction currentEntry: ScheduledTaskStorage.getInstance().getEntries()){
+                //CAST ALL OF THE THINGS
+                if (currenttime > ((AbstractEntry) currentEntry).getTaskRunTimeMS()){
+                    currentEntry.runTask();
+                    ((AbstractEntry) currentEntry).setRunTimes(((AbstractEntry) currentEntry).getRunTimes() - 1);
+                    if (((AbstractEntry) currentEntry).getRunTimes() < 1){
+                        ScheduledTaskStorage.getInstance().removeEntry(currentEntry);
+                    }
+                    else{
+                        ((AbstractEntry) currentEntry).setLastRunTimeMS(currenttime);
+                        ((AbstractEntry) currentEntry).setTaskRunTimeMS(currenttime + ((AbstractEntry) currentEntry).getTaskDelayTimeMS());
                     }
                 }
-                nextRunTime = currenttime + 30000;
+            }
+            try {
+                Thread.sleep(60000);
+            } catch (InterruptedException e) {
+                log.error(e);
             }
         }
     }
-
-
 }

@@ -2,12 +2,11 @@ package neptune;
 
 import neptune.commands.PassiveCommands.Listener;
 import neptune.prometheus.promListener;
+import neptune.scheduler.SchedulerListener;
 import neptune.storage.commandLineOptionsSingleton;
-import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.GatewayIntent;
-import net.dv8tion.jda.api.sharding.DefaultShardManager;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
@@ -30,7 +29,7 @@ public class Main extends ListenerAdapter {
         WebhookClientBuilder builder = new WebhookClientBuilder("https://discord.com/api/webhooks/824934905137987604/ENvcx0LdZrAqIafi306vVfFG9T8rE5djOH07ouKZcOZ1zbiXS3mj78S2734KihP2SGCA");
         builder.setThreadFactory((job) -> {
             Thread thread = new Thread(job);
-            thread.setName("Neptune Status");
+            thread.setName("Neptune Status Webhook");
             thread.setDaemon(true);
             return thread;
         });
@@ -62,9 +61,9 @@ public class Main extends ListenerAdapter {
                             GatewayIntent.GUILD_VOICE_STATES,
                             GatewayIntent.DIRECT_MESSAGES,
                             GatewayIntent.GUILD_MEMBERS)
-                    .addEventListeners(new Listener(), new promListener())
+                    .addEventListeners(new Listener(), new promListener(), new SchedulerListener())
                     .setActivity(Activity.listening("Nep Nep Nep Nep Nep"))
-                    .setMemberCachePolicy(MemberCachePolicy.ALL)
+                    .setMemberCachePolicy(MemberCachePolicy.ALL)    
                     .disableCache(CacheFlag.ACTIVITY, CacheFlag.EMOTE, CacheFlag.CLIENT_STATUS)
                     .build();
         } catch (LoginException e) {
