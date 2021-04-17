@@ -1,6 +1,5 @@
 package neptune.commands;
 
-import org.apache.commons.cli.MissingArgumentException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import net.dv8tion.jda.api.Permission;

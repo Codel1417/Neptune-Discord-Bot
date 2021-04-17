@@ -5,7 +5,6 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 
-import neptune.storage.Enum.GuildOptionsEnum;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,6 +20,7 @@ public class GuildStorageHandler {
     private static volatile GuildStorageHandler _instance;
 
     private GuildStorageHandler() {
+        new File(guildsDir).getParentFile().mkdirs(); // makes required folders
         cacheMetrics.addCache("GuildFilesCache", cache);
     }
     CacheMetricsCollector cacheMetrics = new CacheMetricsCollector().register();
@@ -59,27 +59,10 @@ public class GuildStorageHandler {
     }
 
     public void writeFile(guildObject guildEntity) throws IOException {
-
         File file = new File(guildsDir + File.separator + guildEntity.getGuildID() + ".yaml");
-        file.getParentFile().mkdirs(); // makes required folders
         ObjectMapper om = new ObjectMapper(new YAMLFactory());
         log.debug("Writing File: " + file.getAbsolutePath());
         om.writeValue(file, guildEntity);
         cache.put(guildEntity.getGuildID(), guildEntity);
-    }
-
-    public void deserializationTest() {
-        GuildStorageHandler guildStorageHandler = new GuildStorageHandler();
-        guildObject guildObject = new guildObject("12345");
-        guildObject.getGuildOptions().setOption(GuildOptionsEnum.LoggingEnabled, true);
-        guildObject guildObjecta;
-        try {
-            guildStorageHandler.writeFile(guildObject);
-            guildObjecta = guildStorageHandler.readFile("12345");
-            System.out.println(
-                    guildObjecta.getGuildOptions().getOption(GuildOptionsEnum.LoggingEnabled));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }

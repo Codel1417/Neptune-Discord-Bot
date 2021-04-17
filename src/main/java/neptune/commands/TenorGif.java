@@ -5,8 +5,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
 
-import neptune.storage.commandLineOptionsSingleton;
-
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.IMentionable;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
@@ -72,8 +70,7 @@ public abstract class TenorGif {
     }
 
     protected static final Logger log = LogManager.getLogger();
-    private String API_KEY =
-            commandLineOptionsSingleton.getInstance().getOptions().getOptionValue("t");
+    private String API_KEY = System.getenv("NEPTUNE_TENOR_TOKEN");
 
     public String getSingleImage(String SearchTerm) {
         String returnURL;
