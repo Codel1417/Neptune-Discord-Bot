@@ -2,7 +2,6 @@ package neptune.commands.audio;
 
 import neptune.commands.ICommand;
 import neptune.commands.RandomMediaPicker;
-import neptune.storage.VariablesStorage;
 
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
@@ -13,10 +12,9 @@ public class Awoo implements ICommand {
     public void run(
             GuildMessageReceivedEvent event, String messageContent) {
         RandomMediaPicker randomMediaPicker = new RandomMediaPicker();
-        VariablesStorage variablesStorage = new VariablesStorage();
         randomMediaPicker.sendMedia(
                 new File(
-                        variablesStorage.getMediaFolder()
+                        "Media"
                                 + File.separator
                                 + "Custom"
                                 + File.separator

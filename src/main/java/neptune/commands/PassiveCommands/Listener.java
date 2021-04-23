@@ -9,9 +9,7 @@ import neptune.storage.Enum.LoggingOptionsEnum;
 import neptune.storage.Guild.GuildStorageHandler;
 import neptune.storage.Guild.guildObject;
 import neptune.storage.Guild.guildObject.logOptionsObject;
-import neptune.storage.VariablesStorage;
 import neptune.storage.logsStorageHandler;
-
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.GenericEvent;
 import net.dv8tion.jda.api.events.ReadyEvent;
@@ -27,13 +25,11 @@ import net.dv8tion.jda.api.events.guild.voice.GuildVoiceUpdateEvent;
 import net.dv8tion.jda.api.events.message.guild.GenericGuildMessageEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.EventListener;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
-
 import javax.annotation.Nonnull;
 
 // intercepts discord messages
@@ -79,7 +75,6 @@ public class Listener implements EventListener {
             } catch (IOException e) {
                 log.error(e);
             }
-            //TODO: Async deletion io
             // Clear stored logs when text channel is deleted
             if (event instanceof TextChannelDeleteEvent) {
                 logStorage.deleteChannel(
@@ -164,10 +159,9 @@ public class Listener implements EventListener {
                 result = nepCommands.run(event, guildEntity);
                 // run command
                 if (multiPrefix) {
-                    VariablesStorage variablesStorage = new VariablesStorage();
                     randomMediaPicker.sendMedia(
                             new File(
-                                    variablesStorage.getMediaFolder()
+                                    "Media"
                                             + File.separator
                                             + "Custom"
                                             + File.separator

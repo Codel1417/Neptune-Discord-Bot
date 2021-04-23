@@ -32,7 +32,6 @@ public class moreJpeg implements ICommand {
                 // set jpeg compression
                 JPEGImageWriteParam jpegParams = new JPEGImageWriteParam(null);
                 jpegParams.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-                //TODO? - allow user to set compression quality? How bad can we make this?
                 jpegParams.setCompressionQuality(0.0001f);
                 // strip alpha channel
                 BufferedImage result =

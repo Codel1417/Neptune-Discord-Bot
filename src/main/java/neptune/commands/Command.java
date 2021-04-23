@@ -8,7 +8,6 @@ public class Command implements Comparable<Command> {
     private commandCategories category;
     private Permission[] requiredPermissions;
     private ICommand commandInterface;
-    private Command(){}
     protected Command(String command, String name, String description,String help, Permission[] requiredPermissions, ICommand commandInterface, commandCategories category){
         this.requiredPermissions = requiredPermissions;
         this.command = command;

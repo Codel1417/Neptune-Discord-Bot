@@ -8,7 +8,7 @@ import neptune.scheduler.entry.AbstractEntry;
 import neptune.scheduler.entry.IAction;
 
 public class SchedulerThread implements Runnable {
-    JDA jda;
+    private JDA jda;
     protected static final Logger log = LogManager.getLogger();
 
     protected SchedulerThread(ReadyEvent event) {

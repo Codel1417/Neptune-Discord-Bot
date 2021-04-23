@@ -10,7 +10,7 @@ import net.dv8tion.jda.api.hooks.EventListener;
 
 public class SchedulerListener implements EventListener {
     protected static final Logger log = LogManager.getLogger();
-    boolean threadCreated = false;
+    private boolean threadCreated = false;
     @Override
     public void onEvent(@Nonnull GenericEvent event) {
         if (event instanceof ReadyEvent && !threadCreated) {

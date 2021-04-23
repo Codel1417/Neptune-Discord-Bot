@@ -13,14 +13,11 @@ import java.io.File;
 import java.util.*;
 
 public class Say implements ICommand {
-    File folder;
+    File folder = new File("Media" + File.separator + "say");
     private AudioController AudioOut;
     private File[] listOfFiles;
     private HashMap<String, Long> rateLimitMap = new HashMap<>();
 
-    public Say(File folder) {
-        this.folder = folder;
-    }
     @Override
     public void run(
             GuildMessageReceivedEvent event, String messageContent) {

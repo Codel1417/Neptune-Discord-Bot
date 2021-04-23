@@ -27,7 +27,7 @@ public class promListener implements EventListener{
                 log.error(e1);
         }
     }
-    boolean threadCreated = false;
+    private boolean threadCreated = false;
     @Override
     public void onEvent(@Nonnull GenericEvent event) {
         REQUESTS.inc();

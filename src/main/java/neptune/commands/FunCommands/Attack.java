@@ -2,7 +2,6 @@ package neptune.commands.FunCommands;
 
 import neptune.commands.ICommand;
 import neptune.commands.RandomMediaPicker;
-import neptune.storage.VariablesStorage;
 
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
@@ -15,7 +14,6 @@ public class Attack implements ICommand {
     @Override
     public void run(
             GuildMessageReceivedEvent event, String messageContent) {
-        VariablesStorage variablesStorage = new VariablesStorage();
         Random random = new Random();
         StringBuilder stringBuilder = new StringBuilder();
         RandomMediaPicker randomMediaPicker = new RandomMediaPicker();
@@ -30,7 +28,7 @@ public class Attack implements ICommand {
         event.getChannel().sendMessage(stringBuilder).queue();
 
         randomMediaPicker.sendMedia(
-                new File(variablesStorage.getMediaFolder() + File.separator + "Attack"),
+                new File("Media" + File.separator + "Attack"),
                 event,
                 false,
                 true);

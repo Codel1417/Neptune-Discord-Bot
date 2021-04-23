@@ -9,19 +9,13 @@ import neptune.commands.ImageCommands.Tenor.*;
 import neptune.commands.UtilityCommands.*;
 import neptune.commands.audio.*;
 import neptune.storage.Guild.guildObject;
-import neptune.storage.VariablesStorage;
 
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.awt.*;
-import java.io.File;
 import java.util.ArrayList;
-
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -31,11 +25,10 @@ public class CommandHandler extends CommandHelpers {
     private ArrayList<Command> commands = new ArrayList<>();
     ExecutorService executor = Executors.newCachedThreadPool();
     public CommandHandler() {
-        VariablesStorage variablesStorage = new VariablesStorage();
         // Add all commands;
         try{
             commands.add(new commandBuilder().setCommand("Nep").setCategory(commandCategories.Fun).setRun(new Nep()).build());
-            commands.add(new commandBuilder().setCommand("Say").setCategory(commandCategories.Audio).setRun(new Say(new File(variablesStorage.getMediaFolder() + File.separator + "say"))).build());
+            commands.add(new commandBuilder().setCommand("Say").setCategory(commandCategories.Audio).setRun(new Say()).build());
             commands.add(new commandBuilder().setCommand("Translate").setCategory(commandCategories.Fun).setRun(new Translate()).setDescription("Translate anything into Nepenese.").build());
             commands.add(new commandBuilder().setCommand("Options").setCategory(commandCategories.Admin).setRequiredPermissions(new Permission[]{Permission.MANAGE_SERVER}).setRun(new AdminOptions()).build());
             commands.add(new commandBuilder().setCommand("About").setCategory(commandCategories.General).setRun(new About()).build());
@@ -126,10 +119,7 @@ public class CommandHandler extends CommandHelpers {
     }
 
     private void permissionException(GuildMessageReceivedEvent event) {
-        EmbedBuilder embedBuilder = new EmbedBuilder();
-        embedBuilder.setColor(Color.RED);
-        embedBuilder.setDescription("You Lack the Required permission to do that!");
-        event.getChannel().sendMessage(embedBuilder.build()).queue();
+        event.getChannel().sendMessage("You Lack the Required permission to do that!").queue();
     }
 
     /*

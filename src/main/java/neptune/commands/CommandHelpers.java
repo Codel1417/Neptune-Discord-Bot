@@ -14,7 +14,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Comparator;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -142,7 +141,7 @@ public class CommandHelpers {
 
     public static void deleteDirectory(File directoryToBeDeleted) throws IOException {
         Files.walk(directoryToBeDeleted.toPath())
-                .sorted(Comparator.reverseOrder())
+                .parallel()
                 .map(Path::toFile)
                 .forEach(File::delete);
     }

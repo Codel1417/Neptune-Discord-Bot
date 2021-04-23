@@ -8,25 +8,25 @@ import net.dv8tion.jda.api.entities.VoiceChannel;
 //Every scheduled event will use this class.
 public abstract class AbstractEntry {
     // Time the task should be run
-    long taskRunTimeMS;
+    private long taskRunTimeMS;
     // if the task repeats, count it
-    int runTimes = 0;
+    private int runTimes = 0;
     // limit how many times the task is run;
-    int repeat = 1;
+    private int repeat = 1;
     // Delay between tasks
-    long taskDelayTimeMS;
-    long lastRunTimeMS;
-    Member taskInitiatorMember; // null for system/internal, used for logging/auditing
-    Member taskTargetMember;
+    private long taskDelayTimeMS;
+    private long lastRunTimeMS;
+    private Member taskInitiatorMember; // null for system/internal, used for logging/auditing
+    private Member taskTargetMember;
     // For tasks that affect roles, track it;
-    Role[] rolesAdded;
-    Role[] rolesRemoved;
-    Guild guild; // target guild
+    private Role[] rolesAdded;
+    private Role[] rolesRemoved;
+    private Guild guild; // target guild
     // For tasks that require a voice channel, ex: defean timeout
-    VoiceChannel currentVoiceChannel;
+    private VoiceChannel currentVoiceChannel;
     // Should the entry be stored and be persistent across reboots
     // tasks that effect roles should be persistent
-    boolean persistent = false;
+    private boolean persistent = false;
     public long getTaskRunTimeMS() {
         return taskRunTimeMS;
     }
