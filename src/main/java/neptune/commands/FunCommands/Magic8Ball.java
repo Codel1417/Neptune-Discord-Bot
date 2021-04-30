@@ -1,13 +1,13 @@
 package neptune.commands.FunCommands;
 
 import neptune.commands.ICommand;
-import neptune.commands.CommandHelpers;
+import neptune.commands.Helpers;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import java.awt.*;
 import java.util.Random;
 
-public class Magic8Ball extends CommandHelpers implements ICommand {
+public class Magic8Ball extends Helpers implements ICommand {
     final String[] Responses = {
         "It is certain.",
         "It is decidedly so.",

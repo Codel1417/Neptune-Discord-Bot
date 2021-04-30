@@ -1,6 +1,6 @@
 package neptune.commands;
 
-public enum commandCategories {
+public enum CategoriesEnum {
     General,
     Admin,
     Fun,

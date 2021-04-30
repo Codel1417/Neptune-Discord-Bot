@@ -18,7 +18,7 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
-public class CommandHelpers {
+public class Helpers {
     private static final Logger log = LogManager.getLogger();
 
     public String[] getCommandName(String MessageContent) {

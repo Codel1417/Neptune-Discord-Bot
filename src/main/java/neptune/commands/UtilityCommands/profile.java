@@ -1,7 +1,7 @@
 package neptune.commands.UtilityCommands;
 
 import neptune.commands.ICommand;
-import neptune.commands.CommandHelpers;
+import neptune.commands.Helpers;
 import neptune.storage.Enum.GuildOptionsEnum;
 import neptune.storage.Guild.GuildStorageHandler;
 import neptune.storage.Guild.guildObject;
@@ -16,7 +16,7 @@ import java.util.TimeZone;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 public class profile implements ICommand {
-    CommandHelpers helpers = new CommandHelpers();
+    Helpers helpers = new Helpers();
     protected static final Logger log = LogManager.getLogger();
     @Override
     public void run(

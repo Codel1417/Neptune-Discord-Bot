@@ -20,12 +20,10 @@ USER 1000:1000
 
 #switch with wget/curl and download a release?
 RUN git clone --depth 1 --no-checkout https://github.com/tesseract-ocr/tessdata_fast dependencies/tessdata
-
-
 COPY --chown=1000:1000 --from=buildNep /nep/Neptune-Discord-Bot/target/Neptune_Discord_Bot-1.0-SNAPSHOT.jar .
 VOLUME /nep/Guilds
 VOLUME /nep/Logs
 VOLUME /nep/Media
-ENV botToken=null
-ENV tenorToken=null
-CMD java -jar Neptune_Discord_Bot-1.0-SNAPSHOT.jar -d $botToken -t $tenorToken
+ENV NEPTUNE_TOKEN=null
+ENV NEPTUNE_TENOR_TOKEN=null
+CMD java -jar Neptune_Discord_Bot-1.0-SNAPSHOT.jar

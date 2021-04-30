@@ -1,7 +1,7 @@
 package neptune.commands.ImageCommands;
 
 import neptune.commands.ICommand;
-import neptune.commands.CommandHelpers;
+import neptune.commands.Helpers;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,7 +19,7 @@ import javax.imageio.stream.MemoryCacheImageOutputStream;
 
 public class moreJpeg implements ICommand {
     protected static final Logger log = LogManager.getLogger();
-    CommandHelpers helpers = new CommandHelpers();
+    Helpers helpers = new Helpers();
 
     @Override
     public void run(

@@ -2,11 +2,13 @@ package neptune.commands;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import neptune.exceptions.MissingArgumentException;
 import net.dv8tion.jda.api.Permission;
 
 public class commandBuilder {
     private String command, name, description, help;
-    private commandCategories category;
+    private CategoriesEnum category;
     private Permission[] requiredPermissions;
     private ICommand commandInterface;
     protected static final Logger log = LogManager.getLogger();
@@ -35,7 +37,7 @@ public class commandBuilder {
         this.commandInterface = commandRun;
         return this;
     }
-    public commandBuilder setCategory(commandCategories category){
+    public commandBuilder setCategory(CategoriesEnum category){
         this.category = category;
         return this;
     }

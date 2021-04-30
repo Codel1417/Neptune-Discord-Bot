@@ -2,6 +2,7 @@
 
 # [Choice] Java version: 11, 15
 ARG VARIANT="15"
+
 FROM openjdk:11-jdk-sid
 RUN export DEBIAN_FRONTEND=noninteractive \
     && apt update \

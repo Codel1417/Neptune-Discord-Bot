@@ -153,26 +153,12 @@ public class Listener implements EventListener {
         boolean result = false;
         // check if the bot was called in chat
         try {
-            boolean multiPrefix =
-                    guildEntity.getGuildOptions().getOption(GuildOptionsEnum.customSounds);
-            if (isBotCalled(event.getMessage(), multiPrefix)) {
-                result = nepCommands.run(event, guildEntity);
-                // run command
-                if (multiPrefix) {
-                    randomMediaPicker.sendMedia(
-                            new File(
-                                    "Media"
-                                            + File.separator
-                                            + "Custom"
-                                            + File.separator
-                                            + event.getMessage()
-                                                    .getContentRaw()
-                                                    .replace("=", "")
-                                                    .replace("./", "")),
-                            event,
-                            true,
-                            true);
-                }
+            boolean multiPrefix = guildEntity.getGuildOptions().getOption(GuildOptionsEnum.customSounds);
+            if (isBotCalled(event.getMessage(), false)){
+                nepCommands.run(event);
+            }
+            else if (isBotCalled(event.getMessage(), multiPrefix)) {
+                randomMediaPicker.sendMedia(new File("Media" + File.separator + "Custom" + File.separator  + event.getMessage().getContentRaw().replace("=", "").replace("./", "")),event,true,true);
             }
             // return if bot was not called
         } catch (Exception e) {

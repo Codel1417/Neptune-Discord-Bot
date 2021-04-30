@@ -1,7 +1,7 @@
 package neptune.commands.AdminCommands;
 
 import neptune.commands.ICommand;
-import neptune.commands.CommandHelpers;
+import neptune.commands.Helpers;
 import neptune.storage.Enum.LoggingOptionsEnum;
 import neptune.storage.Guild.GuildStorageHandler;
 import neptune.storage.Guild.guildObject;
@@ -12,7 +12,7 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import java.awt.*;
 import java.io.IOException;
 
-public class Logging extends CommandHelpers implements ICommand {
+public class Logging extends Helpers implements ICommand {
 	protected static final Logger log = LogManager.getLogger();
     @Override
     public void run(GuildMessageReceivedEvent event, String messageContent) {

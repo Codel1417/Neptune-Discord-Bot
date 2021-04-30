@@ -1,7 +1,7 @@
 package neptune.commands.ImageCommands;
 
 import neptune.commands.ICommand;
-import neptune.commands.CommandHelpers;
+import neptune.commands.Helpers;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.sourceforge.tess4j.Tesseract;
 import org.apache.logging.log4j.LogManager;
@@ -15,7 +15,7 @@ import javax.imageio.ImageIO;
 public class ocr implements ICommand {
     protected static final Logger log = LogManager.getLogger();
     String tessdata = "dependencies" + File.separator + "tessdata";
-    CommandHelpers helpers = new CommandHelpers();
+    Helpers helpers = new Helpers();
 
     public ocr(){
         File tessCheck = new File(tessdata);

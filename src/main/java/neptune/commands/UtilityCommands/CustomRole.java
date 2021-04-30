@@ -1,7 +1,7 @@
 package neptune.commands.UtilityCommands;
 
 import neptune.commands.ICommand;
-import neptune.commands.CommandHelpers;
+import neptune.commands.Helpers;
 import neptune.storage.Enum.GuildOptionsEnum;
 import neptune.storage.Guild.GuildStorageHandler;
 import neptune.storage.Guild.guildObject;
@@ -15,7 +15,7 @@ import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 import java.awt.Color;
 import java.io.IOException;
 
-public class CustomRole extends CommandHelpers implements ICommand {
+public class CustomRole extends Helpers implements ICommand {
     protected static final Logger log = LogManager.getLogger();
 
     @Override

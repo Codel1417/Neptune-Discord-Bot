@@ -2,7 +2,7 @@
 	"name": "Java",
 	"build": {
 		"dockerfile": "Dockerfile",
-
+	},
 	// Set *default* container specific settings.json values on container create.
 	"settings": { 
 		"terminal.integrated.shell.linux": "/bin/bash"
@@ -20,11 +20,13 @@
 		"vscjava.vscode-maven",
 		"redhat.vscode-yaml",
 		"redhat.vscode-xml",
-		"eamodio.gitlens"
-	],
-	},
-	"extensions": [
+		"eamodio.gitlens",
 		"vscjava.vscode-java-debug",
 		"vscjava.vscode-java-pack"
-	]
+	],
+	"portsAttributes": {
+		"1234": {
+			"label": "Prometheus"
+		}
+	}
 }

@@ -5,10 +5,10 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 public class Command implements Comparable<Command> {
     private String command, name, description, help;
-    private commandCategories category;
+    private CategoriesEnum category;
     private Permission[] requiredPermissions;
     private ICommand commandInterface;
-    protected Command(String command, String name, String description,String help, Permission[] requiredPermissions, ICommand commandInterface, commandCategories category){
+    protected Command(String command, String name, String description,String help, Permission[] requiredPermissions, ICommand commandInterface, CategoriesEnum category){
         this.requiredPermissions = requiredPermissions;
         this.command = command;
         this.name = name;
@@ -29,7 +29,7 @@ public class Command implements Comparable<Command> {
     public String getHelp() {
         return help;
     }
-    public commandCategories getCategory() {
+    public CategoriesEnum getCategory() {
         return category;
     }
     public Permission[] getRequiredPermissions() {
