@@ -1,6 +1,5 @@
 FROM  maven:3.6.1-jdk-11-slim AS buildNep
 
-USER 1000:1000
 COPY --chown=1000:1000 . /nep/Neptune-Discord-Bot
 WORKDIR /nep/Neptune-Discord-Bot
 RUN mvn package
@@ -16,7 +15,6 @@ RUN echo "deb http://http.us.debian.org/debian unstable main non-free contrib" >
 
 WORKDIR /nep/
 RUN chown -R 1000:1000 .
-USER 1000:1000
 
 RUN git clone https://github.com/tesseract-ocr/tessdata_best /tessdata
 COPY --chown=1000:1000 --from=buildNep /nep/Neptune-Discord-Bot/target/Neptune_Discord_Bot-1.0-SNAPSHOT.jar .
