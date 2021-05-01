@@ -31,7 +31,7 @@ public class status implements ICommand {
                 LoggingChannel = "";
             }
     
-            embedBuilder.addField("Logging Status",helpers.getEnabledDisabledIconText(guildentity.getLogOptions().getOption(LoggingOptionsEnum.GlobalLogging)),true);
+            embedBuilder.addField("Global Logging Status",helpers.getEnabledDisabledIconText(guildentity.getLogOptions().getOption(LoggingOptionsEnum.GlobalLogging)),true);
             if (!LoggingChannel.equalsIgnoreCase("")) {
                 embedBuilder.addField(
                         "Channel",
@@ -44,6 +44,7 @@ public class status implements ICommand {
             logOptionsMessage.append("Voice Activity").append(helpers.getEnabledDisabledIcon(guildentity.getLogOptions().getOption(LoggingOptionsEnum.VoiceChannelLogging))).append("\n");
             logOptionsMessage.append("Member Activity").append(helpers.getEnabledDisabledIcon(guildentity.getLogOptions().getOption(LoggingOptionsEnum.MemberActivityLogging))).append("\n");
             logOptionsMessage.append("Server Changes ").append(helpers.getEnabledDisabledIcon(guildentity.getLogOptions().getOption(LoggingOptionsEnum.ServerModificationLogging))).append("\n");
+            embedBuilder.addField("Settings", logOptionsMessage.toString(),false);
             event.getChannel().sendMessage(embedBuilder.build()).queue();
         } catch (IOException e) {
             log.error(e);

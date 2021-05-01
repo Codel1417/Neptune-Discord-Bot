@@ -6,7 +6,7 @@ import neptune.commands.AdminCommands.LoggingOptions.disableJoinLeaveLogging;
 import neptune.commands.AdminCommands.LoggingOptions.disableLogging;
 import neptune.commands.AdminCommands.LoggingOptions.enableJoinLeaveLogging;
 import neptune.commands.AdminCommands.LoggingOptions.enableLogging;
-import neptune.commands.AdminCommands.Options.status;
+import neptune.commands.AdminCommands.LoggingOptions.status;
 import neptune.exceptions.MissingArgumentException;
 import neptune.commands.CategoriesEnum;
 import neptune.commands.CommandRegistry;

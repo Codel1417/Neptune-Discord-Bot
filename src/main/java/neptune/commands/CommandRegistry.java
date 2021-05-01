@@ -19,6 +19,7 @@ public class CommandRegistry {
     public CommandRegistry(String prefix) {
         //The complete prefix before the command
         this.prefix = prefix;
+        executor.prestartAllCoreThreads();
     }
     public void registerCommand(Command command){
         if (!hasCommand(command)) {

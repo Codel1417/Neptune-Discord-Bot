@@ -16,19 +16,19 @@ import java.util.concurrent.TimeUnit;
 
 public class GuildStorageHandler {
     protected static final Logger log = LogManager.getLogger();
-    String guildsDir = "Guilds";
+    private String guildsDir = "Guilds";
     private static volatile GuildStorageHandler _instance;
-
-    private GuildStorageHandler() {
-        new File(guildsDir).getParentFile().mkdirs(); // makes required folders
-        cacheMetrics.addCache("GuildFilesCache", cache);
-    }
     CacheMetricsCollector cacheMetrics = new CacheMetricsCollector().register();
     Cache<String, guildObject> cache = Caffeine.newBuilder()
         .expireAfterWrite(10, TimeUnit.MINUTES)
         .maximumSize(10_000)
         .recordStats()
         .build();
+    private GuildStorageHandler() {
+        new File(guildsDir).mkdirs(); // makes required folders
+        cacheMetrics.addCache("GuildFilesCache", cache);
+    }
+   
     public static synchronized GuildStorageHandler getInstance() {
         if (_instance == null) {
             synchronized (GuildStorageHandler.class) {

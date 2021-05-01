@@ -71,7 +71,7 @@ public abstract class TenorGif {
 
     protected static final Logger log = LogManager.getLogger();
     private String API_KEY = System.getenv("NEPTUNE_TENOR_TOKEN");
-
+    
     public String getSingleImage(String SearchTerm) {
         String returnURL;
         SearchTerm = SearchTerm.replaceAll(" ", "-");

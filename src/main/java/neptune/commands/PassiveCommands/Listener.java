@@ -56,9 +56,7 @@ public class Listener implements EventListener {
         if (event instanceof GenericGuildEvent) {
             guildObject guildEntity = null;
             try {
-                guildEntity =
-                        GuildStorageHandler.getInstance().readFile(
-                                ((GenericGuildEvent) event).getGuild().getId());
+                guildEntity = GuildStorageHandler.getInstance().readFile(((GenericGuildEvent) event).getGuild().getId());
             } catch (Exception e) {
                 log.error(e);
                 return;
