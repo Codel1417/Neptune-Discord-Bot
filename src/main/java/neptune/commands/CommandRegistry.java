@@ -55,7 +55,7 @@ public class CommandRegistry {
         event.getChannel().sendMessage("I'm Sorry " + event.getAuthor().getAsMention()+ ", You Lack the Required permission to do that!").queue();
     }
     private void displayHelp(GuildMessageReceivedEvent event) {
-        EmbedBuilder embedBuilder = new EmbedBuilder().setTitle( prefix + " Help").setColor(Color.MAGENTA);
+        EmbedBuilder embedBuilder = new EmbedBuilder().setTitle( prefix + ": Available Commands").setColor(Color.MAGENTA);
         Map<String, StringBuilder> CommandsSortedCategory = new TreeMap<>();
         for (Command command : commands.values()) {
                 if (!CommandsSortedCategory.containsKey(command.getCategory().name())) {
@@ -71,11 +71,6 @@ public class CommandRegistry {
         }
         event.getChannel().sendMessage(embedBuilder.build()).queue();
     }
-
-
-
-
-
 
     public class commandExecutor implements Runnable {
         private GuildMessageReceivedEvent event;
