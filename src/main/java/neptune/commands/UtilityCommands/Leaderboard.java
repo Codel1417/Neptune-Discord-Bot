@@ -1,8 +1,7 @@
 package neptune.commands.UtilityCommands;
 
-import neptune.commands.CommandInterface;
-import neptune.commands.commandCategories;
-import neptune.storage.Guild.guildObject;
+import neptune.commands.ICommand;
+import neptune.storage.Guild.GuildStorageHandler;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
@@ -12,61 +11,21 @@ import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class Leaderboard implements CommandInterface {
+public class Leaderboard implements ICommand {
     @Override
-    public String getName() {
-        return "Leaderboard";
-    }
-
-    @Override
-    public String getCommand() {
-        return "leaderboard";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Displays the Top 10 users of the server";
-    }
-
-    @Override
-    public commandCategories getCategory() {
-        return commandCategories.Utility;
-    }
-
-    @Override
-    public String getHelp() {
-        return null;
-    }
-
-    @Override
-    public boolean getRequireManageServer() {
-        return false;
-    }
-
-    @Override
-    public boolean getHideCommand() {
-        return false;
-    }
-
-    @Override
-    public boolean getRequireManageUsers() {
-        return false;
-    }
-
-    @Override
-    public guildObject run(
-            GuildMessageReceivedEvent event, String messageContent, guildObject guildEntity) {
+    public void run(
+            GuildMessageReceivedEvent event, String messageContent) {
         StringBuilder stringBuilder = new StringBuilder();
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setColor(Color.MAGENTA);
-        embedBuilder.setTitle(getName());
+        embedBuilder.setTitle("Leaderboards");
         int count = 1;
         Map<String, Integer> results;
         try {
-            results = guildEntity.getLeaderboard().getTopUsers();
+            results = GuildStorageHandler.getInstance().readFile(event.getGuild().getId()).getLeaderboard().getTopUsers();
         } catch (Exception e1) {
             e1.printStackTrace();
-            return guildEntity;
+            return;
         }
 
         // https://howtodoinjava.com/sort/java-sort-map-by-values/
@@ -95,7 +54,6 @@ public class Leaderboard implements CommandInterface {
         }
         embedBuilder.setDescription(stringBuilder.toString());
         event.getChannel().sendMessage(embedBuilder.build()).queue();
-        return guildEntity;
     }
 
     public int calculateRank(int points) {

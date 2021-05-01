@@ -1,98 +1,61 @@
 package neptune.commands.UtilityCommands;
 
-import neptune.commands.CommandInterface;
-import neptune.commands.CommonMethods;
-import neptune.commands.commandCategories;
+import neptune.commands.ICommand;
+import neptune.commands.Helpers;
 import neptune.storage.Enum.GuildOptionsEnum;
+import neptune.storage.Guild.GuildStorageHandler;
 import neptune.storage.Guild.guildObject;
 import neptune.storage.Guild.guildObject.guildOptionsObject;
 import neptune.storage.Guild.guildObject.leaderboardObject;
 import neptune.storage.Guild.guildObject.profileObject;
-
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
-
 import java.awt.Color;
+import java.io.IOException;
 import java.util.TimeZone;
-
-public class profile implements CommandInterface {
-    CommonMethods helpers = new CommonMethods();
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+public class profile implements ICommand {
+    Helpers helpers = new Helpers();
+    protected static final Logger log = LogManager.getLogger();
     @Override
-    public String getName() {
-        return "Profile";
-    }
-
-    @Override
-    public String getCommand() {
-        return "profile";
-    }
-
-    @Override
-    public String getDescription() {
-        return "View and edit your Profile";
-    }
-
-    @Override
-    public commandCategories getCategory() {
-        return commandCategories.General;
-    }
-
-    @Override
-    public String getHelp() {
-        return "Use '!Nep profile help' for a list of commands";
-    }
-
-    @Override
-    public boolean getRequireManageServer() {
-        return false;
-    }
-
-    @Override
-    public boolean getHideCommand() {
-        return false;
-    }
-
-    @Override
-    public boolean getRequireManageUsers() {
-        return false;
-    }
-
-    @Override
-    public guildObject run(
-            GuildMessageReceivedEvent event, String messageContent, guildObject guildEntity) {
-        String[] command = helpers.getCommandName(messageContent);
-        if (command[1].length() == 0) {
-            displayProfile(event, event.getAuthor().getId(), guildEntity);
-            return guildEntity;
+    public void run(
+            GuildMessageReceivedEvent event, String messageContent) {
+        try{
+            String[] command = helpers.getCommandName(messageContent);
+            if (command[1].length() == 0) {
+                displayProfile(event, event.getAuthor().getId(), GuildStorageHandler.getInstance().readFile(event.getGuild().getId()));
+            }
+            switch (command[0].toLowerCase()) {
+                case "language":
+                    {
+                        GuildStorageHandler.getInstance().writeFile(updateLanguage(event, command[1], GuildStorageHandler.getInstance().readFile(event.getGuild().getId())));
+                        break;
+                    }
+                case "bio":
+                    {
+                        GuildStorageHandler.getInstance().writeFile(updateBio(event, command[1], GuildStorageHandler.getInstance().readFile(event.getGuild().getId())));
+                        break;
+                    }
+                case "timezone":
+                    {
+                        GuildStorageHandler.getInstance().writeFile(updateTimezone(event, command[1], GuildStorageHandler.getInstance().readFile(event.getGuild().getId())));
+                        break;
+                    }
+                case "help":
+                    {
+                        displayHelp(event);
+                        break;
+                    }
+                default:
+                    {
+                        displayHelp(event);
+                    }
+            }
         }
-        switch (command[0].toLowerCase()) {
-            case "language":
-                {
-                    guildEntity = updateLanguage(event, command[1], guildEntity);
-                    break;
-                }
-            case "bio":
-                {
-                    guildEntity = updateBio(event, command[1], guildEntity);
-                    break;
-                }
-            case "timezone":
-                {
-                    guildEntity = updateTimezone(event, command[1], guildEntity);
-                    break;
-                }
-            case "help":
-                {
-                    displayHelp(event);
-                    break;
-                }
-            default:
-                {
-                    displayHelp(event);
-                }
+        catch (IOException e){
+            log.error(e);
         }
-        return guildEntity;
     }
 
     public void displayHelp(GuildMessageReceivedEvent event) {

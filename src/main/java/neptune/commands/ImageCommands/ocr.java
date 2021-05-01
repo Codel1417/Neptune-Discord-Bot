@@ -1,91 +1,46 @@
 package neptune.commands.ImageCommands;
 
-import neptune.commands.CommandInterface;
-import neptune.commands.CommonMethods;
-import neptune.commands.commandCategories;
-import neptune.storage.Guild.guildObject;
-
+import neptune.commands.ICommand;
+import neptune.commands.Helpers;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.sourceforge.tess4j.Tesseract;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.URL;
-
 import javax.imageio.ImageIO;
 
-public class ocr implements CommandInterface {
+public class ocr implements ICommand {
     protected static final Logger log = LogManager.getLogger();
-    String tessdata = "dependencies" + File.separator + "tessdata";
-    CommonMethods helpers = new CommonMethods();
+    private String tessdata = File.separator + "tessdata";
+    private Helpers helpers = new Helpers();
+    private Tesseract tesseract = new Tesseract();
 
-    @Override
-    public String getName() {
-        return "Optical Character Recognition";
+    public ocr(){
+        tesseract.setDatapath(tessdata);
+        File tessCheck = new File(tessdata);
+        if (!tessCheck.exists()){
+            log.fatal("Tessdata not found");
+        }
     }
-
     @Override
-    public String getCommand() {
-        return "ocr";
-    }
-
-    @Override
-    public String getDescription() {
-        return null;
-    }
-
-    @Override
-    public commandCategories getCategory() {
-        return commandCategories.Image;
-    }
-
-    @Override
-    public String getHelp() {
-        return null;
-    }
-
-    @Override
-    public boolean getRequireManageServer() {
-        return false;
-    }
-
-    @Override
-    public boolean getHideCommand() {
-        return false;
-    }
-
-    @Override
-    public boolean getRequireManageUsers() {
-        return false;
-    }
-
-    @Override
-    public guildObject run(
-            GuildMessageReceivedEvent event, String messageContent, guildObject guildEntity) {
-        Tesseract tesseract = new Tesseract();
-        tesseract.setOcrEngineMode(1);
+    public void run(GuildMessageReceivedEvent event, String messageContent) {
         try {
             String ImageUrl = helpers.getImageUrl(event);
             if (ImageUrl != null) {
                 BufferedImage img = ImageIO.read(new URL(ImageUrl));
-                BufferedImage greyImage =
-                        new BufferedImage(
-                                img.getWidth(), img.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
+                BufferedImage greyImage = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
                 Graphics g = greyImage.getGraphics();
                 g.drawImage(img, 0, 0, null);
                 g.dispose();
-
-                tesseract.setDatapath(tessdata);
+                // if this file does not exist java will crash
                 String text = tesseract.doOCR(greyImage);
                 event.getChannel().sendMessage(text).queue();
             }
         } catch (Exception e) {
             log.error(e);
         }
-        return guildEntity;
     }
 }

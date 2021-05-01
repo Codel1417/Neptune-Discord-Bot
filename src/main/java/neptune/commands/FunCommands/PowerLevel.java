@@ -1,60 +1,17 @@
 package neptune.commands.FunCommands;
 
-import neptune.commands.CommandInterface;
-import neptune.commands.commandCategories;
-import neptune.storage.Guild.guildObject;
-
+import neptune.commands.ICommand;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
-
 import java.util.List;
 import java.util.Random;
 
-public class PowerLevel implements CommandInterface {
-    @Override
-    public String getName() {
-        return "PowerLevel";
-    }
+public class PowerLevel implements ICommand {
 
     @Override
-    public String getCommand() {
-        return "powerLevel";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Vegeta, What does the scouter say about his power level?";
-    }
-
-    @Override
-    public commandCategories getCategory() {
-        return commandCategories.Fun;
-    }
-
-    @Override
-    public String getHelp() {
-        return "Mention a user to check their power level, or dont.";
-    }
-
-    @Override
-    public boolean getRequireManageServer() {
-        return false;
-    }
-
-    @Override
-    public boolean getHideCommand() {
-        return false;
-    }
-
-    @Override
-    public boolean getRequireManageUsers() {
-        return false;
-    }
-
-    @Override
-    public guildObject run(
-            GuildMessageReceivedEvent event, String messageContent, guildObject guildEntity) {
+    public void run(
+            GuildMessageReceivedEvent event, String messageContent) {
         EmbedBuilder embedBuilder = new EmbedBuilder();
         Random random = new Random();
         int powerlevel = random.nextInt(random.nextInt(9001)) + 1;
@@ -68,7 +25,7 @@ public class PowerLevel implements CommandInterface {
             stringBuilder.append("your power level?");
         }
         embedBuilder.setDescription(stringBuilder);
-        embedBuilder.setTitle(getName());
+        embedBuilder.setTitle("PowerLevel");
         if (powerlevel > 9000) {
             embedBuilder.appendDescription("\nIt's over 9000!");
         } else {
@@ -77,9 +34,6 @@ public class PowerLevel implements CommandInterface {
             embedBuilder.appendDescription(
                     " or, " + String.format(java.util.Locale.US, "%.2f", radiz) + " Raditz");
         }
-
         event.getChannel().sendMessage(embedBuilder.build()).queue();
-
-        return guildEntity;
     }
 }

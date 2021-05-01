@@ -1,9 +1,6 @@
 package neptune.commands.FunCommands;
 
-import neptune.commands.CommandInterface;
-import neptune.commands.commandCategories;
-import neptune.storage.Guild.guildObject;
-
+import neptune.commands.ICommand;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
@@ -11,7 +8,7 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.Random;
 
-public class D10K implements CommandInterface {
+public class D10K implements ICommand {
     HashMap<Integer, String> map = new HashMap<>();
 
     public D10K() {
@@ -27,50 +24,9 @@ public class D10K implements CommandInterface {
         init_8();
         init_9();
     }
-
     @Override
-    public String getName() {
-        return "D10,000 Random Result";
-    }
-
-    @Override
-    public String getCommand() {
-        return "d10k";
-    }
-
-    @Override
-    public String getDescription() {
-        return "D10K Random result from __The Net_Libram_of Random Magical Effects 2.0__";
-    }
-
-    @Override
-    public commandCategories getCategory() {
-        return commandCategories.Fun;
-    }
-
-    @Override
-    public String getHelp() {
-        return getCommand() + " <Number>  to get a specific result";
-    }
-
-    @Override
-    public boolean getRequireManageServer() {
-        return false;
-    }
-
-    @Override
-    public boolean getHideCommand() {
-        return false;
-    }
-
-    @Override
-    public boolean getRequireManageUsers() {
-        return false;
-    }
-
-    @Override
-    public guildObject run(
-            GuildMessageReceivedEvent event, String messageContent, guildObject guildEntity) {
+    public void run(
+            GuildMessageReceivedEvent event, String messageContent) {
         int number = 0;
         EmbedBuilder embedBuilder = new EmbedBuilder();
         Random random = new Random();
@@ -97,7 +53,6 @@ public class D10K implements CommandInterface {
         embedBuilder.setDescription(result);
         embedBuilder.setFooter("Effect #: " + number, null);
         event.getChannel().sendMessage(embedBuilder.build()).queue();
-        return guildEntity;
     }
 
     // When you want github to hate you

@@ -19,7 +19,6 @@ Errors are handled silently in the background as to not spam the chat with usele
 * Translate the previous message into NepNep
 * English to UwU translator
 * Server logging
-* Image Upscaling
 * Even more jpeg
 
 ## Commands

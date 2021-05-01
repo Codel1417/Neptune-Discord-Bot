@@ -1,9 +1,6 @@
 package neptune.commands.UtilityCommands;
 
-import neptune.commands.CommandInterface;
-import neptune.commands.commandCategories;
-import neptune.storage.Guild.guildObject;
-
+import neptune.commands.ICommand;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Role;
@@ -14,50 +11,10 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import java.awt.*;
 import java.time.format.DateTimeFormatter;
 
-public class GuildInfo implements CommandInterface {
+public class GuildInfo implements ICommand {
     @Override
-    public String getName() {
-        return "Guild Info";
-    }
-
-    @Override
-    public String getCommand() {
-        return "guildInfo";
-    }
-
-    @Override
-    public String getDescription() {
-        return "Displays basic server info and channels neptune can view";
-    }
-
-    @Override
-    public commandCategories getCategory() {
-        return commandCategories.Utility;
-    }
-
-    @Override
-    public String getHelp() {
-        return "";
-    }
-
-    @Override
-    public boolean getRequireManageServer() {
-        return false;
-    }
-
-    @Override
-    public boolean getHideCommand() {
-        return false;
-    }
-
-    @Override
-    public boolean getRequireManageUsers() {
-        return false;
-    }
-
-    @Override
-    public guildObject run(
-            GuildMessageReceivedEvent event, String messageContent, guildObject guildentity) {
+    public void run(
+            GuildMessageReceivedEvent event, String messageContent) {
         Guild guild = event.getGuild();
 
         EmbedBuilder embedBuilder = new EmbedBuilder();
@@ -74,7 +31,7 @@ public class GuildInfo implements CommandInterface {
             RoleList.append(role.getName()).append("\n");
         }
 
-        embedBuilder.setTitle(getName());
+        embedBuilder.setTitle("Server Info");
         embedBuilder.setColor(Color.MAGENTA);
         embedBuilder.addField("Server Owner", guild.getOwner().getUser().getName(), true);
         embedBuilder.addField("Server Region", guild.getRegion().toString(), true);
@@ -87,6 +44,5 @@ public class GuildInfo implements CommandInterface {
                 guild.getTimeCreated().format(DateTimeFormatter.ISO_DATE_TIME),
                 true);
         event.getChannel().sendMessage(embedBuilder.build()).queue();
-        return guildentity;
     }
 }
