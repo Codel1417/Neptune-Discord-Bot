@@ -27,10 +27,10 @@ public class Main extends ListenerAdapter {
                 options.setDsn("https://1df2312bbe304c08a69c7ed96347c372@glitchtip.codel1417.xyz/1");
                 options.setEnableUncaughtExceptionHandler(true);
                 options.setAttachStacktrace(true);
-                options.setAttachServerName(true);
                 options.setAttachThreads(true);
                 options.setEnableSessionTracking(true);
                 options.setTracesSampleRate(1.0);
+                options.setDebug(true);
             });
         }
         catch(Exception e) {
