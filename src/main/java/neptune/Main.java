@@ -15,6 +15,9 @@ import org.apache.logging.log4j.Logger;
 import club.minnced.discord.webhook.WebhookClient;
 import club.minnced.discord.webhook.WebhookClientBuilder;
 import io.sentry.Sentry;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLSession;
 import javax.security.auth.login.LoginException;
 
 public class Main extends ListenerAdapter {
@@ -30,6 +33,13 @@ public class Main extends ListenerAdapter {
                 options.setEnableSessionTracking(true);
                 options.setTracesSampleRate(1.0);
                 options.setDebug(true);
+                options.setEnableDeduplication(false);
+                options.setHostnameVerifier(new HostnameVerifier(){
+                    @Override
+                    public boolean verify(String arg0, SSLSession arg1) {
+                        return true;
+                    }
+                });
             });
         }
         catch(Exception e) {
