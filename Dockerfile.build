@@ -30,6 +30,5 @@ EXPOSE 1233
 
 ENV NEPTUNE_TOKEN=null
 ENV NEPTUNE_TENOR_TOKEN=null
-ENV NEPTUNE_TESSDATA=/nep/tessdata
 
 CMD java -jar Neptune_Discord_Bot-1.0-SNAPSHOT.jar
