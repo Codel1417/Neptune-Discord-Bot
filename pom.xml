@@ -8,7 +8,7 @@
     <packaging>jar</packaging>
     <version>1.0-SNAPSHOT</version>
     <name>neptune Discord Bot</name>
-    <url>http://maven.apache.org</url>
+    <url>http://onlyneps.com</url>
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
@@ -220,6 +220,11 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.12.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.sentry</groupId>
+            <artifactId>sentry</artifactId>
+            <version>4.4.0-alpha.2</version>
         </dependency>
         <dependency>
             <groupId>io.sentry</groupId>

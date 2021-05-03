@@ -90,8 +90,9 @@ public class CommandRegistry {
 
         @Override
         public void run() {
-            log.info("NEPTUNE: Running Command: " + command.getName());
+            log.trace("Running Command: " + command.getName());
             command.run(event, messagecontent);
+            log.trace("Exiting Command: " + command.getName());
         }
     }
 }

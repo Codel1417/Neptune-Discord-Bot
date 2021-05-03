@@ -5,13 +5,13 @@
             <PatternLayout disableAnsi="false"  pattern="%highlight{%d{HH:mm:ss.SSS} %-5level %logger{36}.%M() @%L - %msg%n}{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=black, DEBUG=green bold, TRACE=blue}"/>
         </Console>
         <Prometheus name="METRICS"/>
-        <Sentry name="Sentry" dsn="https://95327c876ca14baf9e4bb88746f8a108@glitchtip.codel1417.local/1"/>
+        <Sentry name="Sentry"/>
     </Appenders>
     <Loggers>
-        <Root level="ALL" additivity="false">
+        <Root level="DEBUG" additivity="false">
             <AppenderRef ref="SlowConsole" />
-            <AppenderRef ref="Sentry" />
-            <AppenderRef ref="METRICS"/>
+            <AppenderRef ref="Sentry" level="ALL"/>
+            <AppenderRef ref="METRICS" level="ALL"/>
         </Root>
     </Loggers>
 </Configuration>

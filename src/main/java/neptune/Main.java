@@ -9,16 +9,33 @@ import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import club.minnced.discord.webhook.WebhookClient;
 import club.minnced.discord.webhook.WebhookClientBuilder;
+import io.sentry.Sentry;
 import javax.security.auth.login.LoginException;
 
 public class Main extends ListenerAdapter {
-    protected static final Logger log = LogManager.getLogger();
+    protected static Logger log = LogManager.getLogger();
 
     public static void main(String[] args) {
+        try {
+            Sentry.init(options -> {
+                options.setEnableExternalConfiguration(true);
+                options.setDsn("https://1df2312bbe304c08a69c7ed96347c372@glitchtip.codel1417.xyz/1");
+                options.setEnableUncaughtExceptionHandler(true);
+                options.setAttachStacktrace(true);
+                options.setAttachServerName(true);
+                options.setAttachThreads(true);
+                options.setEnableSessionTracking(true);
+            });
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+
         WebhookClientBuilder builder = new WebhookClientBuilder("https://discord.com/api/webhooks/824934905137987604/ENvcx0LdZrAqIafi306vVfFG9T8rE5djOH07ouKZcOZ1zbiXS3mj78S2734KihP2SGCA");
         builder.setThreadFactory((job) -> {
             Thread thread = new Thread(job);
