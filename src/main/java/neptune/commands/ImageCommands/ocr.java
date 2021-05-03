@@ -17,16 +17,11 @@ import javax.imageio.ImageIO;
 
 public class ocr implements ICommand {
     protected static final Logger log = LogManager.getLogger();
-    private String tessdata = File.separator + "tessdata";
     private Helpers helpers = new Helpers();
     private Tesseract tesseract = new Tesseract();
 
     public ocr(){
-        tesseract.setDatapath("/nep/tessdata");
-        File tessCheck = new File(tessdata);
-        if (!tessCheck.exists()){
-            log.fatal("Tessdata not found");
-        }
+        tesseract.setDatapath("tessdata");
     }
     @Override
     public void run(GuildMessageReceivedEvent event, String messageContent) {
