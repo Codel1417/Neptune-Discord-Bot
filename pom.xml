@@ -94,7 +94,7 @@
         <dependency>
             <groupId>net.dv8tion</groupId>
             <artifactId>JDA</artifactId>
-            <version>4.2.0_239</version>
+            <version>4.2.0_247</version>
         </dependency>
         <dependency>
             <groupId>com.sedmelluq</groupId>
@@ -164,7 +164,7 @@
         <dependency>
             <groupId>com.twelvemonkeys.common</groupId>
             <artifactId>common-io</artifactId>
-            <version>3.6.4</version>
+            <version>3.7.0</version>
         </dependency>
         <dependency>
             <groupId>com.twelvemonkeys.common</groupId>
@@ -179,12 +179,12 @@
         <dependency>
             <groupId>com.twelvemonkeys.imageio</groupId>
             <artifactId>imageio-bmp</artifactId>
-            <version>3.6.4</version>
+            <version>3.7.0</version>
         </dependency>
         <dependency>
             <groupId>com.twelvemonkeys.imageio</groupId>
             <artifactId>imageio-jpeg</artifactId>
-            <version>3.6.4</version>
+            <version>3.7.0</version>
         </dependency>
         <dependency>
             <groupId>com.twelvemonkeys.imageio</groupId>
@@ -194,12 +194,12 @@
         <dependency>
             <groupId>com.twelvemonkeys.imageio</groupId>
             <artifactId>imageio-tiff</artifactId>
-            <version>3.6.4</version>
+            <version>3.7.0</version>
         </dependency>
         <dependency>
             <groupId>com.github.ben-manes.caffeine</groupId>
             <artifactId>caffeine</artifactId>
-            <version>3.0.1</version>
+            <version>3.0.2</version>
         </dependency>
         <dependency>
             <groupId>io.prometheus</groupId>
