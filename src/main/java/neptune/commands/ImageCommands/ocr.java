@@ -22,7 +22,7 @@ public class ocr implements ICommand {
     private Tesseract tesseract = new Tesseract();
 
     public ocr(){
-        tesseract.setDatapath(tessdata);
+        tesseract.setDatapath(System.getProperty("NEPTUNE_TESSDATA"));
         File tessCheck = new File(tessdata);
         if (!tessCheck.exists()){
             log.fatal("Tessdata not found");

@@ -10,17 +10,26 @@ FROM openjdk:11-sid as FINAL
 # https://packages.debian.org/sid/tesseract-ocr
 # -o APT::Immediate-Configure=0  Fixes an issue with one of tesseract's deps
 RUN echo "deb http://http.us.debian.org/debian unstable main non-free contrib" > /etc/apt/sources.list \
-    && apt update && export DEBIAN_FRONTEND=noninteractive \
-    && apt install -y --no-install-recommends tesseract-ocr -o APT::Immediate-Configure=0
+    && apt-get update && export DEBIAN_FRONTEND=noninteractive \
+    && apt-get install -y --no-install-recommends tesseract-ocr -o APT::Immediate-Configure=0
 
 WORKDIR /nep/
 RUN chown -R 1000:1000 .
 
-RUN git clone https://github.com/tesseract-ocr/tessdata_best /tessdata
 COPY --chown=1000:1000 --from=buildNep /nep/Neptune-Discord-Bot/target/Neptune_Discord_Bot-1.0-SNAPSHOT.jar .
+
 VOLUME /nep/Guilds
 VOLUME /nep/Logs
 VOLUME /nep/Media
+VOLUME /nep/tessdata
+
+#prometheus
+EXPOSE 1234 
+#jstatd
+EXPOSE 1233
+
 ENV NEPTUNE_TOKEN=null
 ENV NEPTUNE_TENOR_TOKEN=null
+ENV NEPTUNE_TESSDATA=/nep/tessdata
+
 CMD java -jar Neptune_Discord_Bot-1.0-SNAPSHOT.jar
