@@ -159,7 +159,7 @@
         <dependency>
             <groupId>com.twelvemonkeys.common</groupId>
             <artifactId>common-lang</artifactId>
-            <version>3.6.4</version>
+            <version>3.7.0</version>
         </dependency>
         <dependency>
             <groupId>com.twelvemonkeys.common</groupId>
@@ -229,7 +229,7 @@
         <dependency>
             <groupId>io.sentry</groupId>
             <artifactId>sentry-log4j2</artifactId>
-            <version>4.4.0-alpha.2</version>
+            <version>5.0.0-beta.1</version>
         </dependency>
     </dependencies>
     <repositories>
