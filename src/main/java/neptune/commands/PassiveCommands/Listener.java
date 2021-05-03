@@ -27,6 +27,9 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.EventListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import io.sentry.Sentry;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
@@ -59,6 +62,7 @@ public class Listener implements EventListener {
                 guildEntity = GuildStorageHandler.getInstance().readFile(((GenericGuildEvent) event).getGuild().getId());
             } catch (Exception e) {
                 log.error(e);
+                Sentry.captureException(e);
                 return;
             }
             // Commands
@@ -72,6 +76,7 @@ public class Listener implements EventListener {
                 GuildStorageHandler.getInstance().writeFile(guildEntity);
             } catch (IOException e) {
                 log.error(e);
+            Sentry.captureException(e);
             }
             // Clear stored logs when text channel is deleted
             if (event instanceof TextChannelDeleteEvent) {
@@ -161,6 +166,7 @@ public class Listener implements EventListener {
             // return if bot was not called
         } catch (Exception e) {
             log.error(e);
+            Sentry.captureException(e);
         }
         return result;
     }

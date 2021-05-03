@@ -5,6 +5,9 @@ import neptune.commands.Helpers;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import io.sentry.Sentry;
+
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
@@ -52,6 +55,7 @@ public class moreJpeg implements ICommand {
             }
         } catch (IOException e) {
             log.error(e);
+            Sentry.captureException(e);
         }
     }
 }

@@ -10,6 +10,8 @@ import java.util.Scanner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import io.sentry.Sentry;
+
 public class CycleGameStatus implements Runnable {
     private ArrayList<Activity> MessageLoop = new ArrayList<>();
     private JDA jda;
@@ -30,6 +32,7 @@ public class CycleGameStatus implements Runnable {
                 }
             } catch (Exception e) {
                 log.error(e);
+                Sentry.captureException(e);
             }
 
         }

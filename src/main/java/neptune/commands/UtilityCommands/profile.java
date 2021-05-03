@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.util.TimeZone;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import io.sentry.Sentry;
 public class profile implements ICommand {
     Helpers helpers = new Helpers();
     protected static final Logger log = LogManager.getLogger();
@@ -55,6 +57,7 @@ public class profile implements ICommand {
         }
         catch (IOException e){
             log.error(e);
+            Sentry.captureException(e);
         }
     }
 

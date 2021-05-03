@@ -13,6 +13,8 @@ import javax.imageio.stream.MemoryCacheImageOutputStream;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import io.sentry.Sentry;
+
 import java.awt.Graphics2D;
 
 import java.awt.AlphaComposite;
@@ -48,6 +50,7 @@ public class bonkImage implements ICommand {
             event.getChannel().sendMessage("Go to Horny Jail").addFile(writerOutput.toByteArray(), "bonk.png").queue();
         } catch (IOException e) {
             log.error(e);
+            Sentry.captureException(e);
         }
     }
     

@@ -6,6 +6,9 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.sourceforge.tess4j.Tesseract;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import io.sentry.Sentry;
+
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -41,6 +44,7 @@ public class ocr implements ICommand {
             }
         } catch (Exception e) {
             log.error(e);
+            Sentry.captureException(e);
         }
     }
 }

@@ -10,6 +10,8 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import io.sentry.Sentry;
+
 public class disableJoinLeaveLogging implements ICommand{
 	protected static final Logger log = LogManager.getLogger();
 
@@ -22,6 +24,7 @@ public class disableJoinLeaveLogging implements ICommand{
             event.getChannel().sendMessage("Server logging disabled.").queue();;
         } catch (IOException e) {
             log.error(e);
+            Sentry.captureException(e);
         }    
     }
     

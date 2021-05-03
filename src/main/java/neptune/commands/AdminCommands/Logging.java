@@ -12,6 +12,8 @@ import neptune.commands.CategoriesEnum;
 import neptune.commands.CommandRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import io.sentry.Sentry;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 public class Logging implements ICommand {
@@ -26,6 +28,7 @@ public class Logging implements ICommand {
             commandRegistry.registerCommand(new commandBuilder().setCommand("disableJoinLeaveLogging").setCategory(CategoriesEnum.Admin).setRun(new disableJoinLeaveLogging()).build());
         } catch (MissingArgumentException e) {
             log.error(e);
+            Sentry.captureException(e);
         }
     }
     @Override

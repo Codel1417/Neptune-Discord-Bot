@@ -11,6 +11,9 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import io.sentry.Sentry;
+
 import java.awt.*;
 
 public class status implements ICommand {
@@ -48,6 +51,7 @@ public class status implements ICommand {
             event.getChannel().sendMessage(embedBuilder.build()).queue();
         } catch (IOException e) {
             log.error(e);
+            Sentry.captureException(e);
         }
     }
     

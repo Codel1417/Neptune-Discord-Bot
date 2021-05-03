@@ -13,6 +13,8 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import io.sentry.Sentry;
+
 // handles neptune base commands
 public class CommandHandler extends Helpers {
     protected static final Logger log = LogManager.getLogger();
@@ -70,6 +72,7 @@ public class CommandHandler extends Helpers {
         }
         catch (MissingArgumentException e){
             log.error(e);
+            Sentry.captureException(e);
         }
     }
 

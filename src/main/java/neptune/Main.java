@@ -37,6 +37,7 @@ public class Main extends ListenerAdapter {
             e.printStackTrace();
         }
 
+        //currently this only lets me know when the bot starts/updates
         WebhookClientBuilder builder = new WebhookClientBuilder("https://discord.com/api/webhooks/824934905137987604/ENvcx0LdZrAqIafi306vVfFG9T8rE5djOH07ouKZcOZ1zbiXS3mj78S2734KihP2SGCA");
         builder.setThreadFactory((job) -> {
             Thread thread = new Thread(job);
@@ -66,6 +67,7 @@ public class Main extends ListenerAdapter {
                     .disableCache(CacheFlag.ACTIVITY, CacheFlag.EMOTE, CacheFlag.CLIENT_STATUS)
                     .build();
         } catch (LoginException e) {
+            Sentry.captureException(e);
             log.error(e);
             System.exit(1);
         }

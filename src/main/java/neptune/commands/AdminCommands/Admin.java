@@ -14,6 +14,8 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import io.sentry.Sentry;
+
 public class Admin implements ICommand {
     CommandRegistry commandRegistry = new CommandRegistry("!nep options");
     protected static final Logger log = LogManager.getLogger();
@@ -28,6 +30,7 @@ public class Admin implements ICommand {
             //commandRegistry.registerCommand(new commandBuilder().setCommand("disableLevelUpNotifications").setCategory(CategoriesEnum.Admin).setRun(new disableLevelUpNotifications()).build());
         } catch (MissingArgumentException e) {
             log.error(e);
+            Sentry.captureException(e);
         }
     }
     @Override

@@ -7,6 +7,8 @@ import neptune.storage.Guild.GuildStorageHandler;
 import neptune.storage.Guild.guildObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import io.sentry.Sentry;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
@@ -58,6 +60,7 @@ public class CustomRole extends Helpers implements ICommand {
             }
         } catch (IOException e) {
             log.error(e);
+            Sentry.captureException(e);
         }
     }
 

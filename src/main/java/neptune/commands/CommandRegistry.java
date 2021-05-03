@@ -7,6 +7,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import io.sentry.Sentry;
+
 import org.apache.commons.lang3.StringUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
@@ -90,9 +93,15 @@ public class CommandRegistry {
 
         @Override
         public void run() {
-            log.trace("Running Command: " + command.getName());
-            command.run(event, messagecontent);
-            log.trace("Exiting Command: " + command.getName());
+            try {
+                log.trace("Running Command: " + command.getName());
+                command.run(event, messagecontent);
+                log.trace("Exiting Command: " + command.getName());
+            }
+            catch(Exception e) {
+                log.error(e);
+                Sentry.captureException(e);
+            }
         }
     }
 }

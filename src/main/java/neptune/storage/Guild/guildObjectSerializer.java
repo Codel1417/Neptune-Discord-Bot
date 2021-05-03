@@ -7,6 +7,8 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import io.sentry.Sentry;
+
 import java.io.IOException;
 
 public class guildObjectSerializer extends JsonSerializer<guildObject> {
@@ -31,6 +33,7 @@ public class guildObjectSerializer extends JsonSerializer<guildObject> {
             gen.close();
         } catch (Exception e) {
             log.error(e);
+            Sentry.captureException(e);
         }
     }
 }

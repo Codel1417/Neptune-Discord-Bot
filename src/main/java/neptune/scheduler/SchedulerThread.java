@@ -2,6 +2,8 @@ package neptune.scheduler;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import io.sentry.Sentry;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import neptune.scheduler.entry.AbstractEntry;
@@ -37,6 +39,7 @@ public class SchedulerThread implements Runnable {
                 Thread.sleep(60000);
             } catch (InterruptedException e) {
                 log.error(e);
+                Sentry.captureException(e);
             }
         }
     }

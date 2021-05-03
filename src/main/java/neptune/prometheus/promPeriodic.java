@@ -3,6 +3,7 @@ package neptune.prometheus;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import io.prometheus.client.Gauge;
+import io.sentry.Sentry;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.events.ReadyEvent;
 
@@ -25,6 +26,7 @@ public class promPeriodic implements Runnable {
                 TOTAL_USERS_GAUGE.set(jda.getShardManager().getUsers().size());
             } catch (InterruptedException e) {
                 log.error(e);
+                Sentry.captureException(e);
             }
         }
     }
