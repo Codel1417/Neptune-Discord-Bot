@@ -8,10 +8,10 @@
         <Sentry name="Sentry"/>
     </Appenders>
     <Loggers>
-        <Root level="ALL" additivity="false">
+        <Root level="INFO" additivity="false">
             <AppenderRef ref="SlowConsole" />
             <AppenderRef ref="Sentry" level="ALL"/>
-            <AppenderRef ref="METRICS" level="ALL"/>
+            <AppenderRef ref="METRICS"/>
         </Root>
     </Loggers>
 </Configuration>
