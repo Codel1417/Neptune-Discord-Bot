@@ -2,7 +2,7 @@
 
 A Discord Bot based on the character neptune from HyperDimension Neptunia
 
-![Java CI with Maven](https://github.com/Codel1417/Neptune-Discord-Bot/workflows/Java%20CI%20with%20Maven/badge.svg)
+![Java CI with Maven](https://github.com/Codel1417/Neptune-Discord-Bot/workflows/Java%20CI%20with%20Maven/badge.svg)[![DepShield Badge](https://depshield.sonatype.org/badges/owner/repository/depshield.svg)](https://depshield.github.io)[![CodeFactor](https://www.codefactor.io/repository/github/codel1417/neptune-discord-bot/badge)](https://www.codefactor.io/repository/github/codel1417/neptune-discord-bot)
 
 [Invite Link](https://discordapp.com/api/oauth2/authorize?client_id=545565550768816138&permissions=37087296&scope=bot)
 
