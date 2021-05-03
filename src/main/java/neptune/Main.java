@@ -30,6 +30,7 @@ public class Main extends ListenerAdapter {
                 options.setAttachServerName(true);
                 options.setAttachThreads(true);
                 options.setEnableSessionTracking(true);
+                options.setTracesSampleRate(1.0);
             });
         }
         catch(Exception e) {
