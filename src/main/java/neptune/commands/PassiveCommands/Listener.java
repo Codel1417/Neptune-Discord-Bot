@@ -47,6 +47,7 @@ public class Listener implements EventListener {
 
     @Override
     public void onEvent(@Nonnull GenericEvent event) {
+        Sentry.addBreadcrumb(event.getClass().getName());
         // Startup tasks
         if (event instanceof ReadyEvent && !ActivityThread) {
             CycleActivity = new CycleGameStatus((ReadyEvent) event);
@@ -72,12 +73,6 @@ public class Listener implements EventListener {
                 runEvent((GuildMessageReceivedEvent) event, guildEntity);
             }
 
-            try {
-                GuildStorageHandler.getInstance().writeFile(guildEntity);
-            } catch (IOException e) {
-                log.error(e);
-            Sentry.captureException(e);
-            }
             // Clear stored logs when text channel is deleted
             if (event instanceof TextChannelDeleteEvent) {
                 logStorage.deleteChannel(
@@ -91,25 +86,14 @@ public class Listener implements EventListener {
             // disconnect from voice chat if neptune is the only one left
             else if (event instanceof GuildVoiceUpdateEvent) {
                 try {
-                    if (((GuildVoiceUpdateEvent) event).getChannelLeft().getMembers().size() == 1
-                            && ((GuildVoiceUpdateEvent) event)
-                                    .getChannelLeft()
-                                    .getGuild()
-                                    .getAudioManager()
-                                    .isConnected()) {
-                        ((GuildVoiceUpdateEvent) event)
-                                .getChannelLeft()
-                                .getGuild()
-                                .getAudioManager()
-                                .setSendingHandler(null);
-                        ((GuildVoiceUpdateEvent) event)
-                                .getChannelLeft()
-                                .getGuild()
-                                .getAudioManager()
-                                .closeAudioConnection();
+                    if (((GuildVoiceUpdateEvent) event).getChannelLeft().getMembers().size() == 1 && ((GuildVoiceUpdateEvent) event).getChannelLeft().getGuild().getAudioManager().isConnected()) {
+                        ((GuildVoiceUpdateEvent) event).getChannelLeft().getGuild().getAudioManager().setSendingHandler(null);
+                        ((GuildVoiceUpdateEvent) event).getChannelLeft().getGuild().getAudioManager().closeAudioConnection();
                         log.info("VOICE: Channel Empty, Disconnecting from VC");
                     }
-                } catch (Exception ignored) {
+                } catch (Exception e) {
+                    log.error(e);
+                    Sentry.captureException(e);
                 }
             }
             logOptionsObject logOptionsEntity = guildEntity.getLogOptions();
@@ -143,8 +127,8 @@ public class Listener implements EventListener {
         if (multiplePrefix) {
             String[] Split = message.getContentRaw().split(" "); // splits the message into an array
             for (String string : new String[] {"!nep", "=", "./"}) {
-                if (Split[0].toLowerCase().contains(string.toLowerCase())
-                        || Split[0].equalsIgnoreCase(string)) return true;
+                if (Split[0].toLowerCase().contains(string.toLowerCase()) || Split[0].equalsIgnoreCase(string)) 
+                        return true;
             }
         }
         return false;
@@ -152,7 +136,13 @@ public class Listener implements EventListener {
 
     public boolean runEvent(GuildMessageReceivedEvent event, guildObject guildEntity) {
         // leaderboard
-        guildEntity.getLeaderboard().incrimentPoint(event.getMember().getId());
+        guildEntity.getLeaderboard().incrimentPoint(event.getMember().getId()); //TODO: Improve
+        try {
+            GuildStorageHandler.getInstance().writeFile(guildEntity);
+        } catch (IOException e1) {
+            log.error(e1);
+            Sentry.captureException(e1);
+        } 
         boolean result = false;
         // check if the bot was called in chat
         try {

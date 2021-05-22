@@ -95,6 +95,7 @@ public class CommandRegistry {
         public void run() {
             try {
                 log.trace("Running Command: " + command.getName());
+                Sentry.addBreadcrumb("Running Command: " + command.getName());
                 command.run(event, messagecontent);
                 log.trace("Exiting Command: " + command.getName());
             }

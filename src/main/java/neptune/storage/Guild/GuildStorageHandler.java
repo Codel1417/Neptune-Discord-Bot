@@ -9,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import io.prometheus.client.cache.caffeine.CacheMetricsCollector;
+import io.sentry.Sentry;
 
 import java.io.File;
 import java.io.IOException;
@@ -46,6 +47,8 @@ public class GuildStorageHandler {
             return guildEntity;
         }
         log.debug("Reading File: " + file.getAbsolutePath());
+        Sentry.addBreadcrumb("Reading File: " + file.getAbsolutePath());
+
         if (!file.exists()) {
             log.info("Adding guild: " + guildID);
             guildEntity = new guildObject(guildID);
@@ -62,6 +65,7 @@ public class GuildStorageHandler {
         File file = new File(guildsDir + File.separator + guildEntity.getGuildID() + ".yaml");
         ObjectMapper om = new ObjectMapper(new YAMLFactory());
         log.debug("Writing File: " + file.getAbsolutePath());
+        Sentry.addBreadcrumb("Writing File: " + file.getAbsolutePath());
         om.writeValue(file, guildEntity);
         cache.put(guildEntity.getGuildID(), guildEntity);
     }

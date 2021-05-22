@@ -10,7 +10,6 @@
     <Loggers>
         <Root level="INFO" additivity="false">
             <AppenderRef ref="SlowConsole" />
-            <AppenderRef ref="Sentry" level="ALL"/>
             <AppenderRef ref="METRICS"/>
         </Root>
     </Loggers>

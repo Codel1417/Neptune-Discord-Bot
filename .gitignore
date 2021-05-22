@@ -20,3 +20,5 @@ Neptune_Discord_Bot.iml
 Logs/
 Guilds/
 .vscode/launch.json
+bin/
+.gradle/
