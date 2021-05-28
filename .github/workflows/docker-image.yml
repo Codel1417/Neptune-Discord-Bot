@@ -30,5 +30,7 @@ jobs:
           context: .
           file: ./Dockerfile.build
           # List of tags
-          tags: codel1417/bot:latest
+          tags: 
+            codel1417/bot:latest
+            codel1417/bot:${GITHUB_SHA}
           push: ${{ github.event_name != 'pull_request' }}

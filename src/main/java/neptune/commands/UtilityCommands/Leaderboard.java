@@ -1,12 +1,11 @@
 package neptune.commands.UtilityCommands;
 
 import neptune.commands.ICommand;
-import neptune.storage.profile;
+import neptune.storage.profileStorage;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
-
 import java.awt.*;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -75,7 +74,7 @@ public class Leaderboard implements ICommand {
         HashMap<String, Integer> leaderboards = new HashMap<>();
         //todo, get all profiles for members, then calculate top;
         for (Member member : guildMembers){
-            leaderboards.put(event.getMember().getId(), profile.getProfile(member.getId()).getPoints());
+            leaderboards.put(event.getMember().getId(), profileStorage.getProfile(member.getId()).getPoints());
         }
         LinkedHashMap<String, Integer> reverseSortedMap = new LinkedHashMap<>();
 

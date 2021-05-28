@@ -3,6 +3,8 @@ package neptune.storage;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TimeZone;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -18,38 +20,40 @@ import neptune.storage.Enum.ProfileOptionsEnum;
 
 @Entity
 @Table(name= "Profiles")
-public class profile {
+public class profileStorage {
+    @Column(name = "points")
     private int leaderboardPoints;
     @Id
     private String id;
     private Map<ProfileOptionsEnum, String> profileOptions;
 
-    public profile(String ID){
+    public profileStorage(String ID){
         id = ID;
         leaderboardPoints = 0;
         profileOptions = new HashMap<>();
     }
-    public static profile getProfile(String ID){
+    public static profileStorage getProfile(String ID){
         Sentry.addBreadcrumb("Loading Profile for ID: " + ID);
         StandardServiceRegistry ssr = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();  
         Metadata meta = new MetadataSources(ssr).getMetadataBuilder().build(); 
         SessionFactory factory = meta.getSessionFactoryBuilder().build();  
         Session session = factory.openSession();  
-        profile temp = (profile) session.get("neptune.storage.profile", ID);
+        profileStorage temp = (profileStorage) session.get("neptune.storage.profile", ID);
         session.close();
         factory.close();
         ssr.close();
         //else create profile
         if (temp == null){
-            temp = new profile(ID);
+            temp = new profileStorage(ID);
         }
         return temp;       
     }
     public int getPoints() {
         return leaderboardPoints;
     }
-    public void incrimentPoints(){
+    public profileStorage incrimentPoints(){
         leaderboardPoints++;
+        return this;
     }
     public boolean setBio(String Bio) {
         if (Bio.length() <= 700) { // leaves 300 characters for other profile options
@@ -85,7 +89,8 @@ public class profile {
         } else return false;
     }
 
-    private void serialize(){
+    public void serialize(){
+        Sentry.addBreadcrumb("Saving Profile for ID: " + id);
         StandardServiceRegistry ssr = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();  
         Metadata meta = new MetadataSources(ssr).getMetadataBuilder().build(); 
         SessionFactory factory = meta.getSessionFactoryBuilder().build();

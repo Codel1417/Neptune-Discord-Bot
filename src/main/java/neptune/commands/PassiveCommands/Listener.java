@@ -72,7 +72,7 @@ public class Listener implements EventListener {
                     return; // blocks responses to other bots
                 runEvent((GuildMessageReceivedEvent) event, guildEntity);
             }
-
+            //TODO: Move to scheduler for async
             // Clear stored logs when text channel is deleted
             if (event instanceof TextChannelDeleteEvent) {
                 logStorage.deleteChannel(
@@ -136,7 +136,6 @@ public class Listener implements EventListener {
 
     public boolean runEvent(GuildMessageReceivedEvent event, guildObject guildEntity) {
         // leaderboard
-        guildEntity.getLeaderboard().incrimentPoint(event.getMember().getId()); //TODO: Improve
         try {
             GuildStorageHandler.getInstance().writeFile(guildEntity);
         } catch (IOException e1) {

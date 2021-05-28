@@ -6,8 +6,6 @@ import neptune.storage.Enum.GuildOptionsEnum;
 import neptune.storage.Guild.GuildStorageHandler;
 import neptune.storage.Guild.guildObject;
 import neptune.storage.Guild.guildObject.guildOptionsObject;
-import neptune.storage.Guild.guildObject.leaderboardObject;
-import neptune.storage.Guild.guildObject.profileObject;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import java.awt.Color;
@@ -21,8 +19,7 @@ public class profile implements ICommand {
     Helpers helpers = new Helpers();
     protected static final Logger log = LogManager.getLogger();
     @Override
-    public void run(
-            GuildMessageReceivedEvent event, String messageContent) {
+    public void run(GuildMessageReceivedEvent event, String messageContent) {
         try{
             String[] command = helpers.getCommandName(messageContent);
             if (command[1].length() == 0) {
@@ -73,19 +70,17 @@ public class profile implements ICommand {
         event.getChannel().sendMessage(embedBuilder.build()).queue();
     }
 
-    public void displayProfile(
-            GuildMessageReceivedEvent event, String MemberID, guildObject guildEntity) {
-        profileObject profileEntity = guildEntity.getProfiles();
-        leaderboardObject leaderboard = guildEntity.getLeaderboard();
+    public void displayProfile(GuildMessageReceivedEvent event, String MemberID, guildObject guildEntity) {
+        neptune.storage.profileStorage userprofile = neptune.storage.profileStorage.getProfile(MemberID);
         guildOptionsObject guildOptions = guildEntity.getGuildOptions();
 
-        int points = leaderboard.getPoints(MemberID);
+        int points = userprofile.getPoints();
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setTitle(event.getJDA().getUserById(MemberID).getName());
-        TimeZone Timezone = profileEntity.getTimeZone(MemberID);
+        TimeZone Timezone = userprofile.getTimeZone();
 
-        embedBuilder.setDescription(profileEntity.getBio(MemberID));
-        embedBuilder.addField("Language", profileEntity.getLanguage(MemberID), true);
+        embedBuilder.setDescription(userprofile.getBio());
+        embedBuilder.addField("Language", userprofile.getLanguage(), true);
         if (Timezone != null) {
             embedBuilder.addField("TimeZone", Timezone.getID(), true);
         }
@@ -96,10 +91,10 @@ public class profile implements ICommand {
         event.getChannel().sendMessage(embedBuilder.build()).queue();
     }
 
-    public guildObject updateBio(
-            GuildMessageReceivedEvent event, String Bio, guildObject guildEntity) {
-        profileObject profileEntity = guildEntity.getProfiles();
-        boolean result = profileEntity.setBio(event.getAuthor().getId(), Bio);
+    public guildObject updateBio(GuildMessageReceivedEvent event, String Bio, guildObject guildEntity) {
+
+        neptune.storage.profileStorage userprofile = neptune.storage.profileStorage.getProfile(event.getMember().getId());
+        boolean result = userprofile.setBio(Bio);
         if (result) {
             displayProfile(event, event.getAuthor().getId(), guildEntity);
         } else {
@@ -108,14 +103,13 @@ public class profile implements ICommand {
                     .queue();
             displayHelp(event);
         }
-        guildEntity.setProfiles(profileEntity);
+        userprofile.serialize();
         return guildEntity;
     }
 
-    public guildObject updateTimezone(
-            GuildMessageReceivedEvent event, String TimeZone, guildObject guildEntity) {
-        profileObject profileEntity = guildEntity.getProfiles();
-        boolean result = profileEntity.setTimeZone(event.getAuthor().getId(), TimeZone);
+    public guildObject updateTimezone(GuildMessageReceivedEvent event, String TimeZone, guildObject guildEntity) {
+        neptune.storage.profileStorage userprofile = neptune.storage.profileStorage.getProfile(event.getMember().getId());
+        boolean result = userprofile.setTimeZone(TimeZone);
         if (result) {
             displayProfile(event, event.getAuthor().getId(), guildEntity);
         } else {
@@ -124,21 +118,20 @@ public class profile implements ICommand {
                     .queue();
             displayHelp(event);
         }
-        guildEntity.setProfiles(profileEntity);
+        userprofile.serialize();
         return guildEntity;
     }
 
-    public guildObject updateLanguage(
-            GuildMessageReceivedEvent event, String Language, guildObject guildEntity) {
-        profileObject profileEntity = guildEntity.getProfiles();
-        boolean result = profileEntity.setLanguage(event.getAuthor().getId(), Language);
+    public guildObject updateLanguage(GuildMessageReceivedEvent event, String Language, guildObject guildEntity) {
+        neptune.storage.profileStorage userprofile = neptune.storage.profileStorage.getProfile(event.getMember().getId());
+        boolean result = userprofile.setLanguage(Language);
         if (result) {
             displayProfile(event, event.getAuthor().getId(), guildEntity);
         } else {
             event.getChannel().sendMessage("Invalid Language").queue();
             displayHelp(event);
         }
-        guildEntity.setProfiles(profileEntity);
+        userprofile.serialize();
         return guildEntity;
     }
 }

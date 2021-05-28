@@ -1,15 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>  
-<!DOCTYPE hibernate-configuration PUBLIC  
-        "-//Hibernate/Hibernate Configuration DTD 5.3//EN"  
-        "http://www.hibernate.org/dtd/hibernate-configuration-5.3.dtd">  
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-5.0.dtd">
 <hibernate-configuration>  
     <session-factory>  
-        <property name="dialect">org.hibernate.dialect.MySQLInnoDBDialect</property>  
+        <property name="dialect">org.hibernate.dialect.H2Dialect</property>  
         <property name="hbm2ddl.auto">update</property>    
-        <property name="connection.url">jdbc:mariadb:@localhost:3304</property>    
-        <property name="connection.username">system</property>    
-        <property name="connection.password">jtp</property>    
-        <property name="connection.driver_class">oracle.jdbc.driver.OracleDriver</property>   
-        <mapping class="neptune.storage.Guild.guildObject"/>  
+        <property name="connection.url">jdbc:h2:~/data</property>    
+        <property name="connection.driver_class">org.h2.Driver</property>   
+        <mapping class="neptune.storage.Guild.guildObject"/>
+        <mapping class="neptune.storage.profile"/>
     </session-factory>  
 </hibernate-configuration>
