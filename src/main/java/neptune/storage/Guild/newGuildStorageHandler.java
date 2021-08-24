@@ -22,16 +22,16 @@ public class newGuildStorageHandler {
     protected static final Logger log = LogManager.getLogger();
     private static volatile newGuildStorageHandler _instance;
 
-    private CacheMetricsCollector cacheMetrics = new CacheMetricsCollector().register();
-    private Cache<String, guildObject> cache = Caffeine.newBuilder()
+    private final CacheMetricsCollector cacheMetrics = new CacheMetricsCollector().register();
+    private final Cache<String, guildObject> cache = Caffeine.newBuilder()
     .expireAfterWrite(10, TimeUnit.MINUTES)
     .maximumSize(10_000)
     .recordStats()
     .build();
-    private StandardServiceRegistry ssr = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();  
-    private Metadata meta = new MetadataSources(ssr).getMetadataBuilder().build();  
-    private SessionFactory factory = meta.getSessionFactoryBuilder().build();  
-    private HibernateStatisticsCollector hibernateStatisticsCollector = new HibernateStatisticsCollector(factory, "Guilds").enablePerQueryMetrics().register();
+    private final StandardServiceRegistry ssr = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
+    private final Metadata meta = new MetadataSources(ssr).getMetadataBuilder().build();
+    private final SessionFactory factory = meta.getSessionFactoryBuilder().build();
+    private final HibernateStatisticsCollector hibernateStatisticsCollector = new HibernateStatisticsCollector(factory, "Guilds").enablePerQueryMetrics().register();
 
     private newGuildStorageHandler() {
         cacheMetrics.addCache("GuildFilesCache", cache);

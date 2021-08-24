@@ -20,7 +20,7 @@ public class enableCustomRole implements ICommand {
             guildObject guildentity = GuildStorageHandler.getInstance().readFile(event.getGuild().getId());
             guildentity.getGuildOptions().setOption(GuildOptionsEnum.CustomRoleEnabled, true);
             GuildStorageHandler.getInstance().writeFile(guildentity);
-            event.getChannel().sendMessage("User controllable custom roles enabled.").queue();;
+            event.getChannel().sendMessage("User controllable custom roles enabled.").queue();
         } catch (IOException e) {
             log.error(e);
             Sentry.captureException(e);

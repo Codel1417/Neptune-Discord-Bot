@@ -50,7 +50,7 @@ public class PlayerControl extends ListenerAdapter {
         playerManager.registerSourceManager(new HttpAudioSourceManager());
         playerManager.registerSourceManager(new LocalAudioSourceManager());
 
-        musicManagers = new HashMap<String, GuildMusicManager>();
+        musicManagers = new HashMap<>();
     }
 
     // Prefix for all commands: .

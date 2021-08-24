@@ -15,7 +15,7 @@ import org.apache.logging.log4j.Logger;
 import io.sentry.Sentry;
 
 public class Admin implements ICommand {
-    CommandRegistry commandRegistry = new CommandRegistry("!nep options");
+    final CommandRegistry commandRegistry = new CommandRegistry("!nep options");
     protected static final Logger log = LogManager.getLogger();
 
     public Admin(){

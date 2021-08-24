@@ -61,7 +61,7 @@ public class logObject {
     private String guildID;
     private String messageID;
     private String messageContent;
-    private int version;
+    private final int version;
     // timestamp exists for storage cleanup.
-    private Timestamp timestamp;
+    private final Timestamp timestamp;
 }

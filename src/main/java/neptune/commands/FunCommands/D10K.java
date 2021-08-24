@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class D10K implements ICommand {
-    HashMap<Integer, String> map = new HashMap<>();
+    final HashMap<Integer, String> map = new HashMap<>();
 
     public D10K() {
         // Scoll Down. It gets worse

@@ -39,7 +39,7 @@ import javax.annotation.Nonnull;
 public class Listener implements EventListener {
     protected static final Logger log = LogManager.getLogger();
     private final GuildLogging guildLogging = new GuildLogging();
-    logsStorageHandler logStorage = new logsStorageHandler();
+    final logsStorageHandler logStorage = new logsStorageHandler();
     private Runnable CycleActivity;
     private boolean ActivityThread;
     private final CommandHandler nepCommands = new CommandHandler();
@@ -134,7 +134,7 @@ public class Listener implements EventListener {
         return false;
     }
 
-    public boolean runEvent(GuildMessageReceivedEvent event, guildObject guildEntity) {
+    public void runEvent(GuildMessageReceivedEvent event, guildObject guildEntity) {
         // leaderboard
         try {
             GuildStorageHandler.getInstance().writeFile(guildEntity);
@@ -157,6 +157,5 @@ public class Listener implements EventListener {
             log.error(e);
             Sentry.captureException(e);
         }
-        return result;
     }
 }

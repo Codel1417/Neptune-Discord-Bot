@@ -20,8 +20,8 @@ import org.apache.logging.log4j.Logger;
 import java.awt.*;
 
 public class TextLog {
-    logsStorageHandler logsStorageHandler = new logsStorageHandler();
-    protected static Logger log = LogManager.getLogger();
+    final logsStorageHandler logsStorageHandler = new logsStorageHandler();
+    protected static final Logger log = LogManager.getLogger();
 
     public void GuildText(GenericGuildMessageEvent event, logOptionsObject LoggingOptions) {
         TextChannel textChannel = event.getGuild().getTextChannelById(LoggingOptions.getChannel());

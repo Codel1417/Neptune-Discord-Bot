@@ -20,7 +20,7 @@ public class disableLevelUpNotifications implements ICommand{
             guildObject guildentity = GuildStorageHandler.getInstance().readFile(event.getGuild().getId());
             guildentity.getGuildOptions().setOption(GuildOptionsEnum.LeaderboardLevelUpNotification, true);
             GuildStorageHandler.getInstance().writeFile(guildentity);
-            event.getChannel().sendMessage("Leaderboard level-up notifications disabled.").queue();;
+            event.getChannel().sendMessage("Leaderboard level-up notifications disabled.").queue();
         } catch (IOException e) {
             log.error(e);
             Sentry.captureException(e);

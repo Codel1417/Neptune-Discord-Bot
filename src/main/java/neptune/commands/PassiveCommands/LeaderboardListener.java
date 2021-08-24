@@ -7,11 +7,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import neptune.storage.profileStorage;
+import org.jetbrains.annotations.NotNull;
 
 public class LeaderboardListener implements EventListener {
 
     @Override
-    public void onEvent(GenericEvent event) {
+    public void onEvent(@NotNull GenericEvent event) {
         if (event instanceof GuildMessageReceivedEvent){
             profileStorage profile = profileStorage.getProfile(((GuildMessageReceivedEvent) event).getMember().getId());
             profile.incrimentPoints();

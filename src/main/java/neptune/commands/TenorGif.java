@@ -72,7 +72,7 @@ public abstract class TenorGif {
     }
 
     protected static final Logger log = LogManager.getLogger();
-    private String API_KEY = System.getenv("NEPTUNE_TENOR_TOKEN");
+    private final String API_KEY = System.getenv("NEPTUNE_TENOR_TOKEN");
     
     public String getSingleImage(String SearchTerm) {
         String returnURL;
@@ -92,7 +92,7 @@ public abstract class TenorGif {
             BufferedReader in =
                     new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String inputLine;
-            StringBuffer content = new StringBuffer();
+            StringBuilder content = new StringBuilder();
             while ((inputLine = in.readLine()) != null) {
                 content.append(inputLine);
             }
@@ -101,7 +101,8 @@ public abstract class TenorGif {
 
             JsonNode jsonNode = new ObjectMapper().readTree(content.toString());
             TypeReference<ArrayList<JsonNode>> typeRefImageArray =
-                    new TypeReference<ArrayList<JsonNode>>() {};
+                    new TypeReference<>() {
+                    };
             ObjectMapper mapper = new ObjectMapper();
             ObjectReader ImageListReader = mapper.readerFor(typeRefImageArray);
             ArrayList<JsonNode> imageArray = ImageListReader.readValue(jsonNode.get("results"));

@@ -16,7 +16,7 @@ import org.apache.logging.log4j.Logger;
 
 import io.sentry.Sentry;
 public class profile implements ICommand {
-    Helpers helpers = new Helpers();
+    final Helpers helpers = new Helpers();
     protected static final Logger log = LogManager.getLogger();
     @Override
     public void run(GuildMessageReceivedEvent event, String messageContent) {

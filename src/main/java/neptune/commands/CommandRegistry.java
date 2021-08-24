@@ -15,10 +15,10 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 public class CommandRegistry {
-    private Map<String, Command> commands = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
-    private String prefix;
-    private Helpers commandHelpers = new Helpers();
-    private ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
+    private final Map<String, Command> commands = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+    private final String prefix;
+    private final Helpers commandHelpers = new Helpers();
+    private final ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
     public CommandRegistry(String prefix) {
         //The complete prefix before the command
         this.prefix = prefix;
@@ -76,10 +76,10 @@ public class CommandRegistry {
         event.getChannel().sendMessage(embedBuilder.build()).queue();
     }
 
-    public class commandExecutor implements Runnable {
-        private GuildMessageReceivedEvent event;
-        private String messagecontent;
-        private Command command;
+    public static class commandExecutor implements Runnable {
+        private final GuildMessageReceivedEvent event;
+        private final String messagecontent;
+        private final Command command;
         protected final Logger log = LogManager.getLogger();
 
         private commandExecutor(

@@ -13,10 +13,10 @@ import java.io.File;
 import java.util.*;
 
 public class Say implements ICommand {
-    File folder = new File("Media" + File.separator + "say");
+    final File folder = new File("Media" + File.separator + "say");
     private AudioController AudioOut;
     private File[] listOfFiles;
-    private HashMap<String, Long> rateLimitMap = new HashMap<>();
+    private final HashMap<String, Long> rateLimitMap = new HashMap<>();
 
     @Override
     public void run(

@@ -17,16 +17,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class guildObjectDeserializer extends JsonDeserializer<guildObject> {
-    TypeReference<HashMap<GuildOptionsEnum, Boolean>> typeRefGuildOptions =
-            new TypeReference<HashMap<GuildOptionsEnum, Boolean>>() {};
-    TypeReference<HashMap<LoggingOptionsEnum, Boolean>> typeRefLogOptions =
-            new TypeReference<HashMap<LoggingOptionsEnum, Boolean>>() {};
-    TypeReference<HashMap<String, String>> typeRefCustomRole =
-            new TypeReference<HashMap<String, String>>() {};
+    final TypeReference<HashMap<GuildOptionsEnum, Boolean>> typeRefGuildOptions =
+            new TypeReference<>() {
+            };
+    final TypeReference<HashMap<LoggingOptionsEnum, Boolean>> typeRefLogOptions =
+            new TypeReference<>() {
+            };
+    final TypeReference<HashMap<String, String>> typeRefCustomRole =
+            new TypeReference<>() {
+            };
 
     @Override
     public guildObject deserialize(JsonParser p, DeserializationContext ctxt)
-            throws IOException, JsonProcessingException {
+            throws IOException {
 
         JsonNode node = p.getCodec().readTree(p);
         ObjectMapper mapper = new ObjectMapper();

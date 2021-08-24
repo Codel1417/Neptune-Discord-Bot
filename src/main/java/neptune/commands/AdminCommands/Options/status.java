@@ -17,7 +17,7 @@ import io.sentry.Sentry;
 import java.awt.*;
 
 public class status implements ICommand {
-    Helpers helpers = new Helpers();
+    final Helpers helpers = new Helpers();
     protected static final Logger log = LogManager.getLogger();
 
     @Override

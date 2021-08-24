@@ -20,7 +20,7 @@ public class disableLogging implements ICommand{
             guildObject guildentity = GuildStorageHandler.getInstance().readFile(event.getGuild().getId());
             guildentity.getLogOptions().setOption(LoggingOptionsEnum.GlobalLogging, false);
             GuildStorageHandler.getInstance().writeFile(guildentity);
-            event.getChannel().sendMessage("Server logging disabled.").queue();;
+            event.getChannel().sendMessage("Server logging disabled.").queue();
         } catch (IOException e) {
             log.error(e);
             Sentry.captureException(e);

@@ -17,10 +17,10 @@ import java.util.concurrent.TimeUnit;
 
 public class GuildStorageHandler {
     protected static final Logger log = LogManager.getLogger();
-    private String guildsDir = "Guilds";
+    private final String guildsDir = "Guilds";
     private static volatile GuildStorageHandler _instance;
-    CacheMetricsCollector cacheMetrics = new CacheMetricsCollector().register();
-    Cache<String, guildObject> cache = Caffeine.newBuilder()
+    final CacheMetricsCollector cacheMetrics = new CacheMetricsCollector().register();
+    final Cache<String, guildObject> cache = Caffeine.newBuilder()
         .expireAfterWrite(10, TimeUnit.MINUTES)
         .maximumSize(10_000)
         .recordStats()

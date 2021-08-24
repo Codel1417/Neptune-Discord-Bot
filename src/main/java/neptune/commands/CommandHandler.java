@@ -18,7 +18,7 @@ import io.sentry.Sentry;
 // handles neptune base commands
 public class CommandHandler extends Helpers {
     protected static final Logger log = LogManager.getLogger();
-    CommandRegistry commandRegistry = new CommandRegistry("!nep");
+    final CommandRegistry commandRegistry = new CommandRegistry("!nep");
     public CommandHandler() {
         // Add all commands;
         try{

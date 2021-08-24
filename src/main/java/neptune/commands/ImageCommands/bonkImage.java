@@ -23,8 +23,8 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 public class bonkImage implements ICommand {
     protected static final Logger log = LogManager.getLogger();
-    URL backgroundImageURL = getClass().getResource("/src/main/resources/images/bonk.png");
-    URL batImageUrl = getClass().getResource("/src/main/resources/images/bat.png");
+    final URL backgroundImageURL = getClass().getResource("/src/main/resources/images/bonk.png");
+    final URL batImageUrl = getClass().getResource("/src/main/resources/images/bat.png");
     @Override
     public void run(GuildMessageReceivedEvent event, String messageContent) {
         try {

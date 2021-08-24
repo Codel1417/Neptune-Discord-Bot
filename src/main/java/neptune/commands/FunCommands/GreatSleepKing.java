@@ -7,8 +7,8 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class GreatSleepKing implements ICommand {
-    HashMap<String, HashMap<String, String>> previousResults = new HashMap<>();
-    ArrayList<String> emotions = new ArrayList<>();
+    final HashMap<String, HashMap<String, String>> previousResults = new HashMap<>();
+    final ArrayList<String> emotions = new ArrayList<>();
 
     public GreatSleepKing() {
         // https://simple.wikipedia.org/wiki/List_of_emotions

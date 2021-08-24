@@ -21,7 +21,7 @@ import javax.net.ssl.SSLSession;
 import javax.security.auth.login.LoginException;
 
 public class Main extends ListenerAdapter {
-    protected static Logger log = LogManager.getLogger();
+    protected static final Logger log = LogManager.getLogger();
 
     public static void main(String[] args) {
         try {
@@ -30,16 +30,11 @@ public class Main extends ListenerAdapter {
                 options.setEnableUncaughtExceptionHandler(true);
                 options.setTracesSampleRate(1.0);
                 options.setDebug(true);
-                options.setHostnameVerifier(new HostnameVerifier(){
-                    @Override
-                    public boolean verify(String arg0, SSLSession arg1) {
-                        return true;
-                    }
-                });
+                options.setHostnameVerifier((arg0, arg1) -> true);
             });
         }
         catch(Exception e) {
-            e.printStackTrace();
+            log.error(e);
         }
 
         //currently this only lets me know when the bot starts/updates

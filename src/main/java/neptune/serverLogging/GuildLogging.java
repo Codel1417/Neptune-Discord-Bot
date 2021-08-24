@@ -30,7 +30,7 @@ import java.awt.*;
 import java.io.IOException;
 
 public class GuildLogging {
-    logsStorageHandler logsStorageHandler = new logsStorageHandler();
+    final logsStorageHandler logsStorageHandler = new logsStorageHandler();
 
     public void GuildVoice(GenericGuildVoiceEvent event, logOptionsObject LoggingOptions) {
         TextChannel textChannel = event.getGuild().getTextChannelById(LoggingOptions.getChannel());
@@ -364,10 +364,10 @@ public class GuildLogging {
         EmbedBuilder embedBuilder = getEmbedBuilder(event.getGuild());
         embedBuilder.setDescription("Explicit Content Filtering Level Changed");
         embedBuilder.addField(
-                "Old Level", String.valueOf(event.getOldLevel().getDescription()), false);
+                "Old Level", event.getOldLevel().getDescription(), false);
         embedBuilder.addField(
                 "New Level",
-                String.valueOf(event.getGuild().getExplicitContentLevel().getDescription()),
+                event.getGuild().getExplicitContentLevel().getDescription(),
                 false);
         textChannel.sendMessage(embedBuilder.build()).queue();
     }
@@ -558,8 +558,8 @@ public class GuildLogging {
         embedBuilder.addField("Text Channel", event.getChannel().getAsMention(), true);
         embedBuilder.setFooter("Channel Id " + event.getChannel().getId(), null);
         embedBuilder.addBlankField(true);
-        String OldParent = String.valueOf(event.getOldParent().getName());
-        String NewParent = String.valueOf(event.getChannel().getParent().getName());
+        String OldParent = event.getOldParent().getName();
+        String NewParent = event.getChannel().getParent().getName();
         if (OldParent != null) {
             embedBuilder.addField("Old Parent", OldParent, true);
         }

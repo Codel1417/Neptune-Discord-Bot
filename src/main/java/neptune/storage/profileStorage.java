@@ -4,10 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TimeZone;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -25,6 +23,7 @@ public class profileStorage {
     private int leaderboardPoints;
     @Id
     private String id;
+    @ElementCollection
     private Map<ProfileOptionsEnum, String> profileOptions;
 
     public profileStorage(String ID){
@@ -32,6 +31,11 @@ public class profileStorage {
         leaderboardPoints = 0;
         profileOptions = new HashMap<>();
     }
+
+    public profileStorage() {
+
+    }
+
     public static profileStorage getProfile(String ID){
         Sentry.addBreadcrumb("Loading Profile for ID: " + ID);
         StandardServiceRegistry ssr = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();  
@@ -51,9 +55,8 @@ public class profileStorage {
     public int getPoints() {
         return leaderboardPoints;
     }
-    public profileStorage incrimentPoints(){
+    public void incrimentPoints(){
         leaderboardPoints++;
-        return this;
     }
     public boolean setBio(String Bio) {
         if (Bio.length() <= 700) { // leaves 300 characters for other profile options

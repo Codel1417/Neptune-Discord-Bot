@@ -18,7 +18,7 @@ import org.apache.logging.log4j.Logger;
 import io.sentry.Sentry;
 
 public class Leaderboard implements ICommand {
-    protected static Logger log = LogManager.getLogger();
+    protected static final Logger log = LogManager.getLogger();
 
     @Override
     public void run(
@@ -69,7 +69,7 @@ public class Leaderboard implements ICommand {
         }
         return points;
     }
-    public LinkedHashMap<String, Integer> getTopUsers(GuildMessageReceivedEvent event) throws CloneNotSupportedException {
+    public LinkedHashMap<String, Integer> getTopUsers(GuildMessageReceivedEvent event) {
         List<Member> guildMembers = event.getGuild().getMembers();
         HashMap<String, Integer> leaderboards = new HashMap<>();
         //todo, get all profiles for members, then calculate top;

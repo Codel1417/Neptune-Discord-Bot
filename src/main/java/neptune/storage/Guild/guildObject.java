@@ -6,9 +6,7 @@ import neptune.storage.Enum.GuildOptionsEnum;
 import neptune.storage.Enum.LoggingOptionsEnum;
 import java.util.HashMap;
 import java.util.Map;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 //Stop using Subclasses
 @Entity  
@@ -16,6 +14,10 @@ import javax.persistence.Table;
 @JsonDeserialize(using = guildObjectDeserializer.class)
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.NONE)
 public class guildObject {
+    public guildObject() {
+
+    }
+
     public logOptionsObject getLogOptions() {
         return logOptions;
     }
@@ -32,9 +34,11 @@ public class guildObject {
         logOptions = logOptionsEntity;
         return this;
     }
-
+    @Transient
     private logOptionsObject logOptions;
+    @Transient
     private customRoleObject customRole;
+    @Transient
     private guildOptionsObject guildOptions;
 
     public guildObject(String GuildID) {
@@ -72,10 +76,11 @@ public class guildObject {
     }
     @Id
     private String guildID;
-    int version;
-
-    public class guildOptionsObject {
-        private Map<GuildOptionsEnum, Boolean> GuildOptionsHashMap;
+    @Version int version;
+    @Entity
+    public static class guildOptionsObject extends guildObject {
+        @ElementCollection
+        private final Map<GuildOptionsEnum, Boolean> GuildOptionsHashMap;
 
         public guildOptionsObject() {
             GuildOptionsHashMap = new HashMap<>();
@@ -93,14 +98,11 @@ public class guildObject {
             GuildOptionsHashMap.put(Option, value);
         }
 
-        protected Map<GuildOptionsEnum, Boolean> getGuildOptions() {
-            return GuildOptionsHashMap;
-        }
-        ;
     }
-
-    public class logOptionsObject {
-        private Map<LoggingOptionsEnum, Boolean> loggingOptions;
+    @Entity
+    public static class logOptionsObject extends guildObject{
+        @ElementCollection
+        private final Map<LoggingOptionsEnum, Boolean> loggingOptions;
 
         private String Channel = null;
 
@@ -113,10 +115,6 @@ public class guildObject {
                 String channel, Map<LoggingOptionsEnum, Boolean> loggingOptionsMap) {
             loggingOptions = loggingOptionsMap;
             Channel = channel;
-        }
-
-        protected Map<LoggingOptionsEnum, Boolean> getloggingOptionsMap() {
-            return loggingOptions;
         }
 
         public boolean getOption(LoggingOptionsEnum option) {
@@ -135,8 +133,10 @@ public class guildObject {
             Channel = channelID;
         }
     }
-    public class customRoleObject {
-        private Map<String, String> customRoles;
+    @Entity
+    public static class customRoleObject extends guildObject{
+        @ElementCollection
+        private final Map<String, String> customRoles;
 
         public customRoleObject() {
             customRoles = new HashMap<>();
@@ -158,9 +158,6 @@ public class guildObject {
             customRoles.remove(MemberID);
         }
 
-        protected Map<String, String> getCustomRoles() {
-            return customRoles;
-        }
     }
 
 }

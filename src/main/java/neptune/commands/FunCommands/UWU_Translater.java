@@ -7,8 +7,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class UWU_Translater implements ICommand {
-    private HashMap<String, String> directTranslations = new HashMap<>();
-    private HashMap<String, String> indirectTranslations = new HashMap<>();
+    private final HashMap<String, String> directTranslations = new HashMap<>();
+    private final HashMap<String, String> indirectTranslations = new HashMap<>();
 
     public UWU_Translater() {
         // init maps

@@ -9,7 +9,7 @@ import net.dv8tion.jda.api.events.ReadyEvent;
 
 public class promPeriodic implements Runnable {
     protected static final Logger log = LogManager.getLogger();
-    private JDA jda;
+    private final JDA jda;
     static final Gauge GUILDCOUNT_GAUGE = Gauge.build().name("Total_Servers").help("Total Servers.").register();
     static final Gauge PING_GAUGE = Gauge.build().name("Gateway_Ping").help("Gateway Ping.").register();
     static final Gauge TOTAL_USERS_GAUGE = Gauge.build().name("Total_Users").help("Total users.").register();

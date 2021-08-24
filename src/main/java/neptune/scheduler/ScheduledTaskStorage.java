@@ -13,7 +13,7 @@ public class ScheduledTaskStorage {
         return _instance;
     }
 
-    private ArrayList<IAction> entries = new ArrayList<IAction>();
+    private final ArrayList<IAction> entries = new ArrayList<>();
 
     public void addEntry(IAction entry){
         entries.add(entry);

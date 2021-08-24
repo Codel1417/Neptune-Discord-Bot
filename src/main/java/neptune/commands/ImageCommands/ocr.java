@@ -16,8 +16,8 @@ import javax.imageio.ImageIO;
 
 public class ocr implements ICommand {
     protected static final Logger log = LogManager.getLogger();
-    private Helpers helpers = new Helpers();
-    private Tesseract tesseract = new Tesseract();
+    private final Helpers helpers = new Helpers();
+    private final Tesseract tesseract = new Tesseract();
 
     public ocr(){
         tesseract.setDatapath("tessdata");
