@@ -20,8 +20,9 @@ public class enableJoinLeaveLogging implements ICommand {
             guildObject guildentity = GuildStorageHandler.getInstance().readFile(event.getGuild().getId());
             guildentity.getLogOptions().setOption(LoggingOptionsEnum.MemberActivityLogging, true);
             GuildStorageHandler.getInstance().writeFile(guildentity);
+            guildentity.closeSession();
             event.getChannel().sendMessage("Server logging disabled.").queue();
-        } catch (IOException e) {
+        } catch (Exception e) {
             log.error(e);
             Sentry.captureException(e);
         }        

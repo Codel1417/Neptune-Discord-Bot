@@ -1,38 +1,33 @@
 package neptune.commands.PassiveCommands;
 
-import neptune.CycleGameStatus;
+import co.elastic.apm.api.CaptureSpan;
+import io.sentry.ITransaction;
+import io.sentry.SpanStatus;
+import io.sentry.protocol.User;
 import neptune.commands.CommandHandler;
 import neptune.commands.RandomMediaPicker;
 import neptune.serverLogging.GuildLogging;
 import neptune.storage.Enum.GuildOptionsEnum;
-import neptune.storage.Enum.LoggingOptionsEnum;
 import neptune.storage.Guild.GuildStorageHandler;
 import neptune.storage.Guild.guildObject;
-import neptune.storage.Guild.guildObject.logOptionsObject;
 import neptune.storage.logsStorageHandler;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.GenericEvent;
-import net.dv8tion.jda.api.events.ReadyEvent;
-import net.dv8tion.jda.api.events.channel.text.GenericTextChannelEvent;
 import net.dv8tion.jda.api.events.channel.text.TextChannelDeleteEvent;
-import net.dv8tion.jda.api.events.channel.voice.GenericVoiceChannelEvent;
 import net.dv8tion.jda.api.events.guild.GenericGuildEvent;
 import net.dv8tion.jda.api.events.guild.GuildLeaveEvent;
-import net.dv8tion.jda.api.events.guild.member.GenericGuildMemberEvent;
-import net.dv8tion.jda.api.events.guild.update.GenericGuildUpdateEvent;
-import net.dv8tion.jda.api.events.guild.voice.GenericGuildVoiceEvent;
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceUpdateEvent;
-import net.dv8tion.jda.api.events.message.guild.GenericGuildMessageEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.EventListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import io.sentry.Sentry;
+import org.hibernate.Session;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Arrays;
+import java.util.Objects;
 import javax.annotation.Nonnull;
 
 // intercepts discord messages
@@ -45,50 +40,43 @@ public class Listener implements EventListener {
     private final CommandHandler nepCommands = new CommandHandler();
     private final RandomMediaPicker randomMediaPicker = new RandomMediaPicker();
 
+    @CaptureSpan(value = "GenericEvent", type = "command")
     @Override
     public void onEvent(@Nonnull GenericEvent event) {
         Sentry.addBreadcrumb(event.getClass().getName());
-        // Startup tasks
-        if (event instanceof ReadyEvent && !ActivityThread) {
-            CycleActivity = new CycleGameStatus((ReadyEvent) event);
-            Thread CycleActivityThread = new Thread(CycleActivity);
-            CycleActivityThread.setName("CycleActivityThread");
-            CycleActivityThread.start();
-            ActivityThread = true; // prevent duplicate threads from discord reconnect
-        }
-
+        ITransaction transaction = Sentry.startTransaction(event.getClass().getName(), "Command Runner");
         if (event instanceof GenericGuildEvent) {
-            guildObject guildEntity = null;
+            guildObject guildEntity;
             try {
                 guildEntity = GuildStorageHandler.getInstance().readFile(((GenericGuildEvent) event).getGuild().getId());
             } catch (Exception e) {
                 log.error(e);
                 Sentry.captureException(e);
+                transaction.setThrowable(e);
+                transaction.setStatus(SpanStatus.UNKNOWN_ERROR);
+                transaction.finish();
                 return;
             }
             // Commands
             if (event instanceof GuildMessageReceivedEvent) {
-                if (((GuildMessageReceivedEvent) event).getAuthor().isBot())
-                    return; // blocks responses to other bots
+                if (((GuildMessageReceivedEvent) event).getAuthor().isBot()){
+                    transaction.setStatus(SpanStatus.FAILED_PRECONDITION);
+                    transaction.finish();
+                    return;
+                }
                 runEvent((GuildMessageReceivedEvent) event, guildEntity);
             }
             //TODO: Move to scheduler for async
             // Clear stored logs when text channel is deleted
-            if (event instanceof TextChannelDeleteEvent) {
-                logStorage.deleteChannel(
-                        ((TextChannelDeleteEvent) event).getGuild().getId(),
-                        ((TextChannelDeleteEvent) event).getChannel().getId());
-            }
-            // detete all log data when server removes neptune
-            else if (event instanceof GuildLeaveEvent) {
+            if (event instanceof GuildLeaveEvent) {
                 logStorage.deleteGuild(((GuildLeaveEvent) event).getGuild().getId());
             }
             // disconnect from voice chat if neptune is the only one left
             else if (event instanceof GuildVoiceUpdateEvent) {
                 try {
-                    if (((GuildVoiceUpdateEvent) event).getChannelLeft().getMembers().size() == 1 && ((GuildVoiceUpdateEvent) event).getChannelLeft().getGuild().getAudioManager().isConnected()) {
-                        ((GuildVoiceUpdateEvent) event).getChannelLeft().getGuild().getAudioManager().setSendingHandler(null);
-                        ((GuildVoiceUpdateEvent) event).getChannelLeft().getGuild().getAudioManager().closeAudioConnection();
+                    if (Objects.requireNonNull(((GuildVoiceUpdateEvent) event).getChannelLeft()).getMembers().size() == 1 && Objects.requireNonNull(((GuildVoiceUpdateEvent) event).getChannelLeft()).getGuild().getAudioManager().isConnected()) {
+                        Objects.requireNonNull(((GuildVoiceUpdateEvent) event).getChannelLeft()).getGuild().getAudioManager().setSendingHandler(null);
+                        Objects.requireNonNull(((GuildVoiceUpdateEvent) event).getChannelLeft()).getGuild().getAudioManager().closeAudioConnection();
                         log.info("VOICE: Channel Empty, Disconnecting from VC");
                     }
                 } catch (Exception e) {
@@ -96,25 +84,8 @@ public class Listener implements EventListener {
                     Sentry.captureException(e);
                 }
             }
-            logOptionsObject logOptionsEntity = guildEntity.getLogOptions();
-
-            // check if logging is set up first
-            if (logOptionsEntity.getChannel() == null) return;
-            if (!logOptionsEntity.getOption(LoggingOptionsEnum.GlobalLogging)) return;
-
-            if (event instanceof GenericGuildVoiceEvent) {
-                guildLogging.GuildVoice((GenericGuildVoiceEvent) event, logOptionsEntity);
-            } else if (event instanceof GenericGuildMessageEvent) {
-                guildLogging.GuildText((GenericGuildMessageEvent) event, logOptionsEntity);
-            } else if (event instanceof GenericGuildMemberEvent) {
-                guildLogging.GuildMember((GenericGuildMemberEvent) event, logOptionsEntity);
-            } else if (event instanceof GenericGuildUpdateEvent) {
-                guildLogging.GuildSettings((GenericGuildUpdateEvent) event, logOptionsEntity);
-            } else if (event instanceof GenericTextChannelEvent) {
-                guildLogging.GuildTextChannel((GenericTextChannelEvent) event, logOptionsEntity);
-            } else if (event instanceof GenericVoiceChannelEvent) {
-                guildLogging.GuildVoiceChannel((GenericVoiceChannelEvent) event, logOptionsEntity);
-            }
+            guildEntity.closeSession();
+            transaction.finish();
         }
     }
 
@@ -135,14 +106,6 @@ public class Listener implements EventListener {
     }
 
     public void runEvent(GuildMessageReceivedEvent event, guildObject guildEntity) {
-        // leaderboard
-        try {
-            GuildStorageHandler.getInstance().writeFile(guildEntity);
-        } catch (IOException e1) {
-            log.error(e1);
-            Sentry.captureException(e1);
-        } 
-        boolean result = false;
         // check if the bot was called in chat
         try {
             boolean multiPrefix = guildEntity.getGuildOptions().getOption(GuildOptionsEnum.customSounds);

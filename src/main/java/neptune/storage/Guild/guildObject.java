@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import neptune.storage.Enum.GuildOptionsEnum;
 import neptune.storage.Enum.LoggingOptionsEnum;
+import org.hibernate.Session;
+
 import java.util.HashMap;
 import java.util.Map;
 import javax.persistence.*;
@@ -30,20 +32,15 @@ public class guildObject {
         return guildOptions;
     }
 
-    public guildObject setLogOptionsEntity(logOptionsObject logOptionsEntity) {
-        logOptions = logOptionsEntity;
-        return this;
-    }
-    @Transient
+    @Embedded
     private logOptionsObject logOptions;
-    @Transient
+    @Embedded
     private customRoleObject customRole;
-    @Transient
+    @Embedded
     private guildOptionsObject guildOptions;
 
     public guildObject(String GuildID) {
         guildID = GuildID;
-        version = 3;
         logOptions = new logOptionsObject();
         customRole = new customRoleObject();
         guildOptions = new guildOptionsObject();
@@ -51,7 +48,6 @@ public class guildObject {
 
     public guildObject(String GuildID,Map<GuildOptionsEnum, Boolean> guildOptionsMap,Map<LoggingOptionsEnum, Boolean> logOptionsMap,Map<String, String> customRoleMap,String loggingChannel,int version) {
         guildID = GuildID;
-        version = this.version;
         logOptions = new logOptionsObject(loggingChannel, logOptionsMap);
         customRole = new customRoleObject(customRoleMap);
         guildOptions = new guildOptionsObject(guildOptionsMap);
@@ -66,24 +62,20 @@ public class guildObject {
         return this;
     }
 
-    public int getVersion() {
-        return version;
-    }
-
-    protected guildObject setVersion(int version) {
-        this.version = version;
-        return this;
-    }
     @Id
     private String guildID;
-    @Version int version;
-    @Entity
-    public static class guildOptionsObject extends guildObject {
+    @Embeddable
+    public static class guildOptionsObject {
         @ElementCollection
         private final Map<GuildOptionsEnum, Boolean> GuildOptionsHashMap;
 
         public guildOptionsObject() {
             GuildOptionsHashMap = new HashMap<>();
+            GuildOptionsHashMap.put(GuildOptionsEnum.CustomRoleEnabled,false);
+            GuildOptionsHashMap.put(GuildOptionsEnum.leaderboardEnabled,true);
+            GuildOptionsHashMap.put(GuildOptionsEnum.customSounds,false);
+            GuildOptionsHashMap.put(GuildOptionsEnum.LeaderboardLevelUpNotification,false);
+            GuildOptionsHashMap.put(GuildOptionsEnum.LoggingEnabled,false);
         }
 
         protected guildOptionsObject(Map<GuildOptionsEnum, Boolean> GuildOptionsMap) {
@@ -99,8 +91,8 @@ public class guildObject {
         }
 
     }
-    @Entity
-    public static class logOptionsObject extends guildObject{
+    @Embeddable
+    public static class logOptionsObject {
         @ElementCollection
         private final Map<LoggingOptionsEnum, Boolean> loggingOptions;
 
@@ -108,11 +100,16 @@ public class guildObject {
 
         public logOptionsObject() {
             loggingOptions = new HashMap<>();
+            loggingOptions.put(LoggingOptionsEnum.GlobalLogging,false);
+            loggingOptions.put(LoggingOptionsEnum.MemberActivityLogging,true);
+            loggingOptions.put(LoggingOptionsEnum.TextChannelLogging,true);
+            loggingOptions.put(LoggingOptionsEnum.ServerModificationLogging,true);
+            loggingOptions.put(LoggingOptionsEnum.VoiceChannelLogging,true);
+
             Channel = null;
         }
 
-        protected logOptionsObject(
-                String channel, Map<LoggingOptionsEnum, Boolean> loggingOptionsMap) {
+        protected logOptionsObject(String channel, Map<LoggingOptionsEnum, Boolean> loggingOptionsMap) {
             loggingOptions = loggingOptionsMap;
             Channel = channel;
         }
@@ -133,8 +130,8 @@ public class guildObject {
             Channel = channelID;
         }
     }
-    @Entity
-    public static class customRoleObject extends guildObject{
+    @Embeddable
+    public static class customRoleObject {
         @ElementCollection
         private final Map<String, String> customRoles;
 
@@ -160,4 +157,30 @@ public class guildObject {
 
     }
 
+    @Version
+    private int version;
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
+    }
+
+    public Session getSession() {
+        return session;
+    }
+
+    protected void setSession(Session session) {
+        this.session = session;
+    }
+    @Transient
+    private Session session;
+    public void closeSession(){
+        if (session != null && session.isOpen()){
+            //session.flush();
+            session.close();
+        }
+    }
 }

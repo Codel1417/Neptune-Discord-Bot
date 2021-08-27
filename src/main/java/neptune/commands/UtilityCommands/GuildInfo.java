@@ -10,6 +10,7 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 import java.awt.*;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 public class GuildInfo implements ICommand {
     @Override
@@ -33,7 +34,7 @@ public class GuildInfo implements ICommand {
 
         embedBuilder.setTitle("Server Info");
         embedBuilder.setColor(Color.MAGENTA);
-        embedBuilder.addField("Server Owner", guild.getOwner().getUser().getName(), true);
+        embedBuilder.addField("Server Owner", Objects.requireNonNull(guild.getOwner()).getUser().getName(), true);
         embedBuilder.addField("Server Region", guild.getRegion().toString(), true);
         embedBuilder.addField("Members", String.valueOf(guild.getMembers().size()), true);
         // embedBuilder.addField("Text Channels", TextChannelList.toString(),true);

@@ -6,9 +6,9 @@
     <session-factory>  
         <property name="dialect">org.hibernate.dialect.H2Dialect</property>  
         <property name="hbm2ddl.auto">update</property>    
-        <property name="connection.url">jdbc:h2:~/data</property>    
+        <property name="connection.url">jdbc:h2:./data</property>
         <property name="connection.driver_class">org.h2.Driver</property>   
         <mapping class="neptune.storage.Guild.guildObject"/>
-        <mapping class="neptune.storage.profile"/>
+        <mapping class="neptune.storage.profileStorage"/>
     </session-factory>  
 </hibernate-configuration>

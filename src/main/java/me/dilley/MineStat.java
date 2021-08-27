@@ -97,7 +97,7 @@ public class MineStat {
         if (rawServerData == null) serverUp = false;
         else {
             serverData = rawServerData.split("\u0000\u0000\u0000");
-            if (serverData != null && serverData.length >= NUM_FIELDS) {
+            if (serverData.length >= NUM_FIELDS) {
                 serverUp = true;
                 setVersion(serverData[2].replace("\u0000", ""));
                 setMotd(serverData[3].replace("\u0000", ""));

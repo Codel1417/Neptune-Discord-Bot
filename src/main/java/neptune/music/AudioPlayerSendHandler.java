@@ -6,6 +6,7 @@ import com.sedmelluq.discord.lavaplayer.track.playback.AudioFrame;
 import net.dv8tion.jda.api.audio.AudioSendHandler;
 
 import java.nio.ByteBuffer;
+import java.util.Objects;
 
 /**
  * This is a wrapper around AudioPlayer which makes it behave as an AudioSendHandler for JDA. As JDA
@@ -39,7 +40,7 @@ public class AudioPlayerSendHandler implements AudioSendHandler {
         byte[] data = lastFrame != null ? lastFrame.getData() : null;
         lastFrame = null;
 
-        return ByteBuffer.wrap(data);
+        return ByteBuffer.wrap(Objects.requireNonNull(data));
     }
 
     @Override

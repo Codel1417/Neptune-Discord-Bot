@@ -1,26 +1,20 @@
-# Debian Sid is a requirement as I need Tesseract version 4.1 or newer.
+# I need Tesseract version 4.1 or newer.
 FROM ubuntu:latest
 
 ARG COMMIT_ID
+
 # https://packages.debian.org/sid/tesseract-ocr
 # -o APT::Immediate-Configure=0  Fixes an issue with one of tesseract's deps
-RUN echo "deb http://http.us.debian.org/debian unstable main non-free contrib" > /etc/apt/sources.list \
-    && apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get install -y --no-install-recommends tesseract-ocr unzip git -o APT::Immediate-Configure=0
+RUN  apt-get update && export DEBIAN_FRONTEND=noninteractive \
+    && apt-get install -y --no-install-recommends tesseract-ocr unzip openjdk-jdk-11 -o APT::Immediate-Configure=0
 
-RUN wget https://services.gradle.org/distributions/gradle-6.5.1-bin.zip -P /tmp \
-    && unzip -d /opt/gradle /tmp/gradle-6.5.1-bin.zip \
-    && ln -s /opt/gradle/gradle-6.5.1 /opt/gradle/latest
-    
-ENV GRADLE_HOME=/opt/gradle/latest
-ENV PATH=${GRADLE_HOME}/bin:${PATH}
 WORKDIR /nep/
 RUN chown -R 1000:1000 .
 
 USER 1000
 
-//TODO: Build nep;
-COPY --chown=1000:1000 --from=buildNep /nep/Neptune-Discord-Bot/target/Neptune_Discord_Bot-1.0-SNAPSHOT.jar .
+RUN chmod +x gradlew && ./gradlew build
+COPY --chown=1000:1000 /nep/Neptune-Discord-Bot/target/Neptune_Discord_Bot-1.0-SNAPSHOT.jar .
 
 VOLUME /nep/Guilds
 VOLUME /nep/Logs
@@ -33,6 +27,7 @@ EXPOSE 1234
 EXPOSE 1233
 #jmx
 EXPOSE 1232
+
 ENV NEPTUNE_TOKEN=null
 ENV NEPTUNE_TENOR_TOKEN=null
 ENV NEPTUNE_COMMIT_ID=$COMMIT_ID
@@ -40,6 +35,11 @@ ENV NEPTUNE_TESSERACT_DIR=/tessdata
 ENV SENTRY_DSN
 ENV NEPTUNE_STATUS_WEBHOOK
 
-USER 1000
+# Elastic APM config
+ENV ELASTIC_APM_SERVICE_NAME=neptune
+ENV ELASTIC_APM_APPLICATION_PACKAGES=neptune
+ENV ELASTIC_APM_SERVER_URL=http://elastic:8200
+ENV ELASTIC_APM_ENABLE_LOG_CORRELATION=true
+ENV ELASTIC_APM_PROFILING_INFERRED_SPANS_ENABLED=true
 
-CMD java -jar Neptune_Discord_Bot-1.0-SNAPSHOT.jar
+CMD run.sh

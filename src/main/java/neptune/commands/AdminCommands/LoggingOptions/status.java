@@ -15,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 import io.sentry.Sentry;
 
 import java.awt.*;
+import java.util.Objects;
 
 public class status implements ICommand {
     final Helpers helpers = new Helpers();
@@ -38,7 +39,7 @@ public class status implements ICommand {
             if (!LoggingChannel.equalsIgnoreCase("")) {
                 embedBuilder.addField(
                         "Channel",
-                        event.getGuild().getTextChannelById(LoggingChannel).getAsMention(),
+                        Objects.requireNonNull(event.getGuild().getTextChannelById(LoggingChannel)).getAsMention(),
                         true);
             }
     
@@ -48,8 +49,9 @@ public class status implements ICommand {
             logOptionsMessage.append("Member Activity").append(helpers.getEnabledDisabledIcon(guildentity.getLogOptions().getOption(LoggingOptionsEnum.MemberActivityLogging))).append("\n");
             logOptionsMessage.append("Server Changes ").append(helpers.getEnabledDisabledIcon(guildentity.getLogOptions().getOption(LoggingOptionsEnum.ServerModificationLogging))).append("\n");
             embedBuilder.addField("Settings", logOptionsMessage.toString(),false);
+            guildentity.closeSession();
             event.getChannel().sendMessage(embedBuilder.build()).queue();
-        } catch (IOException e) {
+        } catch (Exception e) {
             log.error(e);
             Sentry.captureException(e);
         }

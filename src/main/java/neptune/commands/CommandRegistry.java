@@ -2,6 +2,7 @@ package neptune.commands;
 
 import java.awt.Color;
 import java.util.Map;
+import java.util.Objects;
 import java.util.TreeMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -43,7 +44,7 @@ public class CommandRegistry {
         if (hasCommand(commandText[0])) {
             Command command = commands.get(commandText[0]);
             if (command.getRequiredPermissions() != null) {
-                if (!event.getMember().hasPermission(command.getRequiredPermissions())){
+                if (!Objects.requireNonNull(event.getMember()).hasPermission(command.getRequiredPermissions())){
                     permissionException(event);
                     return;
                 }

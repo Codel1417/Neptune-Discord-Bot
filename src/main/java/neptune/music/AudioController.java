@@ -23,6 +23,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class AudioController {
     private Guild guild;
@@ -48,7 +49,7 @@ public class AudioController {
     }
 
     public void playSound(GuildMessageReceivedEvent event, String audioURL) {
-        VoiceChannel chan = event.getMember().getVoiceState().getChannel();
+        VoiceChannel chan = Objects.requireNonNull(event.getMember().getVoiceState()).getChannel();
         guild = event.getGuild();
         mng = getMusicManager(event.getGuild());
         guild.getAudioManager().setSendingHandler(mng.sendHandler);

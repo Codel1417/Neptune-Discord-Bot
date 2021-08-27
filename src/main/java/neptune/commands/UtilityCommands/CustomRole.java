@@ -16,6 +16,7 @@ import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 
 import java.awt.Color;
 import java.io.IOException;
+import java.util.Objects;
 
 public class CustomRole extends Helpers implements ICommand {
     protected static final Logger log = LogManager.getLogger();
@@ -58,7 +59,7 @@ public class CustomRole extends Helpers implements ICommand {
                         "Custom roles is not enabled, Please have an admin enable it in options.");
                 event.getChannel().sendMessage(embedBuilder.build()).queue();
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             log.error(e);
             Sentry.captureException(e);
         }
@@ -174,7 +175,7 @@ public class CustomRole extends Helpers implements ICommand {
             GuildMessageReceivedEvent event, String RoleName, guildObject guildEntity) {
         try {
             Role role = event.getGuild().createRole().setName(RoleName).setPermissions().complete();
-            event.getGuild().addRoleToMember(event.getMember(), role).complete();
+            event.getGuild().addRoleToMember(Objects.requireNonNull(event.getMember()), role).complete();
             guildEntity.getCustomRole().addRole(event.getMember().getId(), role.getId());
             EmbedBuilder embedBuilder = new EmbedBuilder();
             embedBuilder
@@ -195,8 +196,8 @@ public class CustomRole extends Helpers implements ICommand {
     private guildObject removeRole(GuildMessageReceivedEvent event, guildObject guildEntity) {
         try {
             String roleID = getRole(event, guildEntity);
-            event.getGuild().getRoleById(roleID).delete().reason("Custom Role Remove").complete();
-            guildEntity.getCustomRole().removeRole(event.getMember().getId());
+            Objects.requireNonNull(event.getGuild().getRoleById(roleID)).delete().reason("Custom Role Remove").complete();
+            guildEntity.getCustomRole().removeRole(Objects.requireNonNull(event.getMember()).getId());
             EmbedBuilder embedBuilder = new EmbedBuilder();
             embedBuilder
                     .setColor(Color.MAGENTA)
@@ -214,6 +215,6 @@ public class CustomRole extends Helpers implements ICommand {
     }
 
     private String getRole(GuildMessageReceivedEvent event, guildObject guildEntity) {
-        return guildEntity.getCustomRole().getRoleID(event.getMember().getId());
+        return guildEntity.getCustomRole().getRoleID(Objects.requireNonNull(event.getMember()).getId());
     }
 }

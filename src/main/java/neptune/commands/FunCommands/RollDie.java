@@ -13,7 +13,14 @@ public class RollDie extends Helpers implements ICommand {
     @Override
     public void run(
             GuildMessageReceivedEvent event, String messageContent) {
-        int sides = Integer.decode(messageContent);
+        int sides;
+        try {
+            sides = Integer.decode(messageContent);
+        }
+        catch (NumberFormatException e){
+            event.getChannel().sendMessage(messageContent + " is not aa number").queue();
+            return;
+        }
         int result = random.nextInt(sides) + 1;
         event.getChannel().sendMessage("I rolled a d" + sides + " and landed a " + result).queue();
     }

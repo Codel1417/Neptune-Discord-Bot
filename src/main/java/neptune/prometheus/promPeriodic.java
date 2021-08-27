@@ -7,6 +7,8 @@ import io.sentry.Sentry;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.events.ReadyEvent;
 
+import java.util.Objects;
+
 public class promPeriodic implements Runnable {
     protected static final Logger log = LogManager.getLogger();
     private final JDA jda;
@@ -21,7 +23,7 @@ public class promPeriodic implements Runnable {
         while (true) {
             try {
                 Thread.sleep(60000);
-                GUILDCOUNT_GAUGE.set(jda.getShardManager().getGuilds().size());
+                GUILDCOUNT_GAUGE.set(Objects.requireNonNull(jda.getShardManager()).getGuilds().size());
                 PING_GAUGE.set(jda.getShardManager().getAverageGatewayPing());
                 TOTAL_USERS_GAUGE.set(jda.getShardManager().getUsers().size());
             } catch (InterruptedException e) {

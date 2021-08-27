@@ -17,15 +17,15 @@ import io.sentry.Sentry;
 import neptune.storage.Enum.ProfileOptionsEnum;
 
 @Entity
-@Table(name= "Profiles")
 public class profileStorage {
-    @Column(name = "points")
     private int leaderboardPoints;
     @Id
     private String id;
     @ElementCollection
     private Map<ProfileOptionsEnum, String> profileOptions;
-
+    private static  StandardServiceRegistry ssr = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
+    private static Metadata meta = new MetadataSources(ssr).getMetadataBuilder().build();
+    private static SessionFactory factory = meta.getSessionFactoryBuilder().build();
     public profileStorage(String ID){
         id = ID;
         leaderboardPoints = 0;
@@ -35,20 +35,22 @@ public class profileStorage {
     public profileStorage() {
 
     }
-
+    private Session session;
+    public void closeSession(){
+        if (session != null && session.isOpen()){
+            session.close();
+        }
+    }
     public static profileStorage getProfile(String ID){
         Sentry.addBreadcrumb("Loading Profile for ID: " + ID);
-        StandardServiceRegistry ssr = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();  
-        Metadata meta = new MetadataSources(ssr).getMetadataBuilder().build(); 
-        SessionFactory factory = meta.getSessionFactoryBuilder().build();  
-        Session session = factory.openSession();  
-        profileStorage temp = (profileStorage) session.get("neptune.storage.profile", ID);
-        session.close();
-        factory.close();
-        ssr.close();
-        //else create profile
-        if (temp == null){
+        Session session = factory.openSession();
+        profileStorage temp = (profileStorage) session.get("neptune.storage.profileStorage", ID);
+        if (temp != null){
+            temp.session = session;
+        }
+        else {
             temp = new profileStorage(ID);
+            temp.session = session;
         }
         return temp;       
     }
@@ -94,15 +96,9 @@ public class profileStorage {
 
     public void serialize(){
         Sentry.addBreadcrumb("Saving Profile for ID: " + id);
-        StandardServiceRegistry ssr = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();  
-        Metadata meta = new MetadataSources(ssr).getMetadataBuilder().build(); 
-        SessionFactory factory = meta.getSessionFactoryBuilder().build();
-        Session session = factory.openSession();
-        Transaction transaction = session.beginTransaction();   
+        Transaction transaction = session.beginTransaction();
         session.save(this);
         transaction.commit();
         session.close();
-        ssr.close();
-        factory.close();
     }
 }

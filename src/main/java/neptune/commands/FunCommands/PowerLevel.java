@@ -26,14 +26,10 @@ public class PowerLevel implements ICommand {
         }
         embedBuilder.setDescription(stringBuilder);
         embedBuilder.setTitle("PowerLevel");
-        if (powerlevel > 9000) {
-            embedBuilder.appendDescription("\nIt's over 9000!");
-        } else {
-            embedBuilder.appendDescription("\nIt's, " + powerlevel);
-            float radiz = (float) powerlevel / (float) 1500;
-            embedBuilder.appendDescription(
-                    " or, " + String.format(java.util.Locale.US, "%.2f", radiz) + " Raditz");
-        }
+        embedBuilder.appendDescription("\nIt's, " + powerlevel);
+        float radiz = (float) powerlevel / (float) 1500;
+        embedBuilder.appendDescription(
+                " or, " + String.format(java.util.Locale.US, "%.2f", radiz) + " Raditz");
         event.getChannel().sendMessage(embedBuilder.build()).queue();
     }
 }

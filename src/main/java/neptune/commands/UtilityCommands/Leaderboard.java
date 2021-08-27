@@ -7,12 +7,9 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import java.awt.*;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import io.sentry.Sentry;
@@ -36,8 +33,8 @@ public class Leaderboard implements ICommand {
                 String userID = result.getKey();
                 String member = userID;
                 try {
-                    member = event.getJDA().getUserById(userID).getAsMention();
-                } catch (NullPointerException e) {
+                    member = Objects.requireNonNull(event.getJDA().getUserById(userID)).getAsMention();
+                } catch (NullPointerException ignored) {
 
                 }
                 stringBuilder.append(count).append(") ").append(member).append(" Level: ").append(calculateRank(Integer.parseInt(String.valueOf(result.getValue()))));
@@ -74,7 +71,9 @@ public class Leaderboard implements ICommand {
         HashMap<String, Integer> leaderboards = new HashMap<>();
         //todo, get all profiles for members, then calculate top;
         for (Member member : guildMembers){
-            leaderboards.put(event.getMember().getId(), profileStorage.getProfile(member.getId()).getPoints());
+            profileStorage profile = profileStorage.getProfile(member.getId());
+            leaderboards.put(Objects.requireNonNull(event.getMember()).getId(), profile.getPoints());
+            profile.closeSession();
         }
         LinkedHashMap<String, Integer> reverseSortedMap = new LinkedHashMap<>();
 

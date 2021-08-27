@@ -18,6 +18,7 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageUpdateEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.awt.*;
+import java.util.Objects;
 
 public class TextLog {
     final logsStorageHandler logsStorageHandler = new logsStorageHandler();
@@ -39,7 +40,7 @@ public class TextLog {
                             .getAuthor()
                             .getId()
                             .equalsIgnoreCase(event.getJDA().getSelfUser().getId())
-                    | textChannel.getId().equalsIgnoreCase(event.getChannel().getId())) {
+                    | Objects.requireNonNull(textChannel).getId().equalsIgnoreCase(event.getChannel().getId())) {
                 return;
             }
             logObject logEntity = new logObject();
@@ -57,7 +58,7 @@ public class TextLog {
             }
         }
         if (event instanceof GuildMessageUpdateEvent) {
-            GuildText((GuildMessageUpdateEvent) event, textChannel);
+            GuildText((GuildMessageUpdateEvent) event, Objects.requireNonNull(textChannel));
 
         } else if (event instanceof GuildMessageDeleteEvent) {
             GuildText((GuildMessageDeleteEvent) event, textChannel);
@@ -83,7 +84,7 @@ public class TextLog {
             log.error(e);
         }
 
-        EmbedBuilder embedBuilder = getEmbedBuilder(event.getMember());
+        EmbedBuilder embedBuilder = getEmbedBuilder(Objects.requireNonNull(event.getMember()));
         embedBuilder.setDescription("Message Edited by " + event.getMember().getAsMention() + " in channel " + event.getChannel().getAsMention());
 
         if (!PreviousMessage.equalsIgnoreCase("")) {
@@ -127,10 +128,8 @@ public class TextLog {
         if (!PreviousMessage.equalsIgnoreCase("")) {
             embedBuilder.addField("Deleted Message", PreviousMessage, false);
         }
-        if (user != null) {
-            embedBuilder.setAuthor(
-                    user.getName() + "#" + user.getDiscriminator(), null, user.getAvatarUrl());
-        }
+        embedBuilder.setAuthor(
+                user.getName() + "#" + user.getDiscriminator(), null, user.getAvatarUrl());
 
         embedBuilder.setColor(Color.RED);
         textChannel.sendMessage(embedBuilder.build()).queue();

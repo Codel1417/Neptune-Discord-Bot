@@ -82,7 +82,7 @@ public abstract class TenorGif {
                         "https://api.tenor.com/v1/search?q=%1$s&key=%2$s&limit=15&contentfilter=high&media_filter=minimal",
                         SearchTerm, API_KEY);
         log.debug("Link " + url);
-        HttpURLConnection connection = null;
+        HttpURLConnection connection;
         try {
             // Get request
             connection = (HttpURLConnection) new URL(url).openConnection();

@@ -28,6 +28,7 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageUpdateEvent;
 
 import java.awt.*;
 import java.io.IOException;
+import java.util.Objects;
 
 public class GuildLogging {
     final logsStorageHandler logsStorageHandler = new logsStorageHandler();
@@ -40,11 +41,11 @@ public class GuildLogging {
             return;
         }
         if (event instanceof GuildVoiceJoinEvent) {
-            GuildVoiceJoin((GuildVoiceJoinEvent) event, textChannel);
+            GuildVoiceJoin((GuildVoiceJoinEvent) event, Objects.requireNonNull(textChannel));
         } else if (event instanceof GuildVoiceLeaveEvent) {
-            GuildVoiceLeave((GuildVoiceLeaveEvent) event, textChannel);
+            GuildVoiceLeave((GuildVoiceLeaveEvent) event, Objects.requireNonNull(textChannel));
         } else if (event instanceof GuildVoiceMoveEvent) {
-            GuildVoiceMove((GuildVoiceMoveEvent) event, textChannel);
+            GuildVoiceMove((GuildVoiceMoveEvent) event, Objects.requireNonNull(textChannel));
         } else if (event instanceof GuildVoiceGuildDeafenEvent) {
             GuildVoiceGuileDeafen((GuildVoiceGuildDeafenEvent) event, textChannel);
         } else if (event instanceof GuildVoiceGuildMuteEvent) {
@@ -117,7 +118,7 @@ public class GuildLogging {
                             .getAuthor()
                             .getId()
                             .equalsIgnoreCase(event.getJDA().getSelfUser().getId())
-                    | textChannel.getId().equalsIgnoreCase(event.getChannel().getId())) {
+                    | Objects.requireNonNull(textChannel).getId().equalsIgnoreCase(event.getChannel().getId())) {
                 return;
             }
             logObject logEntity = new logObject();
@@ -135,7 +136,7 @@ public class GuildLogging {
             }
         }
         if (event instanceof GuildMessageUpdateEvent) {
-            GuildText((GuildMessageUpdateEvent) event, textChannel);
+            GuildText((GuildMessageUpdateEvent) event, Objects.requireNonNull(textChannel));
 
         } else if (event instanceof GuildMessageDeleteEvent) {
             GuildText((GuildMessageDeleteEvent) event, textChannel);
@@ -164,7 +165,7 @@ public class GuildLogging {
             e.printStackTrace();
         }
 
-        EmbedBuilder embedBuilder = getEmbedBuilder(event.getMember());
+        EmbedBuilder embedBuilder = getEmbedBuilder(Objects.requireNonNull(Objects.requireNonNull(event.getMember())));
         embedBuilder.setDescription(
                 "Message Edited by "
                         + event.getMember().getAsMention()
@@ -211,10 +212,8 @@ public class GuildLogging {
         if (!PreviousMessage.equalsIgnoreCase("")) {
             embedBuilder.addField("Deleted Message", PreviousMessage, false);
         }
-        if (user != null) {
-            embedBuilder.setAuthor(
-                    user.getName() + "#" + user.getDiscriminator(), null, user.getAvatarUrl());
-        }
+        embedBuilder.setAuthor(
+                user.getName() + "#" + user.getDiscriminator(), null, user.getAvatarUrl());
 
         embedBuilder.setColor(Color.RED);
         textChannel.sendMessage(embedBuilder.build()).queue();
@@ -229,15 +228,15 @@ public class GuildLogging {
         }
 
         if (event instanceof GuildMemberJoinEvent) {
-            GuildMemberLeave((GuildMemberJoinEvent) event, textChannel);
+            GuildMemberLeave((GuildMemberJoinEvent) event, Objects.requireNonNull(textChannel));
         } else if (event instanceof GuildMemberLeaveEvent) {
-            GuildMemberLeave((GuildMemberLeaveEvent) event, textChannel);
+            GuildMemberLeave((GuildMemberLeaveEvent) event, Objects.requireNonNull(textChannel));
         } else if (event instanceof GuildMemberUpdateNicknameEvent) {
             GuildMemberChangeNickname((GuildMemberUpdateNicknameEvent) event, textChannel);
         } else if (event instanceof GuildMemberRoleAddEvent) {
-            GuildMemberRoleAdd((GuildMemberRoleAddEvent) event, textChannel);
+            GuildMemberRoleAdd((GuildMemberRoleAddEvent) event, Objects.requireNonNull(textChannel));
         } else if (event instanceof GuildMemberRoleRemoveEvent) {
-            GuildMemberRoleRemove((GuildMemberRoleRemoveEvent) event, textChannel);
+            GuildMemberRoleRemove((GuildMemberRoleRemoveEvent) event, Objects.requireNonNull(textChannel));
         }
     }
 
@@ -304,29 +303,29 @@ public class GuildLogging {
         if (event instanceof GuildUpdateAfkChannelEvent) {
             GuildSettings((GuildUpdateAfkChannelEvent) event, textChannel);
         } else if (event instanceof GuildUpdateAfkTimeoutEvent) {
-            GuildSettings((GuildUpdateAfkTimeoutEvent) event, textChannel);
+            GuildSettings((GuildUpdateAfkTimeoutEvent) event, Objects.requireNonNull(textChannel));
         } else if (event instanceof GuildUpdateExplicitContentLevelEvent) {
-            GuildSettings((GuildUpdateExplicitContentLevelEvent) event, textChannel);
+            GuildSettings((GuildUpdateExplicitContentLevelEvent) event, Objects.requireNonNull(textChannel));
         } else if (event instanceof GuildUpdateFeaturesEvent) {
             GuildSettings((GuildUpdateFeaturesEvent) event, textChannel);
         } else if (event instanceof GuildUpdateIconEvent) {
-            GuildSettings((GuildUpdateIconEvent) event, textChannel);
+            GuildSettings((GuildUpdateIconEvent) event, Objects.requireNonNull(textChannel));
         } else if (event instanceof GuildUpdateMFALevelEvent) {
-            GuildSettings((GuildUpdateMFALevelEvent) event, textChannel);
+            GuildSettings((GuildUpdateMFALevelEvent) event, Objects.requireNonNull(textChannel));
         } else if (event instanceof GuildUpdateNameEvent) {
-            GuildSettings((GuildUpdateNameEvent) event, textChannel);
+            GuildSettings((GuildUpdateNameEvent) event, Objects.requireNonNull(textChannel));
         } else if (event instanceof GuildUpdateNotificationLevelEvent) {
-            GuildSettings((GuildUpdateNotificationLevelEvent) event, textChannel);
+            GuildSettings((GuildUpdateNotificationLevelEvent) event, Objects.requireNonNull(textChannel));
         } else if (event instanceof GuildUpdateOwnerEvent) {
-            GuildSettings((GuildUpdateOwnerEvent) event, textChannel);
+            GuildSettings((GuildUpdateOwnerEvent) event, Objects.requireNonNull(textChannel));
         } else if (event instanceof GuildUpdateRegionEvent) {
-            GuildSettings((GuildUpdateRegionEvent) event, textChannel);
+            GuildSettings((GuildUpdateRegionEvent) event, Objects.requireNonNull(textChannel));
         } else if (event instanceof GuildUpdateSplashEvent) {
-            GuildSettings((GuildUpdateSplashEvent) event, textChannel);
+            GuildSettings((GuildUpdateSplashEvent) event, Objects.requireNonNull(textChannel));
         } else if (event instanceof GuildUpdateSystemChannelEvent) {
-            GuildSettings((GuildUpdateSystemChannelEvent) event, textChannel);
+            GuildSettings((GuildUpdateSystemChannelEvent) event, Objects.requireNonNull(textChannel));
         } else if (event instanceof GuildUpdateVerificationLevelEvent) {
-            GuildSettings((GuildUpdateVerificationLevelEvent) event, textChannel);
+            GuildSettings((GuildUpdateVerificationLevelEvent) event, Objects.requireNonNull(textChannel));
         }
     }
 
@@ -426,8 +425,8 @@ public class GuildLogging {
     private void GuildSettings(GuildUpdateOwnerEvent event, TextChannel textChannel) {
         EmbedBuilder embedBuilder = getEmbedBuilder(event.getGuild());
         embedBuilder.setDescription("Guild Owner Changed");
-        embedBuilder.addField("Old Owner", event.getOldOwner().getAsMention(), true);
-        embedBuilder.addField("New Owner", event.getGuild().getOwner().getAsMention(), true);
+        embedBuilder.addField("Old Owner", Objects.requireNonNull(Objects.requireNonNull(event.getOldOwner())).getAsMention(), true);
+        embedBuilder.addField("New Owner", Objects.requireNonNull(Objects.requireNonNull(event.getGuild().getOwner())).getAsMention(), true);
         textChannel.sendMessage(embedBuilder.build()).queue();
     }
 
@@ -449,9 +448,9 @@ public class GuildLogging {
     private void GuildSettings(GuildUpdateSystemChannelEvent event, TextChannel textChannel) {
         EmbedBuilder embedBuilder = getEmbedBuilder(event.getGuild());
         embedBuilder.setDescription("System notification channel changed");
-        embedBuilder.addField("Old Channel", event.getOldSystemChannel().getAsMention(), true);
+        embedBuilder.addField("Old Channel", Objects.requireNonNull(Objects.requireNonNull(event.getOldSystemChannel())).getAsMention(), true);
         embedBuilder.addField(
-                "New Channel", event.getGuild().getSystemChannel().getAsMention(), true);
+                "New Channel", Objects.requireNonNull(Objects.requireNonNull(event.getGuild().getSystemChannel())).getAsMention(), true);
         textChannel.sendMessage(embedBuilder.build()).queue();
     }
 
@@ -470,17 +469,17 @@ public class GuildLogging {
             return;
         }
         if (event instanceof TextChannelCreateEvent) {
-            GuildTextChannel((TextChannelCreateEvent) event, textChannel);
+            GuildTextChannel((TextChannelCreateEvent) event, Objects.requireNonNull(textChannel));
         } else if (event instanceof TextChannelDeleteEvent) {
-            GuildTextChannel((TextChannelDeleteEvent) event, textChannel);
+            GuildTextChannel((TextChannelDeleteEvent) event, Objects.requireNonNull(textChannel));
         } else if (event instanceof TextChannelUpdateNameEvent) {
-            GuildTextChannel((TextChannelUpdateNameEvent) event, textChannel);
+            GuildTextChannel((TextChannelUpdateNameEvent) event, Objects.requireNonNull(textChannel));
         } else if (event instanceof TextChannelUpdateNSFWEvent) {
-            GuildTextChannel((TextChannelUpdateNSFWEvent) event, textChannel);
+            GuildTextChannel((TextChannelUpdateNSFWEvent) event, Objects.requireNonNull(textChannel));
         } else if (event instanceof TextChannelUpdateParentEvent) {
             GuildTextChannel((TextChannelUpdateParentEvent) event, textChannel);
         } else if (event instanceof TextChannelUpdatePositionEvent) {
-            GuildTextChannel((TextChannelUpdatePositionEvent) event, textChannel);
+            GuildTextChannel((TextChannelUpdatePositionEvent) event, Objects.requireNonNull(textChannel));
         } else if (event instanceof TextChannelUpdateTopicEvent) {
             // Spammy
             // GuildTextChannel((TextChannelUpdateTopicEvent) event,textChannel);
@@ -558,14 +557,10 @@ public class GuildLogging {
         embedBuilder.addField("Text Channel", event.getChannel().getAsMention(), true);
         embedBuilder.setFooter("Channel Id " + event.getChannel().getId(), null);
         embedBuilder.addBlankField(true);
-        String OldParent = event.getOldParent().getName();
-        String NewParent = event.getChannel().getParent().getName();
-        if (OldParent != null) {
-            embedBuilder.addField("Old Parent", OldParent, true);
-        }
-        if (NewParent != null) {
-            embedBuilder.addField("New Parent", NewParent, true);
-        }
+        String OldParent = Objects.requireNonNull(Objects.requireNonNull(event.getOldParent())).getName();
+        String NewParent = Objects.requireNonNull(Objects.requireNonNull(event.getChannel().getParent())).getName();
+        embedBuilder.addField("Old Parent", OldParent, true);
+        embedBuilder.addField("New Parent", NewParent, true);
         textChannel.sendMessage(embedBuilder.build()).queue();
     }
 
@@ -605,13 +600,13 @@ public class GuildLogging {
             return;
         }
         if (event instanceof VoiceChannelCreateEvent) {
-            GuildVoiceChannel((VoiceChannelCreateEvent) event, textChannel);
+            GuildVoiceChannel((VoiceChannelCreateEvent) event, Objects.requireNonNull(textChannel));
         } else if (event instanceof VoiceChannelDeleteEvent) {
-            GuildVoiceChannel((VoiceChannelDeleteEvent) event, textChannel);
+            GuildVoiceChannel((VoiceChannelDeleteEvent) event, Objects.requireNonNull(textChannel));
         } else if (event instanceof VoiceChannelUpdateBitrateEvent) {
-            GuildVoiceChannel((VoiceChannelUpdateBitrateEvent) event, textChannel);
+            GuildVoiceChannel((VoiceChannelUpdateBitrateEvent) event, Objects.requireNonNull(textChannel));
         } else if (event instanceof VoiceChannelUpdateNameEvent) {
-            GuildVoiceChannel((VoiceChannelUpdateNameEvent) event, textChannel);
+            GuildVoiceChannel((VoiceChannelUpdateNameEvent) event, Objects.requireNonNull(textChannel));
         } else if (event instanceof VoiceChannelUpdatePermissionsEvent) {
             GuildVoiceChannel((VoiceChannelUpdatePermissionsEvent) event, textChannel);
         }

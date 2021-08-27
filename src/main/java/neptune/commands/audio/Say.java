@@ -22,14 +22,15 @@ public class Say implements ICommand {
     public void run(
             GuildMessageReceivedEvent event, String messageContent) {
         // rate limiting
-        if (isRateLimited(event.getMember().getUser())) return;
+        if (isRateLimited(Objects.requireNonNull(event.getMember()).getUser())) return;
 
         // open audio channel
-        if (event.getGuild() != null && AudioOut == null) {
+        event.getGuild();
+        if (AudioOut == null) {
             AudioOut = new AudioController(event);
         }
         listOfFiles = folder.listFiles();
-        System.out.println("Say Files: " + listOfFiles.length);
+        System.out.println("Say Files: " + Objects.requireNonNull(listOfFiles).length);
         Queue<File> results = searchQuotes(messageContent);
         if (results.size() == 1) {
             saySingleMatch(results.iterator().next(), event);
@@ -54,14 +55,15 @@ public class Say implements ICommand {
         }
 
         // play the sound file
-        if (quote.exists() && event.getGuild() != null) {
-            if (event.getGuild().getAudioManager() != null
-                    || event.getMember().getVoiceState().getChannel() != null) {
-                AudioOut.playSound(event, quote.getAbsolutePath());
+        if (quote.exists()) {
+            event.getGuild();
+            if (event.getGuild().getAudioManager() == null) {
+                event.getMember().getVoiceState().getChannel();
             }
+            AudioOut.playSound(event, quote.getAbsolutePath());
         }
 
-        if (event.getMember().hasPermission(Permission.MESSAGE_WRITE)) {
+        if (Objects.requireNonNull(event.getMember()).hasPermission(Permission.MESSAGE_WRITE)) {
             MessageBuilder builder = new MessageBuilder();
             builder.append(quote.getName().replace(".wav", ""));
             event.getChannel().sendMessage(builder.build()).queue();
@@ -109,7 +111,7 @@ public class Say implements ICommand {
             while (!files.isEmpty() && stringBuilder.length() < 2000) {
                 if (files.peek().getName().replace(".wav", "").length() + stringBuilder.length()
                         < 2000) {
-                    stringBuilder.append(files.poll().getName().replace(".wav", "")).append("\n");
+                    stringBuilder.append(Objects.requireNonNull(files.poll()).getName().replace(".wav", "")).append("\n");
                 } else {
                     break; // string will be too large if anything else is added
                 }

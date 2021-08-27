@@ -30,7 +30,7 @@ public class D10K implements ICommand {
         int number = 0;
         EmbedBuilder embedBuilder = new EmbedBuilder();
         Random random = new Random();
-        String result = null;
+        String result;
 
         try {
             number = Integer.parseInt(messageContent);
