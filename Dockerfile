@@ -1,6 +1,5 @@
 # I need Tesseract version 4.1 or newer.
 FROM ubuntu:latest
-SHELL ["/bin/bash", "-c"]
 
 ARG COMMIT_ID
 
@@ -10,7 +9,7 @@ RUN  apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get install -y --no-install-recommends tesseract-ocr unzip openjdk-11-jdk -o APT::Immediate-Configure=0
 
 WORKDIR /nep/
-RUN chown -R 1000:1000 .
+ADD --chown=1000:1000 ./ ./
 
 USER 1000
 
