@@ -18,7 +18,7 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 public class Logging implements ICommand {
     protected static final Logger log = LogManager.getLogger();
-    CommandRegistry commandRegistry = new CommandRegistry("!nep log");
+    final CommandRegistry commandRegistry = new CommandRegistry("!nep log");
     public Logging(){
         try {
             commandRegistry.registerCommand(new commandBuilder().setCommand("disableLogging").setCategory(CategoriesEnum.Admin).setRun(new disableLogging()).build());

@@ -4,46 +4,29 @@ import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.events.ReadyEvent;
 
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Scanner;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import io.sentry.Sentry;
 
 public class CycleGameStatus implements Runnable {
-    private ArrayList<Activity> MessageLoop = new ArrayList<>();
-    private JDA jda;
-    protected static final Logger log = LogManager.getLogger();
+    private final ArrayList<Activity> MessageLoop;
+    private final JDA jda;
 
     public CycleGameStatus(ReadyEvent event) {
         jda = event.getJDA();
-        //TODO FIX
-        InputStream is = getClass().getResourceAsStream("StatusText.txt");
-        if (is == null) {
-            log.fatal("file not found!");
-        } else {
-            Scanner scanner;
-            try {
-                scanner = new Scanner(is);
-                while (scanner.hasNext()){
-                    MessageLoop.add(Activity.playing(scanner.nextLine()));
-                }
-            } catch (Exception e) {
-                log.error(e);
-                Sentry.captureException(e);
-            }
-
-        }
+        MessageLoop = new ArrayList<>();
+        MessageLoop.add(Activity.playing("!Nep Help"));
+        MessageLoop.add(Activity.listening("Nep Nep Nep Nep Nep"));
+        MessageLoop.add(Activity.playing("!Nep UwU"));
+        MessageLoop.add(Activity.listening("Nepu Nep Nep"));
     }
 
     @Override
     public void run() {
+        //noinspection InfiniteLoopStatement
         while (true) {
             try {
                 for (Activity activity : MessageLoop) {
-                    Thread.sleep(1000 * 15); // wait 15 seconds to avoid ratelimit
+                    //noinspection BusyWait
+                    Thread.sleep(1000 * 15); // wait 15 seconds to avoid rate limit
                     jda.getPresence().setActivity(activity);
                 }
             } catch (Exception e) {

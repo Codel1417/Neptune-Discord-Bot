@@ -17,7 +17,7 @@ import io.sentry.Sentry;
 import java.awt.*;
 
 public class status implements ICommand {
-    Helpers helpers = new Helpers();
+    final Helpers helpers = new Helpers();
     protected static final Logger log = LogManager.getLogger();
 
     @Override
@@ -31,8 +31,9 @@ public class status implements ICommand {
             StringBuilder logOptionsMessage = new StringBuilder();
             logOptionsMessage.append("Custom Roles ").append(helpers.getEnabledDisabledIcon(guildentity.getGuildOptions().getOption(GuildOptionsEnum.CustomRoleEnabled))).append("\n");
             logOptionsMessage.append("Leaderboard Level-Up Notifications").append(helpers.getEnabledDisabledIcon(guildentity.getGuildOptions().getOption(GuildOptionsEnum.LeaderboardLevelUpNotification))).append("\n");
+            guildentity.closeSession();
             event.getChannel().sendMessage(embedBuilder.build()).queue();
-        } catch (IOException e) {
+        } catch (Exception e) {
             log.error(e);
             Sentry.captureException(e);
         }

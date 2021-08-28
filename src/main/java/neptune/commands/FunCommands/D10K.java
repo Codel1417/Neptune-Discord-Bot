@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class D10K implements ICommand {
-    HashMap<Integer, String> map = new HashMap<>();
+    final HashMap<Integer, String> map = new HashMap<>();
 
     public D10K() {
         // Scoll Down. It gets worse
@@ -30,7 +30,7 @@ public class D10K implements ICommand {
         int number = 0;
         EmbedBuilder embedBuilder = new EmbedBuilder();
         Random random = new Random();
-        String result = null;
+        String result;
 
         try {
             number = Integer.parseInt(messageContent);

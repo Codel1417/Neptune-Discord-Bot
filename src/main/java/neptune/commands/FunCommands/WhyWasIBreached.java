@@ -100,7 +100,7 @@ public class WhyWasIBreached implements ICommand {
         "sent one of our guys to Defcon",
         "put a rotating lock GIF on our website"
     };
-    Random random = new Random();
+    final Random random = new Random();
 
     @Override
     public void run(

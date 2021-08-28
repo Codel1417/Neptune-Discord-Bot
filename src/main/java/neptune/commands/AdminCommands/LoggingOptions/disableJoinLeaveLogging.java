@@ -11,6 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import io.sentry.Sentry;
+import org.hibernate.Session;
 
 public class disableJoinLeaveLogging implements ICommand{
 	protected static final Logger log = LogManager.getLogger();
@@ -21,8 +22,9 @@ public class disableJoinLeaveLogging implements ICommand{
             guildObject guildentity = GuildStorageHandler.getInstance().readFile(event.getGuild().getId());
             guildentity.getLogOptions().setOption(LoggingOptionsEnum.MemberActivityLogging, true);
             GuildStorageHandler.getInstance().writeFile(guildentity);
-            event.getChannel().sendMessage("Server logging disabled.").queue();;
-        } catch (IOException e) {
+            guildentity.closeSession();
+            event.getChannel().sendMessage("Server logging disabled.").queue();
+        } catch (Exception e) {
             log.error(e);
             Sentry.captureException(e);
         }    

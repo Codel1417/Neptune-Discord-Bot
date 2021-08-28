@@ -22,7 +22,7 @@ import javax.imageio.stream.MemoryCacheImageOutputStream;
 
 public class moreJpeg implements ICommand {
     protected static final Logger log = LogManager.getLogger();
-    Helpers helpers = new Helpers();
+    final Helpers helpers = new Helpers();
 
     @Override
     public void run(

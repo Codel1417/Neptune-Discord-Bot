@@ -5,7 +5,7 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import java.util.Random;
 
 public class CoinFlip implements ICommand {
-    Random random = new Random();
+    final Random random = new Random();
     @Override
     public void run(
             GuildMessageReceivedEvent event, String messageContent) {

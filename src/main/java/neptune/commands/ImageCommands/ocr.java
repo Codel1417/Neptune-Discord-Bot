@@ -11,14 +11,13 @@ import io.sentry.Sentry;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.net.URL;
 import javax.imageio.ImageIO;
 
 public class ocr implements ICommand {
     protected static final Logger log = LogManager.getLogger();
-    private Helpers helpers = new Helpers();
-    private Tesseract tesseract = new Tesseract();
+    private final Helpers helpers = new Helpers();
+    private final Tesseract tesseract = new Tesseract();
 
     public ocr(){
         tesseract.setDatapath("tessdata");

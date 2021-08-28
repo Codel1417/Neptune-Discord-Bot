@@ -20,8 +20,9 @@ public class disableCustomRole implements ICommand{
             guildObject guildentity = GuildStorageHandler.getInstance().readFile(event.getGuild().getId());
             guildentity.getGuildOptions().setOption(GuildOptionsEnum.CustomRoleEnabled, false);
             GuildStorageHandler.getInstance().writeFile(guildentity);
-            event.getChannel().sendMessage("User controllable custom roles disabled.").queue();;
-        } catch (IOException e) {
+            guildentity.closeSession();
+            event.getChannel().sendMessage("User controllable custom roles disabled.").queue();
+        } catch (Exception e) {
             log.error(e);
             Sentry.captureException(e);
         }        

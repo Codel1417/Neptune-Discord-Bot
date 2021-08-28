@@ -25,10 +25,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
+import java.util.*;
 import java.util.logging.Level;
 
 public class PlayerControl extends ListenerAdapter {
@@ -50,7 +47,7 @@ public class PlayerControl extends ListenerAdapter {
         playerManager.registerSourceManager(new HttpAudioSourceManager());
         playerManager.registerSourceManager(new LocalAudioSourceManager());
 
-        musicManagers = new HashMap<String, GuildMusicManager>();
+        musicManagers = new HashMap<>();
     }
 
     // Prefix for all commands: .
@@ -77,7 +74,7 @@ public class PlayerControl extends ListenerAdapter {
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
         if (!event.isFromType(ChannelType.TEXT)) return;
-        if (!event.getMember().hasPermission(Permission.MESSAGE_MANAGE)) return;
+        if (!Objects.requireNonNull(event.getMember()).hasPermission(Permission.MESSAGE_MANAGE)) return;
 
         try {
             List<String> allowedIds = Files.readAllLines(Paths.get("admins.txt"));
@@ -135,7 +132,7 @@ public class PlayerControl extends ListenerAdapter {
 
         if (".join".equals(command[0])) {
             if (!guild.getAudioManager().isConnected()
-                    && event.getMember().getVoiceState().getChannel() != null) {
+                    && Objects.requireNonNull(event.getMember().getVoiceState()).getChannel() != null) {
                 try {
                     guild.getAudioManager().setSendingHandler(mng.sendHandler);
                     guild.getAudioManager()

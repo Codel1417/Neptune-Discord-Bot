@@ -6,23 +6,23 @@ import neptune.storage.Enum.GuildOptionsEnum;
 import neptune.storage.Guild.GuildStorageHandler;
 import neptune.storage.Guild.guildObject;
 import neptune.storage.Guild.guildObject.guildOptionsObject;
-import neptune.storage.Guild.guildObject.leaderboardObject;
-import neptune.storage.Guild.guildObject.profileObject;
+import neptune.storage.profileObject;
+import neptune.storage.profileStorage;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import java.awt.Color;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.TimeZone;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import io.sentry.Sentry;
 public class profile implements ICommand {
-    Helpers helpers = new Helpers();
+    final Helpers helpers = new Helpers();
     protected static final Logger log = LogManager.getLogger();
     @Override
-    public void run(
-            GuildMessageReceivedEvent event, String messageContent) {
+    public void run(GuildMessageReceivedEvent event, String messageContent) {
         try{
             String[] command = helpers.getCommandName(messageContent);
             if (command[1].length() == 0) {
@@ -55,7 +55,7 @@ public class profile implements ICommand {
                     }
             }
         }
-        catch (IOException e){
+        catch (Exception e){
             log.error(e);
             Sentry.captureException(e);
         }
@@ -73,19 +73,18 @@ public class profile implements ICommand {
         event.getChannel().sendMessage(embedBuilder.build()).queue();
     }
 
-    public void displayProfile(
-            GuildMessageReceivedEvent event, String MemberID, guildObject guildEntity) {
-        profileObject profileEntity = guildEntity.getProfiles();
-        leaderboardObject leaderboard = guildEntity.getLeaderboard();
+    public void displayProfile(GuildMessageReceivedEvent event, String MemberID, guildObject guildEntity) {
+        profileStorage storage = profileStorage.getInstance();
+        profileObject profile = storage.getProfile(Objects.requireNonNull(event.getMember()).getId());
         guildOptionsObject guildOptions = guildEntity.getGuildOptions();
 
-        int points = leaderboard.getPoints(MemberID);
+        int points = profile.getPoints();
         EmbedBuilder embedBuilder = new EmbedBuilder();
-        embedBuilder.setTitle(event.getJDA().getUserById(MemberID).getName());
-        TimeZone Timezone = profileEntity.getTimeZone(MemberID);
+        embedBuilder.setTitle(Objects.requireNonNull(event.getJDA().getUserById(MemberID)).getName());
+        TimeZone Timezone = profile.getTimeZone();
 
-        embedBuilder.setDescription(profileEntity.getBio(MemberID));
-        embedBuilder.addField("Language", profileEntity.getLanguage(MemberID), true);
+        embedBuilder.setDescription(profile.getBio());
+        embedBuilder.addField("Language", profile.getLanguage(), true);
         if (Timezone != null) {
             embedBuilder.addField("TimeZone", Timezone.getID(), true);
         }
@@ -94,12 +93,14 @@ public class profile implements ICommand {
         }
         embedBuilder.setFooter("Use '!nep profile help' to get a list of profile commands.");
         event.getChannel().sendMessage(embedBuilder.build()).queue();
+        profile.closeSession();
     }
 
-    public guildObject updateBio(
-            GuildMessageReceivedEvent event, String Bio, guildObject guildEntity) {
-        profileObject profileEntity = guildEntity.getProfiles();
-        boolean result = profileEntity.setBio(event.getAuthor().getId(), Bio);
+    public guildObject updateBio(GuildMessageReceivedEvent event, String Bio, guildObject guildEntity) {
+
+        profileStorage storage = profileStorage.getInstance();
+        profileObject profile = storage.getProfile(Objects.requireNonNull(event.getMember()).getId());
+        boolean result = profile.setBio(Bio);
         if (result) {
             displayProfile(event, event.getAuthor().getId(), guildEntity);
         } else {
@@ -108,14 +109,14 @@ public class profile implements ICommand {
                     .queue();
             displayHelp(event);
         }
-        guildEntity.setProfiles(profileEntity);
+        storage.serialize(profile);
         return guildEntity;
     }
 
-    public guildObject updateTimezone(
-            GuildMessageReceivedEvent event, String TimeZone, guildObject guildEntity) {
-        profileObject profileEntity = guildEntity.getProfiles();
-        boolean result = profileEntity.setTimeZone(event.getAuthor().getId(), TimeZone);
+    public guildObject updateTimezone(GuildMessageReceivedEvent event, String TimeZone, guildObject guildEntity) {
+        profileStorage storage = profileStorage.getInstance();
+        profileObject profile = storage.getProfile(Objects.requireNonNull(event.getMember()).getId());
+        boolean result = profile.setTimeZone(TimeZone);
         if (result) {
             displayProfile(event, event.getAuthor().getId(), guildEntity);
         } else {
@@ -124,21 +125,21 @@ public class profile implements ICommand {
                     .queue();
             displayHelp(event);
         }
-        guildEntity.setProfiles(profileEntity);
+        storage.serialize(profile);
         return guildEntity;
     }
 
-    public guildObject updateLanguage(
-            GuildMessageReceivedEvent event, String Language, guildObject guildEntity) {
-        profileObject profileEntity = guildEntity.getProfiles();
-        boolean result = profileEntity.setLanguage(event.getAuthor().getId(), Language);
+    public guildObject updateLanguage(GuildMessageReceivedEvent event, String Language, guildObject guildEntity) {
+        profileStorage storage = profileStorage.getInstance();
+        profileObject profile = storage.getProfile(Objects.requireNonNull(event.getMember()).getId());
+        boolean result = profile.setLanguage(Language);
         if (result) {
             displayProfile(event, event.getAuthor().getId(), guildEntity);
         } else {
             event.getChannel().sendMessage("Invalid Language").queue();
             displayHelp(event);
         }
-        guildEntity.setProfiles(profileEntity);
+        storage.serialize(profile);
         return guildEntity;
     }
 }

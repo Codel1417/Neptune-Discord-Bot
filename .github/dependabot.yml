@@ -5,11 +5,15 @@
 
 version: 2
 updates:
-  - package-ecosystem: "maven" # See documentation for possible values
+  - package-ecosystem: "gradle" # See documentation for possible values
     directory: "/" # Location of package manifests
     schedule:
       interval: "daily"
   - package-ecosystem: "bundler"
     directory: "/docs/" # Location of package manifests
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "github-actions"
+    directory: "/.github/workflows/" # Location of package manifests
     schedule:
       interval: "daily"

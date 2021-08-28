@@ -19,8 +19,9 @@ public class setLoggingChannel implements ICommand {
             guildObject guildentity = GuildStorageHandler.getInstance().readFile(event.getGuild().getId());
             guildentity.getLogOptions().setChannel(event.getChannel().getId());
             GuildStorageHandler.getInstance().writeFile(guildentity);
+            guildentity.closeSession();
             event.getChannel().sendMessage("Logging channel set to ." + event.getChannel().getAsMention() + ".").queue();
-        } catch (IOException e) {
+        } catch (Exception e) {
             log.error(e);
             Sentry.captureException(e);
         }        

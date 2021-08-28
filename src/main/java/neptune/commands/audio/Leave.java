@@ -8,7 +8,8 @@ public class Leave implements ICommand {
     @Override
     public void run(
             GuildMessageReceivedEvent event, String messageContent) {
-        if (event.getGuild() != null && event.getGuild().getAudioManager().isConnected()) {
+        event.getGuild();
+        if (event.getGuild().getAudioManager().isConnected()) {
             event.getGuild().getAudioManager().setSendingHandler(null);
             event.getGuild().getAudioManager().closeAudioConnection();
             // event.getChannel().sendMessage("Neptune has left the Chat!").queue();

@@ -22,7 +22,8 @@
 		"redhat.vscode-xml",
 		"eamodio.gitlens",
 		"vscjava.vscode-java-debug",
-		"vscjava.vscode-java-pack"
+		"vscjava.vscode-java-pack",
+		"richardwillis.vscode-gradle-extension-pack"
 	],
 	"portsAttributes": {
 		"1234": {

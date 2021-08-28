@@ -9,6 +9,5 @@ public class IsCaliforniaOnFire implements ICommand {
     public void run(
             GuildMessageReceivedEvent event, String messageContent) {
         event.getChannel().sendMessage("Yes").queue();
-        return ;
     }
 }

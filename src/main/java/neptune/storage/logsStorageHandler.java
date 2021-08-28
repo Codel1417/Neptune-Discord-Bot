@@ -13,7 +13,7 @@ import java.io.IOException;
 // root/logs/guildID/MessageID.yaml
 public class logsStorageHandler {
     protected static final Logger log = LogManager.getLogger();
-    String logsDir = "Logs";
+    final String logsDir = "Logs";
 
     public void writeFile(logObject logEntity) throws IOException {
         File file =
@@ -51,8 +51,7 @@ public class logsStorageHandler {
         }
         ObjectMapper om = new ObjectMapper(new YAMLFactory());
         log.debug("Reading File: " + file.getAbsolutePath());
-        logObject logEntity = om.readValue(file, logObject.class);
-        return logEntity;
+        return om.readValue(file, logObject.class);
     }
 
     public void deleteFile(String messageID, String guildID, String channelID) {

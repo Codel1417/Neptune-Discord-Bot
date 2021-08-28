@@ -4,10 +4,13 @@ import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 public class Command implements Comparable<Command> {
-    private String command, name, description, help;
-    private CategoriesEnum category;
-    private Permission[] requiredPermissions;
-    private ICommand commandInterface;
+    private final String command;
+    private final String name;
+    private final String description;
+    private final String help;
+    private final CategoriesEnum category;
+    private final Permission[] requiredPermissions;
+    private final ICommand commandInterface;
     protected Command(String command, String name, String description,String help, Permission[] requiredPermissions, ICommand commandInterface, CategoriesEnum category){
         this.requiredPermissions = requiredPermissions;
         this.command = command;

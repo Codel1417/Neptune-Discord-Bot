@@ -4,11 +4,12 @@ import neptune.commands.ICommand;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.Random;
 
 public class GreatSleepKing implements ICommand {
-    HashMap<String, HashMap<String, String>> previousResults = new HashMap<>();
-    ArrayList<String> emotions = new ArrayList<>();
+    final HashMap<String, HashMap<String, String>> previousResults = new HashMap<>();
+    final ArrayList<String> emotions = new ArrayList<>();
 
     public GreatSleepKing() {
         // https://simple.wikipedia.org/wiki/List_of_emotions
@@ -26,9 +27,9 @@ public class GreatSleepKing implements ICommand {
     @Override
     public void run(
             GuildMessageReceivedEvent event, String messageContent) {
-        String MemberID = event.getMember().getId();
+        String MemberID = Objects.requireNonNull(event.getMember()).getId();
         HashMap<String, String> map = previousResults.getOrDefault(MemberID, null);
-        int sleep, hours = 0;
+        int sleep, hours;
         String emotion;
         if (map == null
                 || (Long.parseLong(map.get("TimeCreatedMS")) - System.currentTimeMillis())

@@ -5,9 +5,7 @@ import neptune.commands.CommandRegistry;
 import neptune.commands.ICommand;
 import neptune.commands.commandBuilder;
 import neptune.commands.AdminCommands.Options.disableCustomRole;
-import neptune.commands.AdminCommands.Options.disableLevelUpNotifications;
 import neptune.commands.AdminCommands.Options.enableCustomRole;
-import neptune.commands.AdminCommands.Options.enableLevelUpNotifications;
 import neptune.commands.AdminCommands.Options.status;
 import neptune.exceptions.MissingArgumentException;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
@@ -17,7 +15,7 @@ import org.apache.logging.log4j.Logger;
 import io.sentry.Sentry;
 
 public class Admin implements ICommand {
-    CommandRegistry commandRegistry = new CommandRegistry("!nep options");
+    final CommandRegistry commandRegistry = new CommandRegistry("!nep options");
     protected static final Logger log = LogManager.getLogger();
 
     public Admin(){

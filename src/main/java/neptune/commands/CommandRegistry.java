@@ -2,6 +2,7 @@ package neptune.commands;
 
 import java.awt.Color;
 import java.util.Map;
+import java.util.Objects;
 import java.util.TreeMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -15,10 +16,10 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 public class CommandRegistry {
-    private Map<String, Command> commands = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
-    private String prefix;
-    private Helpers commandHelpers = new Helpers();
-    private ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
+    private final Map<String, Command> commands = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+    private final String prefix;
+    private final Helpers commandHelpers = new Helpers();
+    private final ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
     public CommandRegistry(String prefix) {
         //The complete prefix before the command
         this.prefix = prefix;
@@ -43,7 +44,7 @@ public class CommandRegistry {
         if (hasCommand(commandText[0])) {
             Command command = commands.get(commandText[0]);
             if (command.getRequiredPermissions() != null) {
-                if (!event.getMember().hasPermission(command.getRequiredPermissions())){
+                if (!Objects.requireNonNull(event.getMember()).hasPermission(command.getRequiredPermissions())){
                     permissionException(event);
                     return;
                 }
@@ -76,10 +77,10 @@ public class CommandRegistry {
         event.getChannel().sendMessage(embedBuilder.build()).queue();
     }
 
-    public class commandExecutor implements Runnable {
-        private GuildMessageReceivedEvent event;
-        private String messagecontent;
-        private Command command;
+    public static class commandExecutor implements Runnable {
+        private final GuildMessageReceivedEvent event;
+        private final String messagecontent;
+        private final Command command;
         protected final Logger log = LogManager.getLogger();
 
         private commandExecutor(
@@ -95,6 +96,7 @@ public class CommandRegistry {
         public void run() {
             try {
                 log.trace("Running Command: " + command.getName());
+                Sentry.addBreadcrumb("Running Command: " + command.getName());
                 command.run(event, messagecontent);
                 log.trace("Exiting Command: " + command.getName());
             }

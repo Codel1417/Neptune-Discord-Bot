@@ -70,9 +70,8 @@ public class MineStat {
     /**
      * Refresh state of the server
      *
-     * @return <code>true</code>; <code>false</code> if the server is down
      */
-    public boolean refresh() {
+    public void refresh() {
         String[] serverData;
         String rawServerData;
         try {
@@ -92,13 +91,13 @@ public class MineStat {
         } catch (Exception e) {
             serverUp = false;
             // e.printStackTrace();
-            return serverUp;
+            return;
         }
 
         if (rawServerData == null) serverUp = false;
         else {
             serverData = rawServerData.split("\u0000\u0000\u0000");
-            if (serverData != null && serverData.length >= NUM_FIELDS) {
+            if (serverData.length >= NUM_FIELDS) {
                 serverUp = true;
                 setVersion(serverData[2].replace("\u0000", ""));
                 setMotd(serverData[3].replace("\u0000", ""));
@@ -106,7 +105,6 @@ public class MineStat {
                 setMaximumPlayers(serverData[5].replace("\u0000", ""));
             } else serverUp = false;
         }
-        return serverUp;
     }
 
     public String getAddress() {

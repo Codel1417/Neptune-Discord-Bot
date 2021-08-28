@@ -72,7 +72,7 @@ public abstract class TenorGif {
     }
 
     protected static final Logger log = LogManager.getLogger();
-    private String API_KEY = System.getenv("NEPTUNE_TENOR_TOKEN");
+    private final String API_KEY = System.getenv("NEPTUNE_TENOR_TOKEN");
     
     public String getSingleImage(String SearchTerm) {
         String returnURL;
@@ -82,7 +82,7 @@ public abstract class TenorGif {
                         "https://api.tenor.com/v1/search?q=%1$s&key=%2$s&limit=15&contentfilter=high&media_filter=minimal",
                         SearchTerm, API_KEY);
         log.debug("Link " + url);
-        HttpURLConnection connection = null;
+        HttpURLConnection connection;
         try {
             // Get request
             connection = (HttpURLConnection) new URL(url).openConnection();
@@ -92,7 +92,7 @@ public abstract class TenorGif {
             BufferedReader in =
                     new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String inputLine;
-            StringBuffer content = new StringBuffer();
+            StringBuilder content = new StringBuilder();
             while ((inputLine = in.readLine()) != null) {
                 content.append(inputLine);
             }
@@ -101,7 +101,8 @@ public abstract class TenorGif {
 
             JsonNode jsonNode = new ObjectMapper().readTree(content.toString());
             TypeReference<ArrayList<JsonNode>> typeRefImageArray =
-                    new TypeReference<ArrayList<JsonNode>>() {};
+                    new TypeReference<>() {
+                    };
             ObjectMapper mapper = new ObjectMapper();
             ObjectReader ImageListReader = mapper.readerFor(typeRefImageArray);
             ArrayList<JsonNode> imageArray = ImageListReader.readValue(jsonNode.get("results"));

@@ -18,21 +18,23 @@ import io.sentry.Sentry;
 import java.awt.Graphics2D;
 
 import java.awt.AlphaComposite;
+import java.util.Objects;
+
 import neptune.commands.ICommand;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 public class bonkImage implements ICommand {
     protected static final Logger log = LogManager.getLogger();
-    URL backgroundImageURL = getClass().getResource("/src/main/resources/images/bonk.png");
-    URL batImageUrl = getClass().getResource("/src/main/resources/images/bat.png");
+    final URL backgroundImageURL = getClass().getResource("/src/main/resources/images/bonk.png");
+    final URL batImageUrl = getClass().getResource("/src/main/resources/images/bat.png");
     @Override
     public void run(GuildMessageReceivedEvent event, String messageContent) {
         try {
-            BufferedImage avatarIcon = ImageIO.read(new URL(event.getAuthor().getAvatarUrl()));
+            BufferedImage avatarIcon = ImageIO.read(new URL(Objects.requireNonNull(event.getAuthor().getAvatarUrl())));
             
             //this will be imported from the jar
-            BufferedImage overlay = ImageIO.read(batImageUrl);
-            BufferedImage finalimage = ImageIO.read(backgroundImageURL);
+            BufferedImage overlay = ImageIO.read(Objects.requireNonNull(batImageUrl));
+            BufferedImage finalimage = ImageIO.read(Objects.requireNonNull(backgroundImageURL));
             Graphics2D g2d = finalimage.createGraphics();
             g2d.setComposite(AlphaComposite.SrcOver.derive(1f));
             //TODO: Set image cordinates

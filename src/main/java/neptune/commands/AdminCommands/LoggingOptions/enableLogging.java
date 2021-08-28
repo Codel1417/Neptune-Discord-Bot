@@ -20,8 +20,9 @@ public class enableLogging implements ICommand{
             guildObject guildentity = GuildStorageHandler.getInstance().readFile(event.getGuild().getId());
             guildentity.getLogOptions().setOption(LoggingOptionsEnum.GlobalLogging, true);
             GuildStorageHandler.getInstance().writeFile(guildentity);
-            event.getChannel().sendMessage("Server logging enabled.").queue();;
-        } catch (IOException e) {
+            guildentity.closeSession();
+            event.getChannel().sendMessage("Server logging enabled.").queue();
+        } catch (Exception e) {
             log.error(e);
             Sentry.captureException(e);
         }        

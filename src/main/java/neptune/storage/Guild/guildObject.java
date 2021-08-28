@@ -2,29 +2,24 @@ package neptune.storage.Guild;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.lowagie.text.pdf.codec.Base64;
-
 import neptune.storage.Enum.GuildOptionsEnum;
 import neptune.storage.Enum.LoggingOptionsEnum;
-import neptune.storage.Enum.ProfileOptionsEnum;
-
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.util.Comparator;
+import org.hibernate.Session;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.TimeZone;
+import javax.persistence.*;
 
-import javax.imageio.ImageIO;
-
-@JsonSerialize(using = guildObjectSerializer.class)
+//Stop using Subclasses
+@Entity  
+@Table(name= "Guilds")
 @JsonDeserialize(using = guildObjectDeserializer.class)
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.NONE)
+@Cacheable
 public class guildObject {
+    public guildObject() {
+
+    }
+
     public logOptionsObject getLogOptions() {
         return logOptions;
     }
@@ -33,66 +28,29 @@ public class guildObject {
         return customRole;
     }
 
-    public leaderboardObject getLeaderboard() {
-        return leaderboard;
-    }
-
-    public guildObject setLeaderboard(leaderboardObject leaderboardEntity) {
-        leaderboard = leaderboardEntity;
-        return this;
-    }
-
     public guildOptionsObject getGuildOptions() {
         return guildOptions;
     }
 
-    public guildObject setLogOptionsEntity(logOptionsObject logOptionsEntity) {
-        logOptions = logOptionsEntity;
-        return this;
-    }
-
-    public profileObject getProfiles() {
-        return profiles;
-    }
-
-    public guildObject setProfiles(profileObject profilesEntity) {
-        profiles = profilesEntity;
-        return this;
-    }
-
+    @Embedded
     private logOptionsObject logOptions;
+    @Embedded
     private customRoleObject customRole;
-    private leaderboardObject leaderboard;
+    @Embedded
     private guildOptionsObject guildOptions;
-    private profileObject profiles;
 
     public guildObject(String GuildID) {
         guildID = GuildID;
-        version = 2;
         logOptions = new logOptionsObject();
         customRole = new customRoleObject();
-        leaderboard = new leaderboardObject();
         guildOptions = new guildOptionsObject();
-        profiles = new profileObject();
     }
 
-    public guildObject(
-            String GuildID,
-            Map<GuildOptionsEnum, Boolean> guildOptionsMap,
-            Map<LoggingOptionsEnum, Boolean> logOptionsMap,
-            Map<String, Integer> leaderboardMap,
-            Map<String, String> customRoleMap,
-            String loggingChannel,
-            int version,
-            Map<String, HashMap<ProfileOptionsEnum, String>> profileMap,
-            Map<String, String> IconMap) {
+    public guildObject(String GuildID,Map<GuildOptionsEnum, Boolean> guildOptionsMap,Map<LoggingOptionsEnum, Boolean> logOptionsMap,Map<String, String> customRoleMap,String loggingChannel,int version) {
         guildID = GuildID;
-        version = this.version;
         logOptions = new logOptionsObject(loggingChannel, logOptionsMap);
         customRole = new customRoleObject(customRoleMap);
-        leaderboard = new leaderboardObject(leaderboardMap);
         guildOptions = new guildOptionsObject(guildOptionsMap);
-        profiles = new profileObject(profileMap, IconMap);
     }
 
     public String getGuildID() {
@@ -104,23 +62,20 @@ public class guildObject {
         return this;
     }
 
-    public int getVersion() {
-        return version;
-    }
-
-    protected guildObject setVersion(int version) {
-        this.version = version;
-        return this;
-    }
-
+    @Id
     private String guildID;
-    int version;
-
-    public class guildOptionsObject {
-        private Map<GuildOptionsEnum, Boolean> GuildOptionsHashMap;
+    @Embeddable
+    public static class guildOptionsObject {
+        @ElementCollection
+        private final Map<GuildOptionsEnum, Boolean> GuildOptionsHashMap;
 
         public guildOptionsObject() {
             GuildOptionsHashMap = new HashMap<>();
+            GuildOptionsHashMap.put(GuildOptionsEnum.CustomRoleEnabled,false);
+            GuildOptionsHashMap.put(GuildOptionsEnum.leaderboardEnabled,true);
+            GuildOptionsHashMap.put(GuildOptionsEnum.customSounds,false);
+            GuildOptionsHashMap.put(GuildOptionsEnum.LeaderboardLevelUpNotification,false);
+            GuildOptionsHashMap.put(GuildOptionsEnum.LoggingEnabled,false);
         }
 
         protected guildOptionsObject(Map<GuildOptionsEnum, Boolean> GuildOptionsMap) {
@@ -135,30 +90,28 @@ public class guildObject {
             GuildOptionsHashMap.put(Option, value);
         }
 
-        protected Map<GuildOptionsEnum, Boolean> getGuildOptions() {
-            return GuildOptionsHashMap;
-        }
-        ;
     }
-
-    public class logOptionsObject {
-        private Map<LoggingOptionsEnum, Boolean> loggingOptions;
+    @Embeddable
+    public static class logOptionsObject {
+        @ElementCollection
+        private final Map<LoggingOptionsEnum, Boolean> loggingOptions;
 
         private String Channel = null;
 
         public logOptionsObject() {
             loggingOptions = new HashMap<>();
+            loggingOptions.put(LoggingOptionsEnum.GlobalLogging,false);
+            loggingOptions.put(LoggingOptionsEnum.MemberActivityLogging,true);
+            loggingOptions.put(LoggingOptionsEnum.TextChannelLogging,true);
+            loggingOptions.put(LoggingOptionsEnum.ServerModificationLogging,true);
+            loggingOptions.put(LoggingOptionsEnum.VoiceChannelLogging,true);
+
             Channel = null;
         }
 
-        protected logOptionsObject(
-                String channel, Map<LoggingOptionsEnum, Boolean> loggingOptionsMap) {
+        protected logOptionsObject(String channel, Map<LoggingOptionsEnum, Boolean> loggingOptionsMap) {
             loggingOptions = loggingOptionsMap;
             Channel = channel;
-        }
-
-        protected Map<LoggingOptionsEnum, Boolean> getloggingOptionsMap() {
-            return loggingOptions;
         }
 
         public boolean getOption(LoggingOptionsEnum option) {
@@ -177,62 +130,10 @@ public class guildObject {
             Channel = channelID;
         }
     }
-
-    public class leaderboardObject {
-        private Map<String, Integer> leaderboards = new HashMap<>();
-
-        public leaderboardObject(Map<String, Integer> leaderboardsMap) {
-            leaderboards = leaderboardsMap;
-        }
-
-        protected leaderboardObject() {
-            leaderboards = new HashMap<>();
-        }
-
-        public int getPoints(String MemberID) {
-            return leaderboards.getOrDefault(MemberID, 0);
-        }
-
-        public void incrimentPoint(String MemberID) {
-            int points = leaderboards.getOrDefault(MemberID, 0);
-            points++;
-            if (leaderboards.containsKey(MemberID)) {
-                leaderboards.replace(MemberID, points);
-            } else {
-                leaderboards.put(MemberID, points);
-            }
-        }
-
-        public LinkedHashMap<String, Integer> getTopUsers() throws CloneNotSupportedException {
-            LinkedHashMap<String, Integer> reverseSortedMap = new LinkedHashMap<>();
-            leaderboards.entrySet().stream()
-                    .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-                    .forEachOrdered(x -> reverseSortedMap.put(x.getKey(), x.getValue()));
-            int resultSize = reverseSortedMap.size();
-            if (resultSize > 10) {
-                resultSize = 10;
-            }
-            LinkedHashMap<String, Integer> finalSortedMap = new LinkedHashMap<>();
-            Iterator<Map.Entry<String, Integer>> entry = reverseSortedMap.entrySet().iterator();
-
-            for (int i = 0; i <= resultSize; i++) {
-                if (entry.hasNext()) {
-                    Map.Entry<String, Integer> entry1 = entry.next();
-                    finalSortedMap.put(entry1.getKey(), entry1.getValue());
-                } else {
-                    break;
-                }
-            }
-            return finalSortedMap;
-        }
-
-        protected Map<String, Integer> getLeaderboards() {
-            return leaderboards;
-        }
-    }
-
-    public class customRoleObject {
-        private Map<String, String> customRoles;
+    @Embeddable
+    public static class customRoleObject {
+        @ElementCollection
+        private final Map<String, String> customRoles;
 
         public customRoleObject() {
             customRoles = new HashMap<>();
@@ -254,101 +155,32 @@ public class guildObject {
             customRoles.remove(MemberID);
         }
 
-        protected Map<String, String> getCustomRoles() {
-            return customRoles;
-        }
     }
 
-    public class profileObject {
-        private Map<String, HashMap<ProfileOptionsEnum, String>> profiles;
-        private Map<String, String> icons; // stored as base64 string
-        BufferedImage icon;
+    @Version
+    private int version;
 
-        public profileObject() {
-            profiles = new HashMap<>();
-            icons = new HashMap<>();
-        }
+    public int getVersion() {
+        return version;
+    }
 
-        protected profileObject(
-                Map<String, HashMap<ProfileOptionsEnum, String>> profilesMap,
-                Map<String, String> iconsMap) {
-            profiles = profilesMap;
-            icons = iconsMap;
-        }
+    public void setVersion(int version) {
+        this.version = version;
+    }
 
-        protected Map<String, HashMap<ProfileOptionsEnum, String>> getProfilesMap() {
-            return profiles;
-        }
+    public Session getSession() {
+        return session;
+    }
 
-        protected Map<String, String> getIconsMap() {
-            return icons;
-        }
-
-        public boolean setBio(String MemberID, String Bio) {
-            if (Bio.length() <= 700) { // leaves 300 characters for other profile options
-                HashMap<ProfileOptionsEnum, String> profile =
-                        profiles.getOrDefault(MemberID, new HashMap<ProfileOptionsEnum, String>());
-                profile.put(ProfileOptionsEnum.Bio, Bio);
-                profiles.put(MemberID, profile);
-                return true;
-            } else return false;
-        }
-
-        public String getBio(String MemberID) {
-            HashMap<ProfileOptionsEnum, String> profile =
-                    profiles.getOrDefault(MemberID, new HashMap<ProfileOptionsEnum, String>());
-            if (profile.containsKey(ProfileOptionsEnum.Bio)) {
-                return profile.get(ProfileOptionsEnum.Bio);
-            } else return "Not Set";
-        }
-
-        public String getLanguage(String MemberID) {
-            HashMap<ProfileOptionsEnum, String> profile =
-                    profiles.getOrDefault(MemberID, new HashMap<ProfileOptionsEnum, String>());
-            if (profile.containsKey(ProfileOptionsEnum.Language)) {
-                return profile.get(ProfileOptionsEnum.Language);
-            } else return "Not Set";
-        }
-
-        public boolean setLanguage(String MemberID, String Language) {
-            HashMap<ProfileOptionsEnum, String> profile =
-                    profiles.getOrDefault(MemberID, new HashMap<ProfileOptionsEnum, String>());
-            profile.put(ProfileOptionsEnum.Language, Language);
-            profiles.put(MemberID, profile);
-            return true;
-            // TODO: Language validation
-        }
-
-        public TimeZone getTimeZone(String MemberID) {
-            HashMap<ProfileOptionsEnum, String> profile =
-                    profiles.getOrDefault(MemberID, new HashMap<ProfileOptionsEnum, String>());
-            if (profile.containsKey(ProfileOptionsEnum.Timezone)) {
-                return TimeZone.getTimeZone(profile.get(ProfileOptionsEnum.Timezone));
-            }
-            return null;
-        }
-
-        public boolean setTimeZone(String MemberID, String Timezone) {
-            HashMap<ProfileOptionsEnum, String> profile =
-                    profiles.getOrDefault(MemberID, new HashMap<ProfileOptionsEnum, String>());
-            TimeZone zone = TimeZone.getTimeZone(Timezone);
-            if (zone != null) {
-                profile.put(ProfileOptionsEnum.Timezone, Timezone);
-                profiles.put(MemberID, profile);
-                return true;
-            } else return false;
-        }
-
-        public BufferedImage getIcon(String MemberID) throws IOException {
-            String encoded = icons.getOrDefault(MemberID, null);
-
-            if (encoded != null) {
-                byte[] imageArray = Base64.decode(encoded);
-                ByteArrayInputStream bais = new ByteArrayInputStream(imageArray);
-                BufferedImage image = ImageIO.read(bais);
-                return image;
-            }
-            return null;
+    protected void setSession(Session session) {
+        this.session = session;
+    }
+    @Transient
+    private Session session;
+    public void closeSession(){
+        if (session != null && session.isOpen()){
+            //session.flush();
+            session.close();
         }
     }
 }

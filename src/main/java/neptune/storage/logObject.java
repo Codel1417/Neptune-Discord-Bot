@@ -1,5 +1,6 @@
 package neptune.storage;
 
+import javax.persistence.Id;
 import java.sql.Timestamp;
 
 public class logObject {
@@ -59,9 +60,10 @@ public class logObject {
     private String memberID;
     private String channelID;
     private String guildID;
+    @Id
     private String messageID;
     private String messageContent;
-    private int version;
+    private final int version;
     // timestamp exists for storage cleanup.
-    private Timestamp timestamp;
+    private final Timestamp timestamp;
 }

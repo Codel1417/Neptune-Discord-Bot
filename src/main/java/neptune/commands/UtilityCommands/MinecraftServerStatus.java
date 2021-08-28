@@ -17,7 +17,6 @@ public class MinecraftServerStatus implements ICommand {
         int port = 25565;
         String[] mcServer = messageContent.split(":");
         if (mcServer.length == 0) {
-            serverDomain = messageContent;
         }
         serverDomain = mcServer[0];
 

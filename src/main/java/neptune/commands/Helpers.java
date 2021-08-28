@@ -15,6 +15,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Objects;
 
 import javax.imageio.ImageIO;
 
@@ -78,9 +79,9 @@ public class Helpers {
         List<MessageEmbed> embeds = event.getMessage().getEmbeds();
         if (!embeds.isEmpty()) {
             if (embeds.get(0).getImage() != null) {
-                return getFinalURl(embeds.get(0).getImage().getProxyUrl());
+                return getFinalURl(Objects.requireNonNull(embeds.get(0).getImage()).getProxyUrl());
             } else if (embeds.get(0).getThumbnail() != null) {
-                return getFinalURl(embeds.get(0).getThumbnail().getProxyUrl());
+                return getFinalURl(Objects.requireNonNull(embeds.get(0).getThumbnail()).getProxyUrl());
             }
         }
         event.getMessage().getReferencedMessage().getAttachments();
@@ -99,9 +100,9 @@ public class Helpers {
             embeds = message.getEmbeds();
             if (!embeds.isEmpty()) {
                 if (embeds.get(0).getImage() != null) {
-                    return getFinalURl(embeds.get(0).getImage().getProxyUrl());
+                    return getFinalURl(Objects.requireNonNull(embeds.get(0).getImage()).getProxyUrl());
                 } else if (embeds.get(0).getThumbnail() != null) {
-                    return getFinalURl(embeds.get(0).getThumbnail().getProxyUrl());
+                    return getFinalURl(Objects.requireNonNull(embeds.get(0).getThumbnail()).getProxyUrl());
                 }
             }
         }

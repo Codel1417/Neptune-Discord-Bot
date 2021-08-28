@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 
 public class RandomMediaPicker {
@@ -26,7 +27,8 @@ public class RandomMediaPicker {
         searchFolder(Folder, audio, image);
         log.debug("Image Files: " + ImageFiles.size() + " Audio Files: " + audioFiles.size());
 
-        if (event.getGuild() != null && AudioOut == null) {
+        event.getGuild();
+        if (AudioOut == null) {
             AudioOut = new AudioController(event);
         }
 
@@ -37,18 +39,19 @@ public class RandomMediaPicker {
         }
         if (audioFiles.size() != 0 && audio) {
             File audioFile = audioFiles.get(rand.nextInt(audioFiles.size()));
-            if (event.getGuild().getAudioManager() != null
-                    || event.getMember().getVoiceState().getChannel() != null
-                            && event.getGuild() != null) {
-                AudioOut.playSound(event, audioFile.getAbsolutePath());
+            if (event.getGuild().getAudioManager() == null) {
+                if (event.getMember().getVoiceState().getChannel() != null) {
+                    event.getGuild();
+                }
             }
+            AudioOut.playSound(event, audioFile.getAbsolutePath());
         }
     }
 
     private void searchFolder(File Folder, boolean audio, boolean image) {
         ImageFiles = new ArrayList<>();
         audioFiles = new ArrayList<>();
-        for (File file : Folder.listFiles()) {
+        for (File file : Objects.requireNonNull(Folder.listFiles())) {
             String substring = file.getPath().substring(file.getPath().indexOf("."));
             for (String string : audioType) {
                 if (substring.contains(string)) {
