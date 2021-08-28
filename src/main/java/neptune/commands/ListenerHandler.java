@@ -2,7 +2,6 @@ package neptune.commands;
 
 import io.sentry.ITransaction;
 import io.sentry.Sentry;
-import io.sentry.Span;
 import io.sentry.SpanStatus;
 import neptune.commands.PassiveCommands.LeaderboardListener;
 import neptune.commands.PassiveCommands.Listener;

@@ -30,7 +30,6 @@ public class GuildStorageHandler {
         }
         return _instance;
     }
-    oldGuildStorageHandler oldGuildStorage = oldGuildStorageHandler.getInstance();
 
     public guildObject readFile(String guildID) {
         guildObject guildEntity;
@@ -39,24 +38,13 @@ public class GuildStorageHandler {
         if (guildEntity != null){
             guildEntity.setSession(session);
             log.info("Loaded guild: " + guildID + " from database");
-            return guildEntity;
         }
         else {
-            //attempt migration
-            guildEntity = oldGuildStorage.readFile(guildID);
-            if (guildEntity != null){
-
-                guildEntity.setSession(session);
-                writeFile(guildEntity);
-
-                log.info("Loaded guild: " + guildID + " from storage");
-                return guildEntity;
-            }
             log.info("Adding guild: " + guildID);
             guildEntity = new guildObject(guildID);
             guildEntity.setSession(session);
-            return guildEntity;
         }
+        return guildEntity;
     }
     public void writeFile(guildObject guildEntity){
         try {
