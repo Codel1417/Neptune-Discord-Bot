@@ -35,7 +35,11 @@ public class profileObject {
     }
     public void closeSession(){
         if (session != null && session.isOpen()){
-            session.close();
+            if (writeOnClose){
+                profileStorage profileStorage = neptune.storage.profileStorage.getInstance();
+                profileStorage.serialize(this);
+            }
+            else session.close();
         }
     }
 
@@ -77,5 +81,10 @@ public class profileObject {
             profileOptions.put(ProfileOptionsEnum.Timezone, Timezone);
             return true;
         } else return false;
+    }
+    @Transient
+    private boolean writeOnClose = false;
+    protected void setWriteOnClose(boolean bool){
+        writeOnClose = bool;
     }
 }

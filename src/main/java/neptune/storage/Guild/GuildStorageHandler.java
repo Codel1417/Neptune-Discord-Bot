@@ -43,6 +43,7 @@ public class GuildStorageHandler {
             log.info("Adding guild: " + guildID);
             guildEntity = new guildObject(guildID);
             guildEntity.setSession(session);
+            guildEntity.setWriteOnClose(true);
         }
         return guildEntity;
     }

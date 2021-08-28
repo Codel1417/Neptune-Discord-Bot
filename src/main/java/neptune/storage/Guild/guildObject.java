@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import neptune.storage.Enum.GuildOptionsEnum;
 import neptune.storage.Enum.LoggingOptionsEnum;
+import neptune.storage.profileStorage;
 import org.hibernate.Session;
 import java.util.HashMap;
 import java.util.Map;
@@ -179,8 +180,16 @@ public class guildObject {
     private Session session;
     public void closeSession(){
         if (session != null && session.isOpen()){
-            //session.flush();
-            session.close();
+            if (writeOnClose){
+                GuildStorageHandler guildStorageHandler = neptune.storage.Guild.GuildStorageHandler.getInstance();
+                guildStorageHandler.writeFile(this);
+            }
+            else session.close();
         }
+    }
+    @Transient
+    private boolean writeOnClose = false;
+    protected void setWriteOnClose(boolean bool){
+        writeOnClose = bool;
     }
 }

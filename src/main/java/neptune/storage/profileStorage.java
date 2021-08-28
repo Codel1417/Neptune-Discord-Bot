@@ -34,6 +34,7 @@ public class profileStorage {
         profileObject temp = (profileObject) session.get("neptune.storage.profileObject", ID);
         if (temp == null) {
             temp = new profileObject(ID);
+            temp.setWriteOnClose(true);
         }
         temp.setSession(session);
         return temp;
