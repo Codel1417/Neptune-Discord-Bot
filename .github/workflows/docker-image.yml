@@ -25,6 +25,7 @@ jobs:
           context: .
           file: ./Dockerfile
           build-args: COMMIT_ID = $GITHUB_SHA
+          no-cache: true
           # List of tags
           tags: codel1417/bot:latest
           push: ${{ github.event_name != 'pull_request' }}
