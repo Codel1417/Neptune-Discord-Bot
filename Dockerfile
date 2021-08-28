@@ -14,7 +14,6 @@ RUN chown -R 1000:1000 .
 USER 1000
 
 RUN chmod +x gradlew && ./gradlew build
-COPY --chown=1000:1000 /nep/Neptune-Discord-Bot/target/Neptune_Discord_Bot-1.0-SNAPSHOT.jar .
 
 VOLUME /nep/Guilds
 VOLUME /nep/Logs
