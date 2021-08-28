@@ -6,7 +6,7 @@
     <session-factory>  
         <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hbm2ddl.auto">update</property>    
-        <property name="connection.url">jdbc:mysql://db/neptune</property>
+        <property name="hibernate.connection.url">jdbc:mysql://db/neptune</property>
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="hibernate.connection.username">neptune</property>
         <property name="hibernate.connection.password">neptune</property>
