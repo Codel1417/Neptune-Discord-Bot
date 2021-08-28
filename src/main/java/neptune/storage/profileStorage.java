@@ -1,7 +1,6 @@
 package neptune.storage;
 
 
-import io.prometheus.client.hibernate.HibernateStatisticsCollector;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -16,7 +15,6 @@ public class profileStorage {
     private final StandardServiceRegistry ssr = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
     private final Metadata meta = new MetadataSources(ssr).getMetadataBuilder().build();
     private final SessionFactory factory = meta.getSessionFactoryBuilder().build();
-    private final HibernateStatisticsCollector hibernateStatisticsCollector = new HibernateStatisticsCollector(factory, "Profiles").enablePerQueryMetrics().register();
 
 
     public static synchronized profileStorage getInstance() {

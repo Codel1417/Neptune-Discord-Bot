@@ -10,7 +10,6 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
-import io.prometheus.client.hibernate.HibernateStatisticsCollector;
 import io.sentry.Sentry;
 
 public class GuildStorageHandler {
@@ -20,7 +19,6 @@ public class GuildStorageHandler {
     private final StandardServiceRegistry ssr = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
     private final Metadata meta = new MetadataSources(ssr).getMetadataBuilder().build();
     private final SessionFactory factory = meta.getSessionFactoryBuilder().build();
-    private final HibernateStatisticsCollector hibernateStatisticsCollector = new HibernateStatisticsCollector(factory, "Guilds").enablePerQueryMetrics().register();
 
     private GuildStorageHandler() {
     }
