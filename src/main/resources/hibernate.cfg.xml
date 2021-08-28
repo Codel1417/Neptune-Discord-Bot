@@ -4,10 +4,10 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-5.5.dtd">
 <hibernate-configuration>  
     <session-factory>  
-        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
-        <property name="hbm2ddl.auto">update</property>    
-        <property name="hibernate.connection.url">jdbc:mysql://db/neptune</property>
-        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.dialect">org.hibernate.dialect.MariaDB103Dialect</property>
+        <property name="hibernate.hbm2ddl.auto">create-drop</property>
+        <property name="hibernate.connection.url">jdbc:mariadb://db/neptune</property>
+        <property name="hibernate.connection.driver_class">org.mariadb.jdbc.Driver</property>
         <property name="hibernate.connection.username">neptune</property>
         <property name="hibernate.connection.password">neptune</property>
         <property name="hibernate.connection.show_sql">true</property>

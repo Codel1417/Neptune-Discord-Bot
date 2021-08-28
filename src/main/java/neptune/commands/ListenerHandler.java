@@ -34,6 +34,7 @@ public class ListenerHandler implements EventListener
 
         Sentry.addBreadcrumb(event.getClass().getName());
         ITransaction transaction = Sentry.startTransaction(event.getClass().getName(), "Run Event");
+        transaction.setTag("JDA Shard", event.getJDA().getShardInfo().getShardString());
         for (EventListener listener : eventListeners){
             try {
                 log.trace("Running listener: " + listener.getClass().getName());
