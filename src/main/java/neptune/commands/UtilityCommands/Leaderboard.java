@@ -1,6 +1,7 @@
 package neptune.commands.UtilityCommands;
 
 import neptune.commands.ICommand;
+import neptune.storage.profileObject;
 import neptune.storage.profileStorage;
 
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -67,11 +68,12 @@ public class Leaderboard implements ICommand {
         return points;
     }
     public LinkedHashMap<String, Integer> getTopUsers(GuildMessageReceivedEvent event) {
+        profileStorage storage = profileStorage.getInstance();
+
         List<Member> guildMembers = event.getGuild().getMembers();
         HashMap<String, Integer> leaderboards = new HashMap<>();
-        //todo, get all profiles for members, then calculate top;
         for (Member member : guildMembers){
-            profileStorage profile = profileStorage.getProfile(member.getId());
+            profileObject profile = storage.getProfile(member.getId());
             leaderboards.put(Objects.requireNonNull(event.getMember()).getId(), profile.getPoints());
             profile.closeSession();
         }

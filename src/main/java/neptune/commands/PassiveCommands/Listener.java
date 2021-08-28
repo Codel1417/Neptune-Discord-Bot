@@ -1,6 +1,5 @@
 package neptune.commands.PassiveCommands;
 
-import co.elastic.apm.api.CaptureSpan;
 import io.sentry.ITransaction;
 import io.sentry.SpanStatus;
 import io.sentry.protocol.User;
@@ -13,7 +12,6 @@ import neptune.storage.Guild.guildObject;
 import neptune.storage.logsStorageHandler;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.GenericEvent;
-import net.dv8tion.jda.api.events.channel.text.TextChannelDeleteEvent;
 import net.dv8tion.jda.api.events.guild.GenericGuildEvent;
 import net.dv8tion.jda.api.events.guild.GuildLeaveEvent;
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceUpdateEvent;
@@ -23,7 +21,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import io.sentry.Sentry;
-import org.hibernate.Session;
 
 import java.io.File;
 import java.util.Arrays;
@@ -33,18 +30,13 @@ import javax.annotation.Nonnull;
 // intercepts discord messages
 public class Listener implements EventListener {
     protected static final Logger log = LogManager.getLogger();
-    private final GuildLogging guildLogging = new GuildLogging();
     final logsStorageHandler logStorage = new logsStorageHandler();
-    private Runnable CycleActivity;
-    private boolean ActivityThread;
     private final CommandHandler nepCommands = new CommandHandler();
     private final RandomMediaPicker randomMediaPicker = new RandomMediaPicker();
 
-    @CaptureSpan(value = "GenericEvent", type = "command")
     @Override
     public void onEvent(@Nonnull GenericEvent event) {
-        Sentry.addBreadcrumb(event.getClass().getName());
-        ITransaction transaction = Sentry.startTransaction(event.getClass().getName(), "Command Runner");
+
         if (event instanceof GenericGuildEvent) {
             guildObject guildEntity;
             try {
@@ -52,16 +44,11 @@ public class Listener implements EventListener {
             } catch (Exception e) {
                 log.error(e);
                 Sentry.captureException(e);
-                transaction.setThrowable(e);
-                transaction.setStatus(SpanStatus.UNKNOWN_ERROR);
-                transaction.finish();
                 return;
             }
             // Commands
             if (event instanceof GuildMessageReceivedEvent) {
                 if (((GuildMessageReceivedEvent) event).getAuthor().isBot()){
-                    transaction.setStatus(SpanStatus.FAILED_PRECONDITION);
-                    transaction.finish();
                     return;
                 }
                 runEvent((GuildMessageReceivedEvent) event, guildEntity);
@@ -85,7 +72,6 @@ public class Listener implements EventListener {
                 }
             }
             guildEntity.closeSession();
-            transaction.finish();
         }
     }
 

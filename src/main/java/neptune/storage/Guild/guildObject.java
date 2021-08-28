@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import neptune.storage.Enum.GuildOptionsEnum;
 import neptune.storage.Enum.LoggingOptionsEnum;
 import org.hibernate.Session;
-
 import java.util.HashMap;
 import java.util.Map;
 import javax.persistence.*;
@@ -15,6 +14,7 @@ import javax.persistence.*;
 @Table(name= "Guilds")
 @JsonDeserialize(using = guildObjectDeserializer.class)
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.NONE)
+@Cacheable
 public class guildObject {
     public guildObject() {
 

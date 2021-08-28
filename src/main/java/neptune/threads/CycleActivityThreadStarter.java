@@ -1,4 +1,4 @@
-package neptune.commands.PassiveCommands;
+package neptune.threads;
 
 import neptune.CycleGameStatus;
 import net.dv8tion.jda.api.events.GenericEvent;

@@ -1,0 +1,61 @@
+version: "2.1"
+services:
+  Neptune_Core:
+    build: .
+    environment:
+      - NEPTUNE_TOKEN=null
+      - NEPTUNE_TENOR_TOKEN=null
+      - SENTRY_DSN=http://43e14c45d81c4c9290bc449d705d2062@docker-vm.codel1417.lan:7000/2
+    volumes:
+      - ./Logs:/nep/Logs
+      - ./Guilds:/nep/Guilds
+      - ./Media:/nep/Media
+      - ./tessdata:/nep/tessdata
+    restart: unless-stopped
+    networks:
+      - prometheus
+      - db
+      - redis
+    ports:
+      - 11234:1234
+      - 11233:1233
+      - 11232:1232
+    depends_on:
+      db:
+        condition: service_healthy
+  db:
+    image: mariadb:10.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MARIADB_USER: neptune
+      MARIADB_PASSWORD: neptune
+      MARIADB_DATABASE: neptune
+    volumes:
+      - ./mysql:/var/lib/mysql
+    healthcheck:
+      test: "/usr/bin/mysql --user=neptune --password=neptune --execute \"SHOW DATABASES;\""
+      # test: "/usr/local/mysql/bin/mysql --user=foo --password=foo --execute \"SHOW DATABASES;\""
+      interval: 3s
+      timeout: 1s
+      retries: 5
+    networks:
+      - db
+  redis:
+    image: redis:latest
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 1s
+      timeout: 3s
+      retries: 30
+    command: redis-server --requirepass jsZSc4p9D3jRj5
+    volumes:
+      - ./redis:/data
+    networks:
+      - redis
+networks:
+  db:
+  redis:
+  prometheus:
+    external:
+      name: prometheus
