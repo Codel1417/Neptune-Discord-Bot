@@ -8,6 +8,7 @@ ARG COMMIT_ID
 RUN  apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get install -y --no-install-recommends tesseract-ocr unzip openjdk-11-jdk -o APT::Immediate-Configure=0
 
+RUN chown 1000:1000 /nep
 WORKDIR /nep/
 ADD --chown=1000:1000 ./ ./
 
