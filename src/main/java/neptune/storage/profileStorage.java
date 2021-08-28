@@ -43,7 +43,7 @@ public class profileStorage {
         Sentry.addBreadcrumb("Saving Profile for ID: " + profile.getId());
         Session session = profile.getSession();
         Transaction transaction = session.beginTransaction();
-        session.save(this);
+        session.save(profile);
         transaction.commit();
         session.close();
     }
