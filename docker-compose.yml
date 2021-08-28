@@ -12,6 +12,9 @@ services:
       - ./Media:/nep/Media
       - ./tessdata:/nep/tessdata
     restart: unless-stopped
+    # Temperary fix for jstatd not working
+    user: "0"
+    command: "./gradlew run"
     networks:
       - prometheus
       - db
@@ -24,15 +27,18 @@ services:
       db:
         condition: service_healthy
   db:
-    image: mariadb:10.0
+    image: ghcr.io/linuxserver/mariadb
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: example
-      MARIADB_USER: neptune
-      MARIADB_PASSWORD: neptune
-      MARIADB_DATABASE: neptune
+      - PUID=1000
+      - PGID=1000
+      - MYSQL_ROOT_PASSWORD=ROOT_ACCESS_PASSWORD
+      - TZ=America/Phoenix
+      - MYSQL_DATABASE=neptune
+      - MYSQL_USER=neptune
+      - MYSQL_PASSWORD=neptune
     volumes:
-      - ./mysql:/var/lib/mysql
+      - ./mysql:/config
     healthcheck:
       test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
       timeout: 45s
