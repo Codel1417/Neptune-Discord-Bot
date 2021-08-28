@@ -30,7 +30,7 @@ public class Main {
             options.setAttachStacktrace(true);
             //options.setRelease(System.getenv("NEPTUNE_COMMIT_ID"));
             options.setEnableAutoSessionTracking(true);
-            options.setEnvironment("development");
+            //options.setEnvironment("development");
         });
         log.trace("Finish Init Sentry");
 
