@@ -1,5 +1,6 @@
 # I need Tesseract version 4.1 or newer.
 FROM ubuntu:latest
+SHELL ["/bin/bash", "-c"]
 
 ARG COMMIT_ID
 
