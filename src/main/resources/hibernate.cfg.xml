@@ -7,10 +7,10 @@
         <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hbm2ddl.auto">update</property>    
         <property name="hibernate.connection.url">jdbc:mysql://db/neptune</property>
-        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="hibernate.connection.username">neptune</property>
         <property name="hibernate.connection.password">neptune</property>
-        <property name="show_sql">true</property>
+        <property name="hibernate.connection.show_sql">true</property>
         <property name="hibernate.connection.provider_class">org.hibernate.c3p0.internal.C3P0ConnectionProvider</property>
         <property name="hibernate.c3p0.min_size">1</property>
         <property name="hibernate.c3p0.max_size">19</property>
