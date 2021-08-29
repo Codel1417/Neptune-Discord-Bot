@@ -21,7 +21,7 @@ import java.awt.*;
 import java.util.Objects;
 
 public class TextLog {
-    final logsStorageHandler logsStorageHandler = new logsStorageHandler();
+    final logsStorageHandler logsStorageHandler = neptune.storage.logsStorageHandler.getInstance();
     protected static final Logger log = LogManager.getLogger();
 
     public void GuildText(GenericGuildMessageEvent event, logOptionsObject LoggingOptions) {
@@ -74,7 +74,7 @@ public class TextLog {
             return;
         }
         try {
-            logObject logEntity = logsStorageHandler.readFile(event.getMessageId(),event.getGuild().getId(),event.getChannel().getId());
+            logObject logEntity = logsStorageHandler.readFile(event.getMessageId());
             PreviousMessage = logEntity.getMessageContent();
             logEntity.setMessageContent(event.getMessage().getContentDisplay());
             logsStorageHandler.writeFile(logEntity);
@@ -98,14 +98,9 @@ public class TextLog {
         String PreviousMessage = "";
         User user = null;
         try {
-            logObject logEntity =
-                    logsStorageHandler.readFile(
-                            event.getMessageId(),
-                            event.getGuild().getId(),
-                            event.getChannel().getId());
+            logObject logEntity = logsStorageHandler.readFile(event.getMessageId());
             PreviousMessage = logEntity.getMessageContent();
-            logsStorageHandler.deleteFile(
-                    event.getMessageId(), event.getGuild().getId(), event.getChannel().getId());
+            logsStorageHandler.deleteFile(event.getMessageId());
             user = event.getJDA().getUserById(logEntity.getMemberID());
 
         } catch (IOException e) {

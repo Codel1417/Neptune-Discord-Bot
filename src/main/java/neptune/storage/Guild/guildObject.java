@@ -1,10 +1,7 @@
 package neptune.storage.Guild;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import neptune.storage.Enum.GuildOptionsEnum;
 import neptune.storage.Enum.LoggingOptionsEnum;
-import neptune.storage.profileStorage;
 import org.hibernate.Session;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,8 +10,6 @@ import javax.persistence.*;
 //Stop using Subclasses
 @Entity  
 @Table(name= "Guilds")
-@JsonDeserialize(using = guildObjectDeserializer.class)
-@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.NONE)
 @Cacheable
 public class guildObject {
     public guildObject() {

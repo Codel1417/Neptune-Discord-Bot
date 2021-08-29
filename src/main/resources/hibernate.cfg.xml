@@ -18,5 +18,6 @@
         <property name="hibernate.c3p0.max_statements">10</property>
         <mapping class="neptune.storage.profileObject"/>
         <mapping class="neptune.storage.Guild.guildObject"/>
+        <mapping class="neptune.storage.logObject"/>
     </session-factory>
 </hibernate-configuration>

@@ -1,9 +1,9 @@
 package neptune.storage;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.Version;
+import neptune.storage.Guild.guildObject;
+import org.hibernate.Session;
+
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
@@ -70,4 +70,19 @@ public class logObject {
     private int version;
     // timestamp exists for storage cleanup.
     private final Timestamp timestamp;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @MapsId
+    @JoinColumn(name = "guildID")
+    private guildObject guildEntity;
+
+    @Transient
+    private Session session;
+
+    public void setSession(Session session){
+        this.session = session;
+    }
+    public Session getSession(){
+        return session;
+    }
 }

@@ -31,7 +31,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class GuildLogging {
-    final logsStorageHandler logsStorageHandler = new logsStorageHandler();
+    final logsStorageHandler logsStorageHandler = neptune.storage.logsStorageHandler.getInstance();
 
     public void GuildVoice(GenericGuildVoiceEvent event, logOptionsObject LoggingOptions) {
         TextChannel textChannel = event.getGuild().getTextChannelById(LoggingOptions.getChannel());
@@ -128,7 +128,7 @@ public class GuildLogging {
             logEntity.setMessageID(event.getMessageId());
             logEntity.setMessageContent(
                     ((GuildMessageReceivedEvent) event).getMessage().getContentDisplay());
-            logsStorageHandler logsStorageHandler = new logsStorageHandler();
+            logsStorageHandler logsStorageHandler = neptune.storage.logsStorageHandler.getInstance();
             try {
                 logsStorageHandler.writeFile(logEntity);
             } catch (IOException e) {
@@ -153,10 +153,7 @@ public class GuildLogging {
         }
         try {
             logObject logEntity =
-                    logsStorageHandler.readFile(
-                            event.getMessageId(),
-                            event.getGuild().getId(),
-                            event.getChannel().getId());
+                    logsStorageHandler.readFile(event.getMessageId());
             PreviousMessage = logEntity.getMessageContent();
             logEntity.setMessageContent(event.getMessage().getContentDisplay());
             logsStorageHandler.writeFile(logEntity);
@@ -183,14 +180,9 @@ public class GuildLogging {
         String PreviousMessage = "";
         User user = null;
         try {
-            logObject logEntity =
-                    logsStorageHandler.readFile(
-                            event.getMessageId(),
-                            event.getGuild().getId(),
-                            event.getChannel().getId());
+            logObject logEntity = logsStorageHandler.readFile(event.getMessageId());
             PreviousMessage = logEntity.getMessageContent();
-            logsStorageHandler.deleteFile(
-                    event.getMessageId(), event.getGuild().getId(), event.getChannel().getId());
+            logsStorageHandler.deleteFile(event.getMessageId());
             user = event.getJDA().getUserById(logEntity.getMemberID());
 
         } catch (IOException e) {

@@ -87,4 +87,15 @@ public class profileObject {
     protected void setWriteOnClose(boolean bool){
         writeOnClose = bool;
     }
+
+    @Version
+    private Integer version;
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
 }

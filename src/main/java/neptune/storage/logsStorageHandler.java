@@ -1,93 +1,83 @@
 package neptune.storage;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-
-import org.apache.commons.io.FileUtils;
+import io.sentry.Sentry;
+import neptune.storage.Guild.GuildStorageHandler;
+import neptune.storage.Guild.guildObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.boot.Metadata;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistry;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
-import java.io.File;
 import java.io.IOException;
 
-// root/logs/guildID/MessageID.yaml
 public class logsStorageHandler {
     protected static final Logger log = LogManager.getLogger();
     final String logsDir = "Logs";
-
+    private static  logsStorageHandler _instance;
+    private final StandardServiceRegistry ssr = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
+    private final Metadata meta = new MetadataSources(ssr).getMetadataBuilder().build();
+    private final SessionFactory factory = meta.getSessionFactoryBuilder().build();
     public void writeFile(logObject logEntity) throws IOException {
-        File file =
-                new File(
-                        logsDir
-                                + File.separator
-                                + logEntity.getGuildID()
-                                + File.separator
-                                + logEntity.getChannelID()
-                                + File.separator
-                                + logEntity.getMessageID()
-                                + ".yaml");
-        // Instantiating a new ObjectMapper as a YAMLFactory
-        file.getParentFile().mkdirs(); // makes required folders
-        ObjectMapper om = new ObjectMapper(new YAMLFactory());
-        log.debug("Writing File: " + file.getAbsolutePath());
-        om.writeValue(file, logEntity);
+        Sentry.addBreadcrumb("Saving Profile for ID: " + logEntity.getMessageID());
+        Session session = logEntity.getSession();
+        Transaction transaction = session.beginTransaction();
+        session.save(logEntity);
+        transaction.commit();
+        session.close();
     }
-
-    public logObject readFile(String messageID, String guildID, String channelID)
-            throws IOException {
-        File file =
-                new File(
-                        logsDir
-                                + File.separator
-                                + guildID
-                                + File.separator
-                                + channelID
-                                + File.separator
-                                + messageID
-                                + ".yaml");
-        // Instantiating a new ObjectMapper as a YAMLFactory
-        if (!file.exists()) {
+    public static synchronized logsStorageHandler getInstance() {
+        if (_instance == null) {
+            synchronized (logsStorageHandler.class) {
+                if (_instance == null) _instance = new logsStorageHandler();
+            }
+        }
+        return _instance;
+    }
+    private logsStorageHandler(){}
+    public logObject readFile(String messageID) throws IOException {
+        Sentry.addBreadcrumb("Loading Log for ID: " + messageID);
+        Session session = factory.openSession();
+        logObject temp = (logObject) session.get("neptune.storage.logObject", messageID);
+        if (temp == null) {
             return null;
         }
-        ObjectMapper om = new ObjectMapper(new YAMLFactory());
-        log.debug("Reading File: " + file.getAbsolutePath());
-        return om.readValue(file, logObject.class);
+        temp.setSession(session);
+        return temp;
     }
 
-    public void deleteFile(String messageID, String guildID, String channelID) {
-        File file =
-                new File(
-                        logsDir
-                                + File.separator
-                                + guildID
-                                + File.separator
-                                + channelID
-                                + File.separator
-                                + messageID
-                                + ".yaml");
-        if (file.exists()) {
-            log.debug("Deleting File: " + file.getAbsolutePath());
-            file.delete();
-        }
-    }
-
-    public void deleteChannel(String guildID, String channelID) {
-        File file = new File(logsDir + File.separator + guildID + File.separator + channelID);
+    public void deleteFile(String messageID) {
         try {
-            log.debug("Deleting Logs for Channel: " + file.getAbsolutePath());
-            FileUtils.deleteDirectory(file);
-        } catch (IOException e) {
-            log.error(e.toString());
+            logObject logEntity = readFile(messageID);
+            Session session = logEntity.getSession();
+            Transaction transaction = session.beginTransaction();
+            session.delete(logEntity);
+            transaction.commit();
+            session.close();
+        }
+        catch (Exception e){
+            Sentry.captureException(e);
+            log.error(e);
         }
     }
 
     public void deleteGuild(String guildID) {
-        File file = new File(logsDir + File.separator + guildID);
         try {
-            log.debug("Deleting Logs for Guild: " + file.getAbsolutePath());
-            FileUtils.deleteDirectory(file);
-        } catch (IOException e) {
-            log.error(e.toString());
+            GuildStorageHandler guildStorageHandler = GuildStorageHandler.getInstance();
+            guildObject guildEntity = guildStorageHandler.readFile(guildID);
+            Session session = guildEntity.getSession();
+            Transaction transaction = session.beginTransaction();
+            session.delete(guildEntity);
+            transaction.commit();
+            session.close();
+        }
+        catch (Exception e){
+            Sentry.captureException(e);
+            log.error(e);
         }
     }
 }

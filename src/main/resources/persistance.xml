@@ -8,6 +8,7 @@
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<class>neptune.storage.Guild.guildObject</class>
         <class>neptune.storage.profileObject</class>
+        <class>neptune.storage.logObject</class>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MariaDB103Dialect"/>
             <property name="hibernate.connection.url" value="jdbc:mariadb://db/neptune"/>
