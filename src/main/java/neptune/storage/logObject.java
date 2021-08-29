@@ -1,12 +1,15 @@
 package neptune.storage;
 
+import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.Version;
 import java.sql.Timestamp;
 
+@Entity
 public class logObject {
     public logObject() {
         timestamp = new Timestamp(System.currentTimeMillis());
-        version = 1;
     }
 
     public String getMemberID() {
@@ -63,7 +66,8 @@ public class logObject {
     @Id
     private String messageID;
     private String messageContent;
-    private final int version;
+    @Version
+    private int version;
     // timestamp exists for storage cleanup.
     private final Timestamp timestamp;
 }

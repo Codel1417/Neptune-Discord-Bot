@@ -13,15 +13,15 @@ import io.sentry.Sentry;
 
 public class enableLogging implements ICommand{
 	protected static final Logger log = LogManager.getLogger();
-
+    setLoggingChannel LoggingChannel = new setLoggingChannel();
     @Override
     public void run(GuildMessageReceivedEvent event, String messageContent) {
         try {
             guildObject guildentity = GuildStorageHandler.getInstance().readFile(event.getGuild().getId());
             guildentity.getLogOptions().setOption(LoggingOptionsEnum.GlobalLogging, true);
             GuildStorageHandler.getInstance().writeFile(guildentity);
-            guildentity.closeSession();
             event.getChannel().sendMessage("Server logging enabled.").queue();
+            LoggingChannel.run(event,messageContent);
         } catch (Exception e) {
             log.error(e);
             Sentry.captureException(e);

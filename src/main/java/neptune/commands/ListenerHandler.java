@@ -3,9 +3,7 @@ package neptune.commands;
 import io.sentry.ITransaction;
 import io.sentry.Sentry;
 import io.sentry.SpanStatus;
-import neptune.commands.PassiveCommands.LeaderboardListener;
-import neptune.commands.PassiveCommands.Listener;
-import neptune.commands.PassiveCommands.LoggingListener;
+import neptune.commands.PassiveCommands.*;
 import neptune.prometheus.promListener;
 import neptune.scheduler.SchedulerListener;
 import neptune.threads.CycleActivityThreadStarter;
@@ -22,12 +20,14 @@ public class ListenerHandler implements EventListener
     protected static final Logger log = LogManager.getLogger();
     private ArrayList<EventListener> eventListeners = new ArrayList<>();
     public ListenerHandler(){
-        eventListeners.add(new Listener());
+        eventListeners.add(new MessageListener());
         eventListeners.add(new promListener());
         eventListeners.add(new CycleActivityThreadStarter());
         eventListeners.add(new LeaderboardListener());
         eventListeners.add(new LoggingListener());
         eventListeners.add(new SchedulerListener());
+        eventListeners.add(new VoiceChatListener());
+        eventListeners.add(new GuildListener());
     }
     public void onEvent(@Nonnull GenericEvent event) {
 

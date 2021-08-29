@@ -522,7 +522,6 @@ public class GuildLogging {
         embedBuilder.addField("Channel Name", event.getChannel().getAsMention(), true);
         embedBuilder.setFooter("Channel Id " + event.getChannel().getId(), null);
         StringBuilder changedRoles = new StringBuilder();
-        event.getChangedPermissionHolders();
         StringBuilder changedPermissionHolders = new StringBuilder();
         for (Role role : event.getChangedRoles()) {
             changedRoles.append(role.getName()).append("\n");
@@ -534,8 +533,7 @@ public class GuildLogging {
             embedBuilder.addField("Changed Roles", changedRoles.toString(), true);
         }
         if (!changedPermissionHolders.toString().equalsIgnoreCase("")) {
-            // embedBuilder.addField("Changed Permission
-            // Holders",changedPermissionHolders.toString(),true);
+            embedBuilder.addField("Changed Permission Holders",changedPermissionHolders.toString(),true);
         }
         textChannel.sendMessage(embedBuilder.build()).queue();
     }

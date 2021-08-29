@@ -6,23 +6,29 @@ services:
       - NEPTUNE_TOKEN=null
       - NEPTUNE_TENOR_TOKEN=null
       - SENTRY_DSN=http://43e14c45d81c4c9290bc449d705d2062@docker-vm.codel1417.lan:7000/2
+      - HOST_HOSTNAME=$HOSTNAME
     volumes:
       - ./Logs:/nep/Logs
-      - ./Guilds:/nep/Guilds
       - ./Media:/nep/Media
       - ./tessdata:/nep/tessdata
     restart: unless-stopped
-    # Temperary fix for jstatd not working
-    user: "0"
-    command: "./gradlew run"
     networks:
       - prometheus
       - db
       - redis
     ports:
-      - 11234:1234
-      - 11233:1233
-      - 11232:1232
+      # Prometheus
+      - 1234:1234
+      # jstatd RMI registry
+      - 2222:2222
+      # sun.jvmstat.monitor.remote.RemoteHost
+      - 2223:2223
+      # sun.jvmstat.monitor.remote.RemoteVm
+      - 2224:2224
+      # JMX
+      - 1232:1232
+      # JMX RMI
+      - 1231:1231
     depends_on:
       db:
         condition: service_healthy
