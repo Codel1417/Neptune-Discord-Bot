@@ -72,8 +72,7 @@ public class logObject {
     private final Timestamp timestamp;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @MapsId
-    @JoinColumn(name = "guildID")
+    @JoinColumn(name = "guildID",referencedColumnName="guildID")
     private guildObject guildEntity;
 
     @Transient

@@ -17,13 +17,12 @@ import java.io.IOException;
 
 public class logsStorageHandler {
     protected static final Logger log = LogManager.getLogger();
-    final String logsDir = "Logs";
     private static  logsStorageHandler _instance;
     private final StandardServiceRegistry ssr = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
     private final Metadata meta = new MetadataSources(ssr).getMetadataBuilder().build();
     private final SessionFactory factory = meta.getSessionFactoryBuilder().build();
     public void writeFile(logObject logEntity) throws IOException {
-        Sentry.addBreadcrumb("Saving Profile for ID: " + logEntity.getMessageID());
+        Sentry.addBreadcrumb("Saving log entry for ID: " + logEntity.getMessageID());
         Session session = logEntity.getSession();
         Transaction transaction = session.beginTransaction();
         session.save(logEntity);
@@ -39,6 +38,7 @@ public class logsStorageHandler {
         return _instance;
     }
     private logsStorageHandler(){}
+
     public logObject readFile(String messageID) throws IOException {
         Sentry.addBreadcrumb("Loading Log for ID: " + messageID);
         Session session = factory.openSession();
