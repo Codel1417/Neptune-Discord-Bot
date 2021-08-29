@@ -40,4 +40,5 @@ ENV NEPTUNE_COMMIT_ID=$COMMIT_ID
 ENV NEPTUNE_TESSERACT_DIR=/nep/tessdata
 ENV SENTRY_DSN=null
 
+RUN chmod +x run.sh
 CMD ./run.sh
