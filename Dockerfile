@@ -9,7 +9,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get install -y --no-install-recommends tesseract-ocr unzip openjdk-11-jdk git maven -o APT::Immediate-Configure=0
 
 # Set up Jstatd
-RUN git clone https://github.com/mscg82/ejstatd /ejstatd && chown 1000:1000 -R /ejstatd
+RUN git clone https://github.com/Codel1417/ejstatd.git /ejstatd && chown 1000:1000 -R /ejstatd
 USER 1000
 WORKDIR /ejstatd/
 RUN mvn package
