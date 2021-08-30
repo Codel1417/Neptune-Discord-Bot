@@ -64,6 +64,7 @@ public class guildObject {
     @Embeddable
     public static class guildOptionsObject {
         @ElementCollection
+        @CollectionTable(name="GuildOptions", joinColumns=@JoinColumn(name="GuildID"))
         private final Map<GuildOptionsEnum, Boolean> GuildOptionsHashMap;
 
         public guildOptionsObject() {
@@ -86,7 +87,6 @@ public class guildObject {
         public void setOption(GuildOptionsEnum Option, Boolean value) {
             GuildOptionsHashMap.put(Option, value);
         }
-
     }
     @Embeddable
     public static class logOptionsObject {

@@ -34,10 +34,7 @@ public class status implements ICommand {
     
             embedBuilder.addField("Global Logging Status",helpers.getEnabledDisabledIconText(guildentity.getLogOptions().getOption(LoggingOptionsEnum.GlobalLogging)),true);
             if (!LoggingChannel.equalsIgnoreCase("")) {
-                embedBuilder.addField(
-                        "Channel",
-                        Objects.requireNonNull(event.getGuild().getTextChannelById(LoggingChannel)).getAsMention(),
-                        true);
+                embedBuilder.addField("Channel", event.getGuild().getTextChannelById(LoggingChannel).getAsMention(), true);
             }
     
             StringBuilder logOptionsMessage = new StringBuilder();
