@@ -19,9 +19,9 @@
             <property name="hibernate.cache.use_second_level_cache" value="false"/>
             <property name="hibernate.cache.use_query_cache" value="false" />
             <property name="hibernate.generate_statistics" value="true"/>
-            <property name="hibernate.cache.region.factory_class" value="org.redisson.hibernate.RedissonRegionFactory" />
+            <!--<property name="hibernate.cache.region.factory_class" value="org.redisson.hibernate.RedissonRegionFactory" />
             <property name="hibernate.cache.redisson.fallback" value="true" />
-            <property name="hibernate.cache.redisson.config" value="redisson.yaml" />
+            <property name="hibernate.cache.redisson.config" value="redisson.yaml" />-->
         </properties>
   </persistence-unit>
 </persistence>
