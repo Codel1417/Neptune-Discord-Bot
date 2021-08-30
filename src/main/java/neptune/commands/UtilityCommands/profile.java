@@ -86,9 +86,7 @@ public class profile implements ICommand {
         embedBuilder.setFooter("Use '!nep profile help' to get a list of profile commands.");
         event.getChannel().sendMessage(embedBuilder.build()).queue();
 
-        if (!profile.getSession().isDirty()){
-            profile.closeSession();
-        }
+        profile.closeSession();
     }
 
     public void updateBio(GuildMessageReceivedEvent event, String Bio) {
@@ -96,6 +94,7 @@ public class profile implements ICommand {
         profileStorage storage = profileStorage.getInstance();
         profileObject profile = storage.getProfile(Objects.requireNonNull(event.getMember()).getId());
         boolean result = profile.setBio(Bio);
+        storage.serialize(profile);
         if (result) {
             displayProfile(event, event.getAuthor().getId());
         } else {
@@ -104,13 +103,13 @@ public class profile implements ICommand {
                     .queue();
             displayHelp(event);
         }
-        storage.serialize(profile);
     }
 
     public void updateTimezone(GuildMessageReceivedEvent event, String TimeZone) {
         profileStorage storage = profileStorage.getInstance();
         profileObject profile = storage.getProfile(Objects.requireNonNull(event.getMember()).getId());
         boolean result = profile.setTimeZone(TimeZone);
+        storage.serialize(profile);
         if (result) {
             displayProfile(event, event.getAuthor().getId());
         } else {
@@ -119,7 +118,6 @@ public class profile implements ICommand {
                     .queue();
             displayHelp(event);
         }
-        storage.serialize(profile);
         return;
     }
 
@@ -127,13 +125,14 @@ public class profile implements ICommand {
         profileStorage storage = profileStorage.getInstance();
         profileObject profile = storage.getProfile(Objects.requireNonNull(event.getMember()).getId());
         boolean result = profile.setLanguage(Language);
+        storage.serialize(profile);
+
         if (result) {
             displayProfile(event, event.getAuthor().getId());
         } else {
             event.getChannel().sendMessage("Invalid Language").queue();
             displayHelp(event);
         }
-        storage.serialize(profile);
         return;
     }
 }
