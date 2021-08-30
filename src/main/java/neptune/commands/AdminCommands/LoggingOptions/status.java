@@ -31,9 +31,6 @@ public class status implements ICommand {
     
             // logging status
             String LoggingChannel = guildentity.getLogOptions().getChannel();
-            if (LoggingChannel == null) {
-                LoggingChannel = "";
-            }
     
             embedBuilder.addField("Global Logging Status",helpers.getEnabledDisabledIconText(guildentity.getLogOptions().getOption(LoggingOptionsEnum.GlobalLogging)),true);
             if (!LoggingChannel.equalsIgnoreCase("")) {

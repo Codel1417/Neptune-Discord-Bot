@@ -5,6 +5,7 @@ import neptune.storage.Enum.LoggingOptionsEnum;
 import org.hibernate.Session;
 import java.util.HashMap;
 import java.util.Map;
+import javax.annotation.Nullable;
 import javax.persistence.*;
 
 //Stop using Subclasses
@@ -92,7 +93,8 @@ public class guildObject {
         @ElementCollection
         private final Map<LoggingOptionsEnum, Boolean> loggingOptions;
 
-        private String Channel = null;
+        @Column(nullable = false)
+        private String Channel = "";
 
         public logOptionsObject() {
             loggingOptions = new HashMap<>();
@@ -102,12 +104,12 @@ public class guildObject {
             loggingOptions.put(LoggingOptionsEnum.ServerModificationLogging,true);
             loggingOptions.put(LoggingOptionsEnum.VoiceChannelLogging,true);
 
-            Channel = null;
+            Channel = "";
         }
 
         protected logOptionsObject(String channel, Map<LoggingOptionsEnum, Boolean> loggingOptionsMap) {
             loggingOptions = loggingOptionsMap;
-            Channel = channel;
+            setChannel(channel);
         }
 
         public boolean getOption(LoggingOptionsEnum option) {
@@ -123,7 +125,10 @@ public class guildObject {
         }
 
         public void setChannel(String channelID) {
-            Channel = channelID;
+            if (channelID == null){
+                Channel = "";
+            }
+            else Channel = channelID;
         }
     }
     @Embeddable
