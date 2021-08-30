@@ -20,7 +20,6 @@ WORKDIR /nep/
 
 RUN chmod +x gradlew && ./gradlew build
 
-VOLUME /nep/Logs
 VOLUME /nep/Media
 VOLUME /nep/tessdata
 

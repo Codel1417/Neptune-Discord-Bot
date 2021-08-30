@@ -8,7 +8,6 @@ services:
       - SENTRY_DSN=http://43e14c45d81c4c9290bc449d705d2062@docker-vm.codel1417.lan:7000/2
       - HOST_HOSTNAME=$HOSTNAME
     volumes:
-      - ./Logs:/nep/Logs
       - ./Media:/nep/Media
       - ./tessdata:/nep/tessdata
     restart: unless-stopped

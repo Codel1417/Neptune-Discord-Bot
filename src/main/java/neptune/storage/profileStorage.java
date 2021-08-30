@@ -35,7 +35,6 @@ public class profileStorage {
         if (temp == null) {
             temp = new profileObject(ID);
         }
-        temp.setWriteOnClose(true);
         temp.setSession(session);
         return temp;
     }
