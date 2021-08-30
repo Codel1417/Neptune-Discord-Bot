@@ -5,7 +5,6 @@ import org.hibernate.Session;
 import javax.persistence.*;
 import java.util.TimeZone;
 @Entity
-@Table(name= "Profiles")
 public class profileObject {
     protected profileObject(){}
     private int leaderboardPoints;
@@ -55,15 +54,15 @@ public class profileObject {
         return bio;
     }
 
-    private String Language = "Not Set";
+    private String language = "Not Set";
     public boolean setLanguage(String Language) {
         if (Language.length() <= 50) { // leaves 300 characters for other profile options
-            this.Language = Language;
+            language = Language;
             return true;
         } else return false;
     }
     public String getLanguage(){
-        return Language;
+        return language;
     }
     private String timeZone = "Not Set";
 
