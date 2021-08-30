@@ -64,6 +64,7 @@ public class guildObject {
     @Embeddable
     public static class guildOptionsObject {
         @ElementCollection
+        @Enumerated(EnumType.STRING)
         @CollectionTable(name="GuildOptions", joinColumns=@JoinColumn(name="GuildID"))
         private final Map<GuildOptionsEnum, Boolean> GuildOptionsHashMap;
 
@@ -91,6 +92,8 @@ public class guildObject {
     @Embeddable
     public static class logOptionsObject {
         @ElementCollection
+        @CollectionTable(name="LoggingOptions", joinColumns=@JoinColumn(name="GuildID"))
+        @Enumerated(EnumType.STRING)
         private final Map<LoggingOptionsEnum, Boolean> loggingOptions;
 
         @Column(nullable = false)
@@ -134,6 +137,7 @@ public class guildObject {
     @Embeddable
     public static class customRoleObject {
         @ElementCollection
+        @CollectionTable(name="CustomRoles", joinColumns=@JoinColumn(name="GuildID"))
         private final Map<String, String> customRoles;
 
         public customRoleObject() {

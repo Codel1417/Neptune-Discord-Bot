@@ -5,6 +5,7 @@ import org.hibernate.Session;
 import javax.persistence.*;
 import java.util.TimeZone;
 @Entity
+@Table(name= "Profiles")
 public class profileObject {
     protected profileObject(){}
     private int leaderboardPoints;
