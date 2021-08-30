@@ -25,7 +25,7 @@ public class logsStorageHandler {
         Sentry.addBreadcrumb("Saving log entry for ID: " + logEntity.getMessageID());
         Session session = logEntity.getSession();
         Transaction transaction = session.beginTransaction();
-        session.save(logEntity);
+        session.saveOrUpdate(logEntity);
         transaction.commit();
         session.close();
     }

@@ -34,8 +34,8 @@ public class profileStorage {
         profileObject temp = (profileObject) session.get("neptune.storage.profileObject", ID);
         if (temp == null) {
             temp = new profileObject(ID);
-            temp.setWriteOnClose(true);
         }
+        temp.setWriteOnClose(true);
         temp.setSession(session);
         return temp;
     }
@@ -44,7 +44,7 @@ public class profileStorage {
         Sentry.addBreadcrumb("Saving Profile for ID: " + profile.getId());
         Session session = profile.getSession();
         Transaction transaction = session.beginTransaction();
-        session.save(profile);
+        session.saveOrUpdate(profile);
         transaction.commit();
         session.close();
     }

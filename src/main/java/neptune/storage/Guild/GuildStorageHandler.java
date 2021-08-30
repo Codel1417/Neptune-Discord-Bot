@@ -52,7 +52,7 @@ public class GuildStorageHandler {
             Sentry.addBreadcrumb("Saving Guild Options for ID: " + guildEntity.getGuildID());
             Session session = guildEntity.getSession();
             Transaction t = session.beginTransaction();
-            session.save(guildEntity);
+            session.saveOrUpdate(guildEntity);
             t.commit();
             session.close();
         }
