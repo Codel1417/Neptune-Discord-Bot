@@ -77,7 +77,7 @@ public class profileObject {
     public boolean setTimeZone(String Timezone) {
         TimeZone zone = TimeZone.getTimeZone(Timezone);
         if (zone != null) {
-            timeZone = Timezone
+            timeZone = Timezone;
             return true;
         } else return false;
     }
