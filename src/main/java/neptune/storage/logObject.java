@@ -72,7 +72,7 @@ public class logObject {
     private final Timestamp timestamp;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "guildID",referencedColumnName="guildID")
+    @JoinColumn(name = "guildID",referencedColumnName="guildID",  insertable = false, updatable = false)
     private guildObject guildEntity;
 
     @Transient
