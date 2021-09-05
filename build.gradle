@@ -13,8 +13,6 @@ application {
 group = 'codel1417'
 version = '1.0-SNAPSHOT'
 description = """neptune Discord Bot"""
-sourceCompatibility = JavaVersion.VERSION_11
-targetCompatibility = JavaVersion.VERSION_11
 
 tasks.withType(JavaCompile) {
 	options.encoding = 'UTF-8'
