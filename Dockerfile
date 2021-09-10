@@ -34,7 +34,7 @@ EXPOSE 1231
 
 ENV NEPTUNE_TOKEN=null
 ENV NEPTUNE_TENOR_TOKEN=null
-ENV NEPTUNE_COMMIT_ID=$(git rev-parse --short HEAD)
+ENV NEPTUNE_COMMIT_ID="$(git rev-parse --short HEAD)"
 ENV NEPTUNE_TESSERACT_DIR=/nep/tessdata
 ENV SENTRY_DSN=null
 
