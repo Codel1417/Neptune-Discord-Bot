@@ -17,7 +17,7 @@ RUN mvn package
 ADD --chown=neptune:neptune ./ /nep
 WORKDIR /nep/
 
-RUN chmod +x gradlew && ./gradlew build
+RUN chmod +x gradlew && ./gradlew build -x test
 
 VOLUME /nep/Media
 VOLUME /nep/tessdata
