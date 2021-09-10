@@ -14,6 +14,8 @@ jobs:
         java: ['11']
         distribution: [ 'zulu', 'temurin', 'adopt' ]
     steps:
+      - name: Shutdown Ubuntu MySQL (SUDO)
+        run: sudo service mysql stop
       - uses: getong/mariadb-action@v1.1
         with:
           host port: 3306
@@ -31,6 +33,11 @@ jobs:
           host port: 6379
           container port: 6379
           redis password: 'jsZSc4p9D3jRj5'
+      - name: Wait for MySQL
+        run: |
+          while ! mysqladmin ping --host=127.0.0.1 --password=neptune --silent; do
+          sleep 1
+          done
       - uses: actions/checkout@v2
       - name: Set up JDK
         uses: actions/setup-java@v2
