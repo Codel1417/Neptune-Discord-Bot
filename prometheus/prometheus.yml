@@ -1,0 +1,8 @@
+# prometheus.yaml
+global:
+  scrape_interval: 15s # default is 1 minute
+
+scrape_configs:
+  - job_name: neptune
+    static_configs:
+      - targets: ['Neptune:1234']

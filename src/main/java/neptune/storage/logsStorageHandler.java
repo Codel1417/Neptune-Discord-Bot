@@ -24,6 +24,9 @@ public class logsStorageHandler {
     public void writeFile(logObject logEntity) throws IOException {
         Sentry.addBreadcrumb("Saving log entry for ID: " + logEntity.getMessageID());
         Session session = logEntity.getSession();
+        if (session == null){
+            session = factory.openSession();
+        }
         Transaction transaction = session.beginTransaction();
         session.saveOrUpdate(logEntity);
         transaction.commit();
@@ -50,7 +53,7 @@ public class logsStorageHandler {
         return temp;
     }
 
-    public void deleteFile(String messageID) {
+    public boolean deleteFile(String messageID) {
         try {
             logObject logEntity = readFile(messageID);
             Session session = logEntity.getSession();
@@ -58,14 +61,16 @@ public class logsStorageHandler {
             session.delete(logEntity);
             transaction.commit();
             session.close();
+            return true;
         }
         catch (Exception e){
             Sentry.captureException(e);
             log.error(e);
+            return false;
         }
     }
 
-    public void deleteGuild(String guildID) {
+    public boolean deleteGuild(String guildID) {
         try {
             GuildStorageHandler guildStorageHandler = GuildStorageHandler.getInstance();
             guildObject guildEntity = guildStorageHandler.readFile(guildID);
@@ -74,10 +79,12 @@ public class logsStorageHandler {
             session.delete(guildEntity);
             transaction.commit();
             session.close();
+            return true;
         }
         catch (Exception e){
             Sentry.captureException(e);
             log.error(e);
+            return false;
         }
     }
 }

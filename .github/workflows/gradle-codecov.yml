@@ -1,0 +1,50 @@
+# This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
+
+name: Gradle Coverage
+
+on:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Shutdown Ubuntu MySQL (SUDO)
+        run: sudo service mysql stop
+      - uses: getong/mariadb-action@v1.1
+        with:
+          mariadb version: '10.5.12'
+          mysql database: 'neptune'
+          mysql user: 'neptune'
+          mysql password: 'neptune'
+      - uses: getong/redis-action@v1
+        with:
+          redis password: 'jsZSc4p9D3jRj5'
+      - name: Wait for MySQL
+        run: |
+          while ! mysqladmin ping --host=127.0.0.1 --password=neptune --silent; do
+          sleep 1
+          done
+      - uses: actions/checkout@v2
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+          cache: gradle
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      - name: Check
+        run: ./gradlew check
+      - name: Generate Coverage Report
+        run: ./gradlew codeCoverageReport
+      - name: Upload Coverage Report
+        if: ${{ success() }}
+        run: bash <(curl -s https://codecov.io/bash)
+      - name: Archive Test Results
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v1
+        with:
+          name: test-results
+          path: build/reports/tests/test/

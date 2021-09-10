@@ -11,14 +11,14 @@
         <class>neptune.storage.logObject</class>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MariaDB103Dialect"/>
-            <property name="hibernate.connection.url" value="jdbc:mariadb://db/neptune"/>
+            <property name="hibernate.connection.url" value="jdbc:mariadb://localhost/neptune"/>
             <property name="javax.persistence.schema-generation.database.action" value="create"/>
             <property name="hibernate.connection.driver_class" value="org.mariadb.jdbc.Driver"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
-            <property name="hibernate.cache.use_second_level_cache" value="true"/>
-            <property name="hibernate.cache.use_query_cache" value="true" />
-            <property name="hibernate.generate_statistics" value="true"/>
+            <property name="hibernate.cache.use_second_level_cache" value="false"/>
+            <property name="hibernate.cache.use_query_cache" value="false" />
+            <property name="hibernate.generate_statistics" value="false"/>
             <property name="hibernate.cache.region.factory_class" value="org.redisson.hibernate.RedissonRegionFactory" />
             <property name="hibernate.cache.redisson.fallback" value="true" />
             <property name="hibernate.cache.redisson.config" value="redisson.yaml" />
