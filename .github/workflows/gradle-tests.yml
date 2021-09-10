@@ -16,6 +16,17 @@ jobs:
         java: ['11']
         distribution: [ 'zulu', 'temurin', 'adopt' ]
     steps:
+      - uses: getong/mariadb-action@v1.1
+        with:
+          host port: 3306
+          container port: 3306
+          character set server: 'utf8' #
+          collation server: 'utf8_general_ci'
+          mariadb version: '10.4.10'
+          mysql database: 'neptune'
+          mysql root password: 'neptune'
+          mysql user: 'neptune'
+          mysql password: 'neptune'
       - uses: actions/checkout@v2
       - name: Set up JDK 
         uses: actions/setup-java@v2
@@ -25,5 +36,5 @@ jobs:
           cache: gradle
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-      - name: Build with Gradle
-        run: ./gradlew build
+      - name: Test with Gradle
+        run: ./gradlew test
