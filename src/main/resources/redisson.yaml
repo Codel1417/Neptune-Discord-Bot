@@ -7,7 +7,7 @@ singleServerConfig:
   password: "jsZSc4p9D3jRj5"
   subscriptionsPerConnection: 5
   clientName: null
-  address: "redis://localhost:6379"
+  address: "redis://redis:6379"
   subscriptionConnectionMinimumIdleSize: 1
   subscriptionConnectionPoolSize: 50
   connectionMinimumIdleSize: 10

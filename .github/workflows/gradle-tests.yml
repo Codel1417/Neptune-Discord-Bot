@@ -18,20 +18,12 @@ jobs:
         run: sudo service mysql stop
       - uses: getong/mariadb-action@v1.1
         with:
-          host port: 3306
-          container port: 3306
-          character set server: 'utf8' #
-          collation server: 'utf8_general_ci'
-          mariadb version: '10.4.10'
+          mariadb version: '10.5.12'
           mysql database: 'neptune'
-          mysql root password: 'neptune'
           mysql user: 'neptune'
           mysql password: 'neptune'
       - uses: getong/redis-action@v1
         with:
-          redis version: '5.0.7'
-          host port: 6379
-          container port: 6379
           redis password: 'jsZSc4p9D3jRj5'
       - name: Wait for MySQL
         run: |
