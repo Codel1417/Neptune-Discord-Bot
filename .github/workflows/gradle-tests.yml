@@ -25,6 +25,12 @@ jobs:
           mysql root password: 'neptune'
           mysql user: 'neptune'
           mysql password: 'neptune'
+      - uses: getong/redis-action@v1
+        with:
+          redis version: '5.0.7'
+          host port: 6379
+          container port: 6379
+          redis password: 'jsZSc4p9D3jRj5'
       - uses: actions/checkout@v2
       - name: Set up JDK
         uses: actions/setup-java@v2
@@ -37,7 +43,7 @@ jobs:
       - name: Test with Gradle
         run: ./gradlew test
 
-      - name: Archive Rest Results
+      - name: Archive Test Results
         if: ${{ failure() }}
         uses: actions/upload-artifact@v1
         with:
