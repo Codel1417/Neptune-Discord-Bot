@@ -27,7 +27,7 @@ public class CommandHandler extends Helpers {
             commandRegistry.registerCommand(new commandBuilder().setCommand("Translate").setCategory(CategoriesEnum.Fun).setRun(new Translate()).setDescription("Translate anything into Nepenese.").build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("Options").setCategory(CategoriesEnum.Admin).setRequiredPermissions(new Permission[]{Permission.MANAGE_SERVER}).setRun(new Admin()).build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("About").setCategory(CategoriesEnum.General).setRun(new About()).build());
-            commandRegistry.registerCommand(new commandBuilder().setCommand("Leavee").setCategory(CategoriesEnum.Audio).setRun(new Leave()).setDescription("Disconnect from the current voice channel").build());
+            commandRegistry.registerCommand(new commandBuilder().setCommand("Leave").setCategory(CategoriesEnum.Audio).setRun(new Leave()).setDescription("Disconnect from the current voice channel").build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("UwU").setCategory(CategoriesEnum.Fun).setRun(new UWU_Translater()).build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("Uptime").setCategory(CategoriesEnum.General).setRun(new Uptime()).build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("Flip").setCategory(CategoriesEnum.Fun).setRun(new CoinFlip()).setDescription("Heads or Tails?").build());
