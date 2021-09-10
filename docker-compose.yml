@@ -1,6 +1,6 @@
 version: "2.1"
 services:
-  Neptune_Core:
+  neptune:
     build: .
     environment:
       - NEPTUNE_TOKEN=null
@@ -17,7 +17,7 @@ services:
       - redis
     ports:
       # Prometheus
-      - 1234:1234
+      # - 1234:1234
       # jstatd RMI registry
       - 2222:2222
       # sun.jvmstat.monitor.remote.RemoteHost
@@ -55,14 +55,13 @@ services:
       - db
   redis:
     image: redis:latest
+    user: 1000:1000
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 1s
       timeout: 3s
       retries: 30
     command: redis-server --requirepass jsZSc4p9D3jRj5
-    volumes:
-      - ./redis:/data
     networks:
       - redis
   phpmyadmin:
@@ -77,10 +76,15 @@ services:
       - PMA_PASSWORD=neptune
     networks:
       - db
-
+  prometheus:
+    user: 1000:1000
+    image: prom/prometheus
+    volumes:
+      - ./prometheus:/etc/prometheus
+    networks:
+      - prometheus
+    restart: unless-stopped
 networks:
   db:
   redis:
   prometheus:
-    external:
-      name: prometheus

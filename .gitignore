@@ -22,3 +22,5 @@ Guilds/
 .vscode/launch.json
 bin/
 .gradle/
+/mysql/
+/redis/

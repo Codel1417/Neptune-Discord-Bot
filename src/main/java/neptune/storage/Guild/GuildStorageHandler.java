@@ -47,17 +47,22 @@ public class GuildStorageHandler {
         }
         return guildEntity;
     }
-    public void writeFile(guildObject guildEntity){
+    public boolean writeFile(guildObject guildEntity){
         try {
             Sentry.addBreadcrumb("Saving Guild Options for ID: " + guildEntity.getGuildID());
             Session session = guildEntity.getSession();
+            if (session == null || !session.isOpen()){
+                session = factory.openSession();
+            }
             Transaction t = session.beginTransaction();
             session.saveOrUpdate(guildEntity);
             t.commit();
             session.close();
+            return true;
         }
         catch (Exception e){
             e.printStackTrace();
+            return false;
         }
     }
 }
