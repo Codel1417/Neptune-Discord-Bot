@@ -48,21 +48,30 @@ public class GuildStorageHandler {
         return guildEntity;
     }
     public boolean writeFile(guildObject guildEntity){
+        Session session = null;
         try {
-            Sentry.addBreadcrumb("Saving Guild Options for ID: " + guildEntity.getGuildID());
-            Session session = guildEntity.getSession();
-            if (session == null || !session.isOpen()){
-                session = factory.openSession();
+            if (guildEntity != null && guildEntity.getGuildID() != null){
+                Sentry.addBreadcrumb("Saving Guild Options for ID: " + guildEntity.getGuildID());
+                session = guildEntity.getSession();
+                if (session == null || !session.isOpen()){
+                    session = factory.openSession();
+                }
+                Transaction t = session.beginTransaction();
+                session.saveOrUpdate(guildEntity);
+                t.commit();
+                session.close();
+                return true;
             }
-            Transaction t = session.beginTransaction();
-            session.saveOrUpdate(guildEntity);
-            t.commit();
-            session.close();
-            return true;
         }
         catch (Exception e){
-            e.printStackTrace();
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+            log.error(e);
+            Sentry.captureException(e);
+            writeFile(guildEntity);
             return false;
         }
+        return false;
     }
 }
