@@ -15,7 +15,7 @@ public class LeaderboardListener implements EventListener {
     public void onEvent(@NotNull GenericEvent event) {
         if (event instanceof GuildMessageReceivedEvent){
             profileStorage storage = profileStorage.getInstance();
-            profileObject profile = storage.getProfile(((GuildMessageReceivedEvent) event).getMember().getId());
+            profileObject profile = storage.getProfile(((GuildMessageReceivedEvent) event).getAuthor().getId());
             profile.incrimentPoints();
             storage.serialize(profile);
         }
