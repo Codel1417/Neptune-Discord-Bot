@@ -16,10 +16,12 @@ public class CycleActivityThreadStarter implements EventListener {
     @Override
     public void onEvent(@Nonnull GenericEvent event) {
         if (event instanceof ReadyEvent && !ActivityThread) {
+            log.trace("Start: CycleActivity Thread");
             CycleActivity = new CycleGameStatus((ReadyEvent) event);
             Thread CycleActivityThread = new Thread(CycleActivity);
             CycleActivityThread.setName("CycleActivityThread");
             CycleActivityThread.start();
+            log.trace("Finish: CycleActivity Thread");
             ActivityThread = true; // prevent duplicate threads from discord reconnect
         }
     }

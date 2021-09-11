@@ -20,14 +20,25 @@ public class ListenerHandler implements EventListener
     protected static final Logger log = LogManager.getLogger();
     private ArrayList<EventListener> eventListeners = new ArrayList<>();
     public ListenerHandler(){
+        log.trace("Start: Registering Event Listeners");
+        log.trace("Registering MessageListener");
         eventListeners.add(new MessageListener());
+        log.trace("Registering promListener");
         eventListeners.add(new promListener());
+        log.trace("Registering CycleActivityThreadStarter");
         eventListeners.add(new CycleActivityThreadStarter());
+        log.trace("Registering LeaderboardListener");
         eventListeners.add(new LeaderboardListener());
+        log.trace("Registering LoggingListener");
         eventListeners.add(new LoggingListener());
+        log.trace("Registering SchedulerListener");
         eventListeners.add(new SchedulerListener());
+        log.trace("Registering VoiceChatListener");
         eventListeners.add(new VoiceChatListener());
+        log.trace("Registering GuildListener");
         eventListeners.add(new GuildListener());
+        log.trace("Finished: Registering Event Listeners");
+
     }
     public void onEvent(@Nonnull GenericEvent event) {
 

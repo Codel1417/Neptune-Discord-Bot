@@ -2,7 +2,6 @@ package neptune;
 
 import neptune.commands.ListenerHandler;
 import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
@@ -54,6 +53,7 @@ public class Main {
                     .setMemberCachePolicy(MemberCachePolicy.ALL)
                     .disableCache(CacheFlag.ACTIVITY, CacheFlag.EMOTE, CacheFlag.CLIENT_STATUS)
                     .build();
+            log.info("Started JDA");
         } catch (LoginException e) {
             Sentry.captureException(e);
             log.error(e);
