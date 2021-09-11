@@ -38,13 +38,23 @@ public class GuildStorageHandler {
         if (guildEntity != null){
             guildEntity.setSession(session);
             log.info("Loaded guild: " + guildID + " from database");
+            return guildEntity;
         }
-        else {
-            log.info("Adding guild: " + guildID);
-            guildEntity = new guildObject(guildID);
+        guildEntity = (guildObject) session.get("neptune.storage.Guild.guildObject", guildID);
+        if (guildEntity != null){
             guildEntity.setSession(session);
-            guildEntity.setWriteOnClose(true);
+            log.info("Loaded guild: " + guildID + " from database");
+            return guildEntity;
         }
+        guildEntity = (guildObject) session.get("neptune.storage.Guild.guildObject", guildID);
+        if (guildEntity != null){
+            guildEntity.setSession(session);
+            log.info("Loaded guild: " + guildID + " from database");
+            return guildEntity;
+        }
+        log.info("Adding guild: " + guildID);
+        guildEntity = new guildObject(guildID);
+        guildEntity.setSession(session);
         return guildEntity;
     }
     public boolean writeFile(guildObject guildEntity){
@@ -59,6 +69,7 @@ public class GuildStorageHandler {
                 Transaction t = session.beginTransaction();
                 session.saveOrUpdate(guildEntity);
                 t.commit();
+
                 session.close();
                 return true;
             }
