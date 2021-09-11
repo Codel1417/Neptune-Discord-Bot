@@ -11,7 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import io.prometheus.client.Counter;
 import io.prometheus.client.exporter.HTTPServer;
-import io.prometheus.client.hotspot.DefaultExports;
+//import io.prometheus.client.hotspot.DefaultExports;
 
 public class promListener implements EventListener{
     private static HTTPServer server;
@@ -20,9 +20,9 @@ public class promListener implements EventListener{
     .name("events_total").help("Total JDA Listener Events.").register();
 
     public promListener(){
-        log.trace("Start: Default Exports");
-        DefaultExports.initialize();
-        log.trace("Finish: Default Exports");
+        //log.trace("Start: Default Exports");
+        //DefaultExports.initialize();
+        //log.trace("Finish: Default Exports");
         log.trace("Start: HTTP Server");
         try {
             server = new HTTPServer(1234);
