@@ -1,6 +1,5 @@
 package neptune.prometheus;
 
-import io.prometheus.client.exemplars.DefaultExemplarSampler;
 import net.dv8tion.jda.api.events.GenericEvent;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.hooks.EventListener;
@@ -19,13 +18,18 @@ public class promListener implements EventListener{
     protected static final Logger log = LogManager.getLogger();
     static final Counter REQUESTS = Counter.build()
     .name("events_total").help("Total JDA Listener Events.").register();
+
     public promListener(){
+        log.trace("Start: Default Exports");
         DefaultExports.initialize();
+        log.trace("Finish: Default Exports");
+        log.trace("Start: HTTP Server");
         try {
             server = new HTTPServer(1234);
         } catch (IOException e1) {
-                log.error(e1);
+               throw new RuntimeException(e1);
         }
+        log.trace("Finish: HTTP Server");
     }
     private boolean threadCreated = false;
     @Override
