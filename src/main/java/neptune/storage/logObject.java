@@ -1,6 +1,5 @@
 package neptune.storage;
 
-import neptune.storage.Guild.guildObject;
 import org.hibernate.Session;
 
 import javax.persistence.*;
@@ -65,6 +64,8 @@ public class logObject {
     private String guildID;
     @Id
     private String messageID;
+
+    @Column(length = 1000)
     private String messageContent;
     @Version
     private int version;
