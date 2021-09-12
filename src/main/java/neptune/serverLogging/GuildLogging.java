@@ -1,5 +1,6 @@
 package neptune.serverLogging;
 
+import io.sentry.Sentry;
 import neptune.storage.Enum.LoggingOptionsEnum;
 import neptune.storage.Guild.guildObject.logOptionsObject;
 import neptune.storage.logObject;
@@ -7,16 +8,6 @@ import neptune.storage.logsStorageHandler;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.*;
-import net.dv8tion.jda.api.events.channel.text.GenericTextChannelEvent;
-import net.dv8tion.jda.api.events.channel.text.TextChannelCreateEvent;
-import net.dv8tion.jda.api.events.channel.text.TextChannelDeleteEvent;
-import net.dv8tion.jda.api.events.channel.text.update.*;
-import net.dv8tion.jda.api.events.channel.voice.GenericVoiceChannelEvent;
-import net.dv8tion.jda.api.events.channel.voice.VoiceChannelCreateEvent;
-import net.dv8tion.jda.api.events.channel.voice.VoiceChannelDeleteEvent;
-import net.dv8tion.jda.api.events.channel.voice.update.VoiceChannelUpdateBitrateEvent;
-import net.dv8tion.jda.api.events.channel.voice.update.VoiceChannelUpdateNameEvent;
-import net.dv8tion.jda.api.events.channel.voice.update.VoiceChannelUpdatePermissionsEvent;
 import net.dv8tion.jda.api.events.guild.member.*;
 import net.dv8tion.jda.api.events.guild.member.update.GuildMemberUpdateNicknameEvent;
 import net.dv8tion.jda.api.events.guild.update.*;
@@ -25,6 +16,8 @@ import net.dv8tion.jda.api.events.message.guild.GenericGuildMessageEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageDeleteEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageUpdateEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.awt.*;
 import java.io.IOException;
@@ -32,6 +25,7 @@ import java.util.Objects;
 
 public class GuildLogging {
     final logsStorageHandler logsStorageHandler = neptune.storage.logsStorageHandler.getInstance();
+    protected static final Logger log = LogManager.getLogger();
 
     public void GuildVoice(GenericGuildVoiceEvent event, logOptionsObject LoggingOptions) {
         TextChannel textChannel = event.getGuild().getTextChannelById(LoggingOptions.getChannel());
@@ -55,8 +49,7 @@ public class GuildLogging {
 
     private void GuildVoiceJoin(GuildVoiceJoinEvent event, TextChannel textChannel) {
         EmbedBuilder embedBuilder = getEmbedBuilder(event.getMember());
-        embedBuilder.addField(
-                "Joined Voice Channel", "#" + event.getChannelJoined().getName(), true);
+        embedBuilder.addField("Joined Voice Channel", "#" + event.getChannelJoined().getName(), true);
         embedBuilder.setColor(Color.GREEN);
         textChannel.sendMessage(embedBuilder.build()).queue();
     }
@@ -79,12 +72,9 @@ public class GuildLogging {
     private void GuildVoiceGuileDeafen(GuildVoiceGuildDeafenEvent event, TextChannel textChannel) {
         EmbedBuilder embedBuilder = getEmbedBuilder(event.getMember());
         if (event.isGuildDeafened()) {
-            embedBuilder.setDescription(
-                    event.getMember().getAsMention() + " is now Guild Deafened in Voice Channels");
+            embedBuilder.setDescription(event.getMember().getAsMention() + " is now Guild Deafened in Voice Channels");
         } else {
-            embedBuilder.setDescription(
-                    event.getMember().getAsMention()
-                            + " is no longer Guild Deafened in Voice Channels");
+            embedBuilder.setDescription(event.getMember().getAsMention() + " is no longer Guild Deafened in Voice Channels");
         }
         embedBuilder.setColor(Color.RED);
         textChannel.sendMessage(embedBuilder.build()).queue();
@@ -93,12 +83,9 @@ public class GuildLogging {
     private void GuildVoiceGuildMute(GuildVoiceGuildMuteEvent event, TextChannel textChannel) {
         EmbedBuilder embedBuilder = getEmbedBuilder(event.getMember());
         if (event.isGuildMuted()) {
-            embedBuilder.setDescription(
-                    event.getMember().getAsMention() + " is now Guild Muted in Voice Channels");
+            embedBuilder.setDescription(event.getMember().getAsMention() + " is now Guild Muted in Voice Channels");
         } else {
-            embedBuilder.setDescription(
-                    event.getMember().getAsMention()
-                            + " is no longer Guild Muted in Voice Channels");
+            embedBuilder.setDescription(event.getMember().getAsMention() + " is no longer Guild Muted in Voice Channels");
         }
         textChannel.sendMessage(embedBuilder.build()).queue();
     }
@@ -121,18 +108,21 @@ public class GuildLogging {
                     | Objects.requireNonNull(textChannel).getId().equalsIgnoreCase(event.getChannel().getId())) {
                 return;
             }
+            if (((GuildMessageReceivedEvent) event).getMessage().getContentRaw() == ""){
+                return;
+            }
             logObject logEntity = new logObject();
             logEntity.setGuildID(event.getGuild().getId());
             logEntity.setChannelID(event.getChannel().getId());
             logEntity.setMemberID(((GuildMessageReceivedEvent) event).getAuthor().getId());
             logEntity.setMessageID(event.getMessageId());
-            logEntity.setMessageContent(
-                    ((GuildMessageReceivedEvent) event).getMessage().getContentDisplay());
+            logEntity.setMessageContent(((GuildMessageReceivedEvent) event).getMessage().getContentDisplay());
             logsStorageHandler logsStorageHandler = neptune.storage.logsStorageHandler.getInstance();
             try {
                 logsStorageHandler.writeFile(logEntity);
             } catch (IOException e) {
-                e.printStackTrace();
+                log.error(e);
+                Sentry.captureException(e);
             }
         }
         if (event instanceof GuildMessageUpdateEvent) {
@@ -159,7 +149,8 @@ public class GuildLogging {
             logsStorageHandler.writeFile(logEntity);
 
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e);
+            Sentry.captureException(e);
         }
 
         EmbedBuilder embedBuilder = getEmbedBuilder(Objects.requireNonNull(Objects.requireNonNull(event.getMember())));
@@ -186,7 +177,8 @@ public class GuildLogging {
             user = event.getJDA().getUserById(logEntity.getMemberID());
 
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e);
+            Sentry.captureException(e);
         }
 
         // stops bot messages and self messages from being logged.
@@ -204,8 +196,7 @@ public class GuildLogging {
         if (!PreviousMessage.equalsIgnoreCase("")) {
             embedBuilder.addField("Deleted Message", PreviousMessage, false);
         }
-        embedBuilder.setAuthor(
-                user.getName() + "#" + user.getDiscriminator(), null, user.getAvatarUrl());
+        embedBuilder.setAuthor(user.getName() + "#" + user.getDiscriminator(), null, user.getAvatarUrl());
 
         embedBuilder.setColor(Color.RED);
         textChannel.sendMessage(embedBuilder.build()).queue();
@@ -242,7 +233,7 @@ public class GuildLogging {
 
     private void GuildMemberLeave(GuildMemberLeaveEvent event, TextChannel textChannel) {
         EmbedBuilder embedBuilder = getEmbedBuilder(event.getMember());
-        embedBuilder.setDescription(event.getMember().getAsMention() + " Left the Server");
+        embedBuilder.setDescription(event.getUser().getName() + " Left the Server");
         embedBuilder.setThumbnail(event.getUser().getAvatarUrl());
         embedBuilder.setColor(Color.RED);
         textChannel.sendMessage(embedBuilder.build()).queue();
@@ -314,10 +305,6 @@ public class GuildLogging {
             GuildSettings((GuildUpdateRegionEvent) event, Objects.requireNonNull(textChannel));
         } else if (event instanceof GuildUpdateSplashEvent) {
             GuildSettings((GuildUpdateSplashEvent) event, Objects.requireNonNull(textChannel));
-        } else if (event instanceof GuildUpdateSystemChannelEvent) {
-            GuildSettings((GuildUpdateSystemChannelEvent) event, Objects.requireNonNull(textChannel));
-        } else if (event instanceof GuildUpdateVerificationLevelEvent) {
-            GuildSettings((GuildUpdateVerificationLevelEvent) event, Objects.requireNonNull(textChannel));
         }
     }
 
@@ -380,7 +367,7 @@ public class GuildLogging {
 
     private void GuildSettings(GuildUpdateIconEvent event, TextChannel textChannel) {
         EmbedBuilder embedBuilder = getEmbedBuilder(event.getGuild());
-        embedBuilder.setDescription("Guild Icon Updated");
+        embedBuilder.setDescription("Server Icon Updated");
         embedBuilder.setImage(event.getGuild().getIconUrl());
         textChannel.sendMessage(embedBuilder.build()).queue();
     }
@@ -396,7 +383,7 @@ public class GuildLogging {
 
     private void GuildSettings(GuildUpdateNameEvent event, TextChannel textChannel) {
         EmbedBuilder embedBuilder = getEmbedBuilder(event.getGuild());
-        embedBuilder.setDescription("Guild Name Changed");
+        embedBuilder.setDescription("Server Name Changed");
         embedBuilder.addField("Old Name", event.getOldName(), true);
         embedBuilder.addField("New Name", event.getGuild().getName(), true);
         textChannel.sendMessage(embedBuilder.build()).queue();
@@ -416,7 +403,7 @@ public class GuildLogging {
 
     private void GuildSettings(GuildUpdateOwnerEvent event, TextChannel textChannel) {
         EmbedBuilder embedBuilder = getEmbedBuilder(event.getGuild());
-        embedBuilder.setDescription("Guild Owner Changed");
+        embedBuilder.setDescription("Server Owner Changed");
         embedBuilder.addField("Old Owner", Objects.requireNonNull(Objects.requireNonNull(event.getOldOwner())).getAsMention(), true);
         embedBuilder.addField("New Owner", Objects.requireNonNull(Objects.requireNonNull(event.getGuild().getOwner())).getAsMention(), true);
         textChannel.sendMessage(embedBuilder.build()).queue();
@@ -424,7 +411,7 @@ public class GuildLogging {
 
     private void GuildSettings(GuildUpdateRegionEvent event, TextChannel textChannel) {
         EmbedBuilder embedBuilder = getEmbedBuilder(event.getGuild());
-        embedBuilder.setDescription("Guild Region Changed");
+        embedBuilder.setDescription("Server Voice Region Changed");
         embedBuilder.addField("Old Region", event.getOldRegion().getName(), true);
         embedBuilder.addField("New Region", event.getNewRegion().getName(), true);
         textChannel.sendMessage(embedBuilder.build()).queue();
@@ -432,238 +419,10 @@ public class GuildLogging {
 
     private void GuildSettings(GuildUpdateSplashEvent event, TextChannel textChannel) {
         EmbedBuilder embedBuilder = getEmbedBuilder(event.getGuild());
-        embedBuilder.setDescription("Guild Splash Image Updated");
+        embedBuilder.setDescription("Server Splash Image Updated");
         embedBuilder.setImage(event.getGuild().getSplashUrl());
         textChannel.sendMessage(embedBuilder.build()).queue();
     }
-
-    private void GuildSettings(GuildUpdateSystemChannelEvent event, TextChannel textChannel) {
-        EmbedBuilder embedBuilder = getEmbedBuilder(event.getGuild());
-        embedBuilder.setDescription("System notification channel changed");
-        embedBuilder.addField("Old Channel", Objects.requireNonNull(Objects.requireNonNull(event.getOldSystemChannel())).getAsMention(), true);
-        embedBuilder.addField(
-                "New Channel", Objects.requireNonNull(Objects.requireNonNull(event.getGuild().getSystemChannel())).getAsMention(), true);
-        textChannel.sendMessage(embedBuilder.build()).queue();
-    }
-
-    private void GuildSettings(GuildUpdateVerificationLevelEvent event, TextChannel textChannel) {
-        EmbedBuilder embedBuilder = getEmbedBuilder(event.getGuild());
-        embedBuilder.setDescription("Server User Verification Level Changed");
-        embedBuilder.addField("Old Level", event.getOldVerificationLevel().name(), true);
-        embedBuilder.addField("New Level", event.getGuild().getVerificationLevel().name(), true);
-        textChannel.sendMessage(embedBuilder.build()).queue();
-    }
-
-    public void GuildTextChannel(GenericTextChannelEvent event, logOptionsObject LoggingOptions) {
-        TextChannel textChannel = event.getGuild().getTextChannelById(LoggingOptions.getChannel());
-        // check if logging is enabled
-        if (!LoggingOptions.getOption(LoggingOptionsEnum.MemberActivityLogging)) {
-            return;
-        }
-        if (event instanceof TextChannelCreateEvent) {
-            GuildTextChannel((TextChannelCreateEvent) event, Objects.requireNonNull(textChannel));
-        } else if (event instanceof TextChannelDeleteEvent) {
-            GuildTextChannel((TextChannelDeleteEvent) event, Objects.requireNonNull(textChannel));
-        } else if (event instanceof TextChannelUpdateNameEvent) {
-            GuildTextChannel((TextChannelUpdateNameEvent) event, Objects.requireNonNull(textChannel));
-        } else if (event instanceof TextChannelUpdateNSFWEvent) {
-            GuildTextChannel((TextChannelUpdateNSFWEvent) event, Objects.requireNonNull(textChannel));
-        } else if (event instanceof TextChannelUpdateParentEvent) {
-            GuildTextChannel((TextChannelUpdateParentEvent) event, textChannel);
-        } else if (event instanceof TextChannelUpdatePositionEvent) {
-            GuildTextChannel((TextChannelUpdatePositionEvent) event, Objects.requireNonNull(textChannel));
-        } else if (event instanceof TextChannelUpdateTopicEvent) {
-            // Spammy
-            // GuildTextChannel((TextChannelUpdateTopicEvent) event,textChannel);
-        } else if (event instanceof TextChannelUpdatePermissionsEvent) {
-            GuildTextChannel((TextChannelUpdatePermissionsEvent) event, textChannel);
-        }
-    }
-
-    private void GuildTextChannel(TextChannelCreateEvent event, TextChannel textChannel) {
-        EmbedBuilder embedBuilder = getEmbedBuilder(event.getGuild());
-        embedBuilder.setDescription("A New Text Channel was Created");
-        embedBuilder.addField("New Channel", event.getChannel().getAsMention(), true);
-        embedBuilder.setFooter("Channel Id " + event.getChannel().getId(), null);
-        textChannel.sendMessage(embedBuilder.build()).queue();
-    }
-
-    private void GuildTextChannel(TextChannelDeleteEvent event, TextChannel textChannel) {
-        EmbedBuilder embedBuilder = getEmbedBuilder(event.getGuild());
-        embedBuilder.setDescription("A Text Channel was Deleted");
-        embedBuilder.addField("Deleted Channel", "#" + event.getChannel().getName(), true);
-        embedBuilder.setFooter("Channel Id " + event.getChannel().getId(), null);
-        textChannel.sendMessage(embedBuilder.build()).queue();
-    }
-
-    private void GuildTextChannel(TextChannelUpdateNameEvent event, TextChannel textChannel) {
-        EmbedBuilder embedBuilder = getEmbedBuilder(event.getGuild());
-        embedBuilder.setDescription("Text Channel Name Updated");
-        embedBuilder.addField("Text Channel", event.getChannel().getAsMention(), true);
-        embedBuilder.setFooter("Channel Id " + event.getChannel().getId(), null);
-        embedBuilder.addBlankField(true);
-        embedBuilder.addField("Old Name", "#" + event.getOldName(), true);
-        embedBuilder.addField("New Name", "#" + event.getChannel().getName(), true);
-        textChannel.sendMessage(embedBuilder.build()).queue();
-    }
-
-    private void GuildTextChannel(
-            TextChannelUpdatePermissionsEvent event, TextChannel textChannel) {
-        EmbedBuilder embedBuilder = getEmbedBuilder(event.getGuild());
-        embedBuilder.setDescription("Text Channel Permissions Updated");
-        embedBuilder.addField("Channel Name", event.getChannel().getAsMention(), true);
-        embedBuilder.setFooter("Channel Id " + event.getChannel().getId(), null);
-        StringBuilder changedRoles = new StringBuilder();
-        StringBuilder changedPermissionHolders = new StringBuilder();
-        for (Role role : event.getChangedRoles()) {
-            changedRoles.append(role.getName()).append("\n");
-        }
-        for (IPermissionHolder iPermissionHolder : event.getChangedPermissionHolders()) {
-            changedPermissionHolders.append(iPermissionHolder).append("\n");
-        }
-        if (!changedRoles.toString().equalsIgnoreCase("")) {
-            embedBuilder.addField("Changed Roles", changedRoles.toString(), true);
-        }
-        if (!changedPermissionHolders.toString().equalsIgnoreCase("")) {
-            embedBuilder.addField("Changed Permission Holders",changedPermissionHolders.toString(),true);
-        }
-        textChannel.sendMessage(embedBuilder.build()).queue();
-    }
-
-    private void GuildTextChannel(TextChannelUpdateNSFWEvent event, TextChannel textChannel) {
-        EmbedBuilder embedBuilder = getEmbedBuilder(event.getGuild());
-        embedBuilder.setDescription("Text Channel NSFW Status Updated");
-        embedBuilder.addField("Text Channel", event.getChannel().getAsMention(), true);
-        embedBuilder.setFooter("Channel Id " + event.getChannel().getId(), null);
-        embedBuilder.addBlankField(true);
-        embedBuilder.addField("Old NSFW Status", String.valueOf(event.getOldNSFW()), true);
-        embedBuilder.addField("New NSFW Status", String.valueOf(event.getChannel().isNSFW()), true);
-        textChannel.sendMessage(embedBuilder.build()).queue();
-    }
-
-    private void GuildTextChannel(TextChannelUpdateParentEvent event, TextChannel textChannel) {
-        EmbedBuilder embedBuilder = getEmbedBuilder(event.getGuild());
-        embedBuilder.setDescription("Text Channel Parent Channel Changed");
-        embedBuilder.addField("Text Channel", event.getChannel().getAsMention(), true);
-        embedBuilder.setFooter("Channel Id " + event.getChannel().getId(), null);
-        embedBuilder.addBlankField(true);
-        String OldParent = Objects.requireNonNull(Objects.requireNonNull(event.getOldParent())).getName();
-        String NewParent = Objects.requireNonNull(Objects.requireNonNull(event.getChannel().getParent())).getName();
-        embedBuilder.addField("Old Parent", OldParent, true);
-        embedBuilder.addField("New Parent", NewParent, true);
-        textChannel.sendMessage(embedBuilder.build()).queue();
-    }
-
-    private void GuildTextChannel(TextChannelUpdatePositionEvent event, TextChannel textChannel) {
-        EmbedBuilder embedBuilder = getEmbedBuilder(event.getGuild());
-        embedBuilder.setDescription("Text Channel Position Changed");
-        embedBuilder.addField("Text Channel", event.getChannel().getAsMention(), true);
-        embedBuilder.setFooter("Channel Id " + event.getChannel().getId(), null);
-        embedBuilder.addBlankField(true);
-        embedBuilder.addField("Old Position", String.valueOf(event.getOldPosition()), true);
-        embedBuilder.addField(
-                "New Position", String.valueOf(event.getChannel().getPosition()), true);
-        textChannel.sendMessage(embedBuilder.build()).queue();
-    }
-
-    private void GuildTextChannel(TextChannelUpdateTopicEvent event, TextChannel textChannel) {
-        EmbedBuilder embedBuilder = getEmbedBuilder(event.getGuild());
-        embedBuilder.setDescription("Text Channel Topic Updated");
-        embedBuilder.addField("Text Channel", event.getChannel().getAsMention(), true);
-        embedBuilder.setFooter("Channel Id " + event.getChannel().getId(), null);
-        embedBuilder.addBlankField(true);
-        String OldParent = String.valueOf(event.getOldTopic());
-        String NewParent = String.valueOf(event.getChannel().getTopic());
-        if (OldParent != null) {
-            embedBuilder.addField("Old Topic", OldParent, true);
-        }
-        if (NewParent != null) {
-            embedBuilder.addField("New Topic", NewParent, true);
-        }
-        textChannel.sendMessage(embedBuilder.build()).queue();
-    }
-
-    public void GuildVoiceChannel(GenericVoiceChannelEvent event, logOptionsObject LoggingOptions) {
-        TextChannel textChannel = event.getGuild().getTextChannelById(LoggingOptions.getChannel());
-        // check if logging is enabled
-        if (!LoggingOptions.getOption(LoggingOptionsEnum.MemberActivityLogging)) {
-            return;
-        }
-        if (event instanceof VoiceChannelCreateEvent) {
-            GuildVoiceChannel((VoiceChannelCreateEvent) event, Objects.requireNonNull(textChannel));
-        } else if (event instanceof VoiceChannelDeleteEvent) {
-            GuildVoiceChannel((VoiceChannelDeleteEvent) event, Objects.requireNonNull(textChannel));
-        } else if (event instanceof VoiceChannelUpdateBitrateEvent) {
-            GuildVoiceChannel((VoiceChannelUpdateBitrateEvent) event, Objects.requireNonNull(textChannel));
-        } else if (event instanceof VoiceChannelUpdateNameEvent) {
-            GuildVoiceChannel((VoiceChannelUpdateNameEvent) event, Objects.requireNonNull(textChannel));
-        } else if (event instanceof VoiceChannelUpdatePermissionsEvent) {
-            GuildVoiceChannel((VoiceChannelUpdatePermissionsEvent) event, textChannel);
-        }
-    }
-
-    private void GuildVoiceChannel(VoiceChannelCreateEvent event, TextChannel textChannel) {
-        EmbedBuilder embedBuilder = getEmbedBuilder(event.getGuild());
-        embedBuilder.setDescription("A New Voice Channel was created");
-        embedBuilder.addField("New Channel", "#" + event.getChannel().getName(), true);
-        embedBuilder.setFooter("Channel Id " + event.getChannel().getId(), null);
-        textChannel.sendMessage(embedBuilder.build()).queue();
-    }
-
-    private void GuildVoiceChannel(VoiceChannelDeleteEvent event, TextChannel textChannel) {
-        EmbedBuilder embedBuilder = getEmbedBuilder(event.getGuild());
-        embedBuilder.setDescription("A Voice Channel was deleted");
-        embedBuilder.addField("Deleted Channel", "#" + event.getChannel().getName(), true);
-        embedBuilder.setFooter("Channel Id " + event.getChannel().getId(), null);
-        textChannel.sendMessage(embedBuilder.build()).queue();
-    }
-
-    private void GuildVoiceChannel(VoiceChannelUpdateBitrateEvent event, TextChannel textChannel) {
-        EmbedBuilder embedBuilder = getEmbedBuilder(event.getGuild());
-        embedBuilder.setDescription("Voice Channel Bitrate Updated");
-        embedBuilder.addField("Voice Channel", "#" + event.getChannel().getName(), true);
-        embedBuilder.setFooter("Channel Id " + event.getChannel().getId(), null);
-        embedBuilder.addBlankField(true);
-        embedBuilder.addField("Old Bitrate", String.valueOf(event.getOldBitrate()), true);
-        embedBuilder.addField("New Bitrate", String.valueOf(event.getChannel().getBitrate()), true);
-        textChannel.sendMessage(embedBuilder.build()).queue();
-    }
-
-    private void GuildVoiceChannel(VoiceChannelUpdateNameEvent event, TextChannel textChannel) {
-        EmbedBuilder embedBuilder = getEmbedBuilder(event.getGuild());
-        embedBuilder.setDescription("Voice Channel Channel Name Updated");
-        embedBuilder.setFooter("Channel Id " + event.getChannel().getId(), null);
-        embedBuilder.addBlankField(true);
-        embedBuilder.addField("Old Name", "#" + event.getOldName(), true);
-        embedBuilder.addField("New Name", "#" + event.getChannel().getName(), true);
-        textChannel.sendMessage(embedBuilder.build()).queue();
-    }
-
-    private void GuildVoiceChannel(
-            VoiceChannelUpdatePermissionsEvent event, TextChannel textChannel) {
-        EmbedBuilder embedBuilder = getEmbedBuilder(event.getGuild());
-        embedBuilder.setDescription("Voice Channel Permissions Updated");
-        embedBuilder.addField("Channel Name", event.getChannel().getName(), true);
-        embedBuilder.setFooter("Channel Id " + event.getChannel().getId(), null);
-        StringBuilder changedRoles = new StringBuilder();
-        event.getChangedPermissionHolders();
-        StringBuilder changedPermissionHolders = new StringBuilder();
-        for (Role role : event.getChangedRoles()) {
-            changedRoles.append(role.getName()).append("\n");
-        }
-        for (IPermissionHolder iPermissionHolder : event.getChangedPermissionHolders()) {
-            changedPermissionHolders.append(iPermissionHolder).append("\n");
-        }
-        if (!changedRoles.toString().equalsIgnoreCase("")) {
-            embedBuilder.addField("Changed Roles", changedRoles.toString(), true);
-        }
-        if (!changedPermissionHolders.toString().equalsIgnoreCase("")) {
-            // embedBuilder.addField("Changed Permission
-            // Holders",changedPermissionHolders.toString(),true);
-        }
-        textChannel.sendMessage(embedBuilder.build()).queue();
-    }
-
     private EmbedBuilder getEmbedBuilder(Member member) {
         // default embedBuilder Setting
         EmbedBuilder embedBuilder = new EmbedBuilder();
@@ -675,7 +434,6 @@ public class GuildLogging {
         embedBuilder.setColor(Color.MAGENTA);
         return embedBuilder;
     }
-
     private EmbedBuilder getEmbedBuilder(String messageID) {
         // default embedBuilder Setting
         EmbedBuilder embedBuilder = new EmbedBuilder();
