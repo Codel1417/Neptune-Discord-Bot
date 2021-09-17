@@ -15,9 +15,12 @@ public class Command implements Comparable<Command> {
     private final String command;
     private final String name;
     private final String description;
+    @Deprecated
     private final String help;
+    @Deprecated
     private final CategoriesEnum category;
     private final Permission[] requiredPermissions;
+    @Deprecated
     private final ICommand commandInterface;
     private final ISlashCommand slashCommandInterface;
 

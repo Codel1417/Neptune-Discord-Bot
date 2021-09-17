@@ -2,6 +2,8 @@ package neptune.commands;
 
 import neptune.music.AudioController;
 
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 import org.apache.logging.log4j.LogManager;
@@ -19,36 +21,47 @@ public class RandomMediaPicker {
     private ArrayList<File> ImageFiles;
     private ArrayList<File> audioFiles;
     protected static final Logger log = LogManager.getLogger();
+    Random rand = new Random();
 
-    public void sendMedia(
-            File Folder, GuildMessageReceivedEvent event, boolean image, boolean audio) {
-        if (Folder == null || !Folder.exists() && !Folder.isDirectory()) return; // null check
-        log.debug("Finding Random Media from folder" + Folder.getAbsolutePath());
-        searchFolder(Folder, audio, image);
-        log.debug("Image Files: " + ImageFiles.size() + " Audio Files: " + audioFiles.size());
+    public File sendMedia(File Folder, GuildMessageReceivedEvent event, boolean image, boolean audio) {
+        if (Folder == null || !Folder.exists() && !Folder.isDirectory()) return null; // null check
+        log.trace("Finding Random Media from folder" + Folder.getAbsolutePath());
+        searchFolder(Folder);
+        log.trace("Image Files: " + ImageFiles.size() + " Audio Files: " + audioFiles.size());
 
-        event.getGuild();
         if (AudioOut == null) {
-            AudioOut = new AudioController(event);
+            AudioOut = new AudioController(event.getGuild());
         }
 
-        Random rand = new Random();
-        if (ImageFiles.size() != 0 && image) {
-            File imageFile = ImageFiles.get(rand.nextInt(ImageFiles.size()));
-            event.getChannel().sendMessage("\n").addFile(imageFile).queue();
-        }
         if (audioFiles.size() != 0 && audio) {
             File audioFile = audioFiles.get(rand.nextInt(audioFiles.size()));
-            if (event.getGuild().getAudioManager() == null) {
-                if (event.getMember().getVoiceState().getChannel() != null) {
-                    event.getGuild();
-                }
-            }
             AudioOut.playSound(event, audioFile.getAbsolutePath());
         }
+        if (ImageFiles.size() != 0 && image) {
+            return ImageFiles.get(rand.nextInt(ImageFiles.size()));
+        }
+        return null;
     }
+    public File sendMedia(File Folder, SlashCommandEvent event, boolean image, boolean audio) {
+        if (Folder == null || !Folder.exists() && !Folder.isDirectory()) return null; // null check
+        log.trace("Finding Random Media from folder" + Folder.getAbsolutePath());
+        searchFolder(Folder);
+        log.trace("Image Files: " + ImageFiles.size() + " Audio Files: " + audioFiles.size());
 
-    private void searchFolder(File Folder, boolean audio, boolean image) {
+        if (AudioOut == null) {
+            AudioOut = new AudioController(event.getGuild());
+        }
+
+        if (audioFiles.size() != 0 && audio) {
+            File audioFile = audioFiles.get(rand.nextInt(audioFiles.size()));
+            AudioOut.playSound(event, audioFile.getAbsolutePath());
+        }
+        if (ImageFiles.size() != 0 && image) {
+            return ImageFiles.get(rand.nextInt(ImageFiles.size()));
+        }
+        return null;
+    }
+    private void searchFolder(File Folder) {
         ImageFiles = new ArrayList<>();
         audioFiles = new ArrayList<>();
         for (File file : Objects.requireNonNull(Folder.listFiles())) {

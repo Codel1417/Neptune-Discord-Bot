@@ -28,6 +28,7 @@ public class commandBuilder {
         this.description = description;
         return this;
     }
+    @Deprecated
     public commandBuilder setHelp(String help){
         this.help = help;
         return this;

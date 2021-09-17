@@ -1,23 +1,27 @@
 package neptune.commands.UtilityCommands;
 
 import neptune.commands.ICommand;
+import neptune.commands.ISlashCommand;
 import neptune.storage.profileObject;
 import neptune.storage.profileStorage;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.MessageBuilder;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
 
+import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import io.sentry.Sentry;
 
-public class Leaderboard implements ICommand {
+public class Leaderboard implements ICommand, ISlashCommand {
     protected static final Logger log = LogManager.getLogger();
 
 
@@ -38,14 +42,14 @@ public class Leaderboard implements ICommand {
         }
         return points;
     }
-    public LinkedHashMap<String, Integer> getTopUsers(GuildMessageReceivedEvent event) {
+    public LinkedHashMap<String, Integer> getTopUsers(Guild guild) {
         profileStorage storage = profileStorage.getInstance();
 
-        List<Member> guildMembers = event.getGuild().getMembers();
+        List<Member> guildMembers = guild.getMembers();
         HashMap<String, Integer> leaderboards = new HashMap<>();
         for (Member member : guildMembers){
             profileObject profile = storage.getProfile(member.getId());
-            leaderboards.put(Objects.requireNonNull(event.getMember()).getId(), profile.getPoints());
+            leaderboards.put(member.getId(), profile.getPoints());
             profile.closeSession();
         }
         LinkedHashMap<String, Integer> reverseSortedMap = new LinkedHashMap<>();
@@ -81,8 +85,44 @@ public class Leaderboard implements ICommand {
         int count = 1;
         try {
             // https://howtodoinjava.com/sort/java-sort-map-by-values/
-            LinkedHashMap<String, Integer> reverseSortedMap = getTopUsers(event);
+            LinkedHashMap<String, Integer> reverseSortedMap = getTopUsers(event.getGuild());
 
+            for (Map.Entry<String, Integer> result : reverseSortedMap.entrySet()) {
+                String userID = result.getKey();
+                String member = userID;
+                try {
+                    member = Objects.requireNonNull(event.getJDA().getUserById(userID)).getAsMention();
+                } catch (NullPointerException ignored) {
+
+                }
+                stringBuilder.append(count).append(") ").append(member).append(" Level: ").append(calculateRank(Integer.parseInt(String.valueOf(result.getValue()))));
+                stringBuilder.append("\n");
+                count++;
+            }
+            embedBuilder.setDescription(stringBuilder.toString());
+            return builder.setEmbeds(embedBuilder.build()).build();
+        } catch (Exception e1) {
+            log.error(e1);
+            Sentry.captureException(e1);
+        }
+        return builder.setContent("Unable to retrieve leaderboards.").build();
+    }
+
+    @Override
+    public CommandData RegisterCommand(CommandData commandData) {
+        return null;
+    }
+
+    @Override
+    public Message run(SlashCommandEvent event, MessageBuilder builder) {
+        StringBuilder stringBuilder = new StringBuilder();
+        EmbedBuilder embedBuilder = new EmbedBuilder();
+        embedBuilder.setColor(Color.MAGENTA);
+        embedBuilder.setTitle("Leaderboards");
+        int count = 1;
+        try {
+            // https://howtodoinjava.com/sort/java-sort-map-by-values/
+            LinkedHashMap<String, Integer> reverseSortedMap = getTopUsers(event.getGuild());
             for (Map.Entry<String, Integer> result : reverseSortedMap.entrySet()) {
                 String userID = result.getKey();
                 String member = userID;

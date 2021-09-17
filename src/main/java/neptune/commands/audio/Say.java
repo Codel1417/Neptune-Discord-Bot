@@ -1,75 +1,56 @@
 package neptune.commands.audio;
 
+import io.sentry.Sentry;
 import neptune.commands.ICommand;
+import neptune.commands.ISlashCommand;
 import neptune.music.AudioController;
 
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
+import net.dv8tion.jda.api.interactions.commands.OptionMapping;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 
 import java.io.File;
 import java.util.*;
 
-public class Say implements ICommand {
+public class Say implements ICommand, ISlashCommand {
     final File folder = new File("Media" + File.separator + "say");
     private AudioController AudioOut;
     private File[] listOfFiles;
     private final HashMap<String, Long> rateLimitMap = new HashMap<>();
 
-    @Override
-    public void run(
-            GuildMessageReceivedEvent event, String messageContent) {
-        // rate limiting
-        if (isRateLimited(Objects.requireNonNull(event.getMember()).getUser())) return;
 
-        // open audio channel
-        event.getGuild();
-        if (AudioOut == null) {
-            AudioOut = new AudioController(event);
-        }
-        listOfFiles = folder.listFiles();
-        System.out.println("Say Files: " + Objects.requireNonNull(listOfFiles).length);
-        Queue<File> results = searchQuotes(messageContent);
-        if (results.size() == 1) {
-            saySingleMatch(results.iterator().next(), event);
-        } else if (results.size() > 1) {
-            List<StringBuilder> preparedMessages = prepareLargeMessage(results);
-            Runnable runnable = () -> sendLargeMessage(preparedMessages, event.getAuthor());
-            Thread thread = new Thread(runnable);
-            thread.start();
-        }
-    }
-
-    private void saySingleMatch(File quote, GuildMessageReceivedEvent event) {
-        // storageController.incrementAnalyticForCommand("Say", quote.getName().replace(".","
-        // ").replace(" wav",""));
+    private Message saySingleMatch(File quote, GuildMessageReceivedEvent event, MessageBuilder builder) {
 
         if (event.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_MANAGE)) {
             try {
                 System.out.println("        Deleting Command Message");
                 event.getMessage().delete().queue();
-            } catch (IllegalStateException | InsufficientPermissionException ignored) {
-            }
+            } catch (IllegalStateException | InsufficientPermissionException ignored) {}
         }
 
         // play the sound file
         if (quote.exists()) {
-            event.getGuild();
-            if (event.getGuild().getAudioManager() == null) {
-                event.getMember().getVoiceState().getChannel();
-            }
             AudioOut.playSound(event, quote.getAbsolutePath());
         }
-
-        if (Objects.requireNonNull(event.getMember()).hasPermission(Permission.MESSAGE_WRITE)) {
-            MessageBuilder builder = new MessageBuilder();
-            builder.append(quote.getName().replace(".wav", ""));
-            event.getChannel().sendMessage(builder.build()).queue();
-        }
+        builder.setContent(quote.getName().replace(".wav", ""));
+        return builder.build();
     }
+    private Message saySingleMatch(File quote, SlashCommandEvent event, MessageBuilder builder) {
 
+        // play the sound file
+        if (quote.exists()) {
+            AudioOut.playSound(event, quote.getAbsolutePath());
+        }
+        builder.setContent(quote.getName().replace(".wav", ""));
+        return builder.build();
+    }
     private Queue<File> searchQuotes(String quote) {
         // store results
         Queue<File> VoiceLineTextQueue = new LinkedList<>();
@@ -122,7 +103,7 @@ public class Say implements ICommand {
         return largeMessageGroup;
     }
 
-    private void sendLargeMessage(List<StringBuilder> Message, User user) {
+    private Message sendLargeMessage(List<StringBuilder> Message, User user) {
         for (StringBuilder stringBuilder : Message) {
             user.openPrivateChannel()
                     .queue(
@@ -131,9 +112,10 @@ public class Say implements ICommand {
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                Sentry.captureException(e);
             }
         }
+        return null;
     }
 
     private boolean isRateLimited(User user) {
@@ -151,4 +133,63 @@ public class Say implements ICommand {
         }
         return false;
     }
+
+    @Override
+    public Message run(GuildMessageReceivedEvent event, String messageContent, MessageBuilder builder) {
+        // rate limiting
+        if (isRateLimited(Objects.requireNonNull(event.getMember()).getUser())){
+            return builder.setContent("You are being rate limited. Please wait a few seconds.").build();
+        }
+        // open audio channel
+        if (AudioOut == null) {
+            AudioOut = new AudioController(event.getGuild());
+        }
+
+        Queue<File> results = searchQuotes(messageContent);
+        if (results.size() == 1) {
+            return saySingleMatch(results.iterator().next(), event, builder);
+        } else if (results.size() > 1) {
+            List<StringBuilder> preparedMessages = prepareLargeMessage(results);
+            Runnable runnable = () -> sendLargeMessage(preparedMessages, event.getAuthor());
+            Thread thread = new Thread(runnable);
+            thread.start();
+            return builder.setContent("Please check your DMs.").build();
+        }
+        return builder.setContent("No quotes found, Please try a different search.").build();
+    }
+    public Say(){
+        listOfFiles = folder.listFiles();
+    }
+
+    @Override
+    public CommandData RegisterCommand(CommandData commandData) {
+        return commandData.addOption(OptionType.STRING, "Quote", "Search for a specific quote.",false);
+    }
+
+    @Override
+    public Message run(SlashCommandEvent event, MessageBuilder builder) {
+        if (isRateLimited(Objects.requireNonNull(event.getMember()).getUser())){
+            return builder.setContent("You are being rate limited. Please wait a few seconds.").build();
+        }
+        // open audio channel
+        if (AudioOut == null) {
+            AudioOut = new AudioController(event.getGuild());
+        }
+        OptionMapping optionMapping = event.getOption("Quote");
+        String messageContent;
+        if (optionMapping != null){
+            messageContent = optionMapping.getAsString();
+        }
+        else messageContent = "";
+        Queue<File> results = searchQuotes(messageContent);
+        if (results.size() == 1) {
+            return saySingleMatch(results.iterator().next(), event, builder);
+        } else if (results.size() > 1) {
+            List<StringBuilder> preparedMessages = prepareLargeMessage(results);
+            Runnable runnable = () -> sendLargeMessage(preparedMessages, event.getUser());
+            Thread thread = new Thread(runnable);
+            thread.start();
+            return builder.setContent("Please check your DMs.").build();
+        }
+        return builder.setContent("No quotes found, Please try a different search.").build();    }
 }

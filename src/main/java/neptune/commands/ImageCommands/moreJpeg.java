@@ -2,6 +2,9 @@ package neptune.commands.ImageCommands;
 
 import neptune.commands.ICommand;
 import neptune.commands.Helpers;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.MessageBuilder;
+import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -25,8 +28,7 @@ public class moreJpeg implements ICommand {
     final Helpers helpers = new Helpers();
 
     @Override
-    public void run(
-            GuildMessageReceivedEvent event, String messageContent) {
+    public Message run(GuildMessageReceivedEvent event, String messageContent, MessageBuilder builder) {
         try {
             String finalUrl = helpers.getImageUrl(event);
             if (finalUrl != null) {
@@ -48,14 +50,18 @@ public class moreJpeg implements ICommand {
                 final ImageWriter writer = ImageIO.getImageWritersByFormatName("jpg").next();
                 writer.setOutput(imageOutputStream);
                 writer.write(null, new IIOImage(result, null, null), jpegParams);
+                EmbedBuilder embedBuilder = new EmbedBuilder();
                 event.getChannel()
                         .sendMessage("Here you go")
                         .addFile(writerOutput.toByteArray(), "morejpeg.jpg")
                         .queue();
+                //TODO: Blocking. Need to either, Upload to CDN to use Message object, or Host on server. Discord will cache the url so my server is never directly hit.
+                return null;
             }
         } catch (IOException e) {
             log.error(e);
             Sentry.captureException(e);
         }
+        return builder.setContent("Unable to jpeg-ify your image, Was there an image to begin with?").build();
     }
 }

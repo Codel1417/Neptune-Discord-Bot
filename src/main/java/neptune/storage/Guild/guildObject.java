@@ -5,7 +5,6 @@ import neptune.storage.Enum.LoggingOptionsEnum;
 import org.hibernate.Session;
 import java.util.HashMap;
 import java.util.Map;
-import javax.annotation.Nullable;
 import javax.persistence.*;
 
 //Stop using Subclasses
@@ -21,9 +20,6 @@ public class guildObject {
         return logOptions;
     }
 
-    public customRoleObject getCustomRole() {
-        return customRole;
-    }
 
     public guildOptionsObject getGuildOptions() {
         return guildOptions;
@@ -32,21 +28,17 @@ public class guildObject {
     @Embedded
     private logOptionsObject logOptions;
     @Embedded
-    private customRoleObject customRole;
-    @Embedded
     private guildOptionsObject guildOptions;
 
     public guildObject(String GuildID) {
         guildID = GuildID;
         logOptions = new logOptionsObject();
-        customRole = new customRoleObject();
         guildOptions = new guildOptionsObject();
     }
 
     public guildObject(String GuildID,Map<GuildOptionsEnum, Boolean> guildOptionsMap,Map<LoggingOptionsEnum, Boolean> logOptionsMap,Map<String, String> customRoleMap,String loggingChannel,int version) {
         guildID = GuildID;
         logOptions = new logOptionsObject(loggingChannel, logOptionsMap);
-        customRole = new customRoleObject(customRoleMap);
         guildOptions = new guildOptionsObject(guildOptionsMap);
     }
 
@@ -70,7 +62,6 @@ public class guildObject {
 
         public guildOptionsObject() {
             GuildOptionsHashMap = new HashMap<>();
-            GuildOptionsHashMap.put(GuildOptionsEnum.CustomRoleEnabled,false);
             GuildOptionsHashMap.put(GuildOptionsEnum.leaderboardEnabled,true);
             GuildOptionsHashMap.put(GuildOptionsEnum.customSounds,false);
             GuildOptionsHashMap.put(GuildOptionsEnum.LeaderboardLevelUpNotification,false);
@@ -133,33 +124,6 @@ public class guildObject {
             }
             else Channel = channelID;
         }
-    }
-    @Embeddable
-    public static class customRoleObject {
-        @ElementCollection
-        @CollectionTable(name="CustomRoles", joinColumns=@JoinColumn(name="GuildID"))
-        private final Map<String, String> customRoles;
-
-        public customRoleObject() {
-            customRoles = new HashMap<>();
-        }
-
-        protected customRoleObject(Map<String, String> customRolesMap) {
-            customRoles = customRolesMap;
-        }
-
-        public String getRoleID(String MemberID) {
-            return customRoles.getOrDefault(MemberID, null);
-        }
-
-        public void addRole(String MemberID, String RoleID) {
-            customRoles.put(MemberID, RoleID);
-        }
-
-        public void removeRole(String MemberID) {
-            customRoles.remove(MemberID);
-        }
-
     }
 
     @Version

@@ -2,6 +2,8 @@ package neptune.commands.ImageCommands;
 
 import neptune.commands.ICommand;
 import neptune.commands.Helpers;
+import net.dv8tion.jda.api.MessageBuilder;
+import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.sourceforge.tess4j.Tesseract;
 import org.apache.logging.log4j.LogManager;
@@ -22,8 +24,9 @@ public class ocr implements ICommand {
     public ocr(){
         tesseract.setDatapath("tessdata");
     }
+
     @Override
-    public void run(GuildMessageReceivedEvent event, String messageContent) {
+    public Message run(GuildMessageReceivedEvent event, String messageContent, MessageBuilder builder) {
         try {
             String ImageUrl = helpers.getImageUrl(event);
             if (ImageUrl != null) {
@@ -34,11 +37,12 @@ public class ocr implements ICommand {
                 g.dispose();
                 // if this file does not exist java will crash
                 String text = tesseract.doOCR(greyImage);
-                event.getChannel().sendMessage(text).queue();
+                return builder.setContent(text).build();
             }
         } catch (Exception e) {
             log.error(e);
             Sentry.captureException(e);
         }
+        return builder.setContent("Unable to find image to search for text").build();
     }
 }

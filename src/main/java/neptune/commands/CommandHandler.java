@@ -27,7 +27,7 @@ public class CommandHandler extends Helpers {
         // Add all commands;
         try{
             commandRegistry.registerCommand(new commandBuilder().setCommand("Nep").setCategory(CategoriesEnum.Fun).setRun(new Nep()).setDescription("Nep Nep").build());
-            commandRegistry.registerCommand(new commandBuilder().setCommand("Say").setCategory(CategoriesEnum.Audio).setRun(new Say()).build());
+            commandRegistry.registerCommand(new commandBuilder().setCommand("Say").setCategory(CategoriesEnum.Audio).setRun(new Say()).setDescription("AUDIO: Find and listen to quotes from Nep.") .build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("Translate").setCategory(CategoriesEnum.Fun).setRun(new Translate()).setDescription("Translate anything into Nepenese.").build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("Options").setCategory(CategoriesEnum.Admin).setRequiredPermissions(new Permission[]{Permission.MANAGE_SERVER}).setRun(new Admin()).build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("About").setCategory(CategoriesEnum.General).setRun(new About()).setDescription("Displays into about Neptune (the bot).") .build());
@@ -54,20 +54,19 @@ public class CommandHandler extends Helpers {
             commandRegistry.registerCommand(new commandBuilder().setCommand("Stare").setCategory(CategoriesEnum.Image).setRun(new Stare()).build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("Neko").setCategory(CategoriesEnum.Image).setRun(new Neko()).build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("Shocked").setCategory(CategoriesEnum.Image).setRun(new Shocked()).build());
-            commandRegistry.registerCommand(new commandBuilder().setCommand("Nya").setCategory(CategoriesEnum.Audio).setRun(new Nya()).build());
+            commandRegistry.registerCommand(new commandBuilder().setCommand("Nya").setCategory(CategoriesEnum.Audio).setRun(new Nya()).setDescription("AUDIO: Nep goes Nya~").build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("Sleepy").setCategory(CategoriesEnum.Image).setRun(new Sleepy()).build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("Breached").setName("Why the F*** was i breached").setCategory(CategoriesEnum.Fun).setRun(new WhyWasIBreached()).build());
-            commandRegistry.registerCommand(new commandBuilder().setCommand("IsCaliforniaOnFire").setCategory(CategoriesEnum.Fun).setRun(new IsCaliforniaOnFire()).build());
-            commandRegistry.registerCommand(new commandBuilder().setCommand("CustomRole").setCategory(CategoriesEnum.Utility).setRun(new CustomRole()).build());
-            commandRegistry.registerCommand(new commandBuilder().setCommand("Leaderboards").setCategory(CategoriesEnum.Utility).setRun(new Leaderboard()).build());
+            commandRegistry.registerCommand(new commandBuilder().setCommand("IsCaliforniaOnFire").setCategory(CategoriesEnum.Fun).setRun(new IsCaliforniaOnFire()).setDescription("Is California currently on fire?").build());
+            commandRegistry.registerCommand(new commandBuilder().setCommand("Leaderboards").setCategory(CategoriesEnum.Utility).setRun(new Leaderboard()).setDescription("").build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("8Ball").setName("Magic 8 Ball").setCategory(CategoriesEnum.Fun).setRun(new Magic8Ball()).setDescription("Let fate decide.").build());
-            commandRegistry.registerCommand(new commandBuilder().setCommand("Awoo").setCategory(CategoriesEnum.Audio).setRun(new Awoo()).build());
-            commandRegistry.registerCommand(new commandBuilder().setCommand("Wan").setCategory(CategoriesEnum.Audio).setRun(new Wan()).build());
-            commandRegistry.registerCommand(new commandBuilder().setCommand("jpeg").setCategory(CategoriesEnum.Image).setRun(new moreJpeg()).build());
-            commandRegistry.registerCommand(new commandBuilder().setCommand("Ocr").setCategory(CategoriesEnum.Image).setRun(new ocr()).build());
+            commandRegistry.registerCommand(new commandBuilder().setCommand("Awoo").setCategory(CategoriesEnum.Audio).setRun(new Awoo()).setDescription("AUDIO: Legalize awoo.").build());
+            commandRegistry.registerCommand(new commandBuilder().setCommand("Wan").setCategory(CategoriesEnum.Audio).setRun(new Wan()).setDescription("AUDIO: Wan Wan~").build());
+            commandRegistry.registerCommand(new commandBuilder().setCommand("jpeg").setCategory(CategoriesEnum.Image).setRun(new moreJpeg()).setDescription("Do i look like i know what a jpeg is?").build());
+            commandRegistry.registerCommand(new commandBuilder().setCommand("Ocr").setCategory(CategoriesEnum.Image).setRun(new ocr()).setDescription("Returns text found in an image").build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("Profile").setCategory(CategoriesEnum.Utility).setRun(new profile()).build());
-            commandRegistry.registerCommand(new commandBuilder().setCommand("a").setCategory(CategoriesEnum.Audio).setRun(new a()).build());
-            commandRegistry.registerCommand(new commandBuilder().setCommand("Bonk").setCategory(CategoriesEnum.Audio).setRun(new bonk()).build());
+            commandRegistry.registerCommand(new commandBuilder().setCommand("a").setCategory(CategoriesEnum.Audio).setRun(new a()).setDescription("AUDIO: A").build());
+            commandRegistry.registerCommand(new commandBuilder().setCommand("Bonk").setCategory(CategoriesEnum.Audio).setRun(new bonk()).setDescription("AUDIO: \"Bonk\"~ Scout, TF2").build());
             //i was supposed to finish this command and got sidetracked.
             //commandRegistry.registerCommand(new commandBuilder().setCommand("BonkImage").setCategory(commandCategories.Image).setRun(new bonkImage()).build());
         }
