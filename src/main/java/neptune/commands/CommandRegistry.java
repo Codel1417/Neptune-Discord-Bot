@@ -6,6 +6,11 @@ import java.util.Objects;
 import java.util.TreeMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
+
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.MessageBuilder;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,6 +25,7 @@ public class CommandRegistry {
     private final String prefix;
     private final Helpers commandHelpers = new Helpers();
     private final ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
+    protected final Logger log = LogManager.getLogger();
     public CommandRegistry(String prefix) {
         //The complete prefix before the command
         this.prefix = prefix;
@@ -56,8 +62,36 @@ public class CommandRegistry {
             displayHelp(event);
         }
     }
+    public void runCommand(SlashCommandEvent event) {
+        //split the message into command and params
+        String commandText = event.getName();
+        if (hasCommand(commandText)) {
+            Command command = commands.get(commandText);
+            if (command.getRequiredPermissions() != null) {
+                if (!Objects.requireNonNull(event.getMember()).hasPermission(command.getRequiredPermissions())){
+                    permissionException(event);
+                    return;
+                }
+            }
+            log.trace("Running Command: " + command.getName());
+            Message message = command.run(event, new MessageBuilder());
+            if (message != null){
+                event.reply(message).queue();
+            }
+        }
+    }
+    public void RegisterSlashCommands(JDA jda){
+        for (Command command : commands.values()){
+            if (command.hasSlashCommand()){
+                command.register(jda);
+            }
+        }
+    }
     private void permissionException(GuildMessageReceivedEvent event) {
-        event.getChannel().sendMessage("I'm Sorry " + event.getAuthor().getAsMention()+ ", You Lack the Required permission to do that!").queue();
+        event.getChannel().sendMessage("I'm Sorry " + event.getMember().getAsMention()+ ", You Lack the Required permission to do that!").queue();
+    }
+    private void permissionException(SlashCommandEvent event) {
+        event.reply(("I'm Sorry " + event.getMember().getAsMention()+ ", You Lack the Required permission to do that!")).queue();
     }
     private void displayHelp(GuildMessageReceivedEvent event) {
         EmbedBuilder embedBuilder = new EmbedBuilder().setTitle( prefix + ": Available Commands").setColor(Color.MAGENTA);
@@ -74,7 +108,7 @@ public class CommandRegistry {
         for (Map.Entry<String, StringBuilder> entry : CommandsSortedCategory.entrySet()) {
             embedBuilder.addField(entry.getKey(), entry.getValue().toString(), false);
         }
-        event.getChannel().sendMessage(embedBuilder.build()).queue();
+        event.getChannel().sendMessageEmbeds(embedBuilder.build()).queue();
     }
 
     public static class commandExecutor implements Runnable {
@@ -83,10 +117,7 @@ public class CommandRegistry {
         private final Command command;
         protected final Logger log = LogManager.getLogger();
 
-        private commandExecutor(
-                Command command,
-                GuildMessageReceivedEvent event,
-                String messagecontent) {
+        private commandExecutor(Command command, GuildMessageReceivedEvent event, String messagecontent) {
             this.event = event;
             this.messagecontent = messagecontent;
             this.command = command;
@@ -97,7 +128,8 @@ public class CommandRegistry {
             try {
                 log.trace("Running Command: " + command.getName());
                 Sentry.addBreadcrumb("Running Command: " + command.getName());
-                command.run(event, messagecontent);
+
+                command.run(event, messagecontent, new MessageBuilder());
                 log.trace("Exiting Command: " + command.getName());
             }
             catch(Exception e) {

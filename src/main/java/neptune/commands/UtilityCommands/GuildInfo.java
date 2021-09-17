@@ -2,10 +2,8 @@ package neptune.commands.UtilityCommands;
 
 import neptune.commands.ICommand;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.entities.VoiceChannel;
+import net.dv8tion.jda.api.MessageBuilder;
+import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 import java.awt.*;
@@ -13,9 +11,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class GuildInfo implements ICommand {
+
     @Override
-    public void run(
-            GuildMessageReceivedEvent event, String messageContent) {
+    public Message run(GuildMessageReceivedEvent event, String messageContent, MessageBuilder builder) {
         Guild guild = event.getGuild();
 
         EmbedBuilder embedBuilder = new EmbedBuilder();
@@ -44,6 +42,6 @@ public class GuildInfo implements ICommand {
                 "Server Created",
                 guild.getTimeCreated().format(DateTimeFormatter.ISO_DATE_TIME),
                 true);
-        event.getChannel().sendMessage(embedBuilder.build()).queue();
+        return builder.setEmbeds(embedBuilder.build()).build();
     }
 }

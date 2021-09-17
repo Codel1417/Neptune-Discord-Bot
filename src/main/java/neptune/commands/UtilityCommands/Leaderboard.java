@@ -5,7 +5,9 @@ import neptune.storage.profileObject;
 import neptune.storage.profileStorage;
 
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import java.awt.*;
 import java.util.*;
@@ -18,37 +20,6 @@ import io.sentry.Sentry;
 public class Leaderboard implements ICommand {
     protected static final Logger log = LogManager.getLogger();
 
-    @Override
-    public void run(
-            GuildMessageReceivedEvent event, String messageContent) {
-        StringBuilder stringBuilder = new StringBuilder();
-        EmbedBuilder embedBuilder = new EmbedBuilder();
-        embedBuilder.setColor(Color.MAGENTA);
-        embedBuilder.setTitle("Leaderboards");
-        int count = 1;
-        try {
-            // https://howtodoinjava.com/sort/java-sort-map-by-values/
-            LinkedHashMap<String, Integer> reverseSortedMap = getTopUsers(event);
-
-            for (Map.Entry<String, Integer> result : reverseSortedMap.entrySet()) {
-                String userID = result.getKey();
-                String member = userID;
-                try {
-                    member = Objects.requireNonNull(event.getJDA().getUserById(userID)).getAsMention();
-                } catch (NullPointerException ignored) {
-
-                }
-                stringBuilder.append(count).append(") ").append(member).append(" Level: ").append(calculateRank(Integer.parseInt(String.valueOf(result.getValue()))));
-                stringBuilder.append("\n");
-                count++;
-            }
-            embedBuilder.setDescription(stringBuilder.toString());
-            event.getChannel().sendMessage(embedBuilder.build()).queue();
-        } catch (Exception e1) {
-            log.error(e1);
-            Sentry.captureException(e1);
-        }
-    }
 
     public int calculateRank(int points) {
         int rank = 1;
@@ -99,5 +70,37 @@ public class Leaderboard implements ICommand {
             }
         }
         return finalSortedMap;
+    }
+
+    @Override
+    public Message run(GuildMessageReceivedEvent event, String messageContent, MessageBuilder builder) {
+        StringBuilder stringBuilder = new StringBuilder();
+        EmbedBuilder embedBuilder = new EmbedBuilder();
+        embedBuilder.setColor(Color.MAGENTA);
+        embedBuilder.setTitle("Leaderboards");
+        int count = 1;
+        try {
+            // https://howtodoinjava.com/sort/java-sort-map-by-values/
+            LinkedHashMap<String, Integer> reverseSortedMap = getTopUsers(event);
+
+            for (Map.Entry<String, Integer> result : reverseSortedMap.entrySet()) {
+                String userID = result.getKey();
+                String member = userID;
+                try {
+                    member = Objects.requireNonNull(event.getJDA().getUserById(userID)).getAsMention();
+                } catch (NullPointerException ignored) {
+
+                }
+                stringBuilder.append(count).append(") ").append(member).append(" Level: ").append(calculateRank(Integer.parseInt(String.valueOf(result.getValue()))));
+                stringBuilder.append("\n");
+                count++;
+            }
+            embedBuilder.setDescription(stringBuilder.toString());
+            return builder.setEmbeds(embedBuilder.build()).build();
+        } catch (Exception e1) {
+            log.error(e1);
+            Sentry.captureException(e1);
+        }
+        return builder.setContent("Unable to retrieve leaderboards.").build();
     }
 }

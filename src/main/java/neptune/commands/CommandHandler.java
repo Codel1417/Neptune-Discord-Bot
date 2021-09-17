@@ -8,12 +8,16 @@ import neptune.commands.ImageCommands.Tenor.*;
 import neptune.commands.UtilityCommands.*;
 import neptune.commands.audio.*;
 import neptune.exceptions.MissingArgumentException;
+import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import io.sentry.Sentry;
+
+import java.io.InvalidObjectException;
 
 // handles neptune base commands
 public class CommandHandler extends Helpers {
@@ -22,20 +26,18 @@ public class CommandHandler extends Helpers {
     public CommandHandler() {
         // Add all commands;
         try{
-            commandRegistry.registerCommand(new commandBuilder().setCommand("Nep").setCategory(CategoriesEnum.Fun).setRun(new Nep()).build());
+            commandRegistry.registerCommand(new commandBuilder().setCommand("Nep").setCategory(CategoriesEnum.Fun).setRun(new Nep()).setDescription("Nep Nep").build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("Say").setCategory(CategoriesEnum.Audio).setRun(new Say()).build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("Translate").setCategory(CategoriesEnum.Fun).setRun(new Translate()).setDescription("Translate anything into Nepenese.").build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("Options").setCategory(CategoriesEnum.Admin).setRequiredPermissions(new Permission[]{Permission.MANAGE_SERVER}).setRun(new Admin()).build());
-            commandRegistry.registerCommand(new commandBuilder().setCommand("About").setCategory(CategoriesEnum.General).setRun(new About()).build());
+            commandRegistry.registerCommand(new commandBuilder().setCommand("About").setCategory(CategoriesEnum.General).setRun(new About()).setDescription("Displays into about Neptune (the bot).") .build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("Leave").setCategory(CategoriesEnum.Audio).setRun(new Leave()).setDescription("Disconnect from the current voice channel").build());
-            commandRegistry.registerCommand(new commandBuilder().setCommand("UwU").setCategory(CategoriesEnum.Fun).setRun(new UWU_Translater()).build());
-            commandRegistry.registerCommand(new commandBuilder().setCommand("Uptime").setCategory(CategoriesEnum.General).setRun(new Uptime()).build());
+            commandRegistry.registerCommand(new commandBuilder().setCommand("UwU").setCategory(CategoriesEnum.Fun).setRun(new UWU_Translater()).setDescription("Converts english into UwU.") .build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("Flip").setCategory(CategoriesEnum.Fun).setRun(new CoinFlip()).setDescription("Heads or Tails?").build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("Roll").setCategory(CategoriesEnum.Fun).setRun(new RollDie()).setDescription("Roll a Die of any size").build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("GSK").setName("Great Sleep King").setCategory(CategoriesEnum.Fun).setRun(new GreatSleepKing()).setDescription("How much sleep will the Sleep King grant you tonight").build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("F").setCategory(CategoriesEnum.Fun).setRun(new PayRespect()).setDescription("Quickly and easily pay respect").build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("Attack").setCategory(CategoriesEnum.Fun).setRun(new Attack()).setDescription("Attack other server Members").build());
-            commandRegistry.registerCommand(new commandBuilder().setCommand("Ping").setCategory(CategoriesEnum.Fun).setRun(new Ping()).setDescription("Pong").build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("MC").setCategory(CategoriesEnum.General).setRun(new MinecraftServerStatus()).setDescription("Check the state of a Minecraft server").build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("ServerInfo").setCategory(CategoriesEnum.General).setRun(new GuildInfo()).setDescription("Some info about the current server").build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("Log").setCategory(CategoriesEnum.Admin).setRequiredPermissions(new Permission[]{Permission.MANAGE_SERVER}).setRun(new Logging()).setDescription("Manage server logging").build());
@@ -58,11 +60,10 @@ public class CommandHandler extends Helpers {
             commandRegistry.registerCommand(new commandBuilder().setCommand("IsCaliforniaOnFire").setCategory(CategoriesEnum.Fun).setRun(new IsCaliforniaOnFire()).build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("CustomRole").setCategory(CategoriesEnum.Utility).setRun(new CustomRole()).build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("Leaderboards").setCategory(CategoriesEnum.Utility).setRun(new Leaderboard()).build());
-            commandRegistry.registerCommand(new commandBuilder().setCommand("8Ball").setName("Magic 8 Ball").setCategory(CategoriesEnum.Fun).setRun(new Magic8Ball()).build());
+            commandRegistry.registerCommand(new commandBuilder().setCommand("8Ball").setName("Magic 8 Ball").setCategory(CategoriesEnum.Fun).setRun(new Magic8Ball()).setDescription("Let fate decide.").build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("Awoo").setCategory(CategoriesEnum.Audio).setRun(new Awoo()).build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("Wan").setCategory(CategoriesEnum.Audio).setRun(new Wan()).build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("jpeg").setCategory(CategoriesEnum.Image).setRun(new moreJpeg()).build());
-            commandRegistry.registerCommand(new commandBuilder().setCommand("UnixTime").setCategory(CategoriesEnum.General).setRun(new unixTime()).build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("Ocr").setCategory(CategoriesEnum.Image).setRun(new ocr()).build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("Profile").setCategory(CategoriesEnum.Utility).setRun(new profile()).build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("a").setCategory(CategoriesEnum.Audio).setRun(new a()).build());
@@ -70,13 +71,18 @@ public class CommandHandler extends Helpers {
             //i was supposed to finish this command and got sidetracked.
             //commandRegistry.registerCommand(new commandBuilder().setCommand("BonkImage").setCategory(commandCategories.Image).setRun(new bonkImage()).build());
         }
-        catch (MissingArgumentException e){
+        catch (MissingArgumentException | InvalidObjectException e){
             log.error(e);
             Sentry.captureException(e);
         }
     }
-
+    public void RegisterSlashCommands(JDA jda){
+        commandRegistry.RegisterSlashCommands(jda);
+    }
     public void run(GuildMessageReceivedEvent event) {
+        commandRegistry.runCommand(event);
+    }
+    public void run(SlashCommandEvent event) {
         commandRegistry.runCommand(event);
     }
 }

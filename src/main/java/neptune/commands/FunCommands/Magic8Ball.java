@@ -2,12 +2,20 @@ package neptune.commands.FunCommands;
 
 import neptune.commands.ICommand;
 import neptune.commands.Helpers;
-import net.dv8tion.jda.api.EmbedBuilder;
+import neptune.commands.ISlashCommand;
+import net.dv8tion.jda.api.MessageBuilder;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.CommandData;
+
 import java.awt.*;
 import java.util.Random;
 
-public class Magic8Ball extends Helpers implements ICommand {
+public class Magic8Ball extends Helpers implements ICommand, ISlashCommand {
+    Random random = new Random();
+
     final String[] Responses = {
         "It is certain.",
         "It is decidedly so.",
@@ -30,20 +38,23 @@ public class Magic8Ball extends Helpers implements ICommand {
         "Outlook not so good.",
         "Very doubtful."
     };
-    @Override
-    public void run(
-            GuildMessageReceivedEvent event, String messageContent) {
 
-        Random random = new Random();
+    @Override
+    public Message run(GuildMessageReceivedEvent event, String messageContent, MessageBuilder builder) {
         String response = Responses[random.nextInt(Responses.length)];
-        EmbedBuilder embedBuilder = new EmbedBuilder();
-        embedBuilder.setTitle("Magic 8 Ball");
-        embedBuilder.setColor(Color.BLACK);
         if (messageContent.equalsIgnoreCase("")) {
-            embedBuilder.setDescription("Please ask a Yes or No question.");
-        } else {
-            embedBuilder.setDescription(response);
+            response = "Please ask a Yes or No question.";
         }
-        event.getChannel().sendMessage(embedBuilder.build()).queue();
+        return builder.setContent(response).build();
     }
+
+    @Override
+    public CommandData RegisterCommand(CommandData commandData) {
+        return commandData.addOption(OptionType.STRING,"Question","Please ask a yes or no question",true);
+    }
+
+    @Override
+    public Message run(SlashCommandEvent event, MessageBuilder builder) {
+        String response = Responses[random.nextInt(Responses.length)];
+        return builder.setContent(response).build();    }
 }
