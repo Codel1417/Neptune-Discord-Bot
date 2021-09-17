@@ -70,6 +70,6 @@ dependencies {
     //runtime 'org.redisson:redisson-hibernate-53:3.16.0'
     implementation 'org.mariadb.jdbc:mariadb-java-client:2.7.3'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
-    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.8.0'
 
 }
