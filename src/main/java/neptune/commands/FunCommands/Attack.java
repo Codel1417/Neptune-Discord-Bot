@@ -43,13 +43,13 @@ public class Attack implements ICommand, ISlashCommand {
 
     @Override
     public CommandData RegisterCommand(CommandData commandData) {
-        return commandData.addOption(OptionType.USER,"Target","Who do you want to attack?");
+        return commandData.addOption(OptionType.USER,"target","Who do you want to attack?",true);
     }
 
     @Override
     public Message run(SlashCommandEvent event, MessageBuilder builder) {
         StringBuilder stringBuilder = new StringBuilder();
-        OptionMapping optionMapping = event.getOption("Target");
+        OptionMapping optionMapping = event.getOption("target");
         User mention = optionMapping.getAsUser();
 
         stringBuilder.append("Neptune attacked ");

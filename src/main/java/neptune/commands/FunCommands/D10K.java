@@ -56,7 +56,7 @@ public class D10K implements ICommand, ISlashCommand {
 
     @Override
     public CommandData RegisterCommand(CommandData commandData) {
-        return commandData.addOption(OptionType.INTEGER,"Entry","Return a specific entry",false);
+        return commandData.addOption(OptionType.INTEGER,"entry","Return a specific entry",false);
     }
 
     @Override
@@ -64,7 +64,7 @@ public class D10K implements ICommand, ISlashCommand {
         int number = 0;
         EmbedBuilder embedBuilder = new EmbedBuilder();
         String result;
-        OptionMapping optionMapping = event.getOption("Entry");
+        OptionMapping optionMapping = event.getOption("entry");
         try {
             number = (int) optionMapping.getAsLong();
             // prevent numbers above 10,000

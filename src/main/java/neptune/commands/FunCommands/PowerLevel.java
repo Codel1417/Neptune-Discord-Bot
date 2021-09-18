@@ -40,14 +40,14 @@ public class PowerLevel implements ICommand, ISlashCommand {
 
     @Override
     public CommandData RegisterCommand(CommandData commandData) {
-        return commandData.addOption(OptionType.USER,"Target User","Check another users power level.");
+        return commandData.addOption(OptionType.USER,"target user","Check another users power level.",true);
     }
 
     @Override
     public Message run(SlashCommandEvent event, MessageBuilder builder) {
         int powerlevel = random.nextInt(random.nextInt(9001)) + 1;
         StringBuilder stringBuilder = new StringBuilder();
-        OptionMapping optionMapping = event.getOption("Target User");
+        OptionMapping optionMapping = event.getOption("target user");
         stringBuilder.append("Vegeta, What does the scouter say about ");
         if (optionMapping != null){
             User target = optionMapping.getAsUser();

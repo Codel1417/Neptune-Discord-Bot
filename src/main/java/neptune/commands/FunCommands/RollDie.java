@@ -36,13 +36,13 @@ public class RollDie extends Helpers implements ICommand, ISlashCommand {
 
     @Override
     public CommandData RegisterCommand(CommandData commandData) {
-        return commandData.addOption(OptionType.INTEGER,"Sides", "The number of sides on the die.");
+        return commandData.addOption(OptionType.INTEGER,"sides", "The number of sides on the die.",true);
     }
 
     @Override
     public Message run(SlashCommandEvent event, MessageBuilder builder) {
         int sides;
-        OptionMapping optionMapping = event.getOption("Sides");
+        OptionMapping optionMapping = event.getOption("sides");
         try {
             sides = (int) optionMapping.getAsLong();
         }

@@ -80,12 +80,12 @@ public class UWU_Translater implements ICommand, ISlashCommand {
 
     @Override
     public CommandData RegisterCommand(CommandData commandData) {
-        return commandData.addOption(OptionType.STRING,"Text", "Some text to UwUify.",true);
+        return commandData.addOption(OptionType.STRING,"text", "Some text to UwUify.",true);
     }
 
     @Override
     public Message run(SlashCommandEvent event, MessageBuilder builder) {
-        OptionMapping optionMapping = event.getOption("Text");
+        OptionMapping optionMapping = event.getOption("text");
         String message = optionMapping.getAsString();
         StringBuilder result = new StringBuilder();
         if (message.length() != 0) {

@@ -46,12 +46,12 @@ public class Translate implements ICommand, ISlashCommand {
 
     @Override
     public CommandData RegisterCommand(CommandData commandData) {
-        return commandData.addOption(OptionType.STRING,"Text", "Some text to Nep up.",true);
+        return commandData.addOption(OptionType.STRING,"text", "Some text to Nep up.",true);
     }
 
     @Override
     public Message run(SlashCommandEvent event, MessageBuilder builder) {
-        OptionMapping optionMapping = event.getOption("Text");
+        OptionMapping optionMapping = event.getOption("text");
         String message = optionMapping.getAsString();
 
         StringBuilder translatedMessage = new StringBuilder();

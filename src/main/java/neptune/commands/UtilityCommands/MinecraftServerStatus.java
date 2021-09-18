@@ -56,14 +56,14 @@ public class MinecraftServerStatus implements ICommand, ISlashCommand {
 
     @Override
     public CommandData RegisterCommand(CommandData commandData) {
-        return commandData.addOption(OptionType.STRING,"Server Address","EX: 65.43.46.89:25565",true);
+        return commandData.addOption(OptionType.STRING,"server address","EX: 65.43.46.89:25565",true);
     }
 
     @Override
     public Message run(SlashCommandEvent event, MessageBuilder builder) {
         String serverDomain;
         int port = 25565;
-        OptionMapping optionMapping = event.getOption("Server Address");
+        OptionMapping optionMapping = event.getOption("server address");
         String[] mcServer = optionMapping.getAsString().split(":");
         if (mcServer.length == 0) {
         }

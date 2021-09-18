@@ -33,12 +33,12 @@ public class Nep implements ICommand, ISlashCommand {
 
     @Override
     public CommandData RegisterCommand(CommandData commandData) {
-        return commandData.addOption(OptionType.STRING,"Text","Can YOU OutNep the NEP?");
+        return commandData.addOption(OptionType.STRING,"text","Can YOU OutNep the NEP?",false);
     }
 
     @Override
     public Message run(SlashCommandEvent event, MessageBuilder builder) {
-        OptionMapping optionMapping = event.getOption("Text");
+        OptionMapping optionMapping = event.getOption("text");
         String[] nepArray = optionMapping.getAsString().split(" ");
         String reply = "nep ";
         // search for pattern in a

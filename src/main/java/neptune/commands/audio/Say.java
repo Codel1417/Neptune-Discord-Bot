@@ -163,7 +163,7 @@ public class Say implements ICommand, ISlashCommand {
 
     @Override
     public CommandData RegisterCommand(CommandData commandData) {
-        return commandData.addOption(OptionType.STRING, "Quote", "Search for a specific quote.",false);
+        return commandData.addOption(OptionType.STRING, "quote", "Search for a specific quote.",false);
     }
 
     @Override
@@ -175,7 +175,7 @@ public class Say implements ICommand, ISlashCommand {
         if (AudioOut == null) {
             AudioOut = new AudioController(event.getGuild());
         }
-        OptionMapping optionMapping = event.getOption("Quote");
+        OptionMapping optionMapping = event.getOption("quote");
         String messageContent;
         if (optionMapping != null){
             messageContent = optionMapping.getAsString();
