@@ -4,5 +4,6 @@ public enum GuildOptionsEnum {
     LoggingEnabled,
     LeaderboardLevelUpNotification,
     leaderboardEnabled,
-    customSounds
-}
+    customSounds,
+    CustomRoleEnabled
+    }
