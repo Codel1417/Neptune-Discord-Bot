@@ -33,6 +33,7 @@ public class CommandRegistry {
     }
     public void registerCommand(Command command){
         if (!hasCommand(command)) {
+            log.trace("Registering command: " + command.getName());
             commands.put(command.getCommand(), command);
         }
     }
