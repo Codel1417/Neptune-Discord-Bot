@@ -7,9 +7,13 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
+import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.requests.restaction.CommandCreateAction;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class Command implements Comparable<Command> {
     private final String command;
@@ -75,9 +79,13 @@ public class Command implements Comparable<Command> {
         if (hasSlashCommand()){
             CommandData commandData = new CommandData(getCommand(),getDescription());
             CommandData commandData2 = slashCommandInterface.RegisterCommand(commandData);
-            if (commandData2 != null){
-                commandData = commandData2;
+            List<OptionData> data = commandData2.getOptions();
+            List<OptionData> data2 = new ArrayList<>();
+            for (OptionData op : data){
+                op.setName(op.getName().toLowerCase(Locale.ROOT));
+                data2.add(op) ;
             }
+            commandData.addOptions(data2);
             CommandCreateAction commandCreateAction = jda.upsertCommand(commandData);
             commandCreateAction.queue();
         }
