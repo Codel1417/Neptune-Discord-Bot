@@ -9,6 +9,7 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.GenericEvent;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.guild.GenericGuildEvent;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.EventListener;
 import org.apache.logging.log4j.LogManager;
@@ -45,6 +46,9 @@ public class MessageListener implements EventListener {
                 Sentry.captureException(e);
                 return;
             }
+        }
+        if (event instanceof SlashCommandEvent){
+            nepCommands.run((SlashCommandEvent) event);
         }
     }
 

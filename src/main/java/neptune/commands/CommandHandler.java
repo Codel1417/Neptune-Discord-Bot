@@ -8,7 +8,9 @@ import neptune.commands.ImageCommands.Tenor.*;
 import neptune.commands.UtilityCommands.*;
 import neptune.commands.audio.*;
 import neptune.exceptions.MissingArgumentException;
+import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -65,5 +67,11 @@ public class CommandHandler extends Helpers {
 
     public void run(GuildMessageReceivedEvent event) {
         commandRegistry.runCommand(event);
+    }
+    public void run(SlashCommandEvent event) {
+        commandRegistry.runCommand(event);
+    }
+    public void RegisterSlashCommands(JDA jda){
+        commandRegistry.RegisterSlashCommands(jda);
     }
 }
