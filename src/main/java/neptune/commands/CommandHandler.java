@@ -14,9 +14,7 @@ import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import io.sentry.Sentry;
-
 import java.io.InvalidObjectException;
 
 // handles neptune base commands
@@ -29,7 +27,7 @@ public class CommandHandler extends Helpers {
             commandRegistry.registerCommand(new commandBuilder().setCommand("Nep").setCategory(CategoriesEnum.Fun).setRun(new Nep()).setDescription("Nep Nep").build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("Say").setCategory(CategoriesEnum.Audio).setRun(new Say()).setDescription("AUDIO: Find and listen to quotes from Nep.") .build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("Translate").setCategory(CategoriesEnum.Fun).setRun(new Translate()).setDescription("Translate anything into Nepenese.").build());
-            commandRegistry.registerCommand(new commandBuilder().setCommand("Options").setCategory(CategoriesEnum.Admin).setRequiredPermissions(new Permission[]{Permission.MANAGE_SERVER}).setRun(new Admin()).build());
+            commandRegistry.registerCommand(new commandBuilder().setCommand("Options").setCategory(CategoriesEnum.Admin).setRequiredPermissions(new Permission[]{Permission.MANAGE_SERVER}).setRun(new Admin()).setDescription("Admin only options submenu.").build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("About").setCategory(CategoriesEnum.General).setRun(new About()).setDescription("Displays into about Neptune (the bot).") .build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("Leave").setCategory(CategoriesEnum.Audio).setRun(new Leave()).setDescription("Disconnect from the current voice channel").build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("UwU").setCategory(CategoriesEnum.Fun).setRun(new UWU_Translater()).setDescription("Converts english into UwU.") .build());
@@ -43,11 +41,11 @@ public class CommandHandler extends Helpers {
             commandRegistry.registerCommand(new commandBuilder().setCommand("Log").setCategory(CategoriesEnum.Admin).setRequiredPermissions(new Permission[]{Permission.MANAGE_SERVER}).setRun(new Logging()).setDescription("Manage server logging").build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("D10K").setCategory(CategoriesEnum.Fun).setDescription("10,000 Magical Effects").setRun(new D10K()).build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("Powerlevel").setCategory(CategoriesEnum.Fun).setDescription("What does the scouter say about their power level?").setRun(new PowerLevel()).build());
-            commandRegistry.registerCommand(new commandBuilder().setCommand("Senko").setCategory(CategoriesEnum.Image).setRun(new Senko()).build());
+            commandRegistry.registerCommand(new commandBuilder().setCommand("Senko").setCategory(CategoriesEnum.Image).setRun(new Senko()).setDescription("IMAGE: Mofu Mofu Forever!").build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("Nya").setCategory(CategoriesEnum.Audio).setRun(new Nya()).setDescription("AUDIO: Nep goes Nya~").build());
-            commandRegistry.registerCommand(new commandBuilder().setCommand("Breached").setName("Why the F*** was i breached").setCategory(CategoriesEnum.Fun).setRun(new WhyWasIBreached()).build());
+            commandRegistry.registerCommand(new commandBuilder().setCommand("Breached").setName("Why the F*** was i breached").setCategory(CategoriesEnum.Fun).setRun(new WhyWasIBreached()).setDescription("Learn how your company was breached and what was done to mitigate them.").build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("IsCaliforniaOnFire").setCategory(CategoriesEnum.Fun).setRun(new IsCaliforniaOnFire()).setDescription("Is California currently on fire?").build());
-            commandRegistry.registerCommand(new commandBuilder().setCommand("Leaderboards").setCategory(CategoriesEnum.Utility).setRun(new Leaderboard()).setDescription("").build());
+            commandRegistry.registerCommand(new commandBuilder().setCommand("Leaderboards").setCategory(CategoriesEnum.Utility).setRun(new Leaderboard()).setDescription("Server Message Leaderboards").build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("8Ball").setName("Magic 8 Ball").setCategory(CategoriesEnum.Fun).setRun(new Magic8Ball()).setDescription("Let fate decide.").build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("Awoo").setCategory(CategoriesEnum.Audio).setRun(new Awoo()).setDescription("AUDIO: Legalize awoo.").build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("Wan").setCategory(CategoriesEnum.Audio).setRun(new Wan()).setDescription("AUDIO: Wan Wan~").build());
