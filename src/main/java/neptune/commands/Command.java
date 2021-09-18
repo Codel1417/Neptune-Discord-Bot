@@ -13,6 +13,7 @@ import javax.annotation.Nullable;
 
 public class Command implements Comparable<Command> {
     private final String command;
+    @Deprecated
     private final String name;
     private final String description;
     @Deprecated
@@ -44,9 +45,11 @@ public class Command implements Comparable<Command> {
         return description;
     }
     @Nullable
+    @Deprecated
     public String getHelp() {
         return help;
     }
+    @Deprecated
     public CategoriesEnum getCategory() {
         return category;
     }
@@ -57,9 +60,11 @@ public class Command implements Comparable<Command> {
     public boolean hasSlashCommand(){
         return slashCommandInterface != null;
     }
+    @Deprecated
     public boolean hasLegacyCommand(){
         return commandInterface != null;
     }
+    @Deprecated
     public void run(GuildMessageReceivedEvent event, String messageContent, MessageBuilder builder) {
         commandInterface.run(event, messageContent, builder);
     }

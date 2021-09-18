@@ -93,6 +93,7 @@ public class CommandRegistry {
     private void permissionException(SlashCommandEvent event) {
         event.reply(("I'm Sorry " + event.getMember().getAsMention()+ ", You Lack the Required permission to do that!")).queue();
     }
+    @Deprecated
     private void displayHelp(GuildMessageReceivedEvent event) {
         EmbedBuilder embedBuilder = new EmbedBuilder().setTitle( prefix + ": Available Commands").setColor(Color.MAGENTA);
         Map<String, StringBuilder> CommandsSortedCategory = new TreeMap<>();
@@ -110,7 +111,7 @@ public class CommandRegistry {
         }
         event.getChannel().sendMessageEmbeds(embedBuilder.build()).queue();
     }
-
+    @Deprecated
     public static class commandExecutor implements Runnable {
         private final GuildMessageReceivedEvent event;
         private final String messagecontent;
