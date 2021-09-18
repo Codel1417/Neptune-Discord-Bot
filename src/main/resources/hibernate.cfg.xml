@@ -8,6 +8,7 @@
         <property name="hibernate.hbm2ddl.auto">update</property>
         <property name="hibernate.connection.url">jdbc:mariadb://db/neptune</property>
         <property name="hibernate.connection.driver_class">org.mariadb.jdbc.Driver</property>
+        <property name="hibernate.connection.characterEncoding">utf8</property>
         <property name="hibernate.connection.username">neptune</property>
         <property name="hibernate.connection.password">neptune</property>
         <property name="hibernate.connection.show_sql">true</property>
@@ -19,5 +20,8 @@
         <mapping class="neptune.storage.profileObject"/>
         <mapping class="neptune.storage.Guild.guildObject"/>
         <mapping class="neptune.storage.logObject"/>
+        <property name="hibernate.connection.CharSet">utf8mb4</property>
+        <property name="hibernate.connection.characterEncoding" value="utf8mb4" />
+        <property name="hibernate.connection.useUnicode">true</property>
     </session-factory>
 </hibernate-configuration>

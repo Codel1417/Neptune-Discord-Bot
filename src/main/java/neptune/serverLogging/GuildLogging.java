@@ -142,13 +142,12 @@ public class GuildLogging {
             return;
         }
         try {
-            logObject logEntity =
-                    logsStorageHandler.readFile(event.getMessageId());
+            logObject logEntity = logsStorageHandler.readFile(event.getMessageId());
             PreviousMessage = logEntity.getMessageContent();
             logEntity.setMessageContent(event.getMessage().getContentDisplay());
             logsStorageHandler.writeFile(logEntity);
 
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e) {
             log.error(e);
             Sentry.captureException(e);
         }
