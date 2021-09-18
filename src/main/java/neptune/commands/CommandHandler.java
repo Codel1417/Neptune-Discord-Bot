@@ -23,6 +23,7 @@ import java.io.InvalidObjectException;
 public class CommandHandler extends Helpers {
     protected static final Logger log = LogManager.getLogger();
     final CommandRegistry commandRegistry = new CommandRegistry("!nep");
+    private boolean ready;
     public CommandHandler() {
         // Add all commands;
         try{
@@ -58,10 +59,12 @@ public class CommandHandler extends Helpers {
             commandRegistry.registerCommand(new commandBuilder().setCommand("Bonk").setCategory(CategoriesEnum.Audio).setRun(new bonk()).setDescription("\"Bonk!\"~ Scout, TF2").build());
             //i was supposed to finish this command and got sidetracked.
             //commandRegistry.registerCommand(new commandBuilder().setCommand("BonkImage").setCategory(commandCategories.Image).setRun(new bonkImage()).build());
+            ready = true;
         }
         catch (MissingArgumentException | InvalidObjectException e){
             log.error(e);
             Sentry.captureException(e);
+            ready = false;
         }
     }
 
@@ -73,5 +76,8 @@ public class CommandHandler extends Helpers {
     }
     public void RegisterSlashCommands(JDA jda){
         commandRegistry.RegisterSlashCommands(jda);
+    }
+    public boolean isReady(){
+        return ready;
     }
 }
