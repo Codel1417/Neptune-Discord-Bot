@@ -6,11 +6,15 @@ import org.apache.logging.log4j.Logger;
 import neptune.exceptions.MissingArgumentException;
 import net.dv8tion.jda.api.Permission;
 
+import java.io.InvalidObjectException;
+import java.util.Locale;
+
 public class commandBuilder {
     private String command, name, description, help;
     private CategoriesEnum category;
     private Permission[] requiredPermissions;
     private ICommand commandInterface;
+    private ISlashCommand slashCommandInterface;
     protected static final Logger log = LogManager.getLogger();
 
     public commandBuilder setName(String name) {
@@ -25,6 +29,7 @@ public class commandBuilder {
         this.description = description;
         return this;
     }
+    @Deprecated
     public commandBuilder setHelp(String help){
         this.help = help;
         return this;
@@ -33,29 +38,43 @@ public class commandBuilder {
         this.requiredPermissions = requiredPermissions;
         return this;
     }
-    public commandBuilder setRun(ICommand commandRun){
-        this.commandInterface = commandRun;
-        return this;
+    public commandBuilder setRun(Object command) throws InvalidObjectException {
+        if (command instanceof ICommand){
+            this.commandInterface = (ICommand) command;
+        }
+        if (command instanceof ISlashCommand){
+            this.slashCommandInterface = (ISlashCommand) command;
+        }
+        if (command instanceof ICommand || command instanceof ISlashCommand){
+            return this;
+        }
+        else throw new InvalidObjectException("Object must implement either ICommand or ISlashCommand");
     }
     public commandBuilder setCategory(CategoriesEnum category){
         this.category = category;
         return this;
     }
     public Command build() throws MissingArgumentException{
+        if (command == null){
+            throw new MissingArgumentException("Command must not be null");
+        }
         if (name == null){
             for (String w : command.split("(?<!(^|[A-Z]))(?=[A-Z])|(?<!^)(?=[A-Z][a-z])")) {
                 name = name + w + " ";
             }
-        }
-        if (command == null){
-            throw new MissingArgumentException("Command must not be null");
+            assert name != null;
+            name = name.trim();
         }
         if (category == null){
-            throw new MissingArgumentException("CommandCatagories cannot be null");
+            throw new MissingArgumentException("CommandCategories cannot be null");
         }
         if (description == null){
             log.debug(command + " does not have a description");
         }
-        return new Command(command,name,description,help,requiredPermissions,commandInterface,category);
+        if (description == null && slashCommandInterface != null){
+            throw new MissingArgumentException("Description required for Slash Command");
+        }
+        command = command.toLowerCase(Locale.ROOT);
+        return new Command(command,name,description,help,requiredPermissions,commandInterface,category,slashCommandInterface);
     }
 }

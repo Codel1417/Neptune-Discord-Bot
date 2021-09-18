@@ -15,6 +15,8 @@ import org.apache.logging.log4j.Logger;
 
 import io.sentry.Sentry;
 
+import java.io.InvalidObjectException;
+
 // handles neptune base commands
 public class CommandHandler extends Helpers {
     protected static final Logger log = LogManager.getLogger();
@@ -56,7 +58,6 @@ public class CommandHandler extends Helpers {
             commandRegistry.registerCommand(new commandBuilder().setCommand("Sleepy").setCategory(CategoriesEnum.Image).setRun(new Sleepy()).build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("Breached").setName("Why the F*** was i breached").setCategory(CategoriesEnum.Fun).setRun(new WhyWasIBreached()).build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("IsCaliforniaOnFire").setCategory(CategoriesEnum.Fun).setRun(new IsCaliforniaOnFire()).build());
-            commandRegistry.registerCommand(new commandBuilder().setCommand("CustomRole").setCategory(CategoriesEnum.Utility).setRun(new CustomRole()).build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("Leaderboards").setCategory(CategoriesEnum.Utility).setRun(new Leaderboard()).build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("8Ball").setName("Magic 8 Ball").setCategory(CategoriesEnum.Fun).setRun(new Magic8Ball()).build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("Awoo").setCategory(CategoriesEnum.Audio).setRun(new Awoo()).build());
@@ -70,7 +71,7 @@ public class CommandHandler extends Helpers {
             //i was supposed to finish this command and got sidetracked.
             //commandRegistry.registerCommand(new commandBuilder().setCommand("BonkImage").setCategory(commandCategories.Image).setRun(new bonkImage()).build());
         }
-        catch (MissingArgumentException e){
+        catch (MissingArgumentException | InvalidObjectException e){
             log.error(e);
             Sentry.captureException(e);
         }
