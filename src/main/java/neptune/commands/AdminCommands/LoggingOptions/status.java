@@ -8,6 +8,8 @@ import neptune.storage.Enum.LoggingOptionsEnum;
 import neptune.storage.Guild.GuildStorageHandler;
 import neptune.storage.Guild.guildObject;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.MessageBuilder;
+import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,33 +24,27 @@ public class status implements ICommand {
     protected static final Logger log = LogManager.getLogger();
 
     @Override
-    public void run(GuildMessageReceivedEvent event, String messageContent) {
-        try {
-            guildObject guildentity = GuildStorageHandler.getInstance().readFile(event.getGuild().getId());
-            EmbedBuilder embedBuilder = new EmbedBuilder();
-            embedBuilder.setColor(Color.MAGENTA);
-            embedBuilder.setTitle("Logging Options");
-    
-            // logging status
-            String LoggingChannel = guildentity.getLogOptions().getChannel();
-    
-            embedBuilder.addField("Global Logging Status",helpers.getEnabledDisabledIconText(guildentity.getLogOptions().getOption(LoggingOptionsEnum.GlobalLogging)),true);
-            if (!LoggingChannel.equalsIgnoreCase("")) {
-                embedBuilder.addField("Channel", event.getGuild().getTextChannelById(LoggingChannel).getAsMention(), true);
-            }
-    
-            StringBuilder logOptionsMessage = new StringBuilder();
-            logOptionsMessage.append("Text Activity ").append(helpers.getEnabledDisabledIcon(guildentity.getLogOptions().getOption(LoggingOptionsEnum.TextChannelLogging))).append("\n");
-            logOptionsMessage.append("Voice Activity").append(helpers.getEnabledDisabledIcon(guildentity.getLogOptions().getOption(LoggingOptionsEnum.VoiceChannelLogging))).append("\n");
-            logOptionsMessage.append("Member Activity").append(helpers.getEnabledDisabledIcon(guildentity.getLogOptions().getOption(LoggingOptionsEnum.MemberActivityLogging))).append("\n");
-            logOptionsMessage.append("Server Changes ").append(helpers.getEnabledDisabledIcon(guildentity.getLogOptions().getOption(LoggingOptionsEnum.ServerModificationLogging))).append("\n");
-            embedBuilder.addField("Settings", logOptionsMessage.toString(),false);
-            guildentity.closeSession();
-            event.getChannel().sendMessage(embedBuilder.build()).queue();
-        } catch (Exception e) {
-            log.error(e);
-            Sentry.captureException(e);
+    public Message run(GuildMessageReceivedEvent event, String messageContent, MessageBuilder builder) {
+        guildObject guildentity = GuildStorageHandler.getInstance().readFile(event.getGuild().getId());
+        EmbedBuilder embedBuilder = new EmbedBuilder();
+        embedBuilder.setColor(Color.MAGENTA);
+        embedBuilder.setTitle("Logging Options");
+
+        // logging status
+        String LoggingChannel = guildentity.getLogOptions().getChannel();
+
+        embedBuilder.addField("Global Logging Status",helpers.getEnabledDisabledIconText(guildentity.getLogOptions().getOption(LoggingOptionsEnum.GlobalLogging)),true);
+        if (!LoggingChannel.equalsIgnoreCase("")) {
+            embedBuilder.addField("Channel", event.getGuild().getTextChannelById(LoggingChannel).getAsMention(), true);
         }
+
+        StringBuilder logOptionsMessage = new StringBuilder();
+        logOptionsMessage.append("Text Activity ").append(helpers.getEnabledDisabledIcon(guildentity.getLogOptions().getOption(LoggingOptionsEnum.TextChannelLogging))).append("\n");
+        logOptionsMessage.append("Voice Activity").append(helpers.getEnabledDisabledIcon(guildentity.getLogOptions().getOption(LoggingOptionsEnum.VoiceChannelLogging))).append("\n");
+        logOptionsMessage.append("Member Activity").append(helpers.getEnabledDisabledIcon(guildentity.getLogOptions().getOption(LoggingOptionsEnum.MemberActivityLogging))).append("\n");
+        logOptionsMessage.append("Server Changes ").append(helpers.getEnabledDisabledIcon(guildentity.getLogOptions().getOption(LoggingOptionsEnum.ServerModificationLogging))).append("\n");
+        embedBuilder.addField("Settings", logOptionsMessage.toString(),false);
+        guildentity.closeSession();
+        return builder.setEmbeds(embedBuilder.build()).build();
     }
-    
 }

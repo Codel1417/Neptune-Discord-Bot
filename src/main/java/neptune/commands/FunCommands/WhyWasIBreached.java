@@ -1,10 +1,16 @@
 package neptune.commands.FunCommands;
 
 import neptune.commands.ICommand;
+import neptune.commands.ISlashCommand;
+import net.dv8tion.jda.api.MessageBuilder;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.interactions.commands.build.CommandData;
+
 import java.util.Random;
 
-public class WhyWasIBreached implements ICommand {
+public class WhyWasIBreached implements ICommand, ISlashCommand {
     final String[] threatActors = {
         "Russians",
         "NSA",
@@ -102,23 +108,37 @@ public class WhyWasIBreached implements ICommand {
     };
     final Random random = new Random();
 
+
     @Override
-    public void run(
-            GuildMessageReceivedEvent event, String messageContent) {
+    public Message run(GuildMessageReceivedEvent event, String messageContent, MessageBuilder builder) {
+        String stringBuilder = "The f***ing " +
+                threatActors[random.nextInt(threatActors.length)] +
+                " used " +
+                methods[random.nextInt(methods.length)] +
+                " to " +
+                targets[random.nextInt(targets.length)] +
+                " But we have since " +
+                mitigations[random.nextInt(mitigations.length)] +
+                " , so it will never happen again.";
+        return builder.setContent(stringBuilder).build();
+    }
 
+    @Override
+    public CommandData RegisterCommand(CommandData commandData) {
+        return commandData;
+    }
 
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder
-                .append("The f***ing ")
-                .append(threatActors[random.nextInt(threatActors.length)])
-                .append(" used ")
-                .append(methods[random.nextInt(methods.length)])
-                .append(" to ")
-                .append(targets[random.nextInt(targets.length)])
-                .append(" But we have since ")
-                .append(mitigations[random.nextInt(mitigations.length)])
-                .append(" , so it will never happen again.");
-
-        event.getChannel().sendMessage(stringBuilder).queue();
+    @Override
+    public Message run(SlashCommandEvent event, MessageBuilder builder) {
+        String stringBuilder = "The f***ing " +
+                threatActors[random.nextInt(threatActors.length)] +
+                " used " +
+                methods[random.nextInt(methods.length)] +
+                " to " +
+                targets[random.nextInt(targets.length)] +
+                " But we have since " +
+                mitigations[random.nextInt(mitigations.length)] +
+                " , so it will never happen again.";
+        return builder.setContent(stringBuilder).build();
     }
 }

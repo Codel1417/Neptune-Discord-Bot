@@ -7,6 +7,7 @@ import neptune.storage.Guild.GuildStorageHandler;
 import neptune.storage.Guild.guildObject;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.GenericEvent;
+import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.guild.GenericGuildEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.EventListener;
@@ -27,7 +28,9 @@ public class MessageListener implements EventListener {
 
     @Override
     public void onEvent(@Nonnull GenericEvent event) {
-
+        if (event instanceof ReadyEvent){
+            nepCommands.RegisterSlashCommands(event.getJDA());
+        }
         if (event instanceof GuildMessageReceivedEvent) {
             if (((GuildMessageReceivedEvent) event).getAuthor().isBot()){
                 return;

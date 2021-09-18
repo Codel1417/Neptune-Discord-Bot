@@ -5,6 +5,8 @@ import neptune.commands.Helpers;
 import neptune.storage.profileObject;
 import neptune.storage.profileStorage;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.MessageBuilder;
+import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import java.awt.Color;
 import java.util.Objects;
@@ -16,59 +18,20 @@ import io.sentry.Sentry;
 public class profile implements ICommand {
     final Helpers helpers = new Helpers();
     protected static final Logger log = LogManager.getLogger();
-    @Override
-    public void run(GuildMessageReceivedEvent event, String messageContent) {
-        try{
-            String[] command = helpers.getCommandName(messageContent);
-            if (command[1].length() == 0) {
-                displayProfile(event, event.getAuthor().getId());
-            }
-            switch (command[0].toLowerCase()) {
-                case "language":
-                    {
-                        updateLanguage(event, command[1]);
-                        break;
-                    }
-                case "bio":
-                    {
-                        updateBio(event, command[1]);
-                        break;
-                    }
-                case "timezone":
-                    {
-                        updateTimezone(event, command[1]);
-                        break;
-                    }
-                case "help":
-                    {
-                        displayHelp(event);
-                        break;
-                    }
-                default:
-                    {
-                        displayHelp(event);
-                    }
-            }
-        }
-        catch (Exception e){
-            log.error(e);
-            Sentry.captureException(e);
-        }
-    }
 
-    public void displayHelp(GuildMessageReceivedEvent event) {
+
+    public Message displayHelp(GuildMessageReceivedEvent event, MessageBuilder builder) {
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setColor(Color.MAGENTA);
         embedBuilder.setTitle("Profile Management Help");
-        StringBuilder commandsString = new StringBuilder();
-        commandsString.append("!nep profile language (Your Language)\n");
-        commandsString.append("!nep profile timezone (Your TimeZone) <Country/Region | GMT>\n");
-        commandsString.append("!nep profile bio (Some Text) <Limit 700 Characters>\n");
-        embedBuilder.addField("Commands", commandsString.toString(), false);
-        event.getChannel().sendMessage(embedBuilder.build()).queue();
+        String commandsString = "!nep profile language (Your Language)\n" +
+                "!nep profile timezone (Your TimeZone) <Country/Region | GMT>\n" +
+                "!nep profile bio (Some Text) <Limit 700 Characters>\n";
+        embedBuilder.addField("Commands", commandsString, false);
+        return builder.setEmbeds(embedBuilder.build()).build();
     }
 
-    public void displayProfile(GuildMessageReceivedEvent event, String MemberID) {
+    public Message displayProfile(GuildMessageReceivedEvent event, String MemberID, MessageBuilder builder) {
         profileStorage storage = profileStorage.getInstance();
         profileObject profile = storage.getProfile(Objects.requireNonNull(event.getMember()).getId());
 
@@ -84,55 +47,78 @@ public class profile implements ICommand {
         }
         embedBuilder.addField("Points", String.valueOf(points), true);
         embedBuilder.setFooter("Use '!nep profile help' to get a list of profile commands.");
-        event.getChannel().sendMessage(embedBuilder.build()).queue();
-
         profile.closeSession();
+        return builder.setEmbeds(embedBuilder.build()).build();
     }
 
-    public void updateBio(GuildMessageReceivedEvent event, String Bio) {
+    public Message updateBio(GuildMessageReceivedEvent event, String Bio, MessageBuilder builder) {
 
         profileStorage storage = profileStorage.getInstance();
         profileObject profile = storage.getProfile(Objects.requireNonNull(event.getMember()).getId());
         boolean result = profile.setBio(Bio);
         storage.serialize(profile);
         if (result) {
-            displayProfile(event, event.getAuthor().getId());
+            return displayProfile(event, event.getAuthor().getId(), builder);
         } else {
-            event.getChannel()
-                    .sendMessage("Your bio can not be longer than 700 characters")
-                    .queue();
-            displayHelp(event);
+            return  builder.setContent("Your bio can not be longer than 700 characters").build();
         }
     }
 
-    public void updateTimezone(GuildMessageReceivedEvent event, String TimeZone) {
+    public Message updateTimezone(GuildMessageReceivedEvent event, String TimeZone, MessageBuilder builder) {
         profileStorage storage = profileStorage.getInstance();
         profileObject profile = storage.getProfile(Objects.requireNonNull(event.getMember()).getId());
         boolean result = profile.setTimeZone(TimeZone);
         storage.serialize(profile);
         if (result) {
-            displayProfile(event, event.getAuthor().getId());
+            return displayProfile(event, event.getAuthor().getId(), builder);
         } else {
-            event.getChannel()
-                    .sendMessage("Invalid Format. Timezones must either be UTC or Country/Region")
-                    .queue();
-            displayHelp(event);
+            return builder.setContent("Invalid Format. Timezones must either be UTC or Country/Region").build();
         }
-        return;
     }
 
-    public void updateLanguage(GuildMessageReceivedEvent event, String Language) {
+    public Message updateLanguage(GuildMessageReceivedEvent event, String Language, MessageBuilder builder) {
         profileStorage storage = profileStorage.getInstance();
         profileObject profile = storage.getProfile(Objects.requireNonNull(event.getMember()).getId());
         boolean result = profile.setLanguage(Language);
         storage.serialize(profile);
 
         if (result) {
-            displayProfile(event, event.getAuthor().getId());
+            return displayProfile(event, Language, builder);
         } else {
-            event.getChannel().sendMessage("Invalid Language").queue();
-            displayHelp(event);
+            return builder.setContent("Invalid Language").build();
         }
-        return;
+    }
+
+    @Override
+    public Message run(GuildMessageReceivedEvent event, String messageContent, MessageBuilder builder) {
+        try{
+            String[] command = helpers.getCommandName(messageContent);
+            if (command[1].length() == 0) {
+                displayProfile(event, event.getAuthor().getId(), builder);
+            }
+            switch (command[0].toLowerCase()) {
+                case "language":
+                {
+                    return updateLanguage(event, command[1], builder);
+                }
+                case "bio":
+                {
+                    return updateBio(event, command[1], builder);
+                }
+                case "timezone":
+                {
+                    return updateTimezone(event, command[1], builder);
+                }
+                default:
+                {
+                    return displayHelp(event, builder);
+                }
+            }
+        }
+        catch (Exception e){
+            log.error(e);
+            Sentry.captureException(e);
+        }
+        return displayHelp(event,builder);
     }
 }
