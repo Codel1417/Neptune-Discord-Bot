@@ -50,7 +50,7 @@ public class Magic8Ball extends Helpers implements ICommand, ISlashCommand {
 
     @Override
     public CommandData RegisterCommand(CommandData commandData) {
-        return commandData.addOption(OptionType.STRING,"Question","Please ask a yes or no question",true);
+        return commandData.addOption(OptionType.STRING,"question","Please ask a yes or no question",true);
     }
 
     @Override
