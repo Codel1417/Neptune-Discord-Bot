@@ -10,6 +10,8 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageWriter;
 import javax.imageio.stream.MemoryCacheImageOutputStream;
 
+import net.dv8tion.jda.api.MessageBuilder;
+import net.dv8tion.jda.api.entities.Message;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -27,7 +29,6 @@ public class bonkImage implements ICommand {
     protected static final Logger log = LogManager.getLogger();
     final URL backgroundImageURL = getClass().getResource("/src/main/resources/images/bonk.png");
     final URL batImageUrl = getClass().getResource("/src/main/resources/images/bat.png");
-    @Override
     public void run(GuildMessageReceivedEvent event, String messageContent) {
         try {
             BufferedImage avatarIcon = ImageIO.read(new URL(Objects.requireNonNull(event.getAuthor().getAvatarUrl())));
@@ -55,5 +56,9 @@ public class bonkImage implements ICommand {
             Sentry.captureException(e);
         }
     }
-    
+
+    @Override
+    public Message run(GuildMessageReceivedEvent event, String messageContent, MessageBuilder builder) {
+        return null;
+    }
 }

@@ -15,6 +15,7 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.VoiceChannel;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.exceptions.PermissionException;
 
@@ -33,7 +34,7 @@ public class AudioController {
     private static final int DEFAULT_VOLUME = 35; // (0 - 150, where 100 is default max volume)
     protected static final Logger log = LogManager.getLogger();
 
-    public AudioController(GuildMessageReceivedEvent event) {
+    public AudioController(Guild guild) {
         this.playerManager = new DefaultAudioPlayerManager();
         playerManager.registerSourceManager(new YoutubeAudioSourceManager());
         // playerManager.registerSourceManager(new SoundCloudAudioSourceManager());
@@ -44,8 +45,7 @@ public class AudioController {
         playerManager.registerSourceManager(new LocalAudioSourceManager());
 
         musicManagers = new HashMap<>();
-        guild = event.getGuild();
-        mng = getMusicManager(event.getGuild());
+        mng = getMusicManager(guild);
     }
 
     public void playSound(GuildMessageReceivedEvent event, String audioURL) {
@@ -64,7 +64,22 @@ public class AudioController {
         loadAndPlay(mng, audioURL);
         log.debug("Playing audio file " + audioURL);
     }
+    public void playSound(SlashCommandEvent event, String audioURL) {
+        VoiceChannel chan = Objects.requireNonNull(event.getMember().getVoiceState()).getChannel();
+        guild = event.getGuild();
+        mng = getMusicManager(Objects.requireNonNull(event.getGuild()));
+        guild.getAudioManager().setSendingHandler(mng.sendHandler);
 
+        if (!guild.getAudioManager().isConnected()
+                && event.getMember().getVoiceState().getChannel() != null) {
+            try {
+                guild.getAudioManager().openAudioConnection(chan);
+            } catch (PermissionException ignored) {
+            }
+        }
+        loadAndPlay(mng, audioURL);
+        log.debug("Playing audio file " + audioURL);
+    }
     private void loadAndPlay(GuildMusicManager mng, String url) {
         playerManager.loadItemOrdered(
                 mng,
