@@ -1,5 +1,6 @@
 package neptune.commands;
 
+import io.sentry.Sentry;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.Permission;
@@ -9,6 +10,8 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.requests.restaction.CommandCreateAction;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -16,6 +19,8 @@ import java.util.List;
 import java.util.Locale;
 
 public class Command implements Comparable<Command> {
+    protected static final Logger log = LogManager.getLogger();
+
     private final String command;
     @Deprecated
     private final String name;
@@ -76,18 +81,21 @@ public class Command implements Comparable<Command> {
         return slashCommandInterface.run(event, builder);
     }
     protected Command register(JDA jda){
-        if (hasSlashCommand()){
-            CommandData commandData = new CommandData(getCommand(),getDescription());
-            CommandData commandData2 = slashCommandInterface.RegisterCommand(commandData);
-            List<OptionData> data = commandData2.getOptions();
-            List<OptionData> data2 = new ArrayList<>();
-            for (OptionData op : data){
-                op.setName(op.getName().toLowerCase(Locale.ROOT));
-                data2.add(op) ;
+        try {
+            if (hasSlashCommand()){
+                log.trace("Registering Slash Command: " + getName());
+                CommandData commandData = new CommandData(getCommand(),getDescription());
+                CommandData commandData2 = slashCommandInterface.RegisterCommand(commandData);
+                if (commandData2 != null){
+                    commandData = commandData2;
+                }
+                CommandCreateAction commandCreateAction = jda.upsertCommand(commandData);
+                commandCreateAction.queue();
             }
-            commandData.addOptions(data2);
-            CommandCreateAction commandCreateAction = jda.upsertCommand(commandData);
-            commandCreateAction.queue();
+        }
+        catch (Exception e){
+            log.error(e);
+            Sentry.captureException(e);
         }
         return this;
     }
