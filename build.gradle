@@ -69,7 +69,7 @@ dependencies {
     implementation group: 'io.prometheus', name: 'simpleclient_httpserver', version: '0.12.0'
     implementation group: 'org.apache.commons', name: 'commons-lang3', version:'3.12.0'
     implementation group: 'io.sentry', name: 'sentry', version: '5.2.1'
-    implementation group: 'io.sentry', name: 'sentry-log4j2', version: '5.2.1'
+    implementation group: 'io.sentry', name: 'sentry-log4j2', version: '5.2.2'
     implementation 'org.hibernate:hibernate-c3p0:5.5.7.Final'
     //runtime 'org.redisson:redisson-hibernate-53:3.16.0'
     implementation 'org.mariadb.jdbc:mariadb-java-client:2.7.4'
