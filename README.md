@@ -2,7 +2,7 @@
 
 A Discord Bot based on the character neptune from HyperDimension Neptunia
 
-[Invite Link](https://discordapp.com/api/oauth2/authorize?client_id=545565550768816138&permissions=37087296&scope=bot)
+[Invite Link](https://discordapp.com/api/oauth2/authorize?client_id=545565550768816138&permissions=517580643520&scope=bot)
 
 ## Sources
 
