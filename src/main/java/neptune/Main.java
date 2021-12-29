@@ -18,6 +18,7 @@ public class Main {
 
     public static void main(String[] args) {
         log.trace("Start");
+        /*
         log.trace("Begin Init Sentry");
         Sentry.init(options -> {
             options.setEnableExternalConfiguration(true);
@@ -32,7 +33,7 @@ public class Main {
             //options.setEnvironment("development");
         });
         log.trace("Finish Init Sentry");
-
+        */
         log.trace("Begin Init JDA");
         startJDA(System.getenv("NEPTUNE_TOKEN"));
         log.trace("End Init JDA");
