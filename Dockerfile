@@ -8,10 +8,10 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 
 RUN useradd -ms /bin/bash  neptune
 # Set up Jstatd
-RUN git clone https://github.com/Codel1417/ejstatd.git /ejstatd && chown neptune:neptune -R /ejstatd
+#RUN git clone https://github.com/Codel1417/ejstatd.git /ejstatd && chown neptune:neptune -R /ejstatd
 USER neptune:neptune
-WORKDIR /ejstatd/
-RUN mvn package
+#WORKDIR /ejstatd/
+#RUN mvn package
 
 
 ADD --chown=neptune:neptune ./ /nep
@@ -24,13 +24,6 @@ VOLUME /nep/tessdata
 
 #prometheus
 EXPOSE 1234
-#ejstatd
-EXPOSE 2222
-EXPOSE 2223
-EXPOSE 2224
-#jmx
-EXPOSE 1232
-EXPOSE 1231
 
 ENV NEPTUNE_TOKEN=null
 ENV NEPTUNE_TENOR_TOKEN=null
