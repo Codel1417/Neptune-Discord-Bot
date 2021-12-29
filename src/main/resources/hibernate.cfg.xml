@@ -11,11 +11,6 @@
         <property name="hibernate.connection.username">neptune</property>
         <property name="hibernate.connection.password">neptune</property>
         <property name="hibernate.connection.show_sql">true</property>
-        <--property name="hibernate.connection.provider_class">org.hibernate.c3p0.internal.C3P0ConnectionProvider</property-->
-        <--property name="hibernate.c3p0.min_size">1</property-->
-        <--property name="hibernate.c3p0.max_size">19</property-->
-        <--property name="hibernate.c3p0.timeout">120</property-->
-        <property name="hibernate.c3p0.max_statements">10</property>
         <mapping class="neptune.storage.profileObject"/>
         <mapping class="neptune.storage.Guild.guildObject"/>
         <mapping class="neptune.storage.logObject"/>
