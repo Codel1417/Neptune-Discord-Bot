@@ -1,21 +1,15 @@
 <?xml version='1.0' encoding='utf-8'?>
-<!DOCTYPE hibernate-configuration PUBLIC
-        "-//Hibernate/Hibernate Configuration DTD 5.3//EN"
-        "http://www.hibernate.org/dtd/hibernate-configuration-5.5.dtd">
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>  
-    <session-factory>  
+    <session-factory name="Main">
         <property name="hibernate.connection.dialect">org.hibernate.dialect.MariaDB103Dialect</property>
-        <property name="hibernate.hbm2ddl.auto">create-drop</property>
         <property name="hibernate.connection.url">jdbc:mariadb://localhost/neptune</property>
         <property name="hibernate.connection.driver_class">org.mariadb.jdbc.Driver</property>
         <property name="hibernate.connection.username">neptune</property>
         <property name="hibernate.connection.password">neptune</property>
         <property name="hibernate.connection.show_sql">true</property>
-        <property name="hibernate.connection.provider_class">org.hibernate.c3p0.internal.C3P0ConnectionProvider</property>
-        <property name="hibernate.c3p0.min_size">1</property>
-        <property name="hibernate.c3p0.max_size">1</property>
-        <property name="hibernate.c3p0.timeout">120</property>
-        <property name="hibernate.c3p0.max_statements">10</property>
+
         <mapping class="neptune.storage.profileObject"/>
         <mapping class="neptune.storage.Guild.guildObject"/>
         <mapping class="neptune.storage.logObject"/>

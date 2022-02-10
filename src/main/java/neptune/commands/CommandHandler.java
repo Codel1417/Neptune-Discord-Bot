@@ -57,6 +57,7 @@ public class CommandHandler extends Helpers {
             commandRegistry.registerCommand(new commandBuilder().setCommand("Profile").setCategory(CategoriesEnum.Utility).setRun(new profile()).setDescription("View and edit your profile").build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("a").setCategory(CategoriesEnum.Audio).setRun(new a()).setDescription("AUDIO: A").build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("Bonk").setCategory(CategoriesEnum.Audio).setRun(new bonk()).setDescription("\"Bonk!\"~ Scout, TF2").build());
+            commandRegistry.registerCommand(new commandBuilder().setCommand("metaverse").setCategory(CategoriesEnum.Fun).setRun(new metaverse()).setDescription("The 7 rules of metaverses").build());
             //i was supposed to finish this command and got sidetracked.
             //commandRegistry.registerCommand(new commandBuilder().setCommand("BonkImage").setCategory(commandCategories.Image).setRun(new bonkImage()).build());
             ready = true;
