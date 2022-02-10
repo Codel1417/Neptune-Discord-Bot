@@ -7,7 +7,7 @@
         <Sentry name="Sentry"/>
     </Appenders>
     <Loggers>
-        <Root level="trace" additivity="false">
+        <Root level="debug" additivity="false">
             <AppenderRef ref="SlowConsole" />
             <AppenderRef ref="Sentry"/>
         </Root>
