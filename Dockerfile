@@ -1,5 +1,5 @@
 # I need Tesseract version 4.1 or newer.
-FROM ubuntu:impish-20211015
+FROM ubuntu:impish-20220301
 
 # https://packages.debian.org/sid/tesseract-ocr
 # -o APT::Immediate-Configure=0  Fixes an issue with one of tesseract's deps
