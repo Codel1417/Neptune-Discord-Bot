@@ -74,9 +74,7 @@ public class MineStat {
     public void refresh() {
         String[] serverData;
         String rawServerData;
-        try {
-            // Socket clientSocket = new Socket(getAddress(), getPort());
-            Socket clientSocket = new Socket();
+        try(Socket clientSocket = new Socket()) {
             long startTime = System.currentTimeMillis();
             clientSocket.connect(new InetSocketAddress(getAddress(), getPort()), timeout);
             setLatency(System.currentTimeMillis() - startTime);
@@ -84,13 +82,10 @@ public class MineStat {
             BufferedReader br =
                     new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             byte[] payload = {(byte) 0xFE, (byte) 0x01};
-            // dos.writeBytes("\u00FE\u0001");
             dos.write(payload, 0, payload.length);
             rawServerData = br.readLine();
-            clientSocket.close();
         } catch (Exception e) {
             serverUp = false;
-            // e.printStackTrace();
             return;
         }
 

@@ -1,5 +1,4 @@
 import neptune.commands.CommandHandler;
-import neptune.commands.CommandRegistry;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

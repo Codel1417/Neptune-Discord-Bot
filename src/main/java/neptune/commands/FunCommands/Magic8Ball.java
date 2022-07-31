@@ -1,20 +1,17 @@
 package neptune.commands.FunCommands;
 
-import neptune.commands.ICommand;
 import neptune.commands.Helpers;
 import neptune.commands.ISlashCommand;
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 
-import java.awt.*;
 import java.util.Random;
 
-public class Magic8Ball extends Helpers implements ICommand, ISlashCommand {
-    Random random = new Random();
+public class Magic8Ball extends Helpers implements ISlashCommand {
+    final Random random;
 
     final String[] Responses = {
         "It is certain.",
@@ -39,13 +36,8 @@ public class Magic8Ball extends Helpers implements ICommand, ISlashCommand {
         "Very doubtful."
     };
 
-    @Override
-    public Message run(GuildMessageReceivedEvent event, String messageContent, MessageBuilder builder) {
-        String response = Responses[random.nextInt(Responses.length)];
-        if (messageContent.equalsIgnoreCase("")) {
-            response = "Please ask a Yes or No question.";
-        }
-        return builder.setContent(response).build();
+    public Magic8Ball() {
+        random = new Random();
     }
 
     @Override

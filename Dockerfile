@@ -1,10 +1,10 @@
 # I need Tesseract version 4.1 or newer.
-FROM ubuntu:impish
+FROM ubuntu
 
 # https://packages.debian.org/sid/tesseract-ocr
 # -o APT::Immediate-Configure=0  Fixes an issue with one of tesseract's deps
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get install -y --no-install-recommends tesseract-ocr openjdk-11-jdk -o APT::Immediate-Configure=0
+    && apt-get install -y --no-install-recommends tesseract-ocr openjdk-17-jdk-headless -o APT::Immediate-Configure=0
 
 RUN useradd -ms /bin/bash  neptune
 # Set up Jstatd

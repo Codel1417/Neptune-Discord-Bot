@@ -16,6 +16,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 import javax.imageio.ImageIO;
 
@@ -66,7 +67,7 @@ public class Helpers {
         }
 
         Message replyMessage = event.getMessage().getReferencedMessage();
-        if (replyMessage != null){
+        if (replyMessage != null) {
             attachments = replyMessage.getAttachments();
             if (!attachments.isEmpty()) {
                 current = attachments.get(0);
@@ -141,9 +142,10 @@ public class Helpers {
     }
 
     public static void deleteDirectory(File directoryToBeDeleted) throws IOException {
-        Files.walk(directoryToBeDeleted.toPath())
-                .parallel()
-                .map(Path::toFile)
-                .forEach(File::delete);
+        try (Stream<Path> paths = Files.walk(directoryToBeDeleted.toPath())) {
+            paths.parallel()
+                    .map(Path::toFile)
+                    .forEach(File::delete);
+        }
     }
 }

@@ -3,12 +3,17 @@ package neptune;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.events.ReadyEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
+
+import static java.lang.Thread.sleep;
 
 public class CycleGameStatus implements Runnable {
     private final ArrayList<Activity> MessageLoop;
     private final JDA jda;
+    protected static final Logger log = LogManager.getLogger();
 
     public CycleGameStatus(ReadyEvent event) {
         jda = event.getJDA();
@@ -25,12 +30,12 @@ public class CycleGameStatus implements Runnable {
         while (true) {
             try {
                 for (Activity activity : MessageLoop) {
-                    //noinspection BusyWait
-                    Thread.sleep(1000 * 15); // wait 15 seconds to avoid rate limit
+                    // wait 15 seconds to avoid rate limit
+                    sleep(15000);
                     jda.getPresence().setActivity(activity);
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (InterruptedException e) {
+                log.error("Exception in CycleGameStatus", e);
             }
         }
     }

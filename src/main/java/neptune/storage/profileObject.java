@@ -1,8 +1,8 @@
 package neptune.storage;
 
+import jakarta.persistence.*;
 import org.hibernate.Session;
 
-import javax.persistence.*;
 import java.util.TimeZone;
 @Entity
 @Table(name= "Profiles")
@@ -50,7 +50,7 @@ public class profileObject {
             return true;
         } else return false;
     }
-    private String bio = new String("Not Set");
+    private String bio = "Not Set";
     public String getBio(){
         return bio;
     }

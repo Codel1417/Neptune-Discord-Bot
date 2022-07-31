@@ -1,34 +1,17 @@
 package neptune.commands.audio;
 
-import neptune.commands.ICommand;
 import neptune.commands.ISlashCommand;
 import neptune.commands.RandomMediaPicker;
 
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 
 import java.io.File;
 
-public class Wan implements ICommand, ISlashCommand {
-    RandomMediaPicker randomMediaPicker = new RandomMediaPicker();
-
-    @Override
-    public Message run(GuildMessageReceivedEvent event, String messageContent, MessageBuilder builder) {
-        randomMediaPicker.sendMedia(
-                new File(
-                        "Media"
-                                + File.separator
-                                + "Custom"
-                                + File.separator
-                                + "wan"),
-                event,
-                false,
-                true);
-        return builder.setContent("Wan Wan").build();
-    }
+public class Wan implements ISlashCommand {
+    final RandomMediaPicker randomMediaPicker = new RandomMediaPicker();
 
     @Override
     public CommandData RegisterCommand(CommandData commandData) {

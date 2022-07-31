@@ -1,14 +1,15 @@
 package neptune.storage.Guild;
 
+import jakarta.persistence.*;
 import neptune.storage.Enum.GuildOptionsEnum;
 import neptune.storage.Enum.LoggingOptionsEnum;
 import org.hibernate.Session;
 import java.util.HashMap;
 import java.util.Map;
-import javax.persistence.*;
+import java.util.Objects;
 
 //Stop using Subclasses
-@Entity  
+@Entity
 @Table(name= "Guilds")
 @Cacheable
 public class guildObject {
@@ -119,10 +120,7 @@ public class guildObject {
         }
 
         public void setChannel(String channelID) {
-            if (channelID == null){
-                Channel = "";
-            }
-            else Channel = channelID;
+            Channel = Objects.requireNonNullElse(channelID, "");
         }
     }
 

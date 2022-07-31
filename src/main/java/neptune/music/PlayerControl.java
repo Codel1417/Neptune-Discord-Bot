@@ -95,38 +95,26 @@ public class PlayerControl extends ListenerAdapter {
         if (".help".equals(command[0])) {
             event.getChannel()
                     .sendMessage(
-                            "```    //Prefix for all commands: .\n"
-                                + "    //Example:  .play\n"
-                                + "    //Current commands\n"
-                                + "    // join [name]  - Joins a voice channel that has the"
-                                + " provided name\n"
-                                + "    // join [id]    - Joins a voice channel based on the"
-                                + " provided id.\n"
-                                + "    // leave        - Leaves the voice channel that the bot is"
-                                + " currently in.\n"
-                                + "    // play         - Plays songs from the current queue."
-                                + " Starts playing again if it was previously paused\n"
-                                + "    // play [url]   - Adds a new song to the queue and starts"
-                                + " playing if it wasn't playing already\n"
-                                + "    // pplay        - Adds a playlist to the queue and starts"
-                                + " playing if not already playing\n"
-                                + "    // pause        - Pauses audio playback\n"
-                                + "    // stop         - Completely stops audio playback, skipping"
-                                + " the current song.\n"
-                                + "    // skip         - Skips the current song, automatically"
-                                + " starting the next\n"
-                                + "    // nowplaying   - Prints information about the currently"
-                                + " playing song (title, current time)\n"
-                                + "    // np           - alias for nowplaying\n"
-                                + "    // list         - Lists the songs in the queue\n"
-                                + "    // volume [val] - Sets the volume of the MusicPlayer [10 -"
-                                + " 100]\n"
-                                + "    // restart      - Restarts the current song or restarts the"
-                                + " previous song if there is no current song playing.\n"
-                                + "    // repeat       - Makes the player repeat the currently"
-                                + " playing song\n"
-                                + "    // reset        - Completely resets the player, fixing all"
-                                + " errors and clearing the queue.```")
+                            """
+                                    ```    //Prefix for all commands: .
+                                        //Example:  .play
+                                        //Current commands
+                                        // join [name]  - Joins a voice channel that has the provided name
+                                        // join [id]    - Joins a voice channel based on the provided id.
+                                        // leave        - Leaves the voice channel that the bot is currently in.
+                                        // play         - Plays songs from the current queue. Starts playing again if it was previously paused
+                                        // play [url]   - Adds a new song to the queue and starts playing if it wasn't playing already
+                                        // pplay        - Adds a playlist to the queue and starts playing if not already playing
+                                        // pause        - Pauses audio playback
+                                        // stop         - Completely stops audio playback, skipping the current song.
+                                        // skip         - Skips the current song, automatically starting the next
+                                        // nowplaying   - Prints information about the currently playing song (title, current time)
+                                        // np           - alias for nowplaying
+                                        // list         - Lists the songs in the queue
+                                        // volume [val] - Sets the volume of the MusicPlayer [10 - 100]
+                                        // restart      - Restarts the current song or restarts the previous song if there is no current song playing.
+                                        // repeat       - Makes the player repeat the currently playing song
+                                        // reset        - Completely resets the player, fixing all errors and clearing the queue.```""")
                     .queue();
         }
 

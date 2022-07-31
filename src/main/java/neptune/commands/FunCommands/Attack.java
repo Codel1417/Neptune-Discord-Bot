@@ -1,45 +1,26 @@
 package neptune.commands.FunCommands;
 
-import neptune.commands.ICommand;
 import neptune.commands.ISlashCommand;
 import neptune.commands.RandomMediaPicker;
 
 import net.dv8tion.jda.api.MessageBuilder;
-import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 
-import java.io.File;
-import java.util.List;
 import java.util.Random;
 
-public class Attack implements ICommand, ISlashCommand {
-    Random random = new Random();
+public class Attack implements ISlashCommand {
+    final Random random;
     RandomMediaPicker randomMediaPicker = new RandomMediaPicker();
 
-
-    @Override
-    public Message run(GuildMessageReceivedEvent event, String messageContent, MessageBuilder builder) {
-        StringBuilder stringBuilder = new StringBuilder();
-        List<Member> mention = event.getMessage().getMentionedMembers();
-        stringBuilder.append("Neptune attacked ");
-        if (mention.size() != 0) {
-            Member target = mention.get(random.nextInt(mention.size()));
-            stringBuilder.append(target.getAsMention()).append(" ");
-        }
-        stringBuilder.append("for ").append(random.nextInt(6)).append(" damage");
-        randomMediaPicker.sendMedia(
-                new File("Media" + File.separator + "Attack"),
-                event,
-                false,
-                true);
-        return builder.setContent(stringBuilder.toString()).build();
+    public Attack() {
+        random = new Random();
     }
+
 
     @Override
     public CommandData RegisterCommand(CommandData commandData) {

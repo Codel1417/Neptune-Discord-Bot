@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class ListenerHandler implements EventListener
 {
     protected static final Logger log = LogManager.getLogger();
-    private ArrayList<EventListener> eventListeners = new ArrayList<>();
+    private final ArrayList<EventListener> eventListeners = new ArrayList<>();
     public ListenerHandler(){
         log.trace("Start: Registering Event Listeners");
         log.trace("Registering MessageListener");

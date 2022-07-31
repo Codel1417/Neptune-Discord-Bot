@@ -60,7 +60,7 @@ public class commandBuilder {
         }
         if (name == null){
             for (String w : command.split("(?<!(^|[A-Z]))(?=[A-Z])|(?<!^)(?=[A-Z][a-z])")) {
-                name = name + w + " ";
+                name = "%s%s ".formatted(name, w);
             }
             assert name != null;
             name = name.trim();

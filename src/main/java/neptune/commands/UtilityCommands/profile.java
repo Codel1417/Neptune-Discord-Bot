@@ -24,9 +24,11 @@ public class profile implements ICommand {
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setColor(Color.MAGENTA);
         embedBuilder.setTitle("Profile Management Help");
-        String commandsString = "!nep profile language (Your Language)\n" +
-                "!nep profile timezone (Your TimeZone) <Country/Region | GMT>\n" +
-                "!nep profile bio (Some Text) <Limit 700 Characters>\n";
+        String commandsString = """
+                !nep profile language (Your Language)
+                !nep profile timezone (Your TimeZone) <Country/Region | GMT>
+                !nep profile bio (Some Text) <Limit 700 Characters>
+                """;
         embedBuilder.addField("Commands", commandsString, false);
         return builder.setEmbeds(embedBuilder.build()).build();
     }
@@ -97,20 +99,16 @@ public class profile implements ICommand {
                 displayProfile(event, event.getAuthor().getId(), builder);
             }
             switch (command[0].toLowerCase()) {
-                case "language":
-                {
+                case "language" -> {
                     return updateLanguage(event, command[1], builder);
                 }
-                case "bio":
-                {
+                case "bio" -> {
                     return updateBio(event, command[1], builder);
                 }
-                case "timezone":
-                {
+                case "timezone" -> {
                     return updateTimezone(event, command[1], builder);
                 }
-                default:
-                {
+                default -> {
                     return displayHelp(event, builder);
                 }
             }

@@ -1,16 +1,14 @@
 package neptune.commands.FunCommands;
 
-import neptune.commands.ICommand;
 import neptune.commands.ISlashCommand;
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 
 import java.util.Random;
 
-public class WhyWasIBreached implements ICommand, ISlashCommand {
+public class WhyWasIBreached implements ISlashCommand {
     final String[] threatActors = {
         "Russians",
         "NSA",
@@ -106,22 +104,12 @@ public class WhyWasIBreached implements ICommand, ISlashCommand {
         "sent one of our guys to Defcon",
         "put a rotating lock GIF on our website"
     };
-    final Random random = new Random();
+    final Random random;
 
-
-    @Override
-    public Message run(GuildMessageReceivedEvent event, String messageContent, MessageBuilder builder) {
-        String stringBuilder = "The f***ing " +
-                threatActors[random.nextInt(threatActors.length)] +
-                " used " +
-                methods[random.nextInt(methods.length)] +
-                " to " +
-                targets[random.nextInt(targets.length)] +
-                " But we have since " +
-                mitigations[random.nextInt(mitigations.length)] +
-                " , so it will never happen again.";
-        return builder.setContent(stringBuilder).build();
+    public WhyWasIBreached() {
+        random = new Random();
     }
+
 
     @Override
     public CommandData RegisterCommand(CommandData commandData) {

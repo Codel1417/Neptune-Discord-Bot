@@ -11,14 +11,13 @@ import javax.annotation.Nonnull;
 
 public class CycleActivityThreadStarter implements EventListener {
     protected static final Logger log = LogManager.getLogger();
-    private Runnable CycleActivity;
     private boolean ActivityThread;
     @Override
     public void onEvent(@Nonnull GenericEvent event) {
         if (event instanceof ReadyEvent && !ActivityThread) {
             log.trace("Start: CycleActivity Thread");
-            CycleActivity = new CycleGameStatus((ReadyEvent) event);
-            Thread CycleActivityThread = new Thread(CycleActivity);
+            Runnable cycleActivity = new CycleGameStatus((ReadyEvent) event);
+            Thread CycleActivityThread = new Thread(cycleActivity);
             CycleActivityThread.setName("CycleActivityThread");
             CycleActivityThread.start();
             log.trace("Finish: CycleActivity Thread");

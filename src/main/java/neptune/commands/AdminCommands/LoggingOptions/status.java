@@ -1,7 +1,5 @@
 package neptune.commands.AdminCommands.LoggingOptions;
 
-import java.io.IOException;
-
 import neptune.commands.Helpers;
 import neptune.commands.ICommand;
 import neptune.storage.Enum.LoggingOptionsEnum;
@@ -14,10 +12,7 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import io.sentry.Sentry;
-
 import java.awt.*;
-import java.util.Objects;
 
 public class status implements ICommand {
     final Helpers helpers = new Helpers();
@@ -38,12 +33,11 @@ public class status implements ICommand {
             embedBuilder.addField("Channel", event.getGuild().getTextChannelById(LoggingChannel).getAsMention(), true);
         }
 
-        StringBuilder logOptionsMessage = new StringBuilder();
-        logOptionsMessage.append("Text Activity ").append(helpers.getEnabledDisabledIcon(guildentity.getLogOptions().getOption(LoggingOptionsEnum.TextChannelLogging))).append("\n");
-        logOptionsMessage.append("Voice Activity").append(helpers.getEnabledDisabledIcon(guildentity.getLogOptions().getOption(LoggingOptionsEnum.VoiceChannelLogging))).append("\n");
-        logOptionsMessage.append("Member Activity").append(helpers.getEnabledDisabledIcon(guildentity.getLogOptions().getOption(LoggingOptionsEnum.MemberActivityLogging))).append("\n");
-        logOptionsMessage.append("Server Changes ").append(helpers.getEnabledDisabledIcon(guildentity.getLogOptions().getOption(LoggingOptionsEnum.ServerModificationLogging))).append("\n");
-        embedBuilder.addField("Settings", logOptionsMessage.toString(),false);
+        String logOptionsMessage = "Text Activity " + helpers.getEnabledDisabledIcon(guildentity.getLogOptions().getOption(LoggingOptionsEnum.TextChannelLogging)) + "\n" +
+                "Voice Activity" + helpers.getEnabledDisabledIcon(guildentity.getLogOptions().getOption(LoggingOptionsEnum.VoiceChannelLogging)) + "\n" +
+                "Member Activity" + helpers.getEnabledDisabledIcon(guildentity.getLogOptions().getOption(LoggingOptionsEnum.MemberActivityLogging)) + "\n" +
+                "Server Changes " + helpers.getEnabledDisabledIcon(guildentity.getLogOptions().getOption(LoggingOptionsEnum.ServerModificationLogging)) + "\n";
+        embedBuilder.addField("Settings", logOptionsMessage,false);
         guildentity.closeSession();
         return builder.setEmbeds(embedBuilder.build()).build();
     }

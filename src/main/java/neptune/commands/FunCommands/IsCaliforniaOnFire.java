@@ -1,20 +1,13 @@
 package neptune.commands.FunCommands;
 
-import neptune.commands.ICommand;
-
 import neptune.commands.ISlashCommand;
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 
-public class IsCaliforniaOnFire implements ICommand, ISlashCommand {
+public class IsCaliforniaOnFire implements ISlashCommand {
 
-    @Override
-    public Message run(GuildMessageReceivedEvent event, String messageContent, MessageBuilder builder) {
-        return builder.setContent("Yes").build();
-    }
 
     @Override
     public CommandData RegisterCommand(CommandData commandData) {

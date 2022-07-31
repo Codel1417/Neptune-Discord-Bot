@@ -25,6 +25,11 @@ import java.util.List;
 import java.util.Random;
 
 public abstract class TenorGif {
+    final Random random;
+
+    protected TenorGif() {
+        random = new Random();
+    }
 
     protected EmbedBuilder getImageDefaultEmbed(
             GuildMessageReceivedEvent event, String Search, boolean MentionMessage) {
@@ -76,14 +81,14 @@ public abstract class TenorGif {
                 String.format(
                         "https://api.tenor.com/v1/search?q=%1$s&key=%2$s&limit=15&contentfilter=high&media_filter=minimal",
                         SearchTerm, API_KEY);
-        log.debug("Link " + url);
+        log.debug("Link %s".formatted(url));
         HttpURLConnection connection;
         try {
             // Get request
             connection = (HttpURLConnection) new URL(url).openConnection();
             connection.setRequestMethod("GET");
             connection.setRequestProperty("Content-Type", "application/json");
-            log.debug("Response Code = " + connection.getResponseCode());
+            log.debug("Response Code = %d".formatted(connection.getResponseCode()));
             BufferedReader in =
                     new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String inputLine;
@@ -101,7 +106,6 @@ public abstract class TenorGif {
             ObjectMapper mapper = new ObjectMapper();
             ObjectReader ImageListReader = mapper.readerFor(typeRefImageArray);
             ArrayList<JsonNode> imageArray = ImageListReader.readValue(jsonNode.get("results"));
-            Random random = new Random();
             JsonNode imageEntry = imageArray.get(random.nextInt(imageArray.size()));
             return imageEntry.get("media").get(0).get("gif").get("url").asText();
         } catch (IOException e) {

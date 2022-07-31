@@ -1,7 +1,6 @@
 package neptune.commands.audio;
 
 import io.sentry.Sentry;
-import neptune.commands.ICommand;
 import neptune.commands.ISlashCommand;
 import neptune.music.AudioController;
 
@@ -19,10 +18,10 @@ import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import java.io.File;
 import java.util.*;
 
-public class Say implements ICommand, ISlashCommand {
+public class Say implements ISlashCommand {
     final File folder = new File("Media" + File.separator + "say");
     private AudioController AudioOut;
-    private File[] listOfFiles;
+    private final File[] listOfFiles;
     private final HashMap<String, Long> rateLimitMap = new HashMap<>();
 
 
@@ -134,29 +133,6 @@ public class Say implements ICommand, ISlashCommand {
         return false;
     }
 
-    @Override
-    public Message run(GuildMessageReceivedEvent event, String messageContent, MessageBuilder builder) {
-        // rate limiting
-        if (isRateLimited(Objects.requireNonNull(event.getMember()).getUser())){
-            return builder.setContent("You are being rate limited. Please wait a few seconds.").build();
-        }
-        // open audio channel
-        if (AudioOut == null) {
-            AudioOut = new AudioController(event.getGuild());
-        }
-
-        Queue<File> results = searchQuotes(messageContent);
-        if (results.size() == 1) {
-            return saySingleMatch(results.iterator().next(), event, builder);
-        } else if (results.size() > 1) {
-            List<StringBuilder> preparedMessages = prepareLargeMessage(results);
-            Runnable runnable = () -> sendLargeMessage(preparedMessages, event.getAuthor());
-            Thread thread = new Thread(runnable);
-            thread.start();
-            return builder.setContent("Please check your DMs.").build();
-        }
-        return builder.setContent("No quotes found, Please try a different search.").build();
-    }
     public Say(){
         listOfFiles = folder.listFiles();
     }

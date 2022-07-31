@@ -1,8 +1,8 @@
 package neptune.storage;
 
+import jakarta.persistence.*;
 import org.hibernate.Session;
 
-import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity

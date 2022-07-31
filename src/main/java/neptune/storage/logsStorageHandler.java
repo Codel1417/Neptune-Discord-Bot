@@ -21,14 +21,14 @@ public class logsStorageHandler {
     private final StandardServiceRegistry ssr = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
     private final Metadata meta = new MetadataSources(ssr).getMetadataBuilder().build();
     private final SessionFactory factory = meta.getSessionFactoryBuilder().build();
-    public void writeFile(logObject logEntity) throws IOException {
+    public void writeFile(logObject logEntity) {
         Sentry.addBreadcrumb("Saving log entry for ID: " + logEntity.getMessageID());
         Session session = logEntity.getSession();
         if (session == null){
             session = factory.openSession();
         }
         Transaction transaction = session.beginTransaction();
-        session.saveOrUpdate(logEntity);
+        session.persist(logEntity);
         transaction.commit();
         session.close();
     }
@@ -42,14 +42,16 @@ public class logsStorageHandler {
     }
     private logsStorageHandler(){}
 
-    public logObject readFile(String messageID) throws IOException {
+    public logObject readFile(String messageID) {
         Sentry.addBreadcrumb("Loading Log for ID: " + messageID);
-        Session session = factory.openSession();
-        logObject temp = (logObject) session.get("neptune.storage.logObject", messageID);
-        if (temp == null) {
-            return null;
+        logObject temp;
+        try (Session session = factory.openSession()) {
+            temp = (logObject) session.get("neptune.storage.logObject", messageID);
+            if (temp == null) {
+                return null;
+            }
+            temp.setSession(session);
         }
-        temp.setSession(session);
         return temp;
     }
 
@@ -58,7 +60,7 @@ public class logsStorageHandler {
             logObject logEntity = readFile(messageID);
             Session session = logEntity.getSession();
             Transaction transaction = session.beginTransaction();
-            session.delete(logEntity);
+            session.remove(logEntity);
             transaction.commit();
             session.close();
             return true;
@@ -76,7 +78,7 @@ public class logsStorageHandler {
             guildObject guildEntity = guildStorageHandler.readFile(guildID);
             Session session = guildEntity.getSession();
             Transaction transaction = session.beginTransaction();
-            session.delete(guildEntity);
+            session.remove(guildEntity);
             transaction.commit();
             session.close();
             return true;

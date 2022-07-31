@@ -2,7 +2,6 @@ package neptune.commands;
 
 import neptune.music.AudioController;
 
-import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
@@ -21,10 +20,10 @@ public class RandomMediaPicker {
     private ArrayList<File> ImageFiles;
     private ArrayList<File> audioFiles;
     protected static final Logger log = LogManager.getLogger();
-    Random rand = new Random();
+    final Random rand = new Random();
 
-    public File sendMedia(File Folder, GuildMessageReceivedEvent event, boolean image, boolean audio) {
-        if (Folder == null || !Folder.exists() && !Folder.isDirectory()) return null; // null check
+    public void sendMedia(File Folder, GuildMessageReceivedEvent event, boolean image, boolean audio) {
+        if (Folder == null || !Folder.exists() && !Folder.isDirectory()) return; // null check
         log.trace("Finding Random Media from folder" + Folder.getAbsolutePath());
         searchFolder(Folder);
         log.trace("Image Files: " + ImageFiles.size() + " Audio Files: " + audioFiles.size());
@@ -38,12 +37,11 @@ public class RandomMediaPicker {
             AudioOut.playSound(event, audioFile.getAbsolutePath());
         }
         if (ImageFiles.size() != 0 && image) {
-            return ImageFiles.get(rand.nextInt(ImageFiles.size()));
+            rand.nextInt(ImageFiles.size());
         }
-        return null;
     }
-    public File sendMedia(File Folder, SlashCommandEvent event, boolean image, boolean audio) {
-        if (Folder == null || !Folder.exists() && !Folder.isDirectory()) return null; // null check
+    public void sendMedia(File Folder, SlashCommandEvent event, boolean image, boolean audio) {
+        if (Folder == null || !Folder.exists() && !Folder.isDirectory()) return; // null check
         log.trace("Finding Random Media from folder" + Folder.getAbsolutePath());
         searchFolder(Folder);
         log.trace("Image Files: " + ImageFiles.size() + " Audio Files: " + audioFiles.size());
@@ -57,9 +55,8 @@ public class RandomMediaPicker {
             AudioOut.playSound(event, audioFile.getAbsolutePath());
         }
         if (ImageFiles.size() != 0 && image) {
-            return ImageFiles.get(rand.nextInt(ImageFiles.size()));
+            rand.nextInt(ImageFiles.size());
         }
-        return null;
     }
     private void searchFolder(File Folder) {
         ImageFiles = new ArrayList<>();

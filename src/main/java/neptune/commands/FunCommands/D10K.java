@@ -1,13 +1,11 @@
 package neptune.commands.FunCommands;
 
 import neptune.commands.D10kEntries;
-import neptune.commands.ICommand;
 import neptune.commands.ISlashCommand;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
@@ -16,27 +14,12 @@ import org.jetbrains.annotations.NotNull;
 import java.awt.*;
 import java.util.Random;
 
-public class D10K implements ICommand, ISlashCommand {
-    D10kEntries d10kEntries = new D10kEntries();
-    Random random = new Random();
-    @Override
-    public Message run(GuildMessageReceivedEvent event, String messageContent, MessageBuilder builder) {
-        int number = 0;
-        EmbedBuilder embedBuilder = new EmbedBuilder();
-        String result;
+public class D10K implements ISlashCommand {
+    final D10kEntries d10kEntries = new D10kEntries();
+    final Random random;
 
-        try {
-            number = Integer.parseInt(messageContent);
-
-            // prevent numbers above 10,000
-            if (number > 10000) {
-                number = 0;
-            }
-        } catch (Exception e) {
-            //
-        }
-
-        return getMessage(builder, number, embedBuilder);
+    public D10K() {
+        random = new Random();
     }
 
     @NotNull

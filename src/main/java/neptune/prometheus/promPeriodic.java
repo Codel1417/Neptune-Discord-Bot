@@ -20,6 +20,7 @@ public class promPeriodic implements Runnable {
     }
     @Override
     public void run() {
+        //noinspection InfiniteLoopStatement
         while (true) {
             try {
                 Thread.sleep(60000);

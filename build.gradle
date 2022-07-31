@@ -2,15 +2,15 @@ plugins {
     id "java"
     id "application"
     id "jacoco"
-}
-ext {
-    javaMainClass = "neptune.Main"
+    id 'idea'
+    id "org.sonarqube" version "3.4.0.2513"
+    id 'org.jetbrains.kotlin.jvm' version '1.7.20-Beta1'
 }
 test {
     useJUnitPlatform()
 }
 application {
-    mainClassName = javaMainClass
+    mainClass.set("neptune.Main")
     applicationDefaultJvmArgs = ['-Dcom.sun.management.jmxremote=true','-Dcom.sun.management.jmxremote.local.only=false','-Dcom.sun.management.jmxremote.ssl=false','-Dcom.sun.management.jmxremote.port=1232','-Dcom.sun.management.jmxremote.rmi.port=1231','-Dcom.sun.management.jmxremote.authenticate=false']
 }
 group = 'codel1417'
@@ -23,8 +23,8 @@ tasks.withType(JavaCompile) {
 
 jacocoTestReport {
     reports {
-        xml.enabled true
-        html.enabled false
+        xml.required = true
+        html.required = false
     }
 }
 task codeCoverageReport(type: JacocoReport) {
@@ -35,10 +35,10 @@ task codeCoverageReport(type: JacocoReport) {
     }
 
     reports {
-        xml.enabled true
+        xml.required = true
         xml.destination file("${buildDir}/reports/jacoco/report.xml")
-        html.enabled false
-        csv.enabled false
+        html.required = false
+        csv.required = false
     }
 }
 check.dependsOn jacocoTestReport
@@ -76,5 +76,16 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.3'
     implementation 'com.fasterxml.jackson.core:jackson-core:2.13.2'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 
+}
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }

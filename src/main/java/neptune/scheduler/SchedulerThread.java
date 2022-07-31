@@ -10,15 +10,15 @@ import neptune.scheduler.entry.AbstractEntry;
 import neptune.scheduler.entry.IAction;
 
 public class SchedulerThread implements Runnable {
-    private final JDA jda;
     protected static final Logger log = LogManager.getLogger();
 
     protected SchedulerThread(ReadyEvent event) {
-        this.jda = event.getJDA();
+        JDA jda = event.getJDA();
     }
 
     @Override
     public void run() {
+        //noinspection InfiniteLoopStatement
         while (true){
             long currenttime = System.currentTimeMillis();
             for(IAction currentEntry: ScheduledTaskStorage.getInstance().getEntries()){

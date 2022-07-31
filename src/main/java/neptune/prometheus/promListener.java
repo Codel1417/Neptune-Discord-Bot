@@ -14,7 +14,6 @@ import io.prometheus.client.exporter.HTTPServer;
 //import io.prometheus.client.hotspot.DefaultExports;
 
 public class promListener implements EventListener{
-    private static HTTPServer server;
     protected static final Logger log = LogManager.getLogger();
     static final Counter REQUESTS = Counter.build()
     .name("events_total").help("Total JDA Listener Events.").register();
@@ -25,7 +24,8 @@ public class promListener implements EventListener{
         //log.trace("Finish: Default Exports");
         log.trace("Start: HTTP Server");
         try {
-            server = new HTTPServer(1234);
+            try (HTTPServer server = new HTTPServer(1234)) {
+            }
         } catch (IOException e1) {
                throw new RuntimeException(e1);
         }
