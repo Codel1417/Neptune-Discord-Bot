@@ -3,7 +3,7 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>  
     <session-factory>  
-        <property name="hibernate.connection.dialect">org.hibernate.dialect.MariaDB103Dialect</property>
+        <property name="hibernate.connection.dialect">org.hibernate.dialect.MariaDBDialect</property>
         <property name="hibernate.connection.url">jdbc:mariadb://db/neptune</property>
         <property name="hibernate.connection.driver_class">org.mariadb.jdbc.Driver</property>
         <property name="hibernate.connection.username">neptune</property>
@@ -12,5 +12,34 @@
         <mapping class="neptune.storage.profileObject"/>
         <mapping class="neptune.storage.Guild.guildObject"/>
         <mapping class="neptune.storage.logObject"/>
+
+        <!--connection pooling-->
+        <property name="hibernate.connection.pool_size">10</property>
+        <property name="hibernate.connection.autocommit">false</property>
+        <property name="hibernate.connection.isolation">2</property>
+        <property name="hibernate.connection.timeout">60</property>
+        <property name="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>
+        <property name="hibernate.c3p0.acquire_increment">1</property>
+        <property name="hibernate.c3p0.idle_test_period">60</property>
+        <property name="hibernate.c3p0.max_size">100</property>
+        <property name="hibernate.c3p0.min_size">10</property>
+        <property name="hibernate.c3p0.timeout">300</property>
+        <property name="hibernate.c3p0.max_statements">50</property>
+        <property name="hibernate.c3p0.acquire_retry_attempts">3</property>
+        <property name="hibernate.c3p0.acquire_retry_delay">1000</property>
+        <property name="hibernate.c3p0.break_after_acquire_failure">false</property>
+
+        <!--redis cache-->
+        <property name="hibernate.cache.use_second_level_cache">true</property>
+        <property name="hibernate.cache.use_query_cache">true</property>
+        <property name="hibernate.cache.region.factory_class">org.hibernate.cache.redis.RedisRegionFactory</property>
+        <property name="hibernate.cache.redis.use_binary_protocol">true</property>
+        <property name="hibernate.cache.redisson.fallback">true </property>
+        <property name="hibernate.cache.redis.host">redis</property>
+        <property name="hibernate.cache.redis.port">6379</property>
+        <property name="hibernate.cache.redis.database">0</property>
+        <property name="hibernate.cache.redis.timeout">2000</property>
+
+
     </session-factory>
 </hibernate-configuration>
