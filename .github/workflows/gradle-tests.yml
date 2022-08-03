@@ -11,9 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        java: ['17']
+        java: [ '17' ]
         distribution: [ 'zulu', 'temurin', 'adopt' ]
     steps:
+      - uses: actions/checkout@v2
       - name: Shutdown Ubuntu MySQL (SUDO)
         run: sudo service mysql stop
       - uses: getong/mariadb-action@v1.1
@@ -25,12 +26,10 @@ jobs:
       - uses: getong/redis-action@v1
         with:
           redis password: 'jsZSc4p9D3jRj5'
-      - name: Wait for MySQL
-        run: |
-          while ! mysqladmin ping --host=127.0.0.1 --password=neptune --silent; do
-          sleep 1
-          done
-      - uses: actions/checkout@v2
+      - uses: Install Tesseract
+        run: RUN apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get install -y --no-install-recommends tesseract-ocr
+      - name: Clone project
+        run: git clone https://github.com/tesseract-ocr/tessdata
       - name: Set up JDK
         uses: actions/setup-java@v2
         with:
@@ -39,6 +38,12 @@ jobs:
           cache: gradle
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
+      - name: Wait for MySQL
+        run: |
+          while ! mysqladmin ping --host=127.0.0.1 --password=neptune --silent; do
+          sleep 1
+          done
+
       - name: Test with Gradle
         run: ./gradlew test
       - name: Archive Test Results

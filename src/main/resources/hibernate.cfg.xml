@@ -39,6 +39,7 @@
         <property name="hibernate.cache.redis.port">6379</property>
         <property name="hibernate.cache.redis.database">0</property>
         <property name="hibernate.cache.redis.timeout">2000</property>
+        <property name="hibernate.cache.redis.password">jsZSc4p9D3jRj5</property>
 
 
     </session-factory>

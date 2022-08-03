@@ -2,9 +2,13 @@ package neptune.commands.ImageCommands;
 
 import neptune.commands.ICommand;
 import neptune.commands.Helpers;
+import neptune.commands.ISlashCommand;
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.sourceforge.tess4j.Tesseract;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
