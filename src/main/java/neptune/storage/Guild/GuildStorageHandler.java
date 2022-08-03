@@ -67,7 +67,7 @@ public class GuildStorageHandler {
                     session = factory.openSession();
                 }
                 Transaction t = session.beginTransaction();
-                session.persist(guildEntity);
+                session.merge(guildEntity);
                 t.commit();
 
                 session.close();
