@@ -69,11 +69,9 @@ dependencies {
     implementation group: 'io.sentry', name: 'sentry', version: '6.5.0'
     implementation group: 'io.sentry', name: 'sentry-log4j2', version: '6.3.0'
     implementation 'org.hibernate.orm:hibernate-c3p0:6.1.4.Final'
-    implementation 'org.redisson:redisson-hibernate-6:3.17.7'
     implementation 'org.mariadb.jdbc:mariadb-java-client:3.0.6'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
     testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.4'
     implementation 'com.fasterxml.jackson.core:jackson-core:2.13.4'
-
 }

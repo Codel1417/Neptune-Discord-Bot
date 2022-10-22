@@ -1,6 +1,7 @@
 package neptune;
 
 import neptune.commands.ListenerHandler;
+import neptune.storage.HibernateUtil;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
@@ -34,6 +35,7 @@ public class Main {
         });
         log.trace("Finish Init Sentry");
         */
+        HibernateUtil.Initialize();
         log.trace("Begin Init JDA");
         startJDA(System.getenv("NEPTUNE_TOKEN"));
         log.trace("End Init JDA");
