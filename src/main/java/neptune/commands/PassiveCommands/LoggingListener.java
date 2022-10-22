@@ -2,9 +2,9 @@ package neptune.commands.PassiveCommands;
 
 import io.sentry.Sentry;
 import neptune.serverLogging.GuildLogging;
-import neptune.storage.Enum.LoggingOptionsEnum;
-import neptune.storage.Guild.GuildStorageHandler;
-import neptune.storage.Guild.guildObject;
+import neptune.storage.dao.GuildDao;
+import neptune.storage.entity.GuildEntity;
+import neptune.storage.entity.LogOptionsEntity;
 import net.dv8tion.jda.api.events.GenericEvent;
 import net.dv8tion.jda.api.events.guild.GenericGuildEvent;
 import net.dv8tion.jda.api.events.guild.member.GenericGuildMemberEvent;
@@ -22,19 +22,20 @@ public class LoggingListener implements EventListener {
     @Override
     public void onEvent(@NotNull GenericEvent event) {
         if (event instanceof GenericGuildEvent){
-            guildObject guildEntity;
+            GuildDao guildDao = new GuildDao();
+            GuildEntity guildEntity;
             try {
-                guildEntity = GuildStorageHandler.getInstance().readFile(((GenericGuildEvent) event).getGuild().getId());
+                guildEntity = guildDao.getGuild(((GenericGuildEvent) event).getGuild().getId());
             } catch (Exception e) {
                 log.error(e);
                 Sentry.captureException(e);
                 return;
             }
-            guildObject.logOptionsObject logOptionsEntity = guildEntity.getLogOptions();
+            LogOptionsEntity logOptionsEntity = guildEntity.getLogConfig();
 
             // check if logging is set up first
             if (logOptionsEntity.getChannel() == null) return;
-            if (!logOptionsEntity.getOption(LoggingOptionsEnum.GlobalLogging)) return;
+            if (!logOptionsEntity.isGlobalLogging()) return;
 
             if (event instanceof GenericGuildVoiceEvent) {
                 guildLogging.GuildVoice((GenericGuildVoiceEvent) event, logOptionsEntity);
@@ -45,7 +46,6 @@ public class LoggingListener implements EventListener {
             } else if (event instanceof GenericGuildUpdateEvent) {
                 guildLogging.GuildSettings((GenericGuildUpdateEvent) event, logOptionsEntity);
             }
-            guildEntity.closeSession();
         }
 
     }

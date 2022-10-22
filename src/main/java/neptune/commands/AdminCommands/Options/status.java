@@ -3,9 +3,9 @@ package neptune.commands.AdminCommands.Options;
 
 import neptune.commands.Helpers;
 import neptune.commands.ICommand;
-import neptune.storage.Enum.GuildOptionsEnum;
-import neptune.storage.Guild.GuildStorageHandler;
-import neptune.storage.Guild.guildObject;
+import neptune.storage.dao.GuildDao;
+import neptune.storage.entity.GuildEntity;
+import neptune.storage.entity.GuildOptionsEntity;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.Message;
@@ -25,14 +25,15 @@ public class status implements ICommand {
     @Override
     public Message run(GuildMessageReceivedEvent event, String messageContent, MessageBuilder builder) {
         try {
-            guildObject guildentity = GuildStorageHandler.getInstance().readFile(event.getGuild().getId());
+            GuildDao guildDao = new GuildDao();
+            GuildEntity guildentity = guildDao.getGuild(event.getGuild().getId());
+            GuildOptionsEntity guildOptionsEntity = guildentity.getConfig();
             EmbedBuilder embedBuilder = new EmbedBuilder();
             embedBuilder.setColor(Color.MAGENTA);
             embedBuilder.setTitle("Options");
 
             StringBuilder logOptionsMessage = new StringBuilder();
-            logOptionsMessage.append("Leaderboard Level-Up Notifications").append(helpers.getEnabledDisabledIcon(guildentity.getGuildOptions().getOption(GuildOptionsEnum.LeaderboardLevelUpNotification))).append("\n");
-            guildentity.closeSession();
+            logOptionsMessage.append("Leaderboard Level-Up Notifications").append(helpers.getEnabledDisabledIcon(guildOptionsEntity.isLeaderboardLevelUpNotification())).append("\n");
             return builder.setEmbeds(embedBuilder.build()).build();
         } catch (Exception e) {
             log.error(e);

@@ -1,8 +1,8 @@
 package neptune.commands.UtilityCommands;
 
 import neptune.commands.ISlashCommand;
-import neptune.storage.profileObject;
-import neptune.storage.profileStorage;
+import neptune.storage.dao.GuildDao;
+import neptune.storage.entity.ProfileEntity;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.MessageBuilder;
@@ -42,14 +42,12 @@ public class Leaderboard implements ISlashCommand {
         return points;
     }
     public LinkedHashMap<String, Integer> getTopUsers(Guild guild) {
-        profileStorage storage = profileStorage.getInstance();
+        GuildDao guildDao = new GuildDao();
+        List<ProfileEntity> profiles = guildDao.getGuild(guild.getId()).getProfile();
 
-        List<Member> guildMembers = guild.getMembers();
         HashMap<String, Integer> leaderboards = new HashMap<>();
-        for (Member member : guildMembers){
-            profileObject profile = storage.getProfile(member.getId());
-            leaderboards.put(member.getId(), profile.getPoints());
-            profile.closeSession();
+        for (ProfileEntity member : profiles){
+            leaderboards.put(member.getId(), member.getPoints());
         }
         LinkedHashMap<String, Integer> reverseSortedMap = new LinkedHashMap<>();
 

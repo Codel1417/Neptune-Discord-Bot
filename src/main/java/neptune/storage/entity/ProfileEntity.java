@@ -1,41 +1,23 @@
-package neptune.storage;
+package neptune.storage.entity;
 
 import jakarta.persistence.*;
-import org.hibernate.Session;
 
 import java.util.TimeZone;
 @Entity
 @Table(name= "Profiles")
-public class profileObject {
-    protected profileObject(){}
+@Cacheable
+public class ProfileEntity {
+    protected ProfileEntity(){}
     private int leaderboardPoints;
     @Id
     private String id;
-    protected String getId(){
+    public String getId(){
         return id;
     }
 
-    public profileObject(String ID){
+    public ProfileEntity(String ID){
         id = ID;
         leaderboardPoints = 0;
-    }
-    @Transient
-    private Session session;
-
-    public Session getSession(){
-        return session;
-    }
-    protected void setSession(Session session){
-        this.session = session;
-    }
-    public void closeSession(){
-        if (session != null && session.isOpen()){
-            if (writeOnClose){
-                profileStorage profileStorage = neptune.storage.profileStorage.getInstance();
-                profileStorage.serialize(this);
-            }
-            else session.close();
-        }
     }
 
     public int getPoints() {
@@ -81,14 +63,29 @@ public class profileObject {
             return true;
         } else return false;
     }
-    @Transient
-    private boolean writeOnClose = false;
-    protected void setWriteOnClose(boolean bool){
-        writeOnClose = bool;
+    @ManyToOne
+    @JoinColumn(name = "guildID")
+    private GuildEntity guildEntity;
+
+    public int getLeaderboardPoints() {
+        return leaderboardPoints;
     }
 
-    @Version
-    private Integer version;
+    public void setLeaderboardPoints(int leaderboardPoints) {
+        this.leaderboardPoints = leaderboardPoints;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public GuildEntity getGuildEntity() {
+        return guildEntity;
+    }
+
+    public void setGuildEntity(GuildEntity guildEntity) {
+        this.guildEntity = guildEntity;
+    }
 
     public Integer getVersion() {
         return version;
@@ -97,4 +94,7 @@ public class profileObject {
     public void setVersion(Integer version) {
         this.version = version;
     }
+
+    @Version
+    private Integer version;
 }

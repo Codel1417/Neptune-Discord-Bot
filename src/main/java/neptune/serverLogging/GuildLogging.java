@@ -1,11 +1,10 @@
 package neptune.serverLogging;
 
 import io.sentry.Sentry;
-import neptune.storage.Enum.LoggingOptionsEnum;
-import neptune.storage.Guild.guildObject.logOptionsObject;
-import neptune.storage.logObject;
-import neptune.storage.logsStorageHandler;
+import neptune.storage.entity.LogEntity;
+import neptune.storage.dao.LogsDao;
 
+import neptune.storage.entity.LogOptionsEntity;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.guild.member.*;
@@ -20,18 +19,16 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.awt.*;
-import java.io.IOException;
 import java.util.Objects;
 
 public class GuildLogging {
-    final logsStorageHandler logsStorageHandler = neptune.storage.logsStorageHandler.getInstance();
     protected static final Logger log = LogManager.getLogger();
 
-    public void GuildVoice(GenericGuildVoiceEvent event, logOptionsObject LoggingOptions) {
+    public void GuildVoice(GenericGuildVoiceEvent event, LogOptionsEntity LoggingOptions) {
         TextChannel textChannel = event.getGuild().getTextChannelById(LoggingOptions.getChannel());
 
         // check if logging is enabled
-        if (!LoggingOptions.getOption(LoggingOptionsEnum.VoiceChannelLogging)) {
+        if (!LoggingOptions.isVoiceChannelLogging()) {
             return;
         }
         if (event instanceof GuildVoiceJoinEvent) {
@@ -90,11 +87,11 @@ public class GuildLogging {
         textChannel.sendMessageEmbeds(embedBuilder.build()).queue();
     }
 
-    public void GuildText(GenericGuildMessageEvent event, logOptionsObject LoggingOptions) {
+    public void GuildText(GenericGuildMessageEvent event, LogOptionsEntity LoggingOptions) {
         TextChannel textChannel = event.getGuild().getTextChannelById(LoggingOptions.getChannel());
 
         // check if logging is enabled
-        if (!LoggingOptions.getOption(LoggingOptionsEnum.TextChannelLogging)) {
+        if (!LoggingOptions.isTextChannelLogging()) {
             return;
         }
 
@@ -111,14 +108,14 @@ public class GuildLogging {
             if ("".equals(((GuildMessageReceivedEvent) event).getMessage().getContentRaw())){
                 return;
             }
-            logObject logEntity = new logObject();
+            LogEntity logEntity = new LogEntity();
             logEntity.setGuildID(event.getGuild().getId());
             logEntity.setChannelID(event.getChannel().getId());
             logEntity.setMemberID(((GuildMessageReceivedEvent) event).getAuthor().getId());
             logEntity.setMessageID(event.getMessageId());
             logEntity.setMessageContent(((GuildMessageReceivedEvent) event).getMessage().getContentDisplay());
-            logsStorageHandler logsStorageHandler = neptune.storage.logsStorageHandler.getInstance();
-            logsStorageHandler.writeFile(logEntity);
+            LogsDao LogsDao = new LogsDao();
+            LogsDao.writeFile(logEntity);
         }
         if (event instanceof GuildMessageUpdateEvent) {
             GuildText((GuildMessageUpdateEvent) event, Objects.requireNonNull(textChannel));
@@ -137,10 +134,11 @@ public class GuildLogging {
             return;
         }
         try {
-            logObject logEntity = logsStorageHandler.readFile(event.getMessageId());
+            LogsDao LogsDao = new LogsDao();
+            LogEntity logEntity = LogsDao.readFile(event.getMessageId());
             PreviousMessage = logEntity.getMessageContent();
             logEntity.setMessageContent(event.getMessage().getContentDisplay());
-            logsStorageHandler.writeFile(logEntity);
+            LogsDao.writeFile(logEntity);
 
         } catch (NullPointerException e) {
             log.error(e);
@@ -164,9 +162,10 @@ public class GuildLogging {
     private void GuildText(GuildMessageDeleteEvent event, TextChannel textChannel) {
         String PreviousMessage = "";
         User user = null;
-        logObject logEntity = logsStorageHandler.readFile(event.getMessageId());
+        LogsDao LogsDao = new LogsDao();
+        LogEntity logEntity = LogsDao.readFile(event.getMessageId());
         PreviousMessage = logEntity.getMessageContent();
-        logsStorageHandler.deleteFile(event.getMessageId());
+        LogsDao.deleteFile(event.getMessageId());
         user = event.getJDA().getUserById(logEntity.getMemberID());
 
         // stops bot messages and self messages from being logged.
@@ -190,11 +189,11 @@ public class GuildLogging {
         textChannel.sendMessageEmbeds(embedBuilder.build()).queue();
     }
 
-    public void GuildMember(GenericGuildMemberEvent event, logOptionsObject LoggingOptions) {
+    public void GuildMember(GenericGuildMemberEvent event, LogOptionsEntity LoggingOptions) {
         TextChannel textChannel = event.getGuild().getTextChannelById(LoggingOptions.getChannel());
 
         // check if logging is enabled
-        if (!LoggingOptions.getOption(LoggingOptionsEnum.MemberActivityLogging)) {
+        if (!LoggingOptions.isMemberActivityLogging()) {
             return;
         }
 
@@ -264,11 +263,11 @@ public class GuildLogging {
         textChannel.sendMessageEmbeds(embedBuilder.build()).queue();
     }
 
-    public void GuildSettings(GenericGuildUpdateEvent event, logOptionsObject LoggingOptions) {
+    public void GuildSettings(GenericGuildUpdateEvent event, LogOptionsEntity LoggingOptions) {
         TextChannel textChannel = event.getGuild().getTextChannelById(LoggingOptions.getChannel());
 
         // check if logging is enabled
-        if (!LoggingOptions.getOption(LoggingOptionsEnum.ServerModificationLogging)) {
+        if (!LoggingOptions.isServerModificationLogging()) {
             return;
         }
         if (event instanceof GuildUpdateAfkChannelEvent) {

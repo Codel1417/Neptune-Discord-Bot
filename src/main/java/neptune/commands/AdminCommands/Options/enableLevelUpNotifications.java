@@ -1,9 +1,8 @@
 package neptune.commands.AdminCommands.Options;
 
 import neptune.commands.ICommand;
-import neptune.storage.Enum.GuildOptionsEnum;
-import neptune.storage.Guild.GuildStorageHandler;
-import neptune.storage.Guild.guildObject;
+import neptune.storage.dao.GuildDao;
+import neptune.storage.entity.GuildEntity;
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
@@ -15,10 +14,10 @@ public class enableLevelUpNotifications implements ICommand {
 
     @Override
     public Message run(GuildMessageReceivedEvent event, String messageContent, MessageBuilder builder) {
-        guildObject guildentity = GuildStorageHandler.getInstance().readFile(event.getGuild().getId());
-        guildentity.getGuildOptions().setOption(GuildOptionsEnum.LeaderboardLevelUpNotification, true);
-        GuildStorageHandler.getInstance().writeFile(guildentity);
-        guildentity.closeSession();
+        GuildDao guildDao = new GuildDao();
+        GuildEntity guildentity = guildDao.getGuild(event.getGuild().getId());
+        guildentity.getConfig().setLeaderboardLevelUpNotification(true);
+        guildDao.saveGuild(guildentity);
         return builder.setContent("Leaderboard level-up notifications enabled.").build();
     }
 }

@@ -1,13 +1,13 @@
 package neptune.commands.PassiveCommands;
 
-import neptune.storage.logsStorageHandler;
+import neptune.storage.dao.LogsDao;
 import net.dv8tion.jda.api.events.GenericEvent;
 import net.dv8tion.jda.api.events.guild.GuildLeaveEvent;
 import net.dv8tion.jda.api.hooks.EventListener;
 import org.jetbrains.annotations.NotNull;
 
 public class GuildListener implements EventListener {
-    final logsStorageHandler logStorage = logsStorageHandler.getInstance();
+    final LogsDao logStorage = new LogsDao();
 
     @Override
     public void onEvent(@NotNull GenericEvent event) {

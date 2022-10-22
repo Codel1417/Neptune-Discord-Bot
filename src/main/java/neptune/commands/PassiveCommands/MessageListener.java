@@ -2,9 +2,8 @@ package neptune.commands.PassiveCommands;
 
 import neptune.commands.CommandHandler;
 import neptune.commands.RandomMediaPicker;
-import neptune.storage.Enum.GuildOptionsEnum;
-import neptune.storage.Guild.GuildStorageHandler;
-import neptune.storage.Guild.guildObject;
+import neptune.storage.dao.GuildDao;
+import neptune.storage.entity.GuildEntity;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.GenericEvent;
 import net.dv8tion.jda.api.events.ReadyEvent;
@@ -36,11 +35,11 @@ public class MessageListener implements EventListener {
             if (((GuildMessageReceivedEvent) event).getAuthor().isBot()){
                 return;
             }
-            guildObject guildEntity;
+            GuildDao guildDao = new GuildDao();
+            GuildEntity guildEntity;
             try {
-                guildEntity = GuildStorageHandler.getInstance().readFile(((GenericGuildEvent) event).getGuild().getId());
+                guildEntity = guildDao.getGuild(((GuildMessageReceivedEvent) event).getMember().getId());
                 runEvent((GuildMessageReceivedEvent) event, guildEntity);
-                guildEntity.closeSession();
             } catch (Exception e) {
                 log.error(e);
                 Sentry.captureException(e);
@@ -68,10 +67,10 @@ public class MessageListener implements EventListener {
         return false;
     }
 
-    public void runEvent(GuildMessageReceivedEvent event, guildObject guildEntity) {
+    public void runEvent(GuildMessageReceivedEvent event, GuildEntity guildEntity) {
         // check if the bot was called in chat
         try {
-            boolean multiPrefix = guildEntity.getGuildOptions().getOption(GuildOptionsEnum.customSounds);
+            boolean multiPrefix = guildEntity.getConfig().isCustomSoundsEnabled();
             if (isBotCalled(event.getMessage(), false)){
                 nepCommands.run(event);
             }

@@ -2,9 +2,9 @@ package neptune.commands.AdminCommands.LoggingOptions;
 
 import neptune.commands.Helpers;
 import neptune.commands.ICommand;
-import neptune.storage.Enum.LoggingOptionsEnum;
-import neptune.storage.Guild.GuildStorageHandler;
-import neptune.storage.Guild.guildObject;
+import neptune.storage.dao.GuildDao;
+import neptune.storage.entity.GuildEntity;
+import neptune.storage.entity.LogOptionsEntity;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.Message;
@@ -20,25 +20,26 @@ public class status implements ICommand {
 
     @Override
     public Message run(GuildMessageReceivedEvent event, String messageContent, MessageBuilder builder) {
-        guildObject guildentity = GuildStorageHandler.getInstance().readFile(event.getGuild().getId());
+        GuildDao guildDao = new GuildDao();
+        GuildEntity guildentity = guildDao.getGuild(event.getGuild().getId());
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setColor(Color.MAGENTA);
         embedBuilder.setTitle("Logging Options");
 
         // logging status
-        String LoggingChannel = guildentity.getLogOptions().getChannel();
+        String LoggingChannel = guildentity.getLogConfig().getChannel();
+        LogOptionsEntity logOptionsEntity = guildentity.getLogConfig();
 
-        embedBuilder.addField("Global Logging Status",helpers.getEnabledDisabledIconText(guildentity.getLogOptions().getOption(LoggingOptionsEnum.GlobalLogging)),true);
+        embedBuilder.addField("Global Logging Status",helpers.getEnabledDisabledIconText(logOptionsEntity.isGlobalLogging()),true);
         if (!LoggingChannel.equalsIgnoreCase("")) {
             embedBuilder.addField("Channel", event.getGuild().getTextChannelById(LoggingChannel).getAsMention(), true);
         }
 
-        String logOptionsMessage = "Text Activity " + helpers.getEnabledDisabledIcon(guildentity.getLogOptions().getOption(LoggingOptionsEnum.TextChannelLogging)) + "\n" +
-                "Voice Activity" + helpers.getEnabledDisabledIcon(guildentity.getLogOptions().getOption(LoggingOptionsEnum.VoiceChannelLogging)) + "\n" +
-                "Member Activity" + helpers.getEnabledDisabledIcon(guildentity.getLogOptions().getOption(LoggingOptionsEnum.MemberActivityLogging)) + "\n" +
-                "Server Changes " + helpers.getEnabledDisabledIcon(guildentity.getLogOptions().getOption(LoggingOptionsEnum.ServerModificationLogging)) + "\n";
+        String logOptionsMessage = "Text Activity " + helpers.getEnabledDisabledIcon(logOptionsEntity.isTextChannelLogging()) + "\n" +
+                "Voice Activity" + helpers.getEnabledDisabledIcon(logOptionsEntity.isVoiceChannelLogging()) + "\n" +
+                "Member Activity" + helpers.getEnabledDisabledIcon(logOptionsEntity.isMemberActivityLogging()) + "\n" +
+                "Server Changes " + helpers.getEnabledDisabledIcon(logOptionsEntity.isServerModificationLogging()) + "\n";
         embedBuilder.addField("Settings", logOptionsMessage,false);
-        guildentity.closeSession();
         return builder.setEmbeds(embedBuilder.build()).build();
     }
 }

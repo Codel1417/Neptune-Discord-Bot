@@ -1,7 +1,7 @@
-import neptune.storage.Guild.GuildStorageHandler;
-import neptune.storage.Guild.guildObject;
-import neptune.storage.logObject;
-import neptune.storage.logsStorageHandler;
+import neptune.storage.dao.GuildDao;
+import neptune.storage.entity.GuildEntity;
+import neptune.storage.entity.LogEntity;
+import neptune.storage.dao.LogsDao;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -15,31 +15,31 @@ public class logStorageTests
     @Tag("DB")
     public void testWriteLog() throws IOException {
         GuildCreator();
-        logObject logEntity = new logObject();
+        LogEntity logEntity = new LogEntity();
         logEntity.setChannelID("1");
         logEntity.setGuildID("1");
         logEntity.setMemberID("1");
         logEntity.setMessageID("1");
         logEntity.setMessageContent("Test");
-        logsStorageHandler logsStorageHandler = neptune.storage.logsStorageHandler.getInstance();
-        logsStorageHandler.writeFile(logEntity);
+        LogsDao LogsDao = new LogsDao();
+        LogsDao.writeFile(logEntity);
     }
     @Test
     @Tag("DB")
     public void testReadLog() throws IOException {
         GuildCreator();
-        logObject logEntity = new logObject();
+        LogEntity logEntity = new LogEntity();
         logEntity.setChannelID("1");
         logEntity.setGuildID("1");
         logEntity.setMemberID("1");
         logEntity.setMessageID("1");
         logEntity.setMessageContent("Test");
-        logsStorageHandler logsStorageHandler = neptune.storage.logsStorageHandler.getInstance();
-        logsStorageHandler.deleteFile("1"); //Delete entry if already exists
-        logsStorageHandler.writeFile(logEntity);
+        LogsDao LogsDao = new LogsDao();
+        LogsDao.deleteFile("1"); //Delete entry if already exists
+        LogsDao.writeFile(logEntity);
 
-        logsStorageHandler logsStorageHandler2 = neptune.storage.logsStorageHandler.getInstance();
-        logObject logEntity2 = logsStorageHandler2.readFile("1");
+        LogsDao logsDao2 = new LogsDao();
+        LogEntity logEntity2 = logsDao2.readFile("1");
         assertNotNull(logEntity2);
         //compare all values
         assertEquals(logEntity.getChannelID(),logEntity2.getChannelID());
@@ -50,9 +50,9 @@ public class logStorageTests
         assertEquals(logEntity.getTimestamp(),logEntity2.getTimestamp());
     }
     private void GuildCreator(){
-        GuildStorageHandler guildStorageHandler = GuildStorageHandler.getInstance();
-        guildObject guildEntity = guildStorageHandler.readFile("1");
-        guildStorageHandler.writeFile(guildEntity);
+        GuildDao guildDao = new GuildDao();
+        GuildEntity guildEntity = guildDao.getGuild("1");
+        guildDao.saveGuild(guildEntity);
     }
 
 }

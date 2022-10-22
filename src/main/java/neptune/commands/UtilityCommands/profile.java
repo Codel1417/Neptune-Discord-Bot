@@ -2,13 +2,15 @@ package neptune.commands.UtilityCommands;
 
 import neptune.commands.ICommand;
 import neptune.commands.Helpers;
-import neptune.storage.profileObject;
-import neptune.storage.profileStorage;
+import neptune.storage.dao.GuildDao;
+import neptune.storage.entity.GuildEntity;
+import neptune.storage.entity.ProfileEntity;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import java.awt.Color;
+import java.util.List;
 import java.util.Objects;
 import java.util.TimeZone;
 import org.apache.logging.log4j.LogManager;
@@ -34,8 +36,10 @@ public class profile implements ICommand {
     }
 
     public Message displayProfile(GuildMessageReceivedEvent event, String MemberID, MessageBuilder builder) {
-        profileStorage storage = profileStorage.getInstance();
-        profileObject profile = storage.getProfile(Objects.requireNonNull(event.getMember()).getId());
+        GuildDao guildDao = new GuildDao();
+        GuildEntity guildentity = guildDao.getGuild(event.getGuild().getId());
+        List<ProfileEntity> profileEntities = guildentity.getProfile();
+        ProfileEntity profile = profileEntities.stream().filter(x -> x.getId().equals(MemberID)).findFirst().orElse(null);
 
         int points = profile.getPoints();
         EmbedBuilder embedBuilder = new EmbedBuilder();
@@ -49,16 +53,20 @@ public class profile implements ICommand {
         }
         embedBuilder.addField("Points", String.valueOf(points), true);
         embedBuilder.setFooter("Use '!nep profile help' to get a list of profile commands.");
-        profile.closeSession();
         return builder.setEmbeds(embedBuilder.build()).build();
     }
 
     public Message updateBio(GuildMessageReceivedEvent event, String Bio, MessageBuilder builder) {
 
-        profileStorage storage = profileStorage.getInstance();
-        profileObject profile = storage.getProfile(Objects.requireNonNull(event.getMember()).getId());
+        GuildDao guildDao = new GuildDao();
+        GuildEntity guildentity = guildDao.getGuild(event.getGuild().getId());
+        List<ProfileEntity> profileEntities = guildentity.getProfile();
+        ProfileEntity profile = profileEntities.stream().filter(x -> x.getId().equals(event.getMember().getId())).findFirst().orElse(new ProfileEntity(event.getMember().getId()));
+        if (profileEntities.stream().noneMatch(x -> x.getId().equals(event.getMember().getId()))) {
+            profileEntities.add(profile);
+        }
         boolean result = profile.setBio(Bio);
-        storage.serialize(profile);
+        guildDao.saveGuild(guildentity);
         if (result) {
             return displayProfile(event, event.getAuthor().getId(), builder);
         } else {
@@ -67,10 +75,15 @@ public class profile implements ICommand {
     }
 
     public Message updateTimezone(GuildMessageReceivedEvent event, String TimeZone, MessageBuilder builder) {
-        profileStorage storage = profileStorage.getInstance();
-        profileObject profile = storage.getProfile(Objects.requireNonNull(event.getMember()).getId());
+        GuildDao guildDao = new GuildDao();
+        GuildEntity guildentity = guildDao.getGuild(event.getGuild().getId());
+        List<ProfileEntity> profileEntities = guildentity.getProfile();
+        ProfileEntity profile = profileEntities.stream().filter(x -> x.getId().equals(event.getMember().getId())).findFirst().orElse(new ProfileEntity(event.getMember().getId()));
+        if (profileEntities.stream().noneMatch(x -> x.getId().equals(event.getMember().getId()))) {
+            profileEntities.add(profile);
+        }
         boolean result = profile.setTimeZone(TimeZone);
-        storage.serialize(profile);
+        guildDao.saveGuild(guildentity);
         if (result) {
             return displayProfile(event, event.getAuthor().getId(), builder);
         } else {
@@ -79,10 +92,16 @@ public class profile implements ICommand {
     }
 
     public Message updateLanguage(GuildMessageReceivedEvent event, String Language, MessageBuilder builder) {
-        profileStorage storage = profileStorage.getInstance();
-        profileObject profile = storage.getProfile(Objects.requireNonNull(event.getMember()).getId());
+        GuildDao guildDao = new GuildDao();
+        GuildEntity guildentity = guildDao.getGuild(event.getGuild().getId());
+        List<ProfileEntity> profileEntities = guildentity.getProfile();
+        ProfileEntity profile = profileEntities.stream().filter(x -> x.getId().equals(event.getMember().getId())).findFirst().orElse(new ProfileEntity(event.getMember().getId()));
+        if (profileEntities.stream().noneMatch(x -> x.getId().equals(event.getMember().getId()))) {
+            profileEntities.add(profile);
+        }
+
         boolean result = profile.setLanguage(Language);
-        storage.serialize(profile);
+        guildDao.saveGuild(guildentity);
 
         if (result) {
             return displayProfile(event, Language, builder);
