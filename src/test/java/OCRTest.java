@@ -12,9 +12,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class OCRTest {
 
     @Test
-    public void testOCR() throws IOException, TesseractException {
-        String imagePath = "C:\\Users\\josh\\Pictures\\OCR\\test.png";
+    void testOCR() throws IOException, TesseractException {
         URL is = getClass().getClassLoader().getResource("tess_test_img.png");
+        assert is != null;
         BufferedImage img = ImageIO.read(is);
         Tesseract tesseract = new Tesseract();
         tesseract.setDatapath("tessdata");

@@ -14,20 +14,6 @@ services:
     networks:
       - prometheus
       - db
-      - redis
-    ports:
-      # Prometheus
-      # - 1234:1234
-      # jstatd RMI registry
-      - "2222:2222"
-      # sun.jvmstat.monitor.remote.RemoteHost
-      - "2223:2223"
-      # sun.jvmstat.monitor.remote.RemoteVm
-      - "2224:2224"
-      # JMX
-      - "1232:1232"
-      # JMX RMI
-      - "1231:1231"
     depends_on:
       db:
         condition: service_healthy
@@ -53,29 +39,6 @@ services:
       retries: 10
     networks:
       - db
-  redis:
-    image: redis:latest
-    user: 1000:1000
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 1s
-      timeout: 3s
-      retries: 30
-    command: redis-server --requirepass jsZSc4p9D3jRj5
-    networks:
-      - redis
-  phpmyadmin:
-    image: phpmyadmin
-    restart: always
-    ports:
-      - "8085:80"
-    environment:
-      - PMA_ARBITRARY=1
-      - PMA_HOST=db
-      - PMA_USER=neptune
-      - PMA_PASSWORD=neptune
-    networks:
-      - db
   prometheus:
     user: 1000:1000
     image: prom/prometheus
@@ -86,5 +49,4 @@ services:
     restart: unless-stopped
 networks:
   db:
-  redis:
   prometheus:

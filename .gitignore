@@ -19,3 +19,4 @@ bin/
 .gradle/
 /mysql/
 /redis/
+/.run/

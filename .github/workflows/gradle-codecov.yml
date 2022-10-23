@@ -18,9 +18,6 @@ jobs:
           mysql database: 'neptune'
           mysql user: 'neptune'
           mysql password: 'neptune'
-      - uses: getong/redis-action@v1
-        with:
-          redis password: 'jsZSc4p9D3jRj5'
       - name: Wait for MySQL
         run: |
           while ! mysqladmin ping --host=127.0.0.1 --password=neptune --silent; do
