@@ -5,6 +5,7 @@ name: Gradle Tests
 
 on:
   pull_request:
+  push:
 
 jobs:
   test:

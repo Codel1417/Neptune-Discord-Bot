@@ -5,6 +5,7 @@ name: Gradle Coverage
 
 on:
   pull_request:
+  push:
 
 jobs:
   test:
