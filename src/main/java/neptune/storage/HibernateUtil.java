@@ -6,6 +6,8 @@ import jakarta.persistence.Persistence;
 import jakarta.persistence.PersistenceUnit;
 
 public class HibernateUtil {
+    private HibernateUtil() {
+    }
     @PersistenceUnit
     private static EntityManagerFactory sessionFactory;
 
@@ -14,6 +16,9 @@ public class HibernateUtil {
     }
 
     public static EntityManager getEntityManager() {
+        if (sessionFactory == null) {
+            Initialize();
+        }
         return sessionFactory.createEntityManager();
     }
 }
