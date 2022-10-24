@@ -11,7 +11,7 @@ WORKDIR /nep/
 RUN chmod +x gradlew && ./gradlew uberJar -x test
 
 from eclipse-temurin:17-jre-alpine  as runtime
-RUN useradd -ms /bin/bash  neptune
+RUN useradd -ms /bin/ash  neptune
 USER neptune:neptune
 
 WORKDIR /nep/
