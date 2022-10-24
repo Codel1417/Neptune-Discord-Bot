@@ -10,16 +10,60 @@ test {
 }
 application {
     mainClass.set("neptune.Main")
-    applicationDefaultJvmArgs = ['-Dcom.sun.management.jmxremote=true','-Dcom.sun.management.jmxremote.local.only=false','-Dcom.sun.management.jmxremote.ssl=false','-Dcom.sun.management.jmxremote.port=1232','-Dcom.sun.management.jmxremote.rmi.port=1231','-Dcom.sun.management.jmxremote.authenticate=false']
+    applicationDefaultJvmArgs = ['-Dcom.sun.management.jmxremote=true', '-Dcom.sun.management.jmxremote.local.only=false', '-Dcom.sun.management.jmxremote.ssl=false', '-Dcom.sun.management.jmxremote.port=1232', '-Dcom.sun.management.jmxremote.rmi.port=1231', '-Dcom.sun.management.jmxremote.authenticate=false']
 }
 group = 'codel1417'
 version = '1.0-SNAPSHOT'
 description = """neptune Discord Bot"""
 
 tasks.withType(JavaCompile) {
-	options.encoding = 'UTF-8'
+    options.encoding = 'UTF-8'
+}
+// Include dependent libraries in archive.
+mainClassName = "neptune.Main"
+
+task fatJar(type: Jar) {
+    classifier = 'all'
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    from {
+        configurations.implementation.collect { it.isDirectory() ? it : zipTree(it) }
+    } {
+        exclude "META-INF/*.SF"
+        exclude "META-INF/*.DSA"
+        exclude "META-INF/*.RSA"
+    }
+    with jar
+}
+task uberJar(type: Jar) {
+    archiveClassifier = 'uber'
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    from sourceSets.main.output
+
+    dependsOn configurations.runtimeClasspath
+    from {
+        configurations.runtimeClasspath.findAll { it.name.endsWith('jar') }.collect { zipTree(it) }
+    } {
+        exclude "META-INF/*.SF"
+        exclude "META-INF/*.DSA"
+        exclude "META-INF/*.RSA"
+    }
 }
 
+jar {
+    manifest {
+        attributes "Main-Class": "$mainClassName"
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from {
+        configurations.runtimeClasspath.findAll { it.name.endsWith('jar') }.collect { zipTree(it) }
+    } {
+        exclude "META-INF/*.SF"
+        exclude "META-INF/*.DSA"
+        exclude "META-INF/*.RSA"
+    }
+}
 jacocoTestReport {
     reports {
         xml.required = true
@@ -55,12 +99,12 @@ repositories {
 }
 dependencies {
     implementation 'net.dv8tion:JDA:4.4.0_352'
-    implementation group: 'com.sedmelluq', name: 'lavaplayer', version:'1.3.78'
-    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version:'2.19.0'
-    implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version:'2.19.0'
-    implementation group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version:'2.18.0'
-    implementation group: 'org.sejda.imageio', name: 'webp-imageio', version:'0.1.6'
-    implementation group: 'org.apache.commons', name: 'commons-lang3', version:'3.12.0'
+    implementation group: 'com.sedmelluq', name: 'lavaplayer', version: '1.3.78'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.19.0'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.19.0'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.18.0'
+    implementation group: 'org.sejda.imageio', name: 'webp-imageio', version: '0.1.6'
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.1'
     testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.9.1'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.4.2'
