@@ -1,16 +1,12 @@
 # I need Tesseract version 4.1 or newer.
-FROM gradle:6.9.3-jdk17-alpine as build
+FROM gradle:7.5-jdk17-alpine as build
 
-RUN useradd -ms /bin/bash  neptune
-
-USER neptune:neptune
-
-ADD --chown=neptune:neptune ./ /nep
+ADD ./ /nep
 WORKDIR /nep/
 
-RUN chmod +x gradlew && ./gradlew uberJar -x test
+RUN gradle uberJar -x test
 
-from eclipse-temurin:17-jre-alpine  as runtime
+FROM eclipse-temurin:17-jre-alpine  as runtime
 USER 405:405
 
 WORKDIR /nep/
