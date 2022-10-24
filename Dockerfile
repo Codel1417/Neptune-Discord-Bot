@@ -1,17 +1,16 @@
 # I need Tesseract version 4.1 or newer.
-FROM gradle:7.5-jdk17-alpine as build
+FROM gradle:7.5-jdk17-alpine AS build
 
 ADD ./ /nep
 WORKDIR /nep/
 
 RUN gradle uberJar -x test
 
-FROM eclipse-temurin:17-jre-alpine  as runtime
-USER 405:405
+FROM eclipse-temurin:17-jre-alpine AS runtime
 
 WORKDIR /nep/
-COPY --chown=405:405 --from=build /nep/build/libs/neptune-1.0-SNAPSHOT-uber.jar /nep/neptune.jar
-
+COPY --chown=405:405 --from=build /nep/build/libs/Neptune-Discord-Bot-1.0-SNAPSHOT-uber.jar /nep/neptune.jar
+USER 405:405
 VOLUME /nep/Media
 
 ENV NEPTUNE_TOKEN=null
