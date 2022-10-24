@@ -1,17 +1,10 @@
 version: "2.1"
 services:
   neptune:
-    build: .
+    image: ghcr.io/codel1417/neptune-discord-bot:master
     environment:
       - NEPTUNE_TOKEN=null
       - NEPTUNE_TENOR_TOKEN=null
     volumes:
       - ./Media:/nep/Media
     restart: unless-stopped
-    networks:
-      - db
-    depends_on:
-      db:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
