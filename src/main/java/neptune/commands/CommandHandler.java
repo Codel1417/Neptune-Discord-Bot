@@ -18,7 +18,7 @@ import java.io.InvalidObjectException;
 // handles neptune base commands
 public class CommandHandler extends Helpers {
     protected static final Logger log = LogManager.getLogger();
-    final CommandRegistry commandRegistry = new CommandRegistry("!nep");
+    final CommandRegistry commandRegistry = new CommandRegistry();
     private boolean ready;
     public CommandHandler() {
         // Add all commands;
@@ -44,7 +44,7 @@ public class CommandHandler extends Helpers {
             commandRegistry.registerCommand(new commandBuilder().setCommand("8Ball").setName("Magic 8 Ball").setCategory(CategoriesEnum.Fun).setDescription("Let fate decide.").setRun(new Magic8Ball()).build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("Awoo").setCategory(CategoriesEnum.Audio).setRun(new Awoo()).setDescription("AUDIO: Legalize Awoo!").build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("Wan").setCategory(CategoriesEnum.Audio).setRun(new Wan()).setDescription("Wam Wam~").build());
-            commandRegistry.registerCommand(new commandBuilder().setCommand("jpeg").setCategory(CategoriesEnum.Image).setRun(new moreJpeg()).setDescription("Do I look like I know what a JPEG is?").build());
+            //commandRegistry.registerCommand(new commandBuilder().setCommand("jpeg").setCategory(CategoriesEnum.Image).setRun(new moreJpeg()).setDescription("Do I look like I know what a JPEG is?").build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("a").setCategory(CategoriesEnum.Audio).setRun(new a()).setDescription("AUDIO: A").build());
             commandRegistry.registerCommand(new commandBuilder().setCommand("Bonk").setCategory(CategoriesEnum.Audio).setRun(new bonk()).setDescription("\"Bonk!\"~ Scout, TF2").build());
             ready = true;

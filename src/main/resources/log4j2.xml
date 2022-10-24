@@ -8,7 +8,6 @@
     <Loggers>
         <Root level="debug" additivity="false">
             <AppenderRef ref="SlowConsole" />
-            <AppenderRef ref="Sentry"/>
         </Root>
     </Loggers>
 </Configuration>

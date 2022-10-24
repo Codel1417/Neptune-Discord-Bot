@@ -24,17 +24,12 @@ public class Command implements Comparable<Command> {
     private final String help;
     @Deprecated
     private final CategoriesEnum category;
-    private final Permission[] requiredPermissions;
-    @Deprecated
-    private final ICommand commandInterface;
     private final ISlashCommand slashCommandInterface;
 
-    protected Command(String command, String name, String description, String help, Permission[] requiredPermissions, @org.jetbrains.annotations.Nullable ICommand commandInterface, CategoriesEnum category, ISlashCommand slashCommandInterface){
-        this.requiredPermissions = requiredPermissions;
+    protected Command(String command, String name, String description, String help, CategoriesEnum category, ISlashCommand slashCommandInterface){
         this.command = command;
         this.name = name;
         this.description = description;
-        this.commandInterface = commandInterface;
         this.help = help;
         this.category = category;
         this.slashCommandInterface = slashCommandInterface;
@@ -57,20 +52,8 @@ public class Command implements Comparable<Command> {
     public CategoriesEnum getCategory() {
         return category;
     }
-    @Nullable
-    public Permission[] getRequiredPermissions() {
-        return requiredPermissions;
-    }
     public boolean hasSlashCommand(){
         return slashCommandInterface != null;
-    }
-    @Deprecated
-    public boolean hasLegacyCommand(){
-        return commandInterface != null;
-    }
-    @Deprecated
-    public void run(GuildMessageReceivedEvent event, String messageContent, MessageBuilder builder) {
-        commandInterface.run(event, messageContent, builder);
     }
     public Message run(SlashCommandEvent event, MessageBuilder builder) {
         return slashCommandInterface.run(event, builder);

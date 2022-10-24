@@ -2,18 +2,13 @@ package neptune.commands;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import neptune.exceptions.MissingArgumentException;
-import net.dv8tion.jda.api.Permission;
-
 import java.io.InvalidObjectException;
 import java.util.Locale;
 
 public class commandBuilder {
     private String command, name, description, help;
     private CategoriesEnum category;
-    private Permission[] requiredPermissions;
-    private ICommand commandInterface;
     private ISlashCommand slashCommandInterface;
     protected static final Logger log = LogManager.getLogger();
 
@@ -32,10 +27,6 @@ public class commandBuilder {
     @Deprecated
     public commandBuilder setHelp(String help){
         this.help = help;
-        return this;
-    }
-    public commandBuilder setRequiredPermissions(Permission[] requiredPermissions){
-        this.requiredPermissions = requiredPermissions;
         return this;
     }
     public commandBuilder setRun(Object command) throws InvalidObjectException {
@@ -72,6 +63,6 @@ public class commandBuilder {
             throw new MissingArgumentException("Description required for Slash Command");
         }
         command = command.toLowerCase(Locale.ROOT);
-        return new Command(command,name,description,help,requiredPermissions,commandInterface,category,slashCommandInterface);
+        return new Command(command,name,description,help,category,slashCommandInterface);
     }
 }
