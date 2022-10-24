@@ -11,11 +11,10 @@ WORKDIR /nep/
 RUN chmod +x gradlew && ./gradlew uberJar -x test
 
 from eclipse-temurin:17-jre-alpine  as runtime
-RUN adduser -s /bin/sh --no-create-home   neptune
-USER neptune:neptune
+USER 405:405
 
 WORKDIR /nep/
-COPY --chown=neptune:neptune --from=build /nep/build/libs/neptune-1.0-SNAPSHOT.jar /nep/neptune.jar
+COPY --chown=405:405 --from=build /nep/build/libs/neptune-1.0-SNAPSHOT.jar /nep/neptune.jar
 
 VOLUME /nep/Media
 
