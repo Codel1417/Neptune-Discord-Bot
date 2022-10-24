@@ -17,6 +17,10 @@ jobs:
       packages: write
       
     steps:
+    
+      - name: Checkout
+        uses: actions/checkout@v2.5.0
+    
       # Login against a Docker registry except on PR
       # https://github.com/docker/login-action
       - name: Log into registry ${{ env.REGISTRY }}
