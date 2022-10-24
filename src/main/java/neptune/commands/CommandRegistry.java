@@ -14,7 +14,6 @@ import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import io.sentry.Sentry;
 
 import org.apache.commons.lang3.StringUtils;
 import net.dv8tion.jda.api.EmbedBuilder;
@@ -129,14 +128,12 @@ public class CommandRegistry {
         public void run() {
             try {
                 log.trace("Running Command: " + command.getName());
-                Sentry.addBreadcrumb("Running Command: " + command.getName());
 
                 command.run(event, messagecontent, new MessageBuilder());
                 log.trace("Exiting Command: " + command.getName());
             }
             catch(Exception e) {
                 log.error(e);
-                Sentry.captureException(e);
             }
         }
     }

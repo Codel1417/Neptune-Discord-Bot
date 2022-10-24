@@ -39,13 +39,10 @@ public class commandBuilder {
         return this;
     }
     public commandBuilder setRun(Object command) throws InvalidObjectException {
-        if (command instanceof ICommand){
-            this.commandInterface = (ICommand) command;
-        }
         if (command instanceof ISlashCommand){
             this.slashCommandInterface = (ISlashCommand) command;
         }
-        if (command instanceof ICommand || command instanceof ISlashCommand){
+        if (command instanceof ISlashCommand){
             return this;
         }
         else throw new InvalidObjectException("Object must implement either ICommand or ISlashCommand");

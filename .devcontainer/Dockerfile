@@ -14,13 +14,6 @@ RUN wget https://services.gradle.org/distributions/gradle-6.5.1-bin.zip -P /tmp 
     
 ENV GRADLE_HOME=/opt/gradle/latest
 ENV PATH=${GRADLE_HOME}/bin:${PATH}
-# [Optional] Uncomment this section to install additional OS packages.
-RUN echo "deb http://http.us.debian.org/debian unstable main non-free contrib" > /etc/apt/sources.list \
-    && apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get install -y tesseract-ocr -o APT::Immediate-Configure=0
-RUN git clone https://github.com/tesseract-ocr/tessdata_fast /tessdata
-
-
 
 # [Optional] Uncomment this line to install global node packages.
 # RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g <your-package-here>" 2>&1

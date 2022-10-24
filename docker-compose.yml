@@ -5,48 +5,13 @@ services:
     environment:
       - NEPTUNE_TOKEN=null
       - NEPTUNE_TENOR_TOKEN=null
-      - SENTRY_DSN=http://43e14c45d81c4c9290bc449d705d2062@docker-vm.codel1417.lan:7000/2
-      - HOST_HOSTNAME=$HOSTNAME
     volumes:
       - ./Media:/nep/Media
-      - ./tessdata:/nep/tessdata
     restart: unless-stopped
     networks:
-      - prometheus
       - db
     depends_on:
       db:
         condition: service_healthy
       redis:
         condition: service_healthy
-  db:
-    image: ghcr.io/linuxserver/mariadb
-    restart: always
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - MYSQL_ROOT_PASSWORD=ROOT_ACCESS_PASSWORD
-      - TZ=America/Phoenix
-      - MYSQL_DATABASE=neptune
-      - MYSQL_USER=neptune
-      - MYSQL_PASSWORD=neptune
-    volumes:
-      - ./mysql:/config
-    healthcheck:
-      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
-      timeout: 45s
-      interval: 10s
-      retries: 10
-    networks:
-      - db
-  prometheus:
-    user: 1000:1000
-    image: prom/prometheus
-    volumes:
-      - ./prometheus:/etc/prometheus
-    networks:
-      - prometheus
-    restart: unless-stopped
-networks:
-  db:
-  prometheus:

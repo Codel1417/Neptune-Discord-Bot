@@ -1,6 +1,5 @@
 package neptune.commands;
 
-import io.sentry.Sentry;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.MessageBuilder;
 import net.dv8tion.jda.api.Permission;
@@ -30,7 +29,7 @@ public class Command implements Comparable<Command> {
     private final ICommand commandInterface;
     private final ISlashCommand slashCommandInterface;
 
-    protected Command(String command, String name, String description,String help, Permission[] requiredPermissions, ICommand commandInterface, CategoriesEnum category, ISlashCommand slashCommandInterface){
+    protected Command(String command, String name, String description, String help, Permission[] requiredPermissions, @org.jetbrains.annotations.Nullable ICommand commandInterface, CategoriesEnum category, ISlashCommand slashCommandInterface){
         this.requiredPermissions = requiredPermissions;
         this.command = command;
         this.name = name;
@@ -91,7 +90,6 @@ public class Command implements Comparable<Command> {
         }
         catch (Exception e){
             log.error(e);
-            Sentry.captureException(e);
         }
         return this;
     }

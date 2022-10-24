@@ -15,19 +15,6 @@ jobs:
         java: ['17']
         distribution: [ 'zulu', 'temurin', 'adopt' ]
     steps:
-      - name: Shutdown Ubuntu MySQL (SUDO)
-        run: sudo service mysql stop
-      - uses: getong/mariadb-action@v1.1
-        with:
-          mariadb version: '10.5.12'
-          mysql database: 'neptune'
-          mysql user: 'neptune'
-          mysql password: 'neptune'
-      - name: Wait for MySQL
-        run: |
-          while ! mysqladmin ping --host=127.0.0.1 --password=neptune --silent; do
-          sleep 1
-          done
       - uses: actions/checkout@v2
       - name: Set up JDK
         uses: actions/setup-java@v2

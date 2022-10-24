@@ -1,6 +1,5 @@
 package neptune.commands.audio;
 
-import io.sentry.Sentry;
 import neptune.commands.ISlashCommand;
 import neptune.music.AudioController;
 
@@ -111,7 +110,6 @@ public class Say implements ISlashCommand {
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {
-                Sentry.captureException(e);
             }
         }
         return null;

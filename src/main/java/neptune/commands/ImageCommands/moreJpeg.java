@@ -9,8 +9,6 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import io.sentry.Sentry;
-
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
@@ -60,7 +58,6 @@ public class moreJpeg implements ICommand {
             }
         } catch (IOException e) {
             log.error(e);
-            Sentry.captureException(e);
         }
         return builder.setContent("Unable to jpeg-ify your image, Was there an image to begin with?").build();
     }

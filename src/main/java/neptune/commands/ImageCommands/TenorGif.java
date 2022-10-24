@@ -12,8 +12,6 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import io.sentry.Sentry;
-
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -110,7 +108,6 @@ public abstract class TenorGif {
             return imageEntry.get("media").get(0).get("gif").get("url").asText();
         } catch (IOException e) {
             log.error(e);
-            Sentry.captureException(e);
         }
         returnURL = "";
         return returnURL;
