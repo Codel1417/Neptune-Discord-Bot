@@ -9,7 +9,7 @@ RUN gradle uberJar -x test
 FROM eclipse-temurin:17-jre-alpine AS runtime
 
 WORKDIR /nep/
-COPY --chown=405:405 --from=build /nep/build/libs/Neptune-Discord-Bot-1.0-SNAPSHOT-uber.jar /nep/neptune.jar
+COPY --from=build /nep/build/libs/Neptune-Discord-Bot-1.0-SNAPSHOT-uber.jar /nep/neptune.jar
 USER 405:405
 VOLUME /nep/Media
 
