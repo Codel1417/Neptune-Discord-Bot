@@ -10,7 +10,7 @@ FROM eclipse-temurin:17-jre-alpine  as runtime
 USER 405:405
 
 WORKDIR /nep/
-COPY --chown=405:405 --from=build /nep/build/libs/neptune-1.0-SNAPSHOT.jar /nep/neptune.jar
+COPY --chown=405:405 --from=build /nep/build/libs/neptune-1.0-SNAPSHOT-uber.jar /nep/neptune.jar
 
 VOLUME /nep/Media
 
