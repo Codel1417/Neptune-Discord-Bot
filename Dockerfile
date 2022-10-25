@@ -6,7 +6,7 @@ WORKDIR /nep/
 
 RUN gradle uberJar -x test
 
-FROM eclipse-temurin:17-jre-alpine AS runtime
+FROM eclipse-temurin:19-jre-alpine AS runtime
 
 WORKDIR /nep/
 COPY --from=build /nep/build/libs/Neptune-Discord-Bot-1.0-SNAPSHOT-uber.jar /nep/neptune.jar
