@@ -5,7 +5,7 @@ ADD . /nep
 WORKDIR /nep/
 RUN gradle uberJar -x test
 
-FROM eclipse-temurin:19-jre-alpine AS runtime
+FROM eclipse-temurin:20-jre-alpine AS runtime
 
 WORKDIR /nep/
 COPY --from=build /nep/build/libs/nep-1.0-SNAPSHOT-uber.jar /nep/neptune.jar
