@@ -1,5 +1,5 @@
 # I need Tesseract version 4.1 or newer.
-FROM gradle:8.3-jdk17-alpine AS build
+FROM gradle:8.4-jdk17-alpine AS build
 
 ADD . /nep
 WORKDIR /nep/
